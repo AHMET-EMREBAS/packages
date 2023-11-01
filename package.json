@@ -2,12 +2,16 @@
   "name": "@packages/source",
   "version": "0.0.0",
   "license": "MIT",
-  "scripts": {},
+  "scripts": {
+    "test":"echo Testing app "
+  },
   "private": true,
-  "dependencies": {},
   "devDependencies": {
+    "@nx/angular": "^17.0.2",
     "@nx/js": "17.0.2",
+    "@nx/nest": "^17.0.2",
     "@nx/workspace": "17.0.2",
+    "husky": "^8.0.3",
     "nx": "17.0.2"
   }
 }
