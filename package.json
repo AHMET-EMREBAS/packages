@@ -3,7 +3,7 @@
   "version": "0.0.0",
   "license": "MIT",
   "scripts": {
-    "test": "echo Testing app "
+    "test": "npx nx test angular && npx nx test nest && npx nx test common && npx nx test meta && npx nx test nest && npx nx test typeorm && npx nx test utils && npx nx test validator "
   },
   "private": true,
   "devDependencies": {
