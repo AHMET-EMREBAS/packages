@@ -1,3 +1,8 @@
-import { generateFiles as entityGenerator } from '../helpers';
+import { Tree } from '@nx/devkit';
+import { generateFiles } from '../helpers';
 
-export default entityGenerator;
+export async function gen(tree: Tree, options: any) {
+  await generateFiles(__dirname, tree, options);
+}
+
+export default gen;

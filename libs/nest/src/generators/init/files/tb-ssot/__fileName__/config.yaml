@@ -1,0 +1,11 @@
+# yaml-language-server: $schema=./schemas/config.schema.json
+email:
+  username: some
+  password: some
+  info: info@company.com
+  security: security@company.com
+  support: support@company.com
+  website: company.com
+
+
+

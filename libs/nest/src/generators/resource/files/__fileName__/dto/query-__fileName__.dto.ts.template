@@ -1,0 +1,10 @@
+import { Dto, QueryDto, SearchProperty } from '@techbir/typeorm';
+import { <%- className %>Meta } from '../<%- fileName %>.meta';
+import { FindOptionsOrder } from 'typeorm';
+import { <%- className %> } from '../entity';
+
+@Dto()
+export class Query<%- className %>Dto extends QueryDto {
+  @SearchProperty(<%- className %>Meta.searchables)
+  override search?: FindOptionsOrder<<%- className %>>;
+}

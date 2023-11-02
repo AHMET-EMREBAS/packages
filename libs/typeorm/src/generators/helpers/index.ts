@@ -5,6 +5,7 @@ import {
   names,
 } from '@nx/devkit';
 import { join } from 'path';
+import { cwd } from 'process';
 
 /**
  * Target project directory
@@ -16,13 +17,14 @@ export function projectRoot(projectName: string): string {
 }
 
 export async function generateFiles(
+  dirName: string,
   tree: Tree,
   options: { name: string; project: string }
 ) {
   const { name, project } = options;
   const PROJECT_ROOT = projectRoot(project);
 
-  __generateFiles(tree, join(__dirname, 'files'), PROJECT_ROOT, {
+  __generateFiles(tree, join(dirName, 'files'), PROJECT_ROOT, {
     ...names(name),
   });
   await formatFiles(tree);

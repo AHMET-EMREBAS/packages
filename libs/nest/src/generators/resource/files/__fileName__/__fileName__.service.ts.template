@@ -1,0 +1,12 @@
+import { Injectable } from '@nestjs/common';
+import { ResourceService } from '@techbir/typeorm';
+import { <%- className %> } from './entity';
+import { Repository } from 'typeorm';
+import { InjectRepository } from '@nestjs/typeorm';
+
+@Injectable()
+export class <%- className %>Service extends ResourceService<<%- className %>> {
+  constructor(@InjectRepository(<%- className %>) repo: Repository<<%- className %>>) {
+    super(repo);
+  }
+}
