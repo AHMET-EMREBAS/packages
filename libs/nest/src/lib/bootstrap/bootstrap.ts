@@ -31,20 +31,20 @@ function configureSwagger({ name, app, tag }: SwaggerOptions) {
 
 export type BootstrapOptions = {
   name: string;
-  app: any;
+  appModule: any;
   port: number | string;
   prefix: string;
   origin?: string[];
 };
 
 export async function bootstrap({
-  app,
+  appModule,
   name,
   port,
   prefix,
   origin,
 }: BootstrapOptions) {
-  const nestApp = await NestFactory.create(app);
+  const nestApp = await NestFactory.create(appModule);
   nestApp.setGlobalPrefix(prefix);
 
   nestApp.use(helmet.default());
@@ -52,7 +52,7 @@ export async function bootstrap({
   nestApp.enableVersioning();
   nestApp.use(favicon(join(__dirname, 'public', 'favicon.ico')));
 
-  configureSwagger({ app, name, tag: name });
+  configureSwagger({ app: nestApp, name, tag: name });
 
   await nestApp.listen(port);
 

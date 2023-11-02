@@ -11,7 +11,7 @@ import { AppHealthController } from './app-health.controller';
   imports: [
     TerminusModule,
     ServeStaticModule.forRoot({
-      rootPath: join(__dirname, '..', 'public'),
+      rootPath: join(__dirname, 'public'),
     }),
     TypeOrmModule.forRoot({
       type: 'better-sqlite3',
