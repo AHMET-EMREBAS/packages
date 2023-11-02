@@ -32,13 +32,13 @@ export class Logger extends ConsoleLogger {
     try {
       appendFileSync(
         this.logfilePath,
-        `${new Date()}  ${context} | ${message} | ${stack}`
+        `${new Date()}  ${context} | ${message} | ${stack}\n`
       );
     } catch (err) {
       try {
         writeFileSync(
           this.logfilePath,
-          `${new Date()}  ${context} | ${message} | ${stack}`
+          `${new Date()}  ${context} | ${message} | ${stack}\n`
         );
       } catch (err) {
         console.error('COULD NOT LOG!');
