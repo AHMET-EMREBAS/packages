@@ -1,8 +1,6 @@
 {
   "compileOnSave": false,
-  
   "compilerOptions": {
-    
     "rootDir": ".",
     "sourceMap": true,
     "declaration": false,
@@ -19,6 +17,7 @@
     "paths": {
       "@techbir/common": ["libs/common/src/index.ts"],
       "@techbir/nest": ["libs/nest/src/index.ts"],
+      "@techbir/res": ["libs/res/src/index.ts"],
       "@techbir/utils": ["libs/utils/src/index.ts"]
     }
   },

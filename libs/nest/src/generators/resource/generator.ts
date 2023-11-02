@@ -2,7 +2,7 @@ import { Tree, formatFiles, generateFiles, names } from '@nx/devkit';
 import { join } from 'path';
 
 export function projectRoot(projectName: string): string {
-  return join('libs', projectName, 'src', 'lib', 'resources');
+  return join('libs', projectName, 'src', 'lib', 'res');
 }
 
 export async function resourceGenerator(
