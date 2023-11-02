@@ -1,4 +1,5 @@
 import { Controller, Get } from '@nestjs/common';
+import { EventEmitter2 } from '@nestjs/event-emitter';
 import { ApiOperation } from '@nestjs/swagger';
 import {
   HealthCheckService,
@@ -12,7 +13,8 @@ export class AppHealthController {
   constructor(
     private health: HealthCheckService,
     private ormCheck: TypeOrmHealthIndicator,
-    private http: HttpHealthIndicator
+    private http: HttpHealthIndicator,
+    private e: EventEmitter2
   ) {}
 
   @Get('app-server')
@@ -20,7 +22,14 @@ export class AppHealthController {
   @ApiOperation({ summary: 'Is client up?' })
   check() {
     return this.health.check([
-      () => this.http.pingCheck('views', 'https://aemrebas.com'),
+      async () => {
+        const result = await this.http.pingCheck(
+          'views',
+          'https://aemrebas.com'
+        );
+        this.e.emit('app.up');
+        return result;
+      },
     ]);
   }
 

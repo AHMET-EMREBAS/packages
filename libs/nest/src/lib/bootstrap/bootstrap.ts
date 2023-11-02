@@ -1,5 +1,5 @@
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
-import { INestApplication, Logger, RequestMethod } from '@nestjs/common';
+import { INestApplication, RequestMethod } from '@nestjs/common';
 import { NestFactory } from '@nestjs/core';
 import * as helmet from 'helmet';
 import { ACCESS_TOKEN } from '../http';
@@ -7,6 +7,7 @@ import { join } from 'path';
 import { NotFoundExceptionFilter } from '../exceptions';
 
 import { NestExpressApplication } from '@nestjs/platform-express';
+import { Logger } from '../common';
 const favicon = require('serve-favicon');
 
 export type SwaggerOptions = {
@@ -50,7 +51,12 @@ export async function bootstrap({
   viewsPath,
   publicPath,
 }: BootstrapOptions) {
-  const nestApp = await NestFactory.create<NestExpressApplication>(appModule);
+
+  const logger =  new Logger('Bootstrap')
+  const nestApp = await NestFactory.create<NestExpressApplication>(appModule, {
+    logger
+  });
+
   nestApp.setGlobalPrefix(prefix, {
     exclude: [
       { path: '', method: RequestMethod.ALL },
@@ -74,7 +80,7 @@ export async function bootstrap({
 
   await nestApp.listen(port);
 
-  Logger.log(
+  logger.log(
     `🚀 Application is running on: http://localhost:${port}/${prefix}`
   );
 }

@@ -24,6 +24,11 @@
             "output": "./public"
           },
           {
+            "input": "apps/api/src/logs",
+            "glob": "**",
+            "output": "./logs"
+          },
+          {
             "input": "apps/api/src/views",
             "glob": "**",
             "output": "./views"
