@@ -1,10 +1,10 @@
-import { Product } from './entity';
 import {
   Injectable,
   ResourceService,
   Repository,
   InjectRepository,
 } from './imports';
+import { Product } from './entity';
 
 @Injectable()
 export class ProductService extends ResourceService<Product> {

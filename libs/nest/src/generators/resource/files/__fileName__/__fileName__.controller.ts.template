@@ -1,12 +1,14 @@
-import { Body, Param, Query } from '@nestjs/common';
 import {
+  Body,
+  Param,
+  Query,
   Controller,
   DtoValidationPipe,
   ParamId,
   RelationDto,
   UnsetRelationDto,
-  Rest as __Rest,
-} from '@techbir/nest';
+  __Rest,
+} from './imports';
 import { Query<%- className %>Dto, Create<%- className %>Dto } from './dto';
 import { <%- className %>Service } from './<%- fileName %>.service';
 import { <%- className %>Meta } from './<%- fileName %>.meta';

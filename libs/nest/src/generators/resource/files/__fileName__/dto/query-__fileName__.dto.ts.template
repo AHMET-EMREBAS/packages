@@ -1,6 +1,5 @@
-import { Dto, QueryDto, SearchProperty } from '@techbir/nest';
+import { Dto, FindOptionsOrder, QueryDto, SearchProperty } from '../imports';
 import { <%- className %>Meta } from '../<%- fileName %>.meta';
-import { FindOptionsOrder } from 'typeorm';
 import { <%- className %> } from '../entity';
 
 @Dto()

@@ -1,4 +1,4 @@
-import { DataSource, ViewColumn, ViewEntity } from 'typeorm';
+import { DataSource, ViewColumn, ViewEntity } from '../imports';
 import { <%- className %> } from './<%- fileName %>.entity';
 
 @ViewEntity({

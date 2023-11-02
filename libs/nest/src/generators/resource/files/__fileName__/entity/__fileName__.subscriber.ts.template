@@ -2,9 +2,9 @@ import {
   EventSubscriber,
   EntitySubscriberInterface,
   InsertEvent,
-} from 'typeorm';
+  ClassConstructor
+} from '../imports';
 import { <%- className %> } from './<%- fileName %>.entity';
-import { ClassConstructor } from 'class-transformer';
 
 @EventSubscriber()
 export class <%- className %>Subscriber implements EntitySubscriberInterface {
