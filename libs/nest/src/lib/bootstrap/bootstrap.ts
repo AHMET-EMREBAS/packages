@@ -8,7 +8,7 @@ import { NotFoundExceptionFilter } from '../exceptions';
 
 import { NestExpressApplication } from '@nestjs/platform-express';
 import { Logger } from '../common';
-const favicon = require('serve-favicon');
+import serveFavicon = require('serve-favicon');
 
 export type SwaggerOptions = {
   app: INestApplication;
@@ -51,25 +51,27 @@ export async function bootstrap({
   viewsPath,
   publicPath,
 }: BootstrapOptions) {
-
-  const logger =  new Logger('Bootstrap')
+  const logger = new Logger('Bootstrap');
   const nestApp = await NestFactory.create<NestExpressApplication>(appModule, {
-    logger
+    logger,
   });
 
   nestApp.setGlobalPrefix(prefix, {
     exclude: [
       { path: '', method: RequestMethod.ALL },
-      { path: '/:any', method: RequestMethod.ALL },
+      { path: 'public', method: RequestMethod.ALL },
+      { path: 'public/:any', method: RequestMethod.ALL },
+      { path: 'views', method: RequestMethod.ALL },
+      { path: 'views/:any', method: RequestMethod.ALL },
     ],
   });
 
   nestApp.use(helmet.default());
   nestApp.enableCors({ origin });
   nestApp.enableVersioning();
-  nestApp.use(favicon(join(__dirname, 'public', 'favicon.ico')));
+  nestApp.use(serveFavicon(join(__dirname, 'public', 'favicon.ico')));
 
-  // nestApp.useStaticAssets(publicPath);
+  nestApp.useStaticAssets(publicPath);
   nestApp.setBaseViewsDir(viewsPath);
   nestApp.setViewEngine('ejs');
 

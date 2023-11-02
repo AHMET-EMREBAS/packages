@@ -1,19 +1,32 @@
 import { ConsoleLogger, Logger as __Logger } from '@nestjs/common';
-import { appendFileSync, existsSync, writeFileSync } from 'fs';
-import { join } from 'path';
+import { appendFileSync, writeFileSync } from 'fs';
 
 export class Logger extends ConsoleLogger {
   private readonly logfilePath: string;
   constructor(context: string) {
     super(context, { timestamp: true });
 
-    this.logfilePath = join(__dirname, `./${context}.log`);
+    this.logfilePath = `./logs/${context}.log`;
   }
-
-  override log(message: any, context?: string | undefined): void;
-  override log(message: any, ...optionalParams: any[]): void;
-  override log(message: unknown, context?: unknown, ...rest: unknown[]): void {
-    this.error(message, '', context);
+  private timestamp(){ 
+    return 
+  }
+  private persist(msg: string, stack: string) {
+    try {
+      appendFileSync(
+        this.logfilePath,
+        `${new Date()}  ${this.context} | ${msg} | ${stack}\n`
+      );
+    } catch (err) {
+      try {
+        writeFileSync(
+          this.logfilePath,
+          `${new Date()}  ${this.context} | ${msg} | ${stack}\n`
+        );
+      } catch (err) {
+        console.error('COULD NOT LOG!');
+      }
+    }
   }
 
   override error(
@@ -24,27 +37,12 @@ export class Logger extends ConsoleLogger {
 
   override error(message: any, ...optionalParams: any[]): void;
   override error(
-    message: unknown,
-    stack?: unknown,
-    context?: unknown,
+    message: any,
+    stack?: any,
+    context?: any,
     ...rest: any[]
   ): void {
-    try {
-      appendFileSync(
-        this.logfilePath,
-        `${new Date()}  ${context} | ${message} | ${stack}\n`
-      );
-    } catch (err) {
-      try {
-        writeFileSync(
-          this.logfilePath,
-          `${new Date()}  ${context} | ${message} | ${stack}\n`
-        );
-      } catch (err) {
-        console.error('COULD NOT LOG!');
-      }
-    }
-
+    this.persist(message, stack);
     super.error(message, stack, context);
   }
 }

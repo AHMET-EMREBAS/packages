@@ -1,8 +1,0 @@
-import { Property, Dto } from '@techbir/typeorm';
-
-@Dto()
-export class Create<%- className %>Dto { 
-
-    @Property({ minLength:3, maxLength:30 })
-    name!:string; 
-}

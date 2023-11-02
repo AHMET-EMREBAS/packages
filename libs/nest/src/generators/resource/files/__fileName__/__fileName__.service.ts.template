@@ -1,5 +1,5 @@
 import { Injectable } from '@nestjs/common';
-import { ResourceService } from '@techbir/typeorm';
+import { ResourceService } from '@techbir/nest';
 import { <%- className %> } from './entity';
 import { Repository } from 'typeorm';
 import { InjectRepository } from '@nestjs/typeorm';

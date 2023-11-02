@@ -1,19 +1,19 @@
-import { Body, Query } from '@nestjs/common';
 import {
+  Body,
+  Param,
+  Query,
   Controller,
   DtoValidationPipe,
   ParamId,
-  ParamRelationId,
-  ParamRelationName,
-  Rest as __Rest,
-} from '@techbir/typeorm';
-import { QueryProductDto } from './query-product.dto';
+  RelationDto,
+  UnsetRelationDto,
+  __Rest,
+} from './imports';
+import { QueryProductDto, CreateProductDto } from './dto';
 import { ProductService } from './product.service';
-import { CreateProductDto } from './create-product.dto';
 import { ProductMeta } from './product.meta';
 
 const Rest = new __Rest(ProductMeta.name);
-
 
 @Controller(ProductMeta.basePath)
 export class ProductController {
@@ -40,34 +40,22 @@ export class ProductController {
   }
 
   @Rest.Set()
-  setRelation(
-    @ParamId() id: number,
-    @ParamRelationName() rn: string,
-    @ParamRelationId() rid: number
-  ) {
-    return this.service.setRelation(id, rn, rid);
+  setRelation(@Param(DtoValidationPipe) options: RelationDto) {
+    return this.service.setRelation(options);
   }
 
   @Rest.Unset()
-  unsetRelation(@ParamId() id: number, @ParamRelationName() rn: string) {
-    return this.service.unsetRelation(id, rn);
+  unsetRelation(@Param(DtoValidationPipe) options: UnsetRelationDto) {
+    return this.service.unsetRelation(options);
   }
 
   @Rest.Add()
-  addRelation(
-    @ParamId() id: number,
-    @ParamRelationName() rn: string,
-    @ParamRelationId() rid: number
-  ) {
-    return this.service.setRelation(id, rn, rid);
+  addRelation(@Param(DtoValidationPipe) options: RelationDto) {
+    return this.service.addRelation(options);
   }
 
   @Rest.Remove()
-  removeRelation(
-    @ParamId() id: number,
-    @ParamRelationName() rn: string,
-    @ParamRelationId() rid: number
-  ) {
-    return this.service.setRelation(id, rn, rid);
+  removeRelation(@Param(DtoValidationPipe) options: RelationDto) {
+    return this.service.removeRelation(options);
   }
 }

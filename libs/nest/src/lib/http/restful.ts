@@ -19,7 +19,7 @@ export const ACCESS_TOKEN = 'access-token';
 export function Controller(path: string): ClassDecorator {
   return CombineClassDecorators(
     ApiBearerAuth(ACCESS_TOKEN),
-    ApiTags(),
+    ApiTags(path[0].toUpperCase() + path.substring(1) + 'Controller'),
     __Controller(path)
   );
 }

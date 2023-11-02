@@ -6,7 +6,7 @@ import {
   RelationDto,
   UnsetRelationDto,
   Rest as __Rest,
-} from '@techbir/typeorm';
+} from '@techbir/nest';
 import { Query<%- className %>Dto, Create<%- className %>Dto } from './dto';
 import { <%- className %>Service } from './<%- fileName %>.service';
 import { <%- className %>Meta } from './<%- fileName %>.meta';

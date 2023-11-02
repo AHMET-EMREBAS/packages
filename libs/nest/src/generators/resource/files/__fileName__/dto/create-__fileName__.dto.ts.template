@@ -1,4 +1,4 @@
-import { Property, Dto } from '@techbir/typeorm';
+import { Property, Dto } from '@techbir/nest';
 
 @Dto()
 export class Create<%- className %>Dto { 

@@ -1,4 +1,4 @@
-import { Logger, Module } from '@nestjs/common';
+import { Module } from '@nestjs/common';
 import { ScheduleModule } from '@nestjs/schedule';
 import { EventEmitterModule } from '@nestjs/event-emitter';
 import { TypeOrmModule } from '@nestjs/typeorm';
@@ -8,10 +8,14 @@ import { AppHealthController } from './app-health.controller';
 import { AppViewController } from './app-view.controller';
 import { HttpModule } from '@nestjs/axios';
 import { AppEventListener } from './app-events.listener';
+import { ServeStaticModule } from '@nestjs/serve-static';
+import { join } from 'path';
+import { ProductModule } from '@techbir/core';
 
 @Module({
   imports: [
     HttpModule,
+    ServeStaticModule.forRoot({ rootPath: join(__dirname, 'public') }),
     TerminusModule.forRoot({ logger: true, errorLogStyle: 'pretty' }),
     TypeOrmModule.forRoot({
       type: 'better-sqlite3',
@@ -22,6 +26,7 @@ import { AppEventListener } from './app-events.listener';
     }),
     ScheduleModule.forRoot(),
     EventEmitterModule.forRoot({ delimiter: '.' }),
+    ProductModule,
   ],
   controllers: [AppHealthController, AppViewController],
   providers: [AppEventListener],

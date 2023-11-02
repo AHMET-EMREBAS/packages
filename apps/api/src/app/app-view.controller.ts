@@ -1,6 +1,8 @@
 import { Controller, Get, Render } from '@nestjs/common';
+import { ApiTags } from '@nestjs/swagger';
 
-@Controller('')
+@ApiTags("Views")
+@Controller('views')
 export class AppViewController {
   @Get()
   @Render('index')
@@ -9,8 +11,7 @@ export class AppViewController {
   }
 
   @Get('about')
-  @Render('pages/about')
-
+  @Render('./pages/about')
   about(){ 
     return { message:"Would you really like to know about us?"}
   }
