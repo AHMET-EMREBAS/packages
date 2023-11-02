@@ -1,4 +1,4 @@
-import { bootstrap } from '@techbir/nest';
+import { bootstrap } from '@techbir/core';
 import { AppModule } from './app/app.module';
 import { join } from 'path';
 

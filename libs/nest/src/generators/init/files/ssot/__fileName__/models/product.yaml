@@ -1,0 +1,32 @@
+# yaml-language-server: $schema=../schemas/model.schema.json
+name: Product
+properties:
+  name:
+    type: string
+    inputType: text
+
+  description:
+    type: string
+    maxLength: 300
+    inputType: text
+
+relations:
+  category:
+    type: sub
+    target: Category
+
+  features:
+    type: subs
+    target: Feature
+
+  images:
+    type: subs
+    target: ProductImage
+
+# Add required properties
+required:
+  - name
+
+# Add unique properties
+unique:
+  - name

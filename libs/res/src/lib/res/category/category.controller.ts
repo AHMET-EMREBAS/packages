@@ -3,7 +3,7 @@ import {
   Param,
   Query,
   Controller,
-  DtoValidationPipe,
+  ValidationPipe,
   ParamId,
   RelationDto,
   UnsetRelationDto,
@@ -20,7 +20,7 @@ export class CategoryController {
   constructor(private readonly service: CategoryService) {}
 
   @Rest.Get()
-  findAll(@Query(DtoValidationPipe) query: QueryCategoryDto) {
+  findAll(@Query(ValidationPipe) query: QueryCategoryDto) {
     return this.service.findAll(query);
   }
 
@@ -30,7 +30,7 @@ export class CategoryController {
   }
 
   @Rest.Post()
-  save(@Body(DtoValidationPipe) body: CreateCategoryDto) {
+  save(@Body(ValidationPipe) body: CreateCategoryDto) {
     return this.service.save(body);
   }
 
@@ -40,22 +40,22 @@ export class CategoryController {
   }
 
   @Rest.Set()
-  setRelation(@Param(DtoValidationPipe) options: RelationDto) {
+  setRelation(@Param(ValidationPipe) options: RelationDto) {
     return this.service.setRelation(options);
   }
 
   @Rest.Unset()
-  unsetRelation(@Param(DtoValidationPipe) options: UnsetRelationDto) {
+  unsetRelation(@Param(ValidationPipe) options: UnsetRelationDto) {
     return this.service.unsetRelation(options);
   }
 
   @Rest.Add()
-  addRelation(@Param(DtoValidationPipe) options: RelationDto) {
+  addRelation(@Param(ValidationPipe) options: RelationDto) {
     return this.service.addRelation(options);
   }
 
   @Rest.Remove()
-  removeRelation(@Param(DtoValidationPipe) options: RelationDto) {
+  removeRelation(@Param(ValidationPipe) options: RelationDto) {
     return this.service.removeRelation(options);
   }
 }

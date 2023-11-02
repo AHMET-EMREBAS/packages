@@ -5,14 +5,14 @@ export {
   TimestampEntity,
   Entity,
   Controller,
-  DtoValidationPipe,
+  ValidationPipe,
   ParamId,
   RelationDto,
   UnsetRelationDto,
   Rest as __Rest,
   ResourceService,
   Dto,
-} from '@techbir/nest';
+} from '@techbir/core';
 export {
   FindOptionsOrder,
   EventSubscriber,

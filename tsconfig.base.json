@@ -16,9 +16,10 @@
     "baseUrl": ".",
     "paths": {
       "@techbir/common": ["libs/common/src/index.ts"],
+      "@techbir/core": ["libs/core/src/index.ts"],
+      "@techbir/gen": ["libs/gen/src/index.ts"],
       "@techbir/nest": ["libs/nest/src/index.ts"],
-      "@techbir/res": ["libs/res/src/index.ts"],
-      "@techbir/utils": ["libs/utils/src/index.ts"]
+      "@techbir/res": ["libs/res/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]

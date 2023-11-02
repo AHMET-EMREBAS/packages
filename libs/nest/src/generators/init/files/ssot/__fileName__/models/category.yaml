@@ -1,0 +1,14 @@
+# yaml-language-server: $schema=../schemas/model.schema.json
+name: Category
+properties:
+  category:
+    type: string
+    minLength: 3
+    maxLength: 30
+    inputType: text
+
+unique:
+  - category
+
+required:
+  - category

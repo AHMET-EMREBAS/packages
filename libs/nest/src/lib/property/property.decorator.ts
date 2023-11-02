@@ -1,5 +1,4 @@
-import { CombinePropertyDecorators } from '@techbir/utils';
-import { Expose } from 'class-transformer';
+import { Expose, Type } from 'class-transformer';
 import { ApiProperty, ApiPropertyOptions } from '@nestjs/swagger';
 import {
   IsEmail,
@@ -16,7 +15,11 @@ import {
   ValidateNested,
   ValidationOptions,
 } from 'class-validator';
-export function Property(options?: ApiPropertyOptions): PropertyDecorator {
+import { CombinePropertyDecorators } from '../common';
+
+export function Property(
+  options?: ApiPropertyOptions & { target?: any }
+): PropertyDecorator {
   const decorators: PropertyDecorator[] = [
     Expose(),
     ApiProperty({ ...options, required: options?.required == true }),
@@ -59,7 +62,12 @@ export function Property(options?: ApiPropertyOptions): PropertyDecorator {
     pushIf(format === 'uuid', (c) => IsUUID('4', vo));
     pushIf(format === 'phone', (c) => IsPhoneNumber(undefined, vo));
 
-    pushIf(type === 'object', (v) => ValidateNested(vo));
+    pushIf(type === 'object', (v) => {
+      return CombinePropertyDecorators(
+        ValidateNested(vo),
+        Type(() => options.target)
+      );
+    });
   }
 
   return CombinePropertyDecorators(...decorators);

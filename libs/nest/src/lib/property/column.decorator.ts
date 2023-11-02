@@ -3,10 +3,12 @@ import {
   ColumnOptions as __ColumnOptions,
   ValueTransformer,
 } from 'typeorm';
+
 import { hashSync, genSaltSync } from 'bcrypt';
 import { v4 } from 'uuid';
 
 export type ColumnOptions = {
+  name?: string;
   type: 'string' | 'number' | 'boolean' | 'data' | 'object';
   unique?: true;
   required?: true;

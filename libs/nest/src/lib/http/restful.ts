@@ -12,7 +12,7 @@ import { ApiBearerAuth, ApiOperation, ApiTags } from '@nestjs/swagger';
 import {
   CombineClassDecorators,
   CombineMethodDecorators,
-} from '@techbir/utils';
+} from '../common';
 
 export const ACCESS_TOKEN = 'access-token';
 

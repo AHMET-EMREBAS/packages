@@ -1,0 +1,21 @@
+# yaml-language-server: $schema=../schemas/model.schema.json
+name: ProfileImage
+properties:
+  name:
+    type: string
+    minLength: 3
+    maxLength: 30
+    inputType: text
+
+  image:
+    type: string
+    inputType: image
+
+relations:
+  user:
+    target: User
+    type: owner
+
+required:
+  - name
+  - image
