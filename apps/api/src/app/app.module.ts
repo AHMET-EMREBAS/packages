@@ -10,7 +10,7 @@ import { HttpModule } from '@nestjs/axios';
 import { AppEventListener } from './app-events.listener';
 import { ServeStaticModule } from '@nestjs/serve-static';
 import { join } from 'path';
-import { ProductModule } from '@techbir/core';
+import { CategoryModule, ProductModule } from '@techbir/core';
 
 @Module({
   imports: [
@@ -27,6 +27,7 @@ import { ProductModule } from '@techbir/core';
     ScheduleModule.forRoot(),
     EventEmitterModule.forRoot({ delimiter: '.' }),
     ProductModule,
+    CategoryModule,
   ],
   controllers: [AppHealthController, AppViewController],
   providers: [AppEventListener],

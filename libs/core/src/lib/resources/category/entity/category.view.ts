@@ -1,14 +1,14 @@
 import { DataSource, ViewColumn, ViewEntity } from '../imports';
-import { Product } from './product.entity';
+import { Category } from './category.entity';
 
 @ViewEntity({
   expression: (datasource: DataSource) => {
     return datasource
       .createQueryBuilder()
       .select('c.id', 'id')
-      .from(Product, 'c');
+      .from(Category, 'c');
   },
 })
-export class ProductView {
+export class CategoryView {
   @ViewColumn() id!: number;
 }

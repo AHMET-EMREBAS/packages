@@ -6,7 +6,6 @@ import { <%- className %> } from './<%- fileName %>.entity';
     return datasource
       .createQueryBuilder()
       .select('c.id', 'id')
-      .addSelect('c.name', 'name')
       .from(<%- className %>, 'c');
   },
 })
