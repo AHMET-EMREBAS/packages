@@ -1,0 +1,7 @@
+import { TimestampEntity , Entity} from '../imports'
+
+
+@Entity()
+export class <%- className %>  extends TimestampEntity { 
+
+}

@@ -1,0 +1,26 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "title": "Relation Property",
+    "$id": "RelationProperty",
+    "patternProperties": {
+        "^[a-zA-Z]{3,}$": {
+            "properties": {
+                "type": {
+                    "enum": [
+                        "child",
+                        "children",
+                        "sub",
+                        "subs",
+                        "owner"
+                    ]
+                },
+                "target": {
+                    "$ref": "./resource-names.schema.json"
+                }
+            }
+        }
+    },
+    "propertyNames": {
+        "$ref": "./property-names.schema.json"
+    }
+}

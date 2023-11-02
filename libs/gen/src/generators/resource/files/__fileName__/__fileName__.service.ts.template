@@ -1,0 +1,14 @@
+import {
+  Injectable,
+  ResourceService,
+  Repository,
+  InjectRepository,
+} from './imports';
+import { <%- className %> } from './entity';
+
+@Injectable()
+export class <%- className %>Service extends ResourceService<<%- className %>> {
+  constructor(@InjectRepository(<%- className %>) repo: Repository<<%- className %>>) {
+    super(repo);
+  }
+}

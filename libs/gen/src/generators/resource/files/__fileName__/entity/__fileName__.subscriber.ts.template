@@ -1,0 +1,19 @@
+import {
+  EventSubscriber,
+  EntitySubscriberInterface,
+  InsertEvent,
+  ClassConstructor
+} from '../imports';
+import { <%- className %> } from './<%- fileName %>.entity';
+
+@EventSubscriber()
+export class <%- className %>Subscriber implements EntitySubscriberInterface {
+
+  listenTo(): ClassConstructor<<%- className %>> {
+    return <%- className %>;
+  }
+  
+  afterInsert(event: InsertEvent<any>): void | Promise<any> {
+    console.log('Inserted ', event.entity);
+  }
+}

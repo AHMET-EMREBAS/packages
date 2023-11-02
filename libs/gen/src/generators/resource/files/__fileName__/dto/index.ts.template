@@ -1,0 +1,3 @@
+export * from './create-<%- fileName %>.dto';
+export * from './update-<%- fileName %>.dto';
+export * from './query-<%- fileName %>.dto';

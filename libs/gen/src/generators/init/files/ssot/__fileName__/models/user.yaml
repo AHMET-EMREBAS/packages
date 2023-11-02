@@ -1,0 +1,44 @@
+# yaml-language-server: $schema=../schemas/model.schema.json
+name: User
+properties:
+  firstName:
+    type: string
+    minLength: 3
+    maxLength: 30
+    inputType: text
+
+  lastName:
+    type: string
+    minLength: 3
+    maxLength: 30
+    inputType: text
+
+  company:
+    type: string
+    minLength: 3
+    maxLength: 30
+    inputType: text
+
+  username:
+    type: string
+    format: email
+    inputType: email
+
+  password:
+    type: string
+    format: password
+    inputType: password
+
+relations:
+  roles:
+    target: Role
+    type: subs
+
+unique:
+  - username
+
+required:
+  - firstName
+  - lastName
+  - username
+  - password

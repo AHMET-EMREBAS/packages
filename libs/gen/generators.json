@@ -1,0 +1,29 @@
+{
+  "generators": {
+    "hello": {
+      "factory": "./src/generators/hello/generator",
+      "schema": "./src/generators/hello/schema.json",
+      "description": "hello generator"
+    },
+    "resource": {
+      "factory": "./src/generators/resource/generator",
+      "schema": "./src/generators/resource/schema.json",
+      "description": "resource generator"
+    },
+    "res": {
+      "factory": "./src/generators/resource/generator",
+      "schema": "./src/generators/resource/schema.json",
+      "description": "resource generator"
+    },
+    "init": {
+      "factory": "./src/generators/init/generator",
+      "schema": "./src/generators/init/schema.json",
+      "description": "init generator"
+    },
+    "app": {
+      "factory": "./src/generators/app/generator",
+      "schema": "./src/generators/app/schema.json",
+      "description": "app generator"
+    }
+  }
+}
