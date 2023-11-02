@@ -51,6 +51,7 @@ export async function bootstrap({
   nestApp.enableCors({ origin });
   nestApp.enableVersioning();
   nestApp.use(favicon(join(__dirname, 'public', 'favicon.ico')));
+
   configureSwagger({ app, name, tag: name });
 
   await nestApp.listen(port);
