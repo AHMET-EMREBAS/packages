@@ -1,0 +1,7 @@
+import { TimestampEntity } from '@techbir/core'
+import { Entity } from 'typeorm';
+
+@Entity()
+export class <%- className %>  extends TimestampEntity { 
+
+}

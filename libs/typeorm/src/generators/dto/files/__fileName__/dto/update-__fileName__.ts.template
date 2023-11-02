@@ -1,0 +1,8 @@
+import { Exclude } from 'class-transformer';
+import { Create<%- className %>Dto } from './create-<%- fileName %>.dto';
+import { PartialType } from '@nestjs/swagger';
+
+@Exclude()
+export class Update<%- className %>Dto extends PartialType(Create<%- className %>Dto ) { 
+
+}

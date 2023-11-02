@@ -4,6 +4,21 @@
       "factory": "./src/generators/entity/generator",
       "schema": "./src/generators/entity/schema.json",
       "description": "entity generator"
+    },
+    "subscriber": {
+      "factory": "./src/generators/subscriber/generator",
+      "schema": "./src/generators/subscriber/schema.json",
+      "description": "subscriber generator"
+    },
+    "view": {
+      "factory": "./src/generators/view/generator",
+      "schema": "./src/generators/view/schema.json",
+      "description": "view generator"
+    },
+    "dto": {
+      "factory": "./src/generators/dto/generator",
+      "schema": "./src/generators/dto/schema.json",
+      "description": "dto generator"
     }
   }
 }

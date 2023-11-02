@@ -1,6 +1,6 @@
 {
   "$schema": "http://json-schema.org/schema",
-  "$id": "Entity",
+  "$id": "View",
   "title": "",
   "type": "object",
   "properties": {
@@ -12,18 +12,7 @@
         "index": 0
       },
       "x-prompt": "What name would you like to use?"
-    },
-    "project": {
-      "type": "string",
-      "description": "",
-      "$default": {
-        "$source": "argv",
-        "index": 1
-      },
-      "x-prompt": "Which project?"
     }
   },
-  "required": [
-    "name"
-  ]
+  "required": ["name"]
 }

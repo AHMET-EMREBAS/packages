@@ -15,13 +15,11 @@
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
-      "@techbir/angular": ["libs/angular/src/index.ts"],
       "@techbir/common": ["libs/common/src/index.ts"],
-      "@techbir/meta": ["libs/meta/src/index.ts"],
-      "@techbir/nest": ["libs/nest/src/index.ts"],
+      "@techbir/core": ["libs/core/src/index.ts"],
+      "@techbir/gen": ["libs/gen/src/index.ts"],
       "@techbir/typeorm": ["libs/typeorm/src/index.ts"],
-      "@techbir/utils": ["libs/utils/src/index.ts"],
-      "@techbir/validator": ["libs/validator/src/index.ts"]
+      "@techbir/utils": ["libs/utils/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]

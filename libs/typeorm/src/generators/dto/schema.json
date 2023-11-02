@@ -1,6 +1,6 @@
 {
   "$schema": "http://json-schema.org/schema",
-  "$id": "Entity",
+  "$id": "Dto",
   "title": "",
   "type": "object",
   "properties": {
@@ -24,6 +24,7 @@
     }
   },
   "required": [
-    "name"
+    "name",
+    "project"
   ]
 }

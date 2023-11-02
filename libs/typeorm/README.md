@@ -1,11 +1,7 @@
 # typeorm
 
-This library was generated with [Nx](https://nx.dev).
+Comming Soon
 
-## Building
+1. Generate TypeOrm Entities, Dtos, Views, and Subscribers from provided metadata
+2. Establish automated database migration
 
-Run `nx build typeorm` to build the library.
-
-## Running unit tests
-
-Run `nx test typeorm` to execute the unit tests via [Jest](https://jestjs.io).
