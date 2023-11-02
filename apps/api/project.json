@@ -20,8 +20,13 @@
           "apps/api/src/assets",
           {
             "input": "apps/api/src/public",
-            "glob": "*",
+            "glob": "**",
             "output": "./public"
+          },
+          {
+            "input": "apps/api/src/views",
+            "glob": "**",
+            "output": "./views"
           }
         ],
         "isolatedConfig": true,

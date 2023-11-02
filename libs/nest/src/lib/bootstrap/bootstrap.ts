@@ -1,11 +1,13 @@
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
-import { INestApplication, Logger } from '@nestjs/common';
+import { INestApplication, Logger, RequestMethod } from '@nestjs/common';
 import { NestFactory } from '@nestjs/core';
 import * as helmet from 'helmet';
 import { ACCESS_TOKEN } from '../http';
 import { join } from 'path';
+import { NotFoundExceptionFilter } from '../exceptions';
 
-var favicon = require('serve-favicon');
+import { NestExpressApplication } from '@nestjs/platform-express';
+const favicon = require('serve-favicon');
 
 export type SwaggerOptions = {
   app: INestApplication;
@@ -34,6 +36,8 @@ export type BootstrapOptions = {
   appModule: any;
   port: number | string;
   prefix: string;
+  publicPath: string;
+  viewsPath: string;
   origin?: string[];
 };
 
@@ -43,15 +47,29 @@ export async function bootstrap({
   port,
   prefix,
   origin,
+  viewsPath,
+  publicPath,
 }: BootstrapOptions) {
-  const nestApp = await NestFactory.create(appModule);
-  nestApp.setGlobalPrefix(prefix);
+  const nestApp = await NestFactory.create<NestExpressApplication>(appModule);
+  nestApp.setGlobalPrefix(prefix, {
+    exclude: [
+      { path: '', method: RequestMethod.ALL },
+      { path: '/:any', method: RequestMethod.ALL },
+    ],
+  });
 
   nestApp.use(helmet.default());
   nestApp.enableCors({ origin });
   nestApp.enableVersioning();
   nestApp.use(favicon(join(__dirname, 'public', 'favicon.ico')));
 
+  // nestApp.useStaticAssets(publicPath);
+  nestApp.setBaseViewsDir(viewsPath);
+  nestApp.setViewEngine('ejs');
+
+  nestApp.useGlobalFilters(new NotFoundExceptionFilter());
+
+  // Swagger
   configureSwagger({ app: nestApp, name, tag: name });
 
   await nestApp.listen(port);
