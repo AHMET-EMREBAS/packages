@@ -1,4 +1,4 @@
-import { TimestampEntity } from '@techbir/core'
+import { TimestampEntity } from '@techbir/typeorm'
 import { Entity } from 'typeorm';
 
 @Entity()

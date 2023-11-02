@@ -19,6 +19,11 @@
       "factory": "./src/generators/dto/generator",
       "schema": "./src/generators/dto/schema.json",
       "description": "dto generator"
+    },
+    "resource": {
+      "factory": "./src/generators/resource/generator",
+      "schema": "./src/generators/resource/schema.json",
+      "description": "resource generator"
     }
   }
 }

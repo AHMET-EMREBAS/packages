@@ -1,9 +1,0 @@
-{
-  "generators": {
-    "hello": {
-      "factory": "./src/generators/hello/generator",
-      "schema": "./src/generators/hello/schema.json",
-      "description": "hello generator"
-    }
-  }
-}
