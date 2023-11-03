@@ -77,8 +77,6 @@ export async function bootstrap({
   nestApp.setBaseViewsDir(viewsPath);
   nestApp.setViewEngine('ejs');
 
-  nestApp.useGlobalFilters(new PageNotFound());
-
   // Swagger
   configureSwagger({ app: nestApp, name, tag: name });
 

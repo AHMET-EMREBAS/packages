@@ -3,8 +3,7 @@ import { ProductMeta } from '../product.meta';
 import { Product } from '../entity';
 
 @Dto()
-export class QueryProductDto extends QueryDto {
-  @SearchProperty(ProductMeta.searchables)
+export class QueryProductViewDto extends QueryDto {
+  @SearchProperty(ProductMeta.viewSearchables)
   override search?: FindOptionsOrder<Product>;
 }
-

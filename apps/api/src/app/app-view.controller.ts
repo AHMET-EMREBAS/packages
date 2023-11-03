@@ -17,4 +17,15 @@ export class AppViewController {
   about() {
     return { message: 'Would you really like to know about us?' };
   }
+
+  /**
+   * Error Page
+   * @returns 
+   */
+  @Get('**')
+  @Render('./pages/404')
+  @ApiOperation({ summary: '404 Page' })
+  error() {
+    return { message: 'Page Not Found (404) ' };
+  }
 }

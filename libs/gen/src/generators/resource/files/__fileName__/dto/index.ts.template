@@ -1,4 +1,5 @@
 export * from './create-<%- fileName %>.dto';
 export * from './update-<%- fileName %>.dto';
 export * from './query-<%- fileName %>.dto';
+export * from './query-<%- fileName %>-view.dto';
 export * from './read-<%- fileName %>.dto';

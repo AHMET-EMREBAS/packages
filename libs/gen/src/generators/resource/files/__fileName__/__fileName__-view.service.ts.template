@@ -1,0 +1,14 @@
+import {
+  Injectable,
+  Repository,
+  InjectRepository,
+  ResourceViewService,
+} from './imports';
+import { <%- className %>View } from './entity';
+
+@Injectable()
+export class <%- className %>ViewService extends ResourceViewService<<%- className %>View> {
+  constructor(@InjectRepository(<%- className %>View) repo: Repository<<%- className %>View>) {
+    super(repo);
+  }
+}

@@ -1,5 +1,5 @@
-import { DataSource, ViewColumn, ViewEntity } from '../imports';
 import { Product } from './product.entity';
+import { ViewEntity, ViewColumn, DataSource } from '../imports';
 
 @ViewEntity({
   expression: (datasource: DataSource) => {
@@ -10,5 +10,7 @@ import { Product } from './product.entity';
   },
 })
 export class ProductView {
-  @ViewColumn() id!: number;
+  
+  @ViewColumn({ type: 'string' })
+  id!: number;
 }

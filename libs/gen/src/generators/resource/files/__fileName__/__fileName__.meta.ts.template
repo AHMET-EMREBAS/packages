@@ -1,6 +1,20 @@
+
 export class <%- className %>Meta {
-    static readonly basePath = '<%- fileName %>';
+  /**
+   * View entity controller paths
+   */
+  static readonly viewPath = 'view-<%- fileName %>';
+  static readonly basePath = '<%- fileName %>';
   static readonly entityName = '<%- className %>';
   static readonly uniq: string[] = [];
-  static readonly searchables: string[] = [];
+
+  /**
+   * Includes relation properties
+   */
+  static readonly viewSearchables: string[] = ['id'];
+
+  /**
+   * Only entity properties
+   */
+  static readonly searchables: string[] = ['id'];
 }

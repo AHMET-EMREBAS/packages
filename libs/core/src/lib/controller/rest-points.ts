@@ -22,10 +22,10 @@ import { ACCESS_TOKEN, ReadPermission, WritePermission } from './metadata';
 import { ClassConstructor } from 'class-transformer';
 import { DeleteResultDto, UpdateResultDto } from '../data';
 
-export function Controller(path: string): ClassDecorator {
+export function Controller(path: string, tag?: string): ClassDecorator {
   return CombineClassDecorators(
     ApiBearerAuth(ACCESS_TOKEN),
-    ApiTags(path[0].toUpperCase() + path.substring(1) + 'Controller'),
+    ApiTags(tag || path),
     __Controller(path)
   );
 }

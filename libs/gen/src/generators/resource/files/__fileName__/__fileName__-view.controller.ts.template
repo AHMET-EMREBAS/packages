@@ -1,0 +1,23 @@
+import { Query, Controller, ValidationPipe, ParamId, __Rest } from './imports';
+
+import { <%- className %>Meta } from './<%- fileName %>.meta';
+import { <%- className %>ViewService } from './<%- fileName %>-view.service';
+import { Query<%- className %>ViewDto } from './dto';
+import { <%- className %>View } from './entity';
+
+const Rest = new __Rest(<%- className %>Meta.name, <%- className %>View);
+
+@Controller(<%- className %>Meta.viewPath)
+export class <%- className %>ViewController {
+  constructor(private readonly service: <%- className %>ViewService) {}
+
+  @Rest.Get()
+  findAll(@Query(ValidationPipe) query: Query<%- className %>ViewDto) {
+    return this.service.findAll(query);
+  }
+
+  @Rest.GetById()
+  findOneById(@ParamId() id: number) {
+    return this.service.findOneById(id);
+  }
+}

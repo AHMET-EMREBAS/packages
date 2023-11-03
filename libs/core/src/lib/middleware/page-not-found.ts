@@ -4,13 +4,16 @@ import {
   ExceptionFilter,
   NotFoundException,
 } from '@nestjs/common';
-import { join } from 'path';
-
+import { Response } from 'express';
+/**
+ * Redirect to 404 page on NotFoundException
+ */
 @Catch(NotFoundException)
 export class PageNotFound implements ExceptionFilter {
   catch(_exception: NotFoundException, host: ArgumentsHost) {
     const ctx = host.switchToHttp();
-    const response = ctx.getResponse();
-    response.sendFile(join(__dirname, 'public', '404.html'));
+    const res: Response = ctx.getResponse();
+
+    res.redirect('/views/page-not-found');
   }
 }

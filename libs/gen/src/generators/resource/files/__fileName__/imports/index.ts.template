@@ -13,7 +13,11 @@ export {
   Rest as __Rest,
   ResourceService,
   Dto,
-  Column
+  Column,
+  ResourceViewService,
+  ViewColumn,
+  ViewEntity,
+  DataSource,
 } from '@techbir/core';
 export {
   FindOptionsOrder,
@@ -21,9 +25,6 @@ export {
   EntitySubscriberInterface,
   InsertEvent,
   Repository,
-  DataSource,
-  ViewColumn,
-  ViewEntity,
 } from 'typeorm';
 export { PartialType } from '@nestjs/swagger';
 export { ClassConstructor } from 'class-transformer';

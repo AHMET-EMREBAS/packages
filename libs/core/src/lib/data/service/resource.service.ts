@@ -1,6 +1,7 @@
 import { Repository } from 'typeorm';
 import { ID } from '../entities';
 import { QueryDto, RelationDto, UnsetRelationDto } from './../dtos';
+import { NotFoundException } from '@nestjs/common';
 
 export class ResourceService<T extends ID> {
   constructor(private readonly __repo: Repository<T>) {}
@@ -10,8 +11,12 @@ export class ResourceService<T extends ID> {
     return this.__repo.find({ take, skip, order, where: search, withDeleted });
   }
 
-  findOneById(id: number) {
-    return this.__repo.findOneBy({ id } as any);
+  async findOneById(id: number) {
+    try {
+      return await this.__repo.findOneByOrFail({ id } as any);
+    } catch (err) {
+      throw new NotFoundException(`Entity not found by ${id}`);
+    }
   }
 
   save(body: any) {
