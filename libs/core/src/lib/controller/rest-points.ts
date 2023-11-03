@@ -22,24 +22,33 @@ import { ACCESS_TOKEN, ReadPermission, WritePermission } from './set-metadata';
 import { DeleteResultDto, UpdateResultDto } from '../data';
 import { ResourceMetadata } from './metadata';
 import { ClassConstructor } from 'class-transformer';
-import { kebabCase } from 'lodash';
 
 export function Controller(entityName: string): ClassDecorator {
-  const path = kebabCase(entityName);
   return CombineClassDecorators(
     ApiBearerAuth(ACCESS_TOKEN),
     ApiTags(entityName + 'Controller'),
-    __Controller(path)
+    __Controller()
+  );
+}
+
+export function EntityViewController(entityName: string) {
+  return CombineClassDecorators(
+    ApiBearerAuth(ACCESS_TOKEN),
+    ApiTags(entityName + 'Controller'),
+    __Controller('view')
   );
 }
 
 export class Rest {
   private readonly readDto: ClassConstructor<any>;
   private readonly entityName: string;
-
+  private readonly singularPath: string;
+  private readonly pluralPath: string;
   constructor(private readonly mt: ResourceMetadata) {
     this.readDto = mt.ReadDto;
     this.entityName = mt.entityName;
+    this.singularPath = mt.singularPath;
+    this.pluralPath = mt.pluralPath;
   }
 
   /**
@@ -48,7 +57,7 @@ export class Rest {
    */
   Get() {
     return CombineMethodDecorators(
-      __Get(),
+      __Get(this.pluralPath),
       ReadPermission(this.mt.entityName),
       ApiOperation({ summary: 'Get all items' }),
       ApiOkResponse({ type: this.readDto, isArray: true })
@@ -61,7 +70,7 @@ export class Rest {
    */
   GetById() {
     return CombineMethodDecorators(
-      __Get(':id'),
+      __Get(`${this.singularPath}/:id`),
       ReadPermission(this.entityName),
       ApiOperation({ summary: 'Get one item by id' }),
       ApiOkResponse({ type: this.readDto })
@@ -74,7 +83,7 @@ export class Rest {
    */
   Post() {
     return CombineMethodDecorators(
-      __Post(),
+      __Post(this.singularPath),
       WritePermission(this.entityName),
       ApiOperation({ summary: 'Save one item' }),
       ApiCreatedResponse({ type: this.readDto })
@@ -87,7 +96,7 @@ export class Rest {
    */
   Update() {
     return CombineMethodDecorators(
-      Put(':id'),
+      Put(`${this.singularPath}/:id`),
       WritePermission(this.entityName),
       ApiOperation({ summary: 'Update one by id' }),
       ApiOkResponse({ type: UpdateResultDto })
@@ -100,7 +109,7 @@ export class Rest {
    */
   Delete() {
     return CombineMethodDecorators(
-      __Delete(':id'),
+      __Delete(`${this.singularPath}/:id`),
       WritePermission(this.entityName),
       ApiOperation({ summary: 'Delete one item by id' }),
       ApiOkResponse({ type: DeleteResultDto })
@@ -113,7 +122,7 @@ export class Rest {
    */
   Set() {
     return CombineMethodDecorators(
-      __Post(':id/:rn/:rid'),
+      __Post(`${this.singularPath}/:id/:rn/:rid`),
       WritePermission(this.entityName),
       ApiOperation({
         summary:
@@ -128,7 +137,7 @@ export class Rest {
    */
   Unset() {
     return CombineMethodDecorators(
-      __Delete(':id/:rn'),
+      __Delete(`${this.singularPath}/:id/:rn`),
       WritePermission(this.entityName),
       ApiOperation({
         summary:
@@ -143,7 +152,7 @@ export class Rest {
    */
   Add() {
     return CombineMethodDecorators(
-      Put(':id/:rn/:rid'),
+      Put(`${this.singularPath}/:id/:rn/:rid`),
       WritePermission(this.entityName),
       ApiOperation({
         summary:
@@ -158,7 +167,7 @@ export class Rest {
    */
   Remove() {
     return CombineMethodDecorators(
-      __Delete(':id/:rn/:rid'),
+      __Delete(`${this.singularPath}/:id/:rn/:rid`),
       WritePermission(this.entityName),
       ApiOperation({
         summary:

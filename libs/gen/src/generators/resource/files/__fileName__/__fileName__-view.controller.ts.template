@@ -1,11 +1,11 @@
-import { Query, Controller, ValidationPipe, ParamId } from './imports';
+import { Query, EntityViewController, ValidationPipe, ParamId } from './imports';
 
 import { <%- className %>Meta, <%- className %>Rest as Rest } from './<%- fileName %>.meta';
 import { <%- className %>ViewService } from './<%- fileName %>-view.service';
 import { Query<%- className %>ViewDto } from './dto';
 
 
-@Controller(<%- className %>Meta.viewEntityName)
+@EntityViewController(<%- className %>Meta.viewEntityName)
 export class <%- className %>ViewController {
   constructor(private readonly service: <%- className %>ViewService) {}
 

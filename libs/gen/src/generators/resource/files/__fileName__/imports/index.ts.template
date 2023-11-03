@@ -3,6 +3,7 @@ export {
   BaseReadDto,
   Column,
   Controller,
+  EntityViewController,
   DataSource,
   Dto,
   Entity,
