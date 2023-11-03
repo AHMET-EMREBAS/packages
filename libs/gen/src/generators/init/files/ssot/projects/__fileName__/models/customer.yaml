@@ -23,11 +23,6 @@ properties:
     format: password
     inputType: password
 
-relations:
-  roles:
-    target: Role
-    type: subs
-
 unique:
   - username
 

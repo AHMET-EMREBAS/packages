@@ -1,7 +1,6 @@
 import { IDDto, BaseEntity, Column, Relation, Entity } from '../imports';
 import { Category } from '../../category';
 import { Feature } from '../../feature';
-import { ProductImage } from '../../product-image';
 
 @Entity()
 export class Product extends BaseEntity {
@@ -17,6 +16,5 @@ export class Product extends BaseEntity {
   @Relation({ target: Feature, type: 'subs' })
   features?: IDDto[];
 
-  @Relation({ target: ProductImage, type: 'subs' })
-  images?: IDDto[];
+
 }

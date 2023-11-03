@@ -13,7 +13,7 @@ properties:
 
 relations:
   user:
-    target: User
+    target: Product
     type: owner
 
 required:

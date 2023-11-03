@@ -7,30 +7,30 @@ properties:
     maxLength: 14
     inputType: text
 
-  name:
+  sku:
     type: string
     inputType: text
 
   description:
     type: string
-    maxLength: 300
+    maxLength: 400
     inputType: text
 
 relations:
-  category:
-    type: sub
-    target: Category
-
   features:
     type: subs
     target: Feature
 
+  product:
+    type: owner
+    target: Product
+
 # Add required properties
 required:
-  - name
   - barcode
+  - sku
 
 # Add unique properties
 unique:
-  - name
   - barcode
+  - sku

@@ -1,0 +1,25 @@
+# yaml-language-server: $schema=../../../schemas/model.schema.json
+name: Price
+properties:
+  price:
+    type: number
+    minimum: 0
+    inputType: number
+
+  cost:
+    type: number
+    minimum: 0
+    inputType: number
+
+relations:
+  sku:
+    type: owner
+    target: Sku
+
+  priceLevel:
+    type: owner
+    target: PriceLevel
+
+required:
+  - price
+  - cost

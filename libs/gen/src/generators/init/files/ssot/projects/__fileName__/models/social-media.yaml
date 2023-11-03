@@ -1,21 +1,19 @@
 # yaml-language-server: $schema=../../../schemas/model.schema.json
-name: ProductImage
+name: SocialMedia
+
 properties:
-  name:
+  link:
     type: string
-    minLength: 3
     maxLength: 30
     inputType: text
 
-  image:
-    type: string
-    inputType: image
-
 relations:
   user:
-    target: Product
     type: owner
+    target: User
+
+unique:
+  - link
 
 required:
-  - name
-  - image
+  - link

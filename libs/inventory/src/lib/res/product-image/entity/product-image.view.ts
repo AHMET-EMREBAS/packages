@@ -1,6 +1,6 @@
 import { ProductImage } from './product-image.entity';
 import { ViewEntity, ViewColumn, DataSource } from '../imports';
-import { User } from '../../user';
+import { Product } from '../../product';
 
 @ViewEntity({
   expression: (datasource: DataSource) => {

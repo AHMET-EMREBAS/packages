@@ -5,7 +5,7 @@ import { <%- className %>Controller } from './<%- fileName %>.controller';
 import { <%- className %>Service } from './<%- fileName %>.service';
 import { <%- className %>ViewService } from './<%- fileName %>-view.service';
 import { <%- className %>ViewController } from './<%- fileName %>-view.controller';
-<%- imports %>
+<%- moduleImports %>
 
 @Module({
   imports: [TypeOrmModule.forFeature([<%- className %>, <%- className %>View, <%- targets %>])],

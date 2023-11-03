@@ -119,11 +119,16 @@ export function relationTargets(options: ModelOptions) {
   return uniq(targets).join(', ');
 }
 
-export function relationTargetsImports(options: ModelOptions) {
+export function relationTargetsImports(
+  options: ModelOptions,
+  from: '../' | '../../'
+) {
   const imports = Object.values(options.relations || {})
     .filter((e) => e !== undefined)
     .map((value) => {
-      return `import {${value.target}} from '../../${kebabCase(value.target)}'`;
-    })
+      return `import {${value.target}} from '${from}${kebabCase(
+        value.target
+      )}'`;
+    });
   return uniq(imports).join('\n');
 }

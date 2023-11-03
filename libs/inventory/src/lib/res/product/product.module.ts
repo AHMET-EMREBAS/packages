@@ -5,19 +5,12 @@ import { ProductController } from './product.controller';
 import { ProductService } from './product.service';
 import { ProductViewService } from './product-view.service';
 import { ProductViewController } from './product-view.controller';
-import { Category } from '../../category';
-import { Feature } from '../../feature';
-import { ProductImage } from '../../product-image';
+import { Category } from '../category';
+import { Feature } from '../feature';
 
 @Module({
   imports: [
-    TypeOrmModule.forFeature([
-      Product,
-      ProductView,
-      Category,
-      Feature,
-      ProductImage,
-    ]),
+    TypeOrmModule.forFeature([Product, ProductView, Category, Feature]),
   ],
   controllers: [ProductController, ProductViewController],
   providers: [ProductService, ProductViewService],

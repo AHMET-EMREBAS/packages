@@ -1,21 +1,17 @@
 # yaml-language-server: $schema=../../../schemas/model.schema.json
-name: ProductImage
+name: Skill
 properties:
-  name:
+  skill:
     type: string
-    minLength: 3
-    maxLength: 30
     inputType: text
-
-  image:
-    type: string
-    inputType: image
 
 relations:
   user:
-    target: Product
+    target: User
     type: owner
 
+unique:
+  - skill
+
 required:
-  - name
-  - image
+  - skill

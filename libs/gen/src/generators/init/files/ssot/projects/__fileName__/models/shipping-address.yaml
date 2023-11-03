@@ -1,0 +1,34 @@
+# yaml-language-server: $schema=../../../schemas/model.schema.json
+name: ShippingAddress
+properties:
+  unit:
+    type: string
+    maxLength: 100
+    inputType: text
+
+  street:
+    type: string
+    maxLength: 100
+
+    inputType: text
+
+  city:
+    type: string
+    maxLength: 100
+    inputType: text
+
+  state:
+    type: string
+    maxLength: 100
+    inputType: text
+
+  zip:
+    type: string
+    maxLength: 100
+    inputType: text
+
+required:
+  - street
+  - city
+  - state
+  - zip

@@ -1,21 +1,14 @@
 # yaml-language-server: $schema=../../../schemas/model.schema.json
-name: ProductImage
+name: PriceLevel
 properties:
-  name:
+  priceLevel:
     type: string
     minLength: 3
     maxLength: 30
     inputType: text
 
-  image:
-    type: string
-    inputType: image
-
-relations:
-  user:
-    target: Product
-    type: owner
+unique:
+  - priceLevel
 
 required:
-  - name
-  - image
+  - priceLevel

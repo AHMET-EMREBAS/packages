@@ -28,7 +28,9 @@ export async function resourceGenerator(
     uniques: modelOptions.uniques?.join(', ') || '',
     searchables: modelOptions.searchables?.join(', ') || '',
     viewSearchables: modelOptions.viewSearchables?.join(', ') || '',
-    imports: relationTargetsImports(modelOptions),
+    imports: relationTargetsImports(modelOptions,'../../'),
+    moduleImports: relationTargetsImports(modelOptions,'../'),
+    
     targets: relationTargets(modelOptions),
   });
   await formatFiles(tree);
