@@ -1,5 +1,6 @@
 import { Read<%- className %>Dto } from './dto';
 import { Rest } from './imports';
+import { <%- className %> } from './entity'
 
 export const <%- className %>EntityName = '<%- className %>';
 export const <%- className %>ViewName = '<%- className %>';
@@ -8,9 +9,9 @@ export const <%- className %>PluralPath = '<%- fileName %>s';
 export const <%- className %>SingularViewPath = '<%- fileName %>-view';
 export const <%- className %>PluralViewPath = '<%- fileName %>s-view';
 
-export const <%- className %>Searchables: string[] = [<%- searchables %>];
-export const <%- className %>UniqueFields: string[] = [<%- uniques %>];
-export const <%- className %>ViewSearchables: string[] = [<%- viewSearchables %>];
+export const <%- className %>Searchables: (keyof <%- className %>)[] = [<%- searchables %>];
+export const <%- className %>UniqueFields: (keyof <%- className %>)[] = [<%- uniques %>];
+export const <%- className %>ViewSearchables: (keyof <%- className %>)[] = [<%- viewSearchables %>];
 
 export const <%- className %>Rest = new Rest(
   <%- className %>EntityName,

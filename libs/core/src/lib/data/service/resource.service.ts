@@ -8,10 +8,6 @@ import {
 } from '@nestjs/common';
 import { Logger } from '../../log';
 
-export const RESOURCE_REPO_TOKEN = 'RESOURCE_REPO_TOKEN';
-export const RESOURCE_VIEW_REPO_TOKEN = 'RESOURCE_VIEW_REPO_TOKEN';
-export const RESOURCE_UNQIUE_FEILDS_TOKEN = 'RESOURCE_UNQIUE_FEILDS_TOKEN';
-
 export class ResourceService<T extends ID> {
   logger = new Logger(this.__repo.metadata.name);
   constructor(

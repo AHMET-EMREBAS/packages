@@ -1,8 +1,9 @@
 import { Dto, FindOptionsOrder, QueryDto, SearchProperty } from '../imports';
 import { <%- className %> } from '../entity';
 import { <%- className %>ViewSearchables } from '../<%- fileName %>.meta';
+
 @Dto()
 export class Query<%- className %>ViewDto extends QueryDto {
-   @SearchProperty(<%- className %>ViewSearchables)
+ @SearchProperty(<%- className %>ViewSearchables)
   override search?: FindOptionsOrder<<%- className %>>;
 }

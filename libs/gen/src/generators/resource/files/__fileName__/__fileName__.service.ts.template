@@ -5,10 +5,11 @@ import {
   InjectRepository,
 } from './imports';
 import { <%- className %> } from './entity';
+import { <%- className %>UniqueFields } from './<%- fileName %>.meta';
 
 @Injectable()
 export class <%- className %>Service extends ResourceService<<%- className %>> {
   constructor(@InjectRepository(<%- className %>) repo: Repository<<%- className %>>) {
-    super(repo);
+      super(repo, <%- className %>UniqueFields);
   }
 }
