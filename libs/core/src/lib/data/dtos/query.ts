@@ -1,5 +1,5 @@
 import { Transform } from 'class-transformer';
-import { FindOptionsOrder, FindOptionsWhere } from 'typeorm';
+import { FindOptionsOrder, FindOptionsWhere, ILike } from 'typeorm';
 import { Dto, Property } from '../../decorators';
 
 @Dto()
@@ -40,4 +40,19 @@ export class QueryDto {
 
   @Property({ type: 'string', maxLength: 100 })
   search?: FindOptionsWhere<any>[] | FindOptionsWhere<any>;
+
+  @Property({ type: 'string', description: 'Find by key and value' })
+  key: string;
+
+  @Property({ type: 'string', description: 'Find by key and value' })
+  value: string;
+
+  @Property({ type: 'object' })
+  @Transform(({ obj }) => {
+    if (obj.key && obj.value) {
+      return { [obj.key]: ILike(obj.value) };
+    }
+    return undefined;
+  })
+  findBy: FindOptionsWhere<any>;
 }

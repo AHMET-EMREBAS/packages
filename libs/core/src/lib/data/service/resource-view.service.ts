@@ -7,8 +7,25 @@ export class ResourceViewService<T extends ID> {
   constructor(private readonly __repo: Repository<T>) {}
 
   findAll(query: QueryDto) {
-    const { order, skip, take, withDeleted, search } = query;
-    return this.__repo.find({ take, skip, order, where: search, withDeleted });
+    const { order, skip, take, withDeleted, search, findBy } = query;
+
+    let where = {};
+
+    if (search) {
+      where = { ...where, ...search };
+    }
+
+    if (findBy) {
+      where = { ...where, ...findBy };
+    }
+
+    return this.__repo.find({
+      take,
+      skip,
+      order,
+      where,
+      withDeleted,
+    });
   }
 
   async findOneById(id: number) {
