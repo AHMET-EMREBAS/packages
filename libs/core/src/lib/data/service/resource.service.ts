@@ -1,15 +1,13 @@
 import { ILike, Repository } from 'typeorm';
 import { ID } from '../entities';
 import { QueryDto, RelationDto, UnsetRelationDto } from './../dtos';
-import {
-  NotFoundException,
-  UnauthorizedException,
-  UnprocessableEntityException,
-} from '@nestjs/common';
+import { NotFoundException } from '@nestjs/common';
 import { Logger } from '../../log';
+import { BadInputEntityException } from '../../validation';
 
 export class ResourceService<T extends ID> {
   logger = new Logger(this.__repo.metadata.name);
+
   constructor(
     private readonly __repo: Repository<T>,
     private readonly __uniqueFields?: (keyof T)[]
@@ -21,9 +19,14 @@ export class ResourceService<T extends ID> {
     );
 
     if (!hasRelation) {
-      throw new UnprocessableEntityException(
-        `The entity does not have named relation ${relationName}!`
-      );
+      throw new BadInputEntityException([
+        {
+          property: relationName,
+          constraints: {
+            notFound: `${relationName} is not found in the entity`,
+          },
+        },
+      ]);
     }
   }
 
@@ -31,12 +34,19 @@ export class ResourceService<T extends ID> {
     if (this.__uniqueFields?.length > 0) {
       for (const field of this.__uniqueFields) {
         const found = await this.__repo.findOne({
-          [field]: ILike(body[field]),
+          where: {
+            [field]: ILike(body[field]),
+          } as any,
         });
 
         if (found) {
-          throw new UnauthorizedException([
-            `${field.toString()} must be unique!`,
+          throw new BadInputEntityException([
+            {
+              property: field.toString(),
+              constraints: {
+                unique: `${field.toString()} must be unique`,
+              },
+            },
           ]);
         }
       }

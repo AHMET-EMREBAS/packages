@@ -5,7 +5,6 @@ import {
   InjectRepository,
 } from './imports';
 import { Category } from './entity';
-
 import { CategoryUniqueFields } from './category.meta';
 
 @Injectable()

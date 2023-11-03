@@ -10,7 +10,7 @@ export const CategorySingularViewPath = 'category-view';
 export const CategoryPluralViewPath = 'categorys-view';
 
 export const CategorySearchables: (keyof Category)[] = [];
-export const CategoryUniqueFields: (keyof Category)[] = [];
+export const CategoryUniqueFields: (keyof Category)[] = ['name'];
 export const CategoryViewSearchables: (keyof Category)[] = [];
 
 export const CategoryRest = new Rest(
