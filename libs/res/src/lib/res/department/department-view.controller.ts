@@ -1,10 +1,20 @@
-import { Query, Controller, ValidationPipe, ParamId } from './imports';
+import {
+  Query,
+  ValidationPipe,
+  ParamId,
+  Controller,
+  ApiBearerAuth,
+  ApiTags,
+  ACCESS_TOKEN,
+} from './imports';
 
-import { DepartmentMeta, DepartmentRest as Rest } from './department.meta';
+import { DepartmentViewName, DepartmentRest as Rest } from './department.meta';
 import { DepartmentViewService } from './department-view.service';
 import { QueryDepartmentViewDto } from './dto';
 
-@Controller(DepartmentMeta.viewEntityName)
+@ApiBearerAuth(ACCESS_TOKEN)
+@ApiTags(DepartmentViewName + 'Controller')
+@Controller('view')
 export class DepartmentViewController {
   constructor(private readonly service: DepartmentViewService) {}
 

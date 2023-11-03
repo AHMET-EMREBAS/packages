@@ -1,10 +1,20 @@
-import { Query, Controller, ValidationPipe, ParamId } from './imports';
+import {
+  Query,
+  ValidationPipe,
+  ParamId,
+  Controller,
+  ApiBearerAuth,
+  ApiTags,
+  ACCESS_TOKEN,
+} from './imports';
 
-import { ProductMeta, ProductRest as Rest } from './product.meta';
+import { ProductViewName, ProductRest as Rest } from './product.meta';
 import { ProductViewService } from './product-view.service';
 import { QueryProductViewDto } from './dto';
 
-@Controller(ProductMeta.viewEntityName)
+@ApiBearerAuth(ACCESS_TOKEN)
+@ApiTags(ProductViewName + 'Controller')
+@Controller('view')
 export class ProductViewController {
   constructor(private readonly service: ProductViewService) {}
 

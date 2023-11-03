@@ -1,4 +1,5 @@
-export * from './category';
-export * from './project';
-export * from './product';
-export * from './department';
+
+// @index('./*', f => `export * from '${f.path}'`)
+export * from './category'
+export * from './department'
+export * from './product'

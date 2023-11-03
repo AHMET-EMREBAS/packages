@@ -7,12 +7,17 @@ import {
   ParamId,
   RelationDto,
   UnsetRelationDto,
+  ACCESS_TOKEN,
+  ApiBearerAuth,
+  ApiTags,
 } from './imports';
 import { QueryCategoryDto, CreateCategoryDto, UpdateCategoryDto } from './dto';
 import { CategoryService } from './category.service';
-import { CategoryMeta, CategoryRest as Rest } from './category.meta';
+import { CategoryEntityName, CategoryRest as Rest } from './category.meta';
 
-@Controller(CategoryMeta.entityName)
+@ApiBearerAuth(ACCESS_TOKEN)
+@ApiTags(CategoryEntityName + 'Controller')
+@Controller()
 export class CategoryController {
   constructor(private readonly service: CategoryService) {}
 

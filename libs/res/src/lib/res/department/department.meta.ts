@@ -1,10 +1,20 @@
-import { ResourceMetadata, Rest } from './imports';
+import { ReadDepartmentDto } from './dto';
+import { Rest } from './imports';
 
-export const DepartmentMeta = new ResourceMetadata({
-  entityName: 'Department',
-  searchables: ['id', 'name'],
-  uniq: ['name'],
-  viewSearchables: ['id', 'name'],
-});
+export const DepartmentEntityName = 'Department';
+export const DepartmentViewName = 'Department';
+export const DepartmentSingularPath = 'department';
+export const DepartmentPluralPath = 'departments';
+export const DepartmentSingularViewPath = 'department-view';
+export const DepartmentPluralViewPath = 'departments-view';
 
-export const DepartmentRest = new Rest(DepartmentMeta);
+export const DepartmentSearchables: string[] = [];
+export const DepartmentUniqueFields: string[] = [];
+export const DepartmentViewSearchables: string[] = [];
+
+export const DepartmentRest = new Rest(
+  DepartmentEntityName,
+  DepartmentSingularPath,
+  DepartmentPluralPath,
+  ReadDepartmentDto
+);

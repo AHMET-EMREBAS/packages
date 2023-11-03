@@ -2,7 +2,6 @@ export {
   BaseEntity,
   BaseReadDto,
   Column,
-  Controller,
   DataSource,
   Dto,
   Entity,
@@ -19,6 +18,7 @@ export {
   ValidationPipe,
   ViewColumn,
   ViewEntity,
+  ACCESS_TOKEN,
 } from '@techbir/core';
 export {
   EntitySubscriberInterface,
@@ -27,7 +27,8 @@ export {
   InsertEvent,
   Repository,
 } from 'typeorm';
-export { PartialType } from '@nestjs/swagger';
+export { PartialType, ApiBearerAuth, ApiTags } from '@nestjs/swagger';
 export { ClassConstructor } from 'class-transformer';
-export { Body, Param, Query, Injectable } from '@nestjs/common';
+export { Body, Param, Query, Injectable, Controller } from '@nestjs/common';
 export { InjectRepository } from '@nestjs/typeorm';
+

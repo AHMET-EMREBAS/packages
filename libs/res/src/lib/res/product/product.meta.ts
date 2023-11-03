@@ -1,10 +1,20 @@
-import { ResourceMetadata, Rest } from './imports';
+import { ReadProductDto } from './dto';
+import { Rest } from './imports';
 
-export const ProductMeta = new ResourceMetadata({
-  entityName: 'Product',
-  searchables: ['id', 'name'],
-  uniq: ['name'],
-  viewSearchables: ['id', 'name'],
-});
+export const ProductEntityName = 'Product';
+export const ProductViewName = 'Product';
+export const ProductSingularPath = 'product';
+export const ProductPluralPath = 'products';
+export const ProductSingularViewPath = 'product-view';
+export const ProductPluralViewPath = 'products-view';
 
-export const ProductRest = new Rest(ProductMeta);
+export const ProductSearchables: string[] = [];
+export const ProductUniqueFields: string[] = [];
+export const ProductViewSearchables: string[] = [];
+
+export const ProductRest = new Rest(
+  ProductEntityName,
+  ProductSingularPath,
+  ProductPluralPath,
+  ReadProductDto
+);

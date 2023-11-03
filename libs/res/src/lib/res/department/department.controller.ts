@@ -7,6 +7,9 @@ import {
   ParamId,
   RelationDto,
   UnsetRelationDto,
+  ACCESS_TOKEN,
+  ApiBearerAuth,
+  ApiTags,
 } from './imports';
 import {
   QueryDepartmentDto,
@@ -14,9 +17,14 @@ import {
   UpdateDepartmentDto,
 } from './dto';
 import { DepartmentService } from './department.service';
-import { DepartmentMeta, DepartmentRest as Rest } from './department.meta';
+import {
+  DepartmentEntityName,
+  DepartmentRest as Rest,
+} from './department.meta';
 
-@Controller(DepartmentMeta.entityName)
+@ApiBearerAuth(ACCESS_TOKEN)
+@ApiTags(DepartmentEntityName + 'Controller')
+@Controller()
 export class DepartmentController {
   constructor(private readonly service: DepartmentService) {}
 

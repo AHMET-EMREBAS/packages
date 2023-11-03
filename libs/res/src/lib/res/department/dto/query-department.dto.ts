@@ -1,9 +1,8 @@
 import { Dto, FindOptionsOrder, QueryDto, SearchProperty } from '../imports';
-import { DepartmentMeta } from '../department.meta';
 import { Department } from '../entity';
 
 @Dto()
 export class QueryDepartmentDto extends QueryDto {
-  @SearchProperty(DepartmentMeta.searchables)
+  @SearchProperty([])
   override search?: FindOptionsOrder<Department>;
 }

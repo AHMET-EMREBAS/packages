@@ -3,53 +3,26 @@ import {
   Get as __Get,
   Post as __Post,
   Put,
-  Controller as __Controller,
   Param,
   ParseIntPipe,
 } from '@nestjs/common';
 import {
-  ApiBearerAuth,
   ApiCreatedResponse,
   ApiOkResponse,
   ApiOperation,
-  ApiTags,
 } from '@nestjs/swagger';
-import {
-  CombineClassDecorators,
-  CombineMethodDecorators,
-} from '@techbir/common';
-import { ACCESS_TOKEN, ReadPermission, WritePermission } from './set-metadata';
+import { CombineMethodDecorators } from '@techbir/common';
+import { ReadPermission, WritePermission } from './set-metadata';
 import { DeleteResultDto, UpdateResultDto } from '../data';
-import { ResourceMetadata } from './metadata';
 import { ClassConstructor } from 'class-transformer';
 
-export function Controller(entityName: string): ClassDecorator {
-  return CombineClassDecorators(
-    ApiBearerAuth(ACCESS_TOKEN),
-    ApiTags(entityName + 'Controller'),
-    __Controller()
-  );
-}
-
-export function EntityViewController(entityName: string) {
-  return CombineClassDecorators(
-    ApiBearerAuth(ACCESS_TOKEN),
-    ApiTags(entityName + 'Controller'),
-    __Controller('view')
-  );
-}
-
 export class Rest {
-  private readonly readDto: ClassConstructor<any>;
-  private readonly entityName: string;
-  private readonly singularPath: string;
-  private readonly pluralPath: string;
-  constructor(private readonly mt: ResourceMetadata) {
-    this.readDto = mt.ReadDto;
-    this.entityName = mt.entityName;
-    this.singularPath = mt.singularPath;
-    this.pluralPath = mt.pluralPath;
-  }
+  constructor(
+    private readonly entityName: string,
+    private readonly singularPath: string,
+    private readonly pluralPath: string,
+    private readonly readDto: ClassConstructor<any>
+  ) {}
 
   /**
    * Get /name
@@ -58,7 +31,7 @@ export class Rest {
   Get() {
     return CombineMethodDecorators(
       __Get(this.pluralPath),
-      ReadPermission(this.mt.entityName),
+      ReadPermission(this.entityName),
       ApiOperation({ summary: 'Get all items' }),
       ApiOkResponse({ type: this.readDto, isArray: true })
     );

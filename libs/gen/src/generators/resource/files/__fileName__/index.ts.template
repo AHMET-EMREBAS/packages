@@ -1,10 +1,8 @@
-// @index('./*', f => `export * from '${f.path}'`)
-export * from './dto'
-export * from './entity'
-export * from './imports'
-export * from './<%- fileName %>-view.controller'
-export * from './<%- fileName %>-view.service'
-export * from './<%- fileName %>.controller'
-export * from './<%- fileName %>.meta'
-export * from './<%- fileName %>.module'
-export * from './<%- fileName %>.service'
+export * from './dto';
+export * from './entity';
+export * from './<%- fileName %>-view.controller';
+export * from './<%- fileName %>-view.service';
+export * from './<%- fileName %>.controller';
+export * from './<%- fileName %>.meta';
+export * from './<%- fileName %>.module';
+export * from './<%- fileName %>.service';

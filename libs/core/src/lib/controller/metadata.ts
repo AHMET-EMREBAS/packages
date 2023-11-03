@@ -1,4 +1,3 @@
-import { ClassConstructor } from 'class-transformer';
 import { kebabCase } from 'lodash';
 import plural from 'pluralize';
 
@@ -30,21 +29,14 @@ export class ResourceMetadata {
    */
   public readonly searchables: string[] = ['id'];
 
-  public readonly CreateDto: ClassConstructor<any>;
-  public readonly UpdateDto: ClassConstructor<any>;
-  public readonly QueryDto: ClassConstructor<any>;
-  public readonly ViewQueryDto: ClassConstructor<any>;
-  public readonly ReadDto: ClassConstructor<any>;
+  constructor(
+    options: Pick<
+      ResourceMetadata,
+      'entityName' | 'searchables' | 'viewSearchables' | 'uniq'
+    >
+  ) {
+    const { entityName, uniq, viewSearchables, searchables } = options;
 
-  constructor({
-    entityName,
-    uniq,
-    viewSearchables,
-    searchables,
-  }: Pick<
-    ResourceMetadata,
-    'entityName' | 'uniq' | 'searchables' | 'viewSearchables'
-  >) {
     this.entityName = entityName;
     this.viewEntityName = this.entityName + 'View';
 

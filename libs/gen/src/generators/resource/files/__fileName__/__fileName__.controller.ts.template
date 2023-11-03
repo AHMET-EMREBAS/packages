@@ -7,12 +7,17 @@ import {
   ParamId,
   RelationDto,
   UnsetRelationDto,
+  ACCESS_TOKEN,
+  ApiBearerAuth,
+  ApiTags,
 } from './imports';
 import { Query<%- className %>Dto, Create<%- className %>Dto, Update<%- className %>Dto } from './dto';
 import { <%- className %>Service } from './<%- fileName %>.service';
-import { <%- className %>Meta, <%- className %>Rest as Rest } from './<%- fileName %>.meta';
+import { <%- className %>EntityName, <%- className %>Rest as Rest } from './<%- fileName %>.meta';
 
-@Controller(<%- className %>Meta.entityName)
+@ApiBearerAuth(ACCESS_TOKEN)
+@ApiTags(<%- className %>EntityName + 'Controller')
+@Controller()
 export class <%- className %>Controller {
   constructor(private readonly service: <%- className %>Service) {}
 

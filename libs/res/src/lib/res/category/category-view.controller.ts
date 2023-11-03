@@ -1,10 +1,20 @@
-import { Query, Controller, ValidationPipe, ParamId } from './imports';
+import {
+  Query,
+  ValidationPipe,
+  ParamId,
+  Controller,
+  ApiBearerAuth,
+  ApiTags,
+  ACCESS_TOKEN,
+} from './imports';
 
-import { CategoryMeta, CategoryRest as Rest } from './category.meta';
+import { CategoryViewName, CategoryRest as Rest } from './category.meta';
 import { CategoryViewService } from './category-view.service';
 import { QueryCategoryViewDto } from './dto';
 
-@Controller(CategoryMeta.viewEntityName)
+@ApiBearerAuth(ACCESS_TOKEN)
+@ApiTags(CategoryViewName + 'Controller')
+@Controller('view')
 export class CategoryViewController {
   constructor(private readonly service: CategoryViewService) {}
 

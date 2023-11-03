@@ -7,12 +7,17 @@ import {
   ParamId,
   RelationDto,
   UnsetRelationDto,
+  ACCESS_TOKEN,
+  ApiBearerAuth,
+  ApiTags,
 } from './imports';
 import { QueryProductDto, CreateProductDto, UpdateProductDto } from './dto';
 import { ProductService } from './product.service';
-import { ProductMeta, ProductRest as Rest } from './product.meta';
+import { ProductEntityName, ProductRest as Rest } from './product.meta';
 
-@Controller(ProductMeta.entityName)
+@ApiBearerAuth(ACCESS_TOKEN)
+@ApiTags(ProductEntityName + 'Controller')
+@Controller()
 export class ProductController {
   constructor(private readonly service: ProductService) {}
 

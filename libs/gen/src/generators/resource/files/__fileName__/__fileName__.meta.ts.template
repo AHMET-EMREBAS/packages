@@ -1,12 +1,20 @@
-import { ResourceMetadata, Rest } from './imports';
+import { Read<%- className %>Dto } from './dto';
+import { Rest } from './imports';
 
-export const <%- className %>Meta = new ResourceMetadata({
-  entityName: '<%- className %>',
-  searchables: ['id', 'name'],
-  uniq: ['name'],
-  viewSearchables: ['id', 'name'],
-});
+export const <%- className %>EntityName = '<%- className %>';
+export const <%- className %>ViewName = '<%- className %>';
+export const <%- className %>SingularPath = '<%- fileName %>';
+export const <%- className %>PluralPath = '<%- fileName %>s';
+export const <%- className %>SingularViewPath = '<%- fileName %>-view';
+export const <%- className %>PluralViewPath = '<%- fileName %>s-view';
 
+export const <%- className %>Searchables: string[] = [];
+export const <%- className %>UniqueFields: string[] = [];
+export const <%- className %>ViewSearchables: string[] = [];
 
-
-export const <%- className %>Rest = new Rest(<%- className %>Meta);
+export const <%- className %>Rest = new Rest(
+  <%- className %>EntityName,
+  <%- className %>SingularPath,
+  <%- className %>PluralPath,
+  Read<%- className %>Dto
+);
