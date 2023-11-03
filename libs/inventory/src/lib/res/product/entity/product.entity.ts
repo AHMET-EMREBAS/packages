@@ -5,6 +5,9 @@ import { Feature } from '../../feature';
 @Entity()
 export class Product extends BaseEntity {
   @Column({ type: 'string', required: true })
+  barcode?: string;
+
+  @Column({ type: 'string', required: true })
   name?: string;
 
   @Column({ type: 'string' })
@@ -15,6 +18,4 @@ export class Product extends BaseEntity {
 
   @Relation({ target: Feature, type: 'subs' })
   features?: IDDto[];
-
-
 }

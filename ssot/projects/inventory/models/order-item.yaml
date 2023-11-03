@@ -1,0 +1,22 @@
+# yaml-language-server: $schema=../../../schemas/model.schema.json
+name: OrderItem
+properties:
+  quantity:
+    type: number
+    inputType: number
+
+relations:
+  sku:
+    type: owner
+    target: Sku
+
+  priceLevel:
+    type: owner
+    target: PriceLevel
+
+  orderGroup:
+    type: owner
+    target: Order
+
+required:
+  - quantity

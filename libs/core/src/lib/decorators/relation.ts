@@ -1,6 +1,6 @@
 import { CombinePropertyDecorators } from '@techbir/common';
 import { pick } from 'lodash';
-import { JoinColumn, ManyToMany, ManyToOne } from 'typeorm';
+import { JoinColumn, JoinTable, ManyToMany, ManyToOne } from 'typeorm';
 
 export type RelationType = 'sub' | 'subs' | 'owner';
 
@@ -48,7 +48,7 @@ export function Relation({ type, target }: RelationOptions) {
         (t) => t.id,
         { eager: true, nullable: true }
       ),
-      JoinColumn()
+      JoinTable()
     );
   }
 

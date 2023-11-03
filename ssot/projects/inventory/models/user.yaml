@@ -13,12 +13,6 @@ properties:
     maxLength: 30
     inputType: text
 
-  company:
-    type: string
-    minLength: 3
-    maxLength: 30
-    inputType: text
-
   username:
     type: string
     format: email

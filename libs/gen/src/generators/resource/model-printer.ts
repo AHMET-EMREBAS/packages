@@ -1,4 +1,4 @@
-import { readFileSync } from 'fs';
+import { readFileSync, readdirSync } from 'fs';
 import { parse } from 'yaml';
 import {
   ModelOptions,
@@ -10,8 +10,32 @@ import {
   relationType,
 } from '@techbir/core';
 import { join } from 'path';
-import { kebabCase, uniq } from 'lodash';
+import { kebabCase, uniq, camelCase, upperFirst } from 'lodash';
 
+export function projectRoot(projectName: string): string {
+  return join('libs', projectName, 'src', 'lib', 'res');
+}
+
+export function projectModuleImports(project: string) {
+  const modules = readdirSync(projectRoot(project))
+    .filter((e) => {
+      return e != `index.ts`;
+    })
+    .filter((e) => {
+      return e !== `${project}.module.ts`;
+    });
+  const moduleList = modules.map((e) => [e, upperFirst(camelCase(e))]);
+
+  const moduleImports = moduleList
+
+    .map(([e, m]) => `import {${m}Module } from './${e}';`)
+    .join('\n');
+
+  return {
+    moduleList: moduleList.map(([e, m]) => `${m}Module`).join(', '),
+    allModulesImport: moduleImports,
+  };
+}
 export function readModel(project: string, modelName: string): ModelOptions {
   const content = readFileSync(
     join(`ssot/projects/${project}/models/${modelName}.yaml`)

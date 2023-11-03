@@ -9,10 +9,10 @@ import {
 import { pick } from 'lodash';
 
 export type ColumnOptions = {
-  type: 'string' | 'number' | 'boolean' | 'data' | 'object';
+  type: 'string' | 'number' | 'boolean' | 'date' | 'object';
   unique?: true;
   required?: true;
-  format?: 'uuid' | 'password' | 'json';
+  format?: 'uuid' | 'password' | 'json' | string;
 };
 
 const typeMap: { [key: string]: __ColumnOptions['type'] } = {

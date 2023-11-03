@@ -1,6 +1,12 @@
 # yaml-language-server: $schema=../../../schemas/model.schema.json
 name: Product
 properties:
+  barcode:
+    type: string
+    minLength: 12
+    maxLength: 14
+    inputType: text
+
   name:
     type: string
     inputType: text
@@ -19,14 +25,12 @@ relations:
     type: subs
     target: Feature
 
-  images:
-    type: subs
-    target: ProductImage
-
 # Add required properties
 required:
   - name
+  - barcode
 
 # Add unique properties
 unique:
   - name
+  - barcode

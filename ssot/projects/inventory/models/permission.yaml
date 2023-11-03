@@ -9,5 +9,6 @@ properties:
 
 unique:
   - permission
+
 required:
   - permission

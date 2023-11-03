@@ -2,6 +2,9 @@ import { IDDto, Dto, Property } from '../imports';
 
 @Dto()
 export class CreateProductDto {
+  @Property({ required: true, type: 'string', minLength: 12, maxLength: 14 })
+  barcode!: string;
+
   @Property({ required: true, type: 'string' })
   name!: string;
 
@@ -13,7 +16,4 @@ export class CreateProductDto {
 
   @Property({ type: 'object', target: IDDto, isArray: true, minimum: 1 })
   features?: IDDto[];
-
-  @Property({ type: 'object', target: IDDto, isArray: true, minimum: 1 })
-  images?: IDDto[];
 }

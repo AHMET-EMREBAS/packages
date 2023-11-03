@@ -1,0 +1,10 @@
+import { Module } from '@nestjs/common';
+
+<%- allModulesImport %>
+
+@Module({
+  imports: [
+    <%- moduleList %> 
+    ],
+})
+export class InventoryModule {}

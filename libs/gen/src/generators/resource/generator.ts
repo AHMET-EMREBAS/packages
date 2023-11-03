@@ -6,11 +6,9 @@ import {
   readModel,
   relationTargetsImports,
   relationTargets,
+  projectRoot,
+  projectModuleImports,
 } from './model-printer';
-
-export function projectRoot(projectName: string): string {
-  return join('libs', projectName, 'src', 'lib', 'res');
-}
 
 export async function resourceGenerator(
   tree: Tree,
@@ -21,6 +19,7 @@ export async function resourceGenerator(
 
   const modelOptions = readModel(project, name);
 
+  const { allModulesImport, moduleList } = projectModuleImports(project);
   generateFiles(tree, join(__dirname, 'files'), PROJECT_ROOT, {
     ...names(name),
     properties: printProperties(modelOptions),
@@ -28,10 +27,12 @@ export async function resourceGenerator(
     uniques: modelOptions.uniques?.join(', ') || '',
     searchables: modelOptions.searchables?.join(', ') || '',
     viewSearchables: modelOptions.viewSearchables?.join(', ') || '',
-    imports: relationTargetsImports(modelOptions,'../../'),
-    moduleImports: relationTargetsImports(modelOptions,'../'),
-    
+    imports: relationTargetsImports(modelOptions, '../../'),
+    moduleImports: relationTargetsImports(modelOptions, '../'),
     targets: relationTargets(modelOptions),
+    projectName: project,
+    allModulesImport,
+    moduleList,
   });
   await formatFiles(tree);
 }
