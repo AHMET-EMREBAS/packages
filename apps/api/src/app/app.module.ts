@@ -10,19 +10,18 @@ import { HttpModule } from '@nestjs/axios';
 import { AppEventListener } from './app-events.listener';
 import { ServeStaticModule } from '@nestjs/serve-static';
 import { join } from 'path';
-import { CategoryModule, ProductModule, ProjectModule } from '@techbir/res';
+import {
+  CategoryModule,
+  DepartmentModule,
+  ProductModule,
+  ProjectModule,
+} from '@techbir/res';
 
 @Module({
   imports: [
     HttpModule,
     ServeStaticModule.forRoot({
       rootPath: join(__dirname, 'public'),
-      exclude: [
-        '/api/:a',
-        '/api/:a/:b',
-        '/api/:a/:b/:c',
-        '/views/:a',
-      ],
     }),
     TerminusModule.forRoot({ logger: true, errorLogStyle: 'pretty' }),
     TypeOrmModule.forRoot({
@@ -37,6 +36,7 @@ import { CategoryModule, ProductModule, ProjectModule } from '@techbir/res';
     CategoryModule,
     ProjectModule,
     ProductModule,
+    DepartmentModule,
   ],
   controllers: [AppHealthController, AppViewController],
   providers: [AppEventListener],
