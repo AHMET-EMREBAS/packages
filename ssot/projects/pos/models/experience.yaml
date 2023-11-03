@@ -1,0 +1,35 @@
+# yaml-language-server: $schema=../../../schemas/model.schema.json
+name: Experience
+properties:
+  title:
+    type: string
+    maxLength: 100
+    inputType: text
+
+  company:
+    type: string
+    maxLength: 100
+    inputType: text
+
+  startDate:
+    type: date
+    inputType: date
+
+  endDate:
+    type: date
+    inputType: date
+
+relations:
+  achievement:
+    type: subs
+    target: Achievement
+
+  user:
+    target: User
+    type: owner
+
+required:
+  - title
+  - company
+  - startDate
+  - endDate

@@ -24,7 +24,7 @@ export async function resourceGenerator(
     ...names(name),
     properties: printProperties(modelOptions),
     columns: printColumns(modelOptions),
-    uniques: modelOptions.uniques?.join(', ') || '',
+    uniques: modelOptions.unique?.join(', ') || '',
     searchables: modelOptions.searchables?.join(', ') || '',
     viewSearchables: modelOptions.viewSearchables?.join(', ') || '',
     imports: relationTargetsImports(modelOptions, '../../'),

@@ -1,0 +1,15 @@
+# yaml-language-server: $schema=../../../schemas/model.schema.json
+name: Discount
+properties:
+  percent:
+    type: number
+    minimum: 0
+    inputType: number
+
+relations:
+  sku:
+    target: Sku
+    type: owner
+
+required:
+  - percent

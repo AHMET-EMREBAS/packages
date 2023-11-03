@@ -1,24 +1,18 @@
 # yaml-language-server: $schema=../../../schemas/model.schema.json
-name: Contact
+name: Phone
 properties:
   phone:
     type: string
     format: phone
     inputType: phone
 
-  website:
-    type: string
-    format: url
-    inputType: url
-
 relations:
-  roles:
-    target: Role
-    type: subs
+  user:
+    target: User
+    type: owner
 
-uniques:
+unique:
   - phone
 
 required:
-  - firstName
-  - lastName
+  - phone

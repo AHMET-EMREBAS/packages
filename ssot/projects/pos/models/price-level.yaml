@@ -1,0 +1,14 @@
+# yaml-language-server: $schema=../../../schemas/model.schema.json
+name: PriceLevel
+properties:
+  priceLevel:
+    type: string
+    minLength: 3
+    maxLength: 30
+    inputType: text
+
+unique:
+  - priceLevel
+
+required:
+  - priceLevel

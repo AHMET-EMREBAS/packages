@@ -1,0 +1,19 @@
+# yaml-language-server: $schema=../../../schemas/model.schema.json
+name: Role
+properties:
+  role:
+    type: string
+    minLength: 3
+    maxLength: 30
+    inputType: text
+
+relations:
+  permissions:
+    type: subs
+    target: Permission
+
+unique:
+  - role
+
+required:
+  - role

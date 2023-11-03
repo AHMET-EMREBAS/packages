@@ -112,7 +112,7 @@ export function printColumns(options: ModelOptions): string {
       if (options.required.includes(key)) {
         value.required = true;
       }
-      if (options.uniques?.includes(key)) {
+      if (options.unique?.includes(key)) {
         value.unique = true;
       }
       return ` 

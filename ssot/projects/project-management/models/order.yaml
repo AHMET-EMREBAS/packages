@@ -1,0 +1,11 @@
+# yaml-language-server: $schema=../../../schemas/model.schema.json
+name: Order
+
+relations:
+  customer:
+    type: owner
+    target: Customer
+
+  shippingAddress:
+    type: sub
+    target: ShippingAddress

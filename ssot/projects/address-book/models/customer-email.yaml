@@ -1,0 +1,15 @@
+# yaml-language-server: $schema=../../../schemas/model.schema.json
+name: CustomerEmail
+properties:
+  email:
+    type: string
+    format: email
+    inputType: email
+
+relations:
+  user:
+    type: owner
+    target: Customer
+
+required:
+  - email

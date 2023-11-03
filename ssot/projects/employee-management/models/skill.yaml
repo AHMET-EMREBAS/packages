@@ -1,0 +1,17 @@
+# yaml-language-server: $schema=../../../schemas/model.schema.json
+name: Skill
+properties:
+  skill:
+    type: string
+    inputType: text
+
+relations:
+  user:
+    target: User
+    type: owner
+
+unique:
+  - skill
+
+required:
+  - skill

@@ -6,7 +6,7 @@ export type ModelOptions = {
   properties: Record<string, PropertyOptions>;
   relations: Record<string, RelationOptions>;
   required?: string[];
-  uniques?: string[];
+  unique?: string[];
   searchables?: string[];
   viewSearchables?: string[];
 };

@@ -11,7 +11,6 @@ import {
 import { CategoryViewName, CategoryRest as Rest } from './category.meta';
 import { CategoryViewService } from './category-view.service';
 import { QueryCategoryViewDto } from './dto';
-import { FindByDto } from '@techbir/core';
 
 @ApiBearerAuth(ACCESS_TOKEN)
 @ApiTags(CategoryViewName + 'Controller')
@@ -22,11 +21,6 @@ export class CategoryViewController {
   @Rest.Get()
   findAll(@Query(ValidationPipe) query: QueryCategoryViewDto) {
     return this.service.findAll(query);
-  }
-
-  @Rest.GetBy()
-  findBy(@Query(ValidationPipe) query: FindByDto) {
-    return this.service.findBy(query);
   }
 
   @Rest.GetById()
