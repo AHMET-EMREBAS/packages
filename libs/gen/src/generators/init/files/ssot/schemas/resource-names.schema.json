@@ -59,6 +59,7 @@
         "OrderGroup",
         "Customer",
         "CustomerAddress",
-        "Discount"
+        "Discount",
+        "OrderItem"
     ]
 }

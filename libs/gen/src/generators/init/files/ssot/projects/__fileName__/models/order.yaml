@@ -1,19 +1,11 @@
 # yaml-language-server: $schema=../../../schemas/model.schema.json
 name: Order
-properties:
-  quantity:
-    type: number
-    inputType: number
 
 relations:
-  sku:
-    type: owner
-    target: Sku
-
   customer:
     type: owner
     target: Customer
 
-required:
-  - price
-  - cost
+  shippingAddress:
+    type: sub
+    target: ShippingAddress
