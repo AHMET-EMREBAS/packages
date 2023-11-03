@@ -3,6 +3,6 @@ import { <%- className %> } from '../entity';
 
 @Dto()
 export class Query<%- className %>ViewDto extends QueryDto {
-  @SearchProperty([])
+  @SearchProperty([<%- viewSearchables %>])
   override search?: FindOptionsOrder<<%- className %>>;
 }

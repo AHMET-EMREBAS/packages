@@ -16,10 +16,54 @@ import {
   ValidationOptions,
 } from 'class-validator';
 import { CombinePropertyDecorators } from '@techbir/common';
+import { pick } from 'lodash';
 
-export function Property(
-  options?: ApiPropertyOptions & { target?: any }
-): PropertyDecorator {
+export type PropertyType =
+  | 'string'
+  | 'number'
+  | 'integer'
+  | 'boolean'
+  | 'date'
+  | 'object';
+
+export type PropertyOptions = ApiPropertyOptions & {
+  unique?: boolean;
+  type: PropertyType;
+  target?: any;
+};
+
+export function propertyType(options: PropertyOptions) {
+  const { type } = options;
+
+  if (type === 'date') {
+    return 'Date';
+  } else if (type === 'integer') {
+    return 'number';
+  } else if (type === 'object') {
+    return options.target || 'any';
+  }
+  return type;
+}
+
+export function pickPropertyOptions(options: any) {
+  return pick<PropertyOptions, keyof PropertyOptions>(
+    options,
+    'target',
+    'required',
+    'type',
+    'minLength',
+    'maxLength',
+    'minimum',
+    'maximum',
+    'format',
+    'enum',
+    'required',
+    'isArray',
+    'target'
+  );
+}
+
+export function Property(options?: PropertyOptions): PropertyDecorator {
   const decorators: PropertyDecorator[] = [
     Expose(),
     ApiProperty({ ...options, required: options?.required == true }),

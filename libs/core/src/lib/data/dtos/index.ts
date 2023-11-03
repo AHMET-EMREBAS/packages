@@ -4,3 +4,4 @@ export * from './base-read';
 export * from './update-result';
 export * from './delete-result';
 export * from './delete';
+export * from './id';

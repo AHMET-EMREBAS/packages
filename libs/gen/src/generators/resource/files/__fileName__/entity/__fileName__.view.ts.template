@@ -1,5 +1,6 @@
 import { <%- className %> } from './<%- fileName %>.entity';
 import { ViewEntity, ViewColumn, DataSource } from '../imports';
+<%- imports %>
 
 @ViewEntity({
   expression: (datasource: DataSource) => {

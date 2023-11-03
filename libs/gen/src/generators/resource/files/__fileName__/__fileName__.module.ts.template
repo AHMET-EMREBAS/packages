@@ -5,9 +5,10 @@ import { <%- className %>Controller } from './<%- fileName %>.controller';
 import { <%- className %>Service } from './<%- fileName %>.service';
 import { <%- className %>ViewService } from './<%- fileName %>-view.service';
 import { <%- className %>ViewController } from './<%- fileName %>-view.controller';
+<%- imports %>
 
 @Module({
-  imports: [TypeOrmModule.forFeature([<%- className %>, <%- className %>View])],
+  imports: [TypeOrmModule.forFeature([<%- className %>, <%- className %>View, <%- targets %>])],
   controllers: [<%- className %>Controller, <%- className %>ViewController],
   providers: [<%- className %>Service, <%- className %>ViewService],
 })

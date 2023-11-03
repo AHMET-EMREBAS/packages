@@ -1,9 +1,8 @@
-import { BaseEntity, Column, Entity} from '../imports'
-
+import {IDDto, BaseEntity, Column,Relation,  Entity} from '../imports'
+<%- imports %>
 
 @Entity()
 export class <%- className %>  extends BaseEntity { 
-
-    @Column({type:'string', unique:true }) name!:string; 
+    <%- columns %>
 
 }

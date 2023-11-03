@@ -1,7 +1,7 @@
-import { Module } from '@nestjs/common';
+import { Module, OnModuleInit } from '@nestjs/common';
 import { ScheduleModule } from '@nestjs/schedule';
 import { EventEmitterModule } from '@nestjs/event-emitter';
-import { TypeOrmModule } from '@nestjs/typeorm';
+import { InjectRepository, TypeOrmModule } from '@nestjs/typeorm';
 import { TerminusModule } from '@nestjs/terminus';
 
 import { AppHealthController } from './app-health.controller';
@@ -10,7 +10,14 @@ import { HttpModule } from '@nestjs/axios';
 import { AppEventListener } from './app-events.listener';
 import { ServeStaticModule } from '@nestjs/serve-static';
 import { join } from 'path';
-import { CategoryModule, DepartmentModule, ProductModule } from '@techbir/res';
+import {
+  CategoryModule,
+  ProductImageModule,
+  FeatureModule,
+  ProductModule,
+} from '@techbir/inventory';
+import { Contact, Customer } from './sample/data';
+import { Repository } from 'typeorm';
 
 @Module({
   imports: [
@@ -20,19 +27,38 @@ import { CategoryModule, DepartmentModule, ProductModule } from '@techbir/res';
     }),
     TerminusModule.forRoot({ logger: true, errorLogStyle: 'pretty' }),
     TypeOrmModule.forRoot({
-      type: 'better-sqlite3',
-      database: './tmp/database/main.sqlite',
+      type: 'mysql',
+      database: 'testdb',
+      username: 'testuser',
+      password: 'testuser',
       autoLoadEntities: true,
       synchronize: true,
       dropSchema: true,
     }),
+    TypeOrmModule.forFeature([Customer, Contact]),
     ScheduleModule.forRoot(),
     EventEmitterModule.forRoot({ delimiter: '.' }),
-    ProductModule,
     CategoryModule,
-    DepartmentModule,
+    ProductImageModule,
+    FeatureModule,
+    ProductModule,
   ],
   controllers: [AppHealthController, AppViewController],
   providers: [AppEventListener],
 })
-export class AppModule {}
+export class AppModule implements OnModuleInit {
+  constructor(
+    @InjectRepository(Contact) private readonly c: Repository<Contact>,
+    @InjectRepository(Customer) private readonly p: Repository<Customer>
+  ) {}
+
+  async onModuleInit() {
+    const p1 = await this.p.save({ name: 'p1' });
+
+    const c1 = await this.c.save({ address: 'contact 1', customer: p1.id });
+
+    console.log(await this.c.find());
+    await this.p.delete(p1.id);
+    console.log(await this.c.find());
+  }
+}

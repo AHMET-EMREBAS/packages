@@ -1,5 +1,4 @@
-import { Dto, Property } from "../../decorators";
-
+import { Dto, Property } from '../../decorators';
 
 @Dto()
 export class RelationDto {

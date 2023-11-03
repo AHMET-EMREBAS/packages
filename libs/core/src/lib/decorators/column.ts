@@ -6,9 +6,9 @@ import {
   UUIDTransformer,
   JSONTransformer,
 } from '../transform';
+import { pick } from 'lodash';
 
 export type ColumnOptions = {
-  name?: string;
   type: 'string' | 'number' | 'boolean' | 'data' | 'object';
   unique?: true;
   required?: true;
@@ -23,6 +23,16 @@ const typeMap: { [key: string]: __ColumnOptions['type'] } = {
   object: 'varchar',
 };
 
+export function pickColumnOptions(options: any) {
+  return pick<ColumnOptions, keyof ColumnOptions>(
+    options,
+    'type',
+    'required',
+    'unique',
+    'format'
+  );
+}
+
 export function Column(options: ColumnOptions) {
   const { type, unique, required, format } = options;
 
@@ -36,7 +46,7 @@ export function Column(options: ColumnOptions) {
     columnOptions.transformer = HashPasswordTransformer();
 
   if (format === 'uuid') columnOptions.transformer = UUIDTransformer();
-  
+
   if (format === 'json') columnOptions.transformer = JSONTransformer();
 
   return __Column(columnOptions);

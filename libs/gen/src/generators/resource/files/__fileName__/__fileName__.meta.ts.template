@@ -8,9 +8,9 @@ export const <%- className %>PluralPath = '<%- fileName %>s';
 export const <%- className %>SingularViewPath = '<%- fileName %>-view';
 export const <%- className %>PluralViewPath = '<%- fileName %>s-view';
 
-export const <%- className %>Searchables: string[] = [];
-export const <%- className %>UniqueFields: string[] = [];
-export const <%- className %>ViewSearchables: string[] = [];
+export const <%- className %>Searchables: string[] = [<%- searchables %>];
+export const <%- className %>UniqueFields: string[] = [<%- uniques %>];
+export const <%- className %>ViewSearchables: string[] = [<%- viewSearchables %>];
 
 export const <%- className %>Rest = new Rest(
   <%- className %>EntityName,

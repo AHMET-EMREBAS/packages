@@ -25,6 +25,7 @@ export class QueryDto {
   orderDir?: string;
 
   @Property({
+    type: 'object',
     description:
       'This field will be transformed from orderDir and orderBy fields.',
   })

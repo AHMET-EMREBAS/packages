@@ -19,6 +19,8 @@ export {
   ViewColumn,
   ViewEntity,
   ACCESS_TOKEN,
+  IDDto,
+  Relation
 } from '@techbir/core';
 export {
   EntitySubscriberInterface,

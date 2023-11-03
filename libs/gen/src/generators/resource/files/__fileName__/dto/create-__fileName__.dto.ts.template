@@ -1,7 +1,8 @@
-import { Dto, Property} from '../imports';
+import { IDDto,  Dto, Property} from '../imports';
 
 @Dto()
 export class Create<%- className %>Dto { 
-    @Property({ type:'string', minLength:3, maxLength:30 })
-    name!:string; 
+  
+  <%- properties %>
+
 }
