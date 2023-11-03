@@ -18,23 +18,30 @@ import {
   CombineClassDecorators,
   CombineMethodDecorators,
 } from '@techbir/common';
-import { ACCESS_TOKEN, ReadPermission, WritePermission } from './metadata';
-import { ClassConstructor } from 'class-transformer';
+import { ACCESS_TOKEN, ReadPermission, WritePermission } from './set-metadata';
 import { DeleteResultDto, UpdateResultDto } from '../data';
+import { ResourceMetadata } from './metadata';
+import { ClassConstructor } from 'class-transformer';
+import { kebabCase } from 'lodash';
 
-export function Controller(path: string, tag?: string): ClassDecorator {
+export function Controller(entityName: string): ClassDecorator {
+  const path = kebabCase(entityName);
   return CombineClassDecorators(
     ApiBearerAuth(ACCESS_TOKEN),
-    ApiTags(tag || path),
+    ApiTags(entityName + 'Controller'),
     __Controller(path)
   );
 }
 
 export class Rest {
-  constructor(
-    private readonly entityName: string,
-    private readonly readDto?: ClassConstructor<any>
-  ) {}
+  private readonly readDto: ClassConstructor<any>;
+  private readonly entityName: string;
+
+  constructor(private readonly mt: ResourceMetadata) {
+    this.readDto = mt.ReadDto;
+    this.entityName = mt.entityName;
+  }
+
   /**
    * Get /name
    * @returns
@@ -42,7 +49,7 @@ export class Rest {
   Get() {
     return CombineMethodDecorators(
       __Get(),
-      ReadPermission(this.entityName),
+      ReadPermission(this.mt.entityName),
       ApiOperation({ summary: 'Get all items' }),
       ApiOkResponse({ type: this.readDto, isArray: true })
     );

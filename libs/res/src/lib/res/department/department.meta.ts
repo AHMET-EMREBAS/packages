@@ -1,19 +1,10 @@
-export class DepartmentMeta {
-  /**
-   * View entity controller paths
-   */
-  static readonly viewPath = 'view-department';
-  static readonly basePath = 'department';
-  static readonly entityName = 'Department';
-  static readonly uniq: string[] = [];
+import { ResourceMetadata, Rest } from './imports';
 
-  /**
-   * Includes relation properties
-   */
-  static readonly viewSearchables: string[] = ['id'];
+export const DepartmentMeta = new ResourceMetadata({
+  entityName: 'Department',
+  searchables: ['id', 'name'],
+  uniq: ['name'],
+  viewSearchables: ['id', 'name'],
+});
 
-  /**
-   * Only entity properties
-   */
-  static readonly searchables: string[] = ['id'];
-}
+export const DepartmentRest = new Rest(DepartmentMeta);

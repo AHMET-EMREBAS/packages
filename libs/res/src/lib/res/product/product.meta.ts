@@ -1,20 +1,10 @@
+import { ResourceMetadata, Rest } from './imports';
 
-export class ProductMeta {
-  /**
-   * View entity controller paths
-   */
-  static readonly viewPath = 'view-product';
-  static readonly basePath = 'product';
-  static readonly entityName = 'Product';
-  static readonly uniq: string[] = [];
+export const ProductMeta = new ResourceMetadata({
+  entityName: 'Product',
+  searchables: ['id', 'name'],
+  uniq: ['name'],
+  viewSearchables: ['id', 'name'],
+});
 
-  /**
-   * Includes relation properties
-   */
-  static readonly viewSearchables: string[] = ['id'];
-
-  /**
-   * Only entity properties
-   */
-  static readonly searchables: string[] = ['id'];
-}
+export const ProductRest = new Rest(ProductMeta);

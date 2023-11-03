@@ -1,20 +1,12 @@
+import { ResourceMetadata, Rest } from './imports';
 
-export class <%- className %>Meta {
-  /**
-   * View entity controller paths
-   */
-  static readonly viewPath = 'view-<%- fileName %>';
-  static readonly basePath = '<%- fileName %>';
-  static readonly entityName = '<%- className %>';
-  static readonly uniq: string[] = [];
+export const <%- className %>Meta = new ResourceMetadata({
+  entityName: '<%- className %>',
+  searchables: ['id', 'name'],
+  uniq: ['name'],
+  viewSearchables: ['id', 'name'],
+});
 
-  /**
-   * Includes relation properties
-   */
-  static readonly viewSearchables: string[] = ['id'];
 
-  /**
-   * Only entity properties
-   */
-  static readonly searchables: string[] = ['id'];
-}
+
+export const <%- className %>Rest = new Rest(<%- className %>Meta);

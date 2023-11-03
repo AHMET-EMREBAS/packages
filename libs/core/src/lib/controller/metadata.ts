@@ -1,43 +1,60 @@
-import { SetMetadata } from '@nestjs/common';
-import { v4 } from 'uuid';
+import { ClassConstructor } from 'class-transformer';
+import { kebabCase } from 'lodash';
+import plural from 'pluralize';
 
-function token(name: string) {
-  return name + '_' + v4();
-}
+export class ResourceMetadata {
+  /**
+   * View entity controller paths
+   */
+  public readonly singularViewPath: string;
+  public readonly pluralViewPath: string;
 
-/**
- * - Bearer Token Name 
- * - Cookie Name 
- */
-export const ACCESS_TOKEN = 'access-token';
+  public readonly singularPath: string;
+  public readonly pluralPath: string;
 
-export const PERMISSION_TOKEN = token('permission');
+  /**
+   * Class Name
+   */
+  public readonly entityName: string;
+  public readonly viewEntityName: string;
 
-export function Permission(entityName: string, event: 'Read' | 'Write') {
-  return SetMetadata(PERMISSION_TOKEN, `${event}:${entityName}`);
-}
+  public readonly uniq: string[] = [];
 
-export function ReadPermission(entityName: string) {
-  return Permission(entityName, 'Read');
-}
+  /**
+   * Includes relation properties
+   */
+  public readonly viewSearchables: string[] = ['id'];
 
-export function WritePermission(entityName: string) {
-  return Permission(entityName, 'Write');
-}
+  /**
+   * Only entity properties
+   */
+  public readonly searchables: string[] = ['id'];
 
-/**
- * Role metadata
- */
-export const ROLE_TOKEN = token('role');
+  public readonly CreateDto: ClassConstructor<any>;
+  public readonly UpdateDto: ClassConstructor<any>;
+  public readonly QueryDto: ClassConstructor<any>;
+  public readonly ViewQueryDto: ClassConstructor<any>;
+  public readonly ReadDto: ClassConstructor<any>;
 
-export function Role(entityName: string, event: 'Read' | 'Write') {
-  return SetMetadata(ROLE_TOKEN, `${event}:${entityName}`);
-}
+  constructor({
+    entityName,
+    uniq,
+    viewSearchables,
+    searchables,
+  }: Pick<
+    ResourceMetadata,
+    'entityName' | 'uniq' | 'searchables' | 'viewSearchables'
+  >) {
+    this.entityName = entityName;
+    this.viewEntityName = this.entityName + 'View';
 
-export function ReadRole(entityName: string) {
-  return Role(entityName, 'Read');
-}
+    this.singularPath = `${kebabCase(entityName)}`;
+    this.pluralPath = `${plural(this.singularPath)}`;
 
-export function WriteRole(entityName: string) {
-  return Role(entityName, 'Write');
+    this.singularViewPath = `${this.singularPath}-view`;
+    this.pluralViewPath = `${this.pluralPath}-view`;
+    this.uniq = uniq;
+    this.viewSearchables = viewSearchables;
+    this.searchables = searchables;
+  }
 }

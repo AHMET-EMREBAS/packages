@@ -1,6 +1,10 @@
-export class CategoryMeta {
-  static readonly basePath = 'category';
-  static readonly entityName = 'Category';
-  static readonly uniq: string[] = [];
-  static readonly searchables: string[] = [];
-}
+import { ResourceMetadata, Rest } from './imports';
+
+export const CategoryMeta = new ResourceMetadata({
+  entityName: 'Category',
+  searchables: ['id', 'name'],
+  uniq: ['name'],
+  viewSearchables: ['id', 'name'],
+});
+
+export const CategoryRest = new Rest(CategoryMeta);

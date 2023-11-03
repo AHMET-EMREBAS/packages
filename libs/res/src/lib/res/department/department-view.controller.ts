@@ -1,13 +1,10 @@
-import { Query, Controller, ValidationPipe, ParamId, __Rest } from './imports';
+import { Query, Controller, ValidationPipe, ParamId } from './imports';
 
-import { DepartmentMeta } from './department.meta';
+import { DepartmentMeta, DepartmentRest as Rest } from './department.meta';
 import { DepartmentViewService } from './department-view.service';
 import { QueryDepartmentViewDto } from './dto';
-import { DepartmentView } from './entity';
 
-const Rest = new __Rest(DepartmentMeta.name, DepartmentView);
-
-@Controller(DepartmentMeta.viewPath)
+@Controller(DepartmentMeta.viewEntityName)
 export class DepartmentViewController {
   constructor(private readonly service: DepartmentViewService) {}
 

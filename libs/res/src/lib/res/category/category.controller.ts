@@ -7,15 +7,12 @@ import {
   ParamId,
   RelationDto,
   UnsetRelationDto,
-  __Rest,
 } from './imports';
-import { QueryCategoryDto, CreateCategoryDto } from './dto';
+import { QueryCategoryDto, CreateCategoryDto, UpdateCategoryDto } from './dto';
 import { CategoryService } from './category.service';
-import { CategoryMeta } from './category.meta';
+import { CategoryMeta, CategoryRest as Rest } from './category.meta';
 
-const Rest = new __Rest(CategoryMeta.name);
-
-@Controller(CategoryMeta.basePath)
+@Controller(CategoryMeta.entityName)
 export class CategoryController {
   constructor(private readonly service: CategoryService) {}
 
@@ -32,6 +29,11 @@ export class CategoryController {
   @Rest.Post()
   save(@Body(ValidationPipe) body: CreateCategoryDto) {
     return this.service.save(body);
+  }
+
+  @Rest.Update()
+  update(@ParamId() id: number, @Body(ValidationPipe) body: UpdateCategoryDto) {
+    return this.service.update(id, body);
   }
 
   @Rest.Delete()

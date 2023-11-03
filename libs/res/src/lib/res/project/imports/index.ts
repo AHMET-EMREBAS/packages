@@ -1,27 +1,31 @@
 export {
+  BaseEntity,
+  BaseReadDto,
+  Column,
+  Controller,
+  DataSource,
+  Dto,
+  Entity,
+  ParamId,
   Property,
   QueryDto,
-  SearchProperty,
-  TimestampEntity,
-  Entity,
-  Controller,
-  ValidationPipe,
-  ParamId,
   RelationDto,
-  UnsetRelationDto,
-  Rest as __Rest,
+  ResourceMetadata,
   ResourceService,
-  Dto,
-} from '@techbir/core';
-export {
-  FindOptionsOrder,
-  EventSubscriber,
-  EntitySubscriberInterface,
-  InsertEvent,
-  Repository,
-  DataSource,
+  ResourceViewService,
+  Rest,
+  SearchProperty,
+  UnsetRelationDto,
+  ValidationPipe,
   ViewColumn,
   ViewEntity,
+} from '@techbir/core';
+export {
+  EntitySubscriberInterface,
+  EventSubscriber,
+  FindOptionsOrder,
+  InsertEvent,
+  Repository,
 } from 'typeorm';
 export { PartialType } from '@nestjs/swagger';
 export { ClassConstructor } from 'class-transformer';

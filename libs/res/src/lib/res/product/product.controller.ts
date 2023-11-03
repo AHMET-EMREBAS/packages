@@ -7,21 +7,12 @@ import {
   ParamId,
   RelationDto,
   UnsetRelationDto,
-  __Rest,
 } from './imports';
-import {
-  ReadProductDto,
-  QueryProductDto,
-  CreateProductDto,
-  UpdateProductDto,
-} from './dto';
+import { QueryProductDto, CreateProductDto, UpdateProductDto } from './dto';
 import { ProductService } from './product.service';
-import { ProductMeta } from './product.meta';
-import { DeleteDto } from '@techbir/core';
+import { ProductMeta, ProductRest as Rest } from './product.meta';
 
-const Rest = new __Rest(ProductMeta.name, ReadProductDto);
-
-@Controller(ProductMeta.basePath)
+@Controller(ProductMeta.entityName)
 export class ProductController {
   constructor(private readonly service: ProductService) {}
 
@@ -46,10 +37,7 @@ export class ProductController {
   }
 
   @Rest.Delete()
-  delete(@ParamId() id: number, @Query() deleteOptions: DeleteDto) {
-    if (deleteOptions.hard) {
-      return this.service.hardDelete(id);
-    }
+  delete(@ParamId() id: number) {
     return this.service.delete(id);
   }
 

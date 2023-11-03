@@ -1,6 +1,10 @@
-export * from './dto';
-export * from './entity';
-export * from './project.meta';
-export * from './project.controller';
-export * from './project.service';
-export * from './project.module';
+// @index('./*', f => `export * from '${f.path}'`)
+export * from './dto'
+export * from './entity'
+export * from './imports'
+export * from './project-view.controller'
+export * from './project-view.service'
+export * from './project.controller'
+export * from './project.meta'
+export * from './project.module'
+export * from './project.service'

@@ -7,20 +7,16 @@ import {
   ParamId,
   RelationDto,
   UnsetRelationDto,
-  __Rest,
 } from './imports';
 import {
-  ReadDepartmentDto,
   QueryDepartmentDto,
   CreateDepartmentDto,
   UpdateDepartmentDto,
 } from './dto';
 import { DepartmentService } from './department.service';
-import { DepartmentMeta } from './department.meta';
+import { DepartmentMeta, DepartmentRest as Rest } from './department.meta';
 
-const Rest = new __Rest(DepartmentMeta.name, ReadDepartmentDto);
-
-@Controller(DepartmentMeta.basePath)
+@Controller(DepartmentMeta.entityName)
 export class DepartmentController {
   constructor(private readonly service: DepartmentService) {}
 

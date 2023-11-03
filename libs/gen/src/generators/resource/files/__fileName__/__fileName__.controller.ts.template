@@ -7,15 +7,12 @@ import {
   ParamId,
   RelationDto,
   UnsetRelationDto,
-  __Rest,
 } from './imports';
-import { Read<%- className %>Dto, Query<%- className %>Dto, Create<%- className %>Dto, Update<%- className %>Dto } from './dto';
+import { Query<%- className %>Dto, Create<%- className %>Dto, Update<%- className %>Dto } from './dto';
 import { <%- className %>Service } from './<%- fileName %>.service';
-import { <%- className %>Meta } from './<%- fileName %>.meta';
+import { <%- className %>Meta, <%- className %>Rest as Rest } from './<%- fileName %>.meta';
 
-const Rest = new __Rest(<%- className %>Meta.name, Read<%- className %>Dto);
-
-@Controller(<%- className %>Meta.basePath)
+@Controller(<%- className %>Meta.entityName)
 export class <%- className %>Controller {
   constructor(private readonly service: <%- className %>Service) {}
 

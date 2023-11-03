@@ -10,7 +10,6 @@ import { ViewEntity, ViewColumn, DataSource } from '../imports';
   },
 })
 export class ProductView {
-  
   @ViewColumn({ type: 'string' })
   id!: number;
 }

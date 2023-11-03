@@ -7,15 +7,12 @@ import {
   ParamId,
   RelationDto,
   UnsetRelationDto,
-  __Rest,
 } from './imports';
-import { QueryProjectDto, CreateProjectDto } from './dto';
+import { QueryProjectDto, CreateProjectDto, UpdateProjectDto } from './dto';
 import { ProjectService } from './project.service';
-import { ProjectMeta } from './project.meta';
+import { ProjectMeta, ProjectRest as Rest } from './project.meta';
 
-const Rest = new __Rest(ProjectMeta.name);
-
-@Controller(ProjectMeta.basePath)
+@Controller(ProjectMeta.entityName)
 export class ProjectController {
   constructor(private readonly service: ProjectService) {}
 
@@ -32,6 +29,11 @@ export class ProjectController {
   @Rest.Post()
   save(@Body(ValidationPipe) body: CreateProjectDto) {
     return this.service.save(body);
+  }
+
+  @Rest.Update()
+  update(@ParamId() id: number, @Body(ValidationPipe) body: UpdateProjectDto) {
+    return this.service.update(id, body);
   }
 
   @Rest.Delete()

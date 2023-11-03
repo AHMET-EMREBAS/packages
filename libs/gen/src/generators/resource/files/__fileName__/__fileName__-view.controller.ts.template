@@ -1,13 +1,11 @@
-import { Query, Controller, ValidationPipe, ParamId, __Rest } from './imports';
+import { Query, Controller, ValidationPipe, ParamId } from './imports';
 
-import { <%- className %>Meta } from './<%- fileName %>.meta';
+import { <%- className %>Meta, <%- className %>Rest as Rest } from './<%- fileName %>.meta';
 import { <%- className %>ViewService } from './<%- fileName %>-view.service';
 import { Query<%- className %>ViewDto } from './dto';
-import { <%- className %>View } from './entity';
 
-const Rest = new __Rest(<%- className %>Meta.name, <%- className %>View);
 
-@Controller(<%- className %>Meta.viewPath)
+@Controller(<%- className %>Meta.viewEntityName)
 export class <%- className %>ViewController {
   constructor(private readonly service: <%- className %>ViewService) {}
 

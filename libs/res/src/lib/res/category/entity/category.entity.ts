@@ -1,4 +1,6 @@
-import { TimestampEntity, Entity } from '../imports';
+import { BaseEntity, Column, Entity } from '../imports';
 
 @Entity()
-export class Category extends TimestampEntity {}
+export class Category extends BaseEntity {
+  @Column({ type: 'string', unique: true }) name!: string;
+}

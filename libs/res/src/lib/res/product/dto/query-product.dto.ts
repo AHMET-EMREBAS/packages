@@ -7,4 +7,3 @@ export class QueryProductDto extends QueryDto {
   @SearchProperty(ProductMeta.searchables)
   override search?: FindOptionsOrder<Product>;
 }
-
