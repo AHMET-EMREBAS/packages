@@ -7,13 +7,20 @@ import {
   Param,
   ParseIntPipe,
 } from '@nestjs/common';
-import { ApiBearerAuth, ApiOperation, ApiTags } from '@nestjs/swagger';
+import {
+  ApiBearerAuth,
+  ApiCreatedResponse,
+  ApiOkResponse,
+  ApiOperation,
+  ApiTags,
+} from '@nestjs/swagger';
 import {
   CombineClassDecorators,
   CombineMethodDecorators,
 } from '@techbir/common';
 import { ACCESS_TOKEN, ReadPermission, WritePermission } from './metadata';
-
+import { ClassConstructor } from 'class-transformer';
+import { DeleteResultDto, UpdateResultDto } from '../data';
 
 export function Controller(path: string): ClassDecorator {
   return CombineClassDecorators(
@@ -24,7 +31,10 @@ export function Controller(path: string): ClassDecorator {
 }
 
 export class Rest {
-  constructor(private readonly entityName: string) {}
+  constructor(
+    private readonly entityName: string,
+    private readonly readDto?: ClassConstructor<any>
+  ) {}
   /**
    * Get /name
    * @returns
@@ -33,7 +43,8 @@ export class Rest {
     return CombineMethodDecorators(
       __Get(),
       ReadPermission(this.entityName),
-      ApiOperation({ summary: 'Get all items' })
+      ApiOperation({ summary: 'Get all items' }),
+      ApiOkResponse({ type: this.readDto, isArray: true })
     );
   }
 
@@ -45,7 +56,8 @@ export class Rest {
     return CombineMethodDecorators(
       __Get(':id'),
       ReadPermission(this.entityName),
-      ApiOperation({ summary: 'Get one item by id' })
+      ApiOperation({ summary: 'Get one item by id' }),
+      ApiOkResponse({ type: this.readDto })
     );
   }
 
@@ -57,7 +69,8 @@ export class Rest {
     return CombineMethodDecorators(
       __Post(),
       WritePermission(this.entityName),
-      ApiOperation({ summary: 'Save one item' })
+      ApiOperation({ summary: 'Save one item' }),
+      ApiCreatedResponse({ type: this.readDto })
     );
   }
 
@@ -69,7 +82,8 @@ export class Rest {
     return CombineMethodDecorators(
       Put(':id'),
       WritePermission(this.entityName),
-      ApiOperation({ summary: 'Update one by id' })
+      ApiOperation({ summary: 'Update one by id' }),
+      ApiOkResponse({ type: UpdateResultDto })
     );
   }
 
@@ -81,7 +95,8 @@ export class Rest {
     return CombineMethodDecorators(
       __Delete(':id'),
       WritePermission(this.entityName),
-      ApiOperation({ summary: 'Delete one item by id' })
+      ApiOperation({ summary: 'Delete one item by id' }),
+      ApiOkResponse({ type: DeleteResultDto })
     );
   }
 

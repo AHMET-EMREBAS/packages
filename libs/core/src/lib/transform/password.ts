@@ -1,7 +1,13 @@
 import { genSaltSync, hashSync } from 'bcrypt';
 import { ValueTransformer } from 'typeorm';
 
-export const HashPasswordTransformer: ValueTransformer = {
-  from: (value) => value,
-  to: (value) => value && hashSync(value, genSaltSync(8)),
-};
+export function HashPasswordTransformer(): ValueTransformer {
+  return {
+    from(value) {
+      return value;
+    },
+    to(value) {
+      return value && hashSync(value, genSaltSync(8));
+    },
+  };
+}

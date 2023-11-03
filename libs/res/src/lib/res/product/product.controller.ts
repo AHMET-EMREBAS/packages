@@ -9,11 +9,17 @@ import {
   UnsetRelationDto,
   __Rest,
 } from './imports';
-import { QueryProductDto, CreateProductDto } from './dto';
+import {
+  ReadProductDto,
+  QueryProductDto,
+  CreateProductDto,
+  UpdateProductDto,
+} from './dto';
 import { ProductService } from './product.service';
 import { ProductMeta } from './product.meta';
+import { DeleteDto } from '@techbir/core';
 
-const Rest = new __Rest(ProductMeta.name);
+const Rest = new __Rest(ProductMeta.name, ReadProductDto);
 
 @Controller(ProductMeta.basePath)
 export class ProductController {
@@ -34,8 +40,16 @@ export class ProductController {
     return this.service.save(body);
   }
 
+  @Rest.Update()
+  update(@ParamId() id: number, @Body(ValidationPipe) body: UpdateProductDto) {
+    return this.service.update(id, body);
+  }
+
   @Rest.Delete()
-  delete(@ParamId() id: number) {
+  delete(@ParamId() id: number, @Query() deleteOptions: DeleteDto) {
+    if (deleteOptions.hard) {
+      return this.service.hardDelete(id);
+    }
     return this.service.delete(id);
   }
 

@@ -1,8 +1,9 @@
 export {
   Property,
   QueryDto,
+  BaseReadDto,
   SearchProperty,
-  TimestampEntity,
+  BaseEntity,
   Entity,
   Controller,
   ValidationPipe,
@@ -12,6 +13,7 @@ export {
   Rest as __Rest,
   ResourceService,
   Dto,
+  Column
 } from '@techbir/core';
 export {
   FindOptionsOrder,

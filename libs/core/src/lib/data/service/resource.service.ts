@@ -22,8 +22,12 @@ export class ResourceService<T extends ID> {
     return this.__repo.update(id, body);
   }
 
-  delete(id: number) {
+  hardDelete(id: number) {
     return this.__repo.delete(id);
+  }
+
+  delete(id: number) {
+    return this.__repo.softDelete(id);
   }
 
   /**

@@ -2,3 +2,4 @@
 export * from './password';
 export * from './query-string';
 export * from './uuid';
+export * from './json';

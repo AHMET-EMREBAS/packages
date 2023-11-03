@@ -9,11 +9,11 @@ import {
   UnsetRelationDto,
   __Rest,
 } from './imports';
-import { Query<%- className %>Dto, Create<%- className %>Dto } from './dto';
+import { Read<%- className %>Dto, Query<%- className %>Dto, Create<%- className %>Dto, Update<%- className %>Dto } from './dto';
 import { <%- className %>Service } from './<%- fileName %>.service';
 import { <%- className %>Meta } from './<%- fileName %>.meta';
 
-const Rest = new __Rest(<%- className %>Meta.name);
+const Rest = new __Rest(<%- className %>Meta.name, Read<%- className %>Dto);
 
 @Controller(<%- className %>Meta.basePath)
 export class <%- className %>Controller {
@@ -32,6 +32,11 @@ export class <%- className %>Controller {
   @Rest.Post()
   save(@Body(ValidationPipe) body: Create<%- className %>Dto) {
     return this.service.save(body);
+  }
+
+  @Rest.Update()
+  update(@ParamId() id: number, @Body(ValidationPipe) body: Update<%- className %>Dto) {
+    return this.service.update(id, body);
   }
 
   @Rest.Delete()

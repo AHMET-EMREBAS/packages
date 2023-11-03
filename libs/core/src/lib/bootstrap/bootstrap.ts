@@ -13,15 +13,18 @@ export type SwaggerOptions = {
   app: INestApplication;
   name: string;
   tag?: string;
+  version?: string;
 };
 
 /**
  * Configure Swagger UI
  * @param app
  */
-function configureSwagger({ name, app, tag }: SwaggerOptions) {
+function configureSwagger({ name, app, tag, version }: SwaggerOptions) {
   const config = new DocumentBuilder()
-    .setTitle(`${name} API`)
+    .setTitle(`Api`)
+
+    .setVersion(version || '0.0.1')
     .addTag(tag || name)
     .addBearerAuth({ type: 'http' }, ACCESS_TOKEN)
     .build();

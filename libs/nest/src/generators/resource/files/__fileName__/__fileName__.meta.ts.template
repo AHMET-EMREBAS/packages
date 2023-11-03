@@ -1,6 +1,0 @@
-export class <%- className %>Meta {
-    static readonly basePath = '<%- fileName %>';
-  static readonly entityName = '<%- className %>';
-  static readonly uniq: string[] = [];
-  static readonly searchables: string[] = [];
-}

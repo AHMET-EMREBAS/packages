@@ -3,4 +3,6 @@ import { TimestampEntity } from './timestamp';
 
 export class BaseEntity extends TimestampEntity {
   @Column({ type: 'number' }) createdBy?: number;
+  @Column({ type: 'boolean' }) active?: boolean;
+  @Column({ type: 'string', format: 'uuid' }) uuid?: string;
 }
