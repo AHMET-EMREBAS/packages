@@ -14,6 +14,7 @@ import {
 import { Query<%- className %>Dto, Create<%- className %>Dto, Update<%- className %>Dto } from './dto';
 import { <%- className %>Service } from './<%- fileName %>.service';
 import { <%- className %>EntityName, <%- className %>Rest as Rest } from './<%- fileName %>.meta';
+import { Throttle } from '@nestjs/throttler';
 
 @ApiBearerAuth(ACCESS_TOKEN)
 @ApiTags(<%- className %>EntityName + 'Controller')
@@ -31,6 +32,7 @@ export class <%- className %>Controller {
     return this.service.findOneById(id);
   }
 
+  @Throttle({ default: { limit: 1, ttl: 5000 } })
   @Rest.Post()
   save(@Body(ValidationPipe) body: Create<%- className %>Dto) {
     return this.service.save(body);

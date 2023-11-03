@@ -1,6 +1,11 @@
 import { Transform } from 'class-transformer';
 import { FindOptionsOrder, FindOptionsWhere, ILike } from 'typeorm';
 import { Dto, Property } from '../../decorators';
+import {
+  ParseBooleanTransformer,
+  ParseNumberTransformer,
+  PickKeyValue,
+} from '../../transform';
 
 @Dto()
 export class QueryDto {
@@ -10,12 +15,15 @@ export class QueryDto {
     maximum: 100,
     description: 'Page length',
   })
-  take? = 20;
+  @ParseNumberTransformer(20)
+  take?: number;
 
   @Property({ type: 'integer', minimum: 0, description: 'Page offset' })
+  @ParseNumberTransformer(0)
   skip? = 0;
 
   @Property({ type: 'boolean', description: 'Include deleted items' })
+  @ParseBooleanTransformer(false)
   withDeleted?: boolean;
 
   @Property({ type: 'string', description: 'Order by property' })
@@ -29,13 +37,7 @@ export class QueryDto {
     description:
       'This field will be transformed from orderDir and orderBy fields.',
   })
-  @Transform(({ obj }) => {
-    const { orderDir, orderBy } = obj;
-    if (orderDir && orderBy) {
-      return { [orderBy]: orderDir };
-    }
-    return { id: 'asc' };
-  })
+  @PickKeyValue('orderBy', 'orderDir', { id: 'asc' })
   order?: FindOptionsOrder<any>;
 
   @Property({ type: 'string', maxLength: 100 })

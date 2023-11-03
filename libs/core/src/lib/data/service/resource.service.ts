@@ -1,17 +1,76 @@
-import { Repository } from 'typeorm';
+import { ILike, Repository } from 'typeorm';
 import { ID } from '../entities';
 import { QueryDto, RelationDto, UnsetRelationDto } from './../dtos';
-import { NotFoundException } from '@nestjs/common';
+import {
+  NotFoundException,
+  UnauthorizedException,
+  UnprocessableEntityException,
+} from '@nestjs/common';
+import { Logger } from '../../log';
+
+export const RESOURCE_REPO_TOKEN = 'RESOURCE_REPO_TOKEN';
+export const RESOURCE_VIEW_REPO_TOKEN = 'RESOURCE_VIEW_REPO_TOKEN';
+export const RESOURCE_UNQIUE_FEILDS_TOKEN = 'RESOURCE_UNQIUE_FEILDS_TOKEN';
 
 export class ResourceService<T extends ID> {
-  constructor(private readonly __repo: Repository<T>) {}
+  logger = new Logger(this.__repo.metadata.name);
+  constructor(
+    private readonly __repo: Repository<T>,
+    private readonly __uniqueFields?: (keyof T)[]
+  ) {}
+
+  private async hasRelationOrThrow(relationName: string) {
+    const hasRelation = !!this.__repo.metadata.relations.find(
+      (e) => e.propertyName == relationName
+    );
+
+    if (!hasRelation) {
+      throw new UnprocessableEntityException(
+        `The entity does not have named relation ${relationName}!`
+      );
+    }
+  }
+
+  private async uniqueCheck(body: T) {
+    if (this.__uniqueFields?.length > 0) {
+      for (const field of this.__uniqueFields) {
+        const found = await this.__repo.findOne({
+          [field]: ILike(body[field]),
+        });
+
+        if (found) {
+          throw new UnauthorizedException([
+            `${field.toString()} must be unique!`,
+          ]);
+        }
+      }
+    }
+
+    return;
+  }
+
+  private log(name: string, data: any) {
+    this.logger.log(`${name}: `);
+    console.table(data);
+  }
+
+  async findOneByIdOrThrow(id: number) {
+    const found = await this.__repo.findOneBy({ id } as any);
+    if (!found) {
+      throw new NotFoundException(`Entity with id ${id} does not exist!`);
+    }
+
+    return found;
+  }
 
   findAll(query: QueryDto) {
+    this.log('findAll', query);
     const { order, skip, take, withDeleted, search } = query;
     return this.__repo.find({ take, skip, order, where: search, withDeleted });
   }
 
   async findOneById(id: number) {
+    this.log('findOneBYId', { id });
     try {
       return await this.__repo.findOneByOrFail({ id } as any);
     } catch (err) {
@@ -19,20 +78,29 @@ export class ResourceService<T extends ID> {
     }
   }
 
-  save(body: any) {
-    return this.__repo.save(body);
+  async save(body: any) {
+    this.log('save', body);
+    await this.uniqueCheck(body);
+    return await this.__repo.save(body);
   }
 
-  update(id: number, body: any) {
-    return this.__repo.update(id, body);
+  async update(id: number, body: any) {
+    this.log('Update', body);
+    await this.findOneByIdOrThrow(id);
+    await this.uniqueCheck(body);
+    return await this.__repo.update(id, body);
   }
 
-  hardDelete(id: number) {
-    return this.__repo.delete(id);
+  async hardDelete(id: number) {
+    this.log('Hard Delete', { id });
+    await this.findOneByIdOrThrow(id);
+    return await this.__repo.delete(id);
   }
 
-  delete(id: number) {
-    return this.__repo.softDelete(id);
+  async delete(id: number) {
+    this.log('Hard Delete', { id });
+    await this.findOneByIdOrThrow(id);
+    return await this.__repo.softDelete(id);
   }
 
   /**
@@ -42,13 +110,19 @@ export class ResourceService<T extends ID> {
    * @param relationId
    * @returns
    */
-  setRelation(options: RelationDto) {
+  async setRelation(options: RelationDto) {
+    this.log('setRelation', options);
     const { id, relationName, relationId } = options;
-    return this.__repo
+    await this.findOneByIdOrThrow(id);
+    await this.findOneByIdOrThrow(relationId);
+    await this.hasRelationOrThrow(relationName);
+    const result = await this.__repo
       .createQueryBuilder()
       .relation(relationName)
       .of(id)
       .set(relationId);
+
+    return result;
   }
 
   /**
@@ -57,8 +131,13 @@ export class ResourceService<T extends ID> {
    * @param relationName
    * @returns
    */
-  unsetRelation({ id, relationName }: UnsetRelationDto) {
-    return this.__repo
+  async unsetRelation(options: UnsetRelationDto) {
+    this.log('unsetRelation', options);
+    const { id, relationName } = options;
+    await this.findOneByIdOrThrow(id);
+    await this.hasRelationOrThrow(relationName);
+
+    return await this.__repo
       .createQueryBuilder()
       .relation(relationName)
       .of(id)
@@ -72,8 +151,14 @@ export class ResourceService<T extends ID> {
    * @param relationId
    * @returns
    */
-  addRelation({ id, relationId, relationName }: RelationDto) {
-    return this.__repo
+  async addRelation(options: RelationDto) {
+    this.log('addRelation', options);
+    const { id, relationName, relationId } = options;
+    await this.findOneByIdOrThrow(id);
+    await this.findOneByIdOrThrow(relationId);
+    await this.hasRelationOrThrow(relationName);
+
+    return await this.__repo
       .createQueryBuilder()
       .relation(relationName)
       .of(id)
@@ -87,7 +172,13 @@ export class ResourceService<T extends ID> {
    * @param relationId
    * @returns
    */
-  removeRelation({ id, relationId, relationName }: RelationDto) {
+  async removeRelation(options: RelationDto) {
+    this.log('addRelation', options);
+    const { id, relationName, relationId } = options;
+    await this.findOneByIdOrThrow(id);
+    await this.findOneByIdOrThrow(relationId);
+    await this.hasRelationOrThrow(relationName);
+
     return this.__repo
       .createQueryBuilder()
       .relation(relationName)

@@ -4,10 +4,10 @@ import { Feature } from '../../feature';
 
 @Entity()
 export class Product extends BaseEntity {
-  @Column({ type: 'string', required: true })
+  @Column({ type: 'string', required: true, unique: true })
   barcode?: string;
 
-  @Column({ type: 'string', required: true })
+  @Column({ type: 'string', required: true, unique: true })
   name?: string;
 
   @Column({ type: 'string' })

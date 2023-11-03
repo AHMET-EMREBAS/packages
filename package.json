@@ -4,7 +4,8 @@
   "license": "MIT",
   "scripts": {
     "test": "echo testing",
-    "api:doc": "npx @compodoc/compodoc -p ./apps/api/tsconfig.json -s"
+    "api:doc": "npx @compodoc/compodoc -p ./apps/api/tsconfig.json -s",
+    "loadtest": "./tools/load-test.ts"
   },
   "private": true,
   "devDependencies": {
@@ -94,6 +95,7 @@
     "@nestjs/serve-static": "^4.0.0",
     "@nestjs/swagger": "^7.1.14",
     "@nestjs/terminus": "^10.1.1",
+    "@nestjs/throttler": "^5.0.1",
     "@nestjs/typeorm": "^10.0.0",
     "@ngrx/data": "^16.3.0",
     "@ngrx/effects": "^16.3.0",

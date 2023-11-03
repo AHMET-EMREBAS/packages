@@ -15,11 +15,13 @@
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
+      "@techbir/coder": ["libs/coder/src/index.ts"],
       "@techbir/common": ["libs/common/src/index.ts"],
       "@techbir/core": ["libs/core/src/index.ts"],
       "@techbir/gen": ["libs/gen/src/index.ts"],
       "@techbir/inventory": ["libs/inventory/src/index.ts"],
-      "@techbir/res": ["libs/res/src/index.ts"]
+      "@techbir/res": ["libs/res/src/index.ts"],
+      "@techbir/utils": ["libs/utils/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]

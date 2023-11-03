@@ -5,7 +5,6 @@ import * as helmet from 'helmet';
 import { join } from 'path';
 import { NestExpressApplication } from '@nestjs/platform-express';
 import serveFavicon = require('serve-favicon');
-import { PageNotFound } from '../middleware';
 import { ACCESS_TOKEN } from '../controller';
 import { Logger } from '../log';
 
@@ -67,13 +66,14 @@ export async function bootstrap({
       { path: 'views/:any', method: RequestMethod.ALL },
     ],
   });
-
-  nestApp.use(helmet.default());
   nestApp.enableCors({ origin });
   nestApp.enableVersioning();
+
+  nestApp.use(helmet.default());
   nestApp.use(serveFavicon(join(__dirname, 'public', 'favicon.ico')));
 
   nestApp.useStaticAssets(publicPath);
+
   nestApp.setBaseViewsDir(viewsPath);
   nestApp.setViewEngine('ejs');
 

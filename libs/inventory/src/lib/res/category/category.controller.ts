@@ -14,6 +14,7 @@ import {
 import { QueryCategoryDto, CreateCategoryDto, UpdateCategoryDto } from './dto';
 import { CategoryService } from './category.service';
 import { CategoryEntityName, CategoryRest as Rest } from './category.meta';
+import { Throttle } from '@nestjs/throttler';
 
 @ApiBearerAuth(ACCESS_TOKEN)
 @ApiTags(CategoryEntityName + 'Controller')
@@ -31,11 +32,13 @@ export class CategoryController {
     return this.service.findOneById(id);
   }
 
+  @Throttle({ default: { limit: 1, ttl: 5000 } })
   @Rest.Post()
   save(@Body(ValidationPipe) body: CreateCategoryDto) {
     return this.service.save(body);
   }
 
+  @Throttle({ default: { limit: 1, ttl: 5000 } })
   @Rest.Update()
   update(@ParamId() id: number, @Body(ValidationPipe) body: UpdateCategoryDto) {
     return this.service.update(id, body);
