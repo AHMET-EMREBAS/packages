@@ -47,21 +47,23 @@ describe('ClassProperty', () => {
   });
 
   describe('With Decorators', () => {
-    const decorator = new Decorator({
-      decoratorName: 'Property',
-      options: { type: 'string' },
+    it('should print the property with decorators', () => {
+      const decorator = new Decorator({
+        decoratorName: 'Property',
+        options: { type: 'string' },
+      });
+
+      const code = new ClassProperty(
+        {
+          type: 'string',
+          classType: 'class',
+          propertyName: 'name',
+          required: false,
+        },
+        [decorator]
+      ).code();
+
+      expect(code).toBe(`@Property({ type: 'string' })\nname?:string`);
     });
-
-    const code = new ClassProperty(
-      {
-        type: 'string',
-        classType: 'class',
-        propertyName: 'name',
-        required: false,
-      },
-      [decorator]
-    ).code();
-
-    expect(code).toBe(`@Property({ type: 'string' })\nname?:string`);
   });
 });

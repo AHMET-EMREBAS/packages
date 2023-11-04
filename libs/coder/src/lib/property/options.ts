@@ -1,4 +1,4 @@
-export type ClassType = 'interface' | 'type' | 'class';
+import { ClassType } from '../interface';
 
 export class CommonPropertyOptions<TPropertyType> {
   propertyName: string;

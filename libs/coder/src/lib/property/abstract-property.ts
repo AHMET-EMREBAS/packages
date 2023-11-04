@@ -15,7 +15,6 @@ export class AbstractProperty<
   }
 
   /**
-   * @notImplemented
    * @returns string
    */
   decorator(): string {

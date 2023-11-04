@@ -5,9 +5,8 @@ export class Import implements ICode {
   constructor(public readonly options: ImportOptions) {}
 
   code(): string {
-    const items = this.options.items;
+    const items = [...new Set(this.options.items)];
     const packagePath = this.options.packagePath;
     return `import { ${items.join(', ')} } from '${packagePath}'`;
   }
-  
 }

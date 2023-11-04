@@ -1,7 +1,6 @@
-import { InterfacePropertyCoder } from './interface-property';
-import { InterfacePropertyOptions } from './options';
+import { AbstractProperty } from './abstract-property';
+import { CommonPropertyOptions } from './options';
 
-export class TypePropertyCoder<PropertyType> extends InterfacePropertyCoder<
-  PropertyType,
-  InterfacePropertyOptions<PropertyType>
+export class TypePropertyCoder<PropertyType> extends AbstractProperty<
+  CommonPropertyOptions<PropertyType>
 > {}

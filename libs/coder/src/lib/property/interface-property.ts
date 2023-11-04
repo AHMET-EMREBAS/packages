@@ -1,7 +1,7 @@
 import { AbstractProperty } from './abstract-property';
 import { InterfacePropertyOptions } from './options';
 
-export class InterfacePropertyCoder<
+export class InterfaceProperty<
   PropertyType,
   Options extends InterfacePropertyOptions<PropertyType>
 > extends AbstractProperty<Options> {
