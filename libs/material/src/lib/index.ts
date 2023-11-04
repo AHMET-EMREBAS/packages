@@ -1,0 +1,13 @@
+// @index(['./**/*.ts', '!./**/*.{spec.ts,html,css,scss}', '!./**/index.ts'], f => `export * from '${f.path}'`)
+export * from './api/navitems.provider'
+export * from './api/resource.service'
+export * from './dashboard/dashboard.component'
+export * from './navigation/navigation.component'
+export * from './resource/config/config.component'
+export * from './resource/create/create.component'
+export * from './resource/delete/delete.component'
+export * from './resource/detail/detail.component'
+export * from './resource/resource.component'
+export * from './resource/resource.routes'
+export * from './resource/table/table.component'
+export * from './resource/update/update.component'

@@ -49,7 +49,6 @@
       "unitTestRunner": "jest",
       "e2eTestRunner": "cypress",
       "projectNameAndRootFormat": "derived",
-      "addTailwind": true,
       "routing": true,
       "standalone": true
     },
