@@ -1,11 +1,11 @@
 import { ClassType } from '../interface';
 
 export class CommonPropertyOptions<TPropertyType> {
-  propertyName: string;
-  type: TPropertyType;
+  propertyName!: string;
+  type!: TPropertyType;
   isArray?: boolean;
   required?: boolean;
-  classType: ClassType;
+  classType!: ClassType;
   comment?: string;
 }
 

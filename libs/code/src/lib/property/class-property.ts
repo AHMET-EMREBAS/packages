@@ -21,7 +21,7 @@ export class ClassProperty<
    * Print decorators
    * @returns
    */
-  decorator(): string {
+  override decorator(): string {
     if (this.decorators) {
       return this.decorators.map((e) => e.code()).join('\n') + '\n';
     }
@@ -32,7 +32,7 @@ export class ClassProperty<
    * Print default value
    * @returns
    */
-  defaultValue(): string {
+  override defaultValue(): string {
     const dValue = this.options.defaultValue;
 
     if (dValue != undefined) {

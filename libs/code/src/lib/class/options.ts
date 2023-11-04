@@ -1,10 +1,10 @@
 import { ClassType, ICode } from '../interface';
 
 export class CommonClassOptions {
-  classType?: ClassType;
-  className?: string;
+  classType!: ClassType;
+  className!: string;
   comment?: string;
-  properties?: ICode[];
+  properties!: ICode[];
 }
 
 export class InterfaceOptions extends CommonClassOptions {}

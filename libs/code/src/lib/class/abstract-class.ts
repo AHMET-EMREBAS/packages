@@ -67,20 +67,22 @@ export class AbstractClass<TOptions extends CommonClassOptions>
 
   extends(): string {
     if (this.options.classType !== 'type') {
-      if (this.extending?.length > 0) {
-        const vValue = `extends ${this.extending.join(', ')}`;
-        return vValue;
-      }
+      if (this.extending)
+        if (this.extending.length > 0) {
+          const vValue = `extends ${this.extending.join(', ')}`;
+          return vValue;
+        }
     }
     return '';
   }
 
   impements(): string {
     if (this.options.classType !== 'type') {
-      if (this.implementing?.length > 0) {
-        const vValue = `implements ${this.implementing.join(', ')}`;
-        return vValue;
-      }
+      if (this.implementing)
+        if (this.implementing.length > 0) {
+          const vValue = `implements ${this.implementing.join(', ')}`;
+          return vValue;
+        }
     }
     return '';
   }

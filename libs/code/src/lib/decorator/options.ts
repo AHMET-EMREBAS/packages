@@ -1,4 +1,4 @@
 export class DecoratorOptions<TOptions> {
-  decoratorName: string;
+  decoratorName!: string;
   options?: TOptions;
 }
