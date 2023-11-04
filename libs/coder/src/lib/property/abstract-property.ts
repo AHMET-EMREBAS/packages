@@ -8,9 +8,16 @@ export class AbstractProperty<
   constructor(public readonly options: TPropertyOptions) {}
 
   comment() {
+    if (this.options.comment) {
+      return `// ${this.options.comment}\n`;
+    }
     return '';
   }
-  
+
+  /**
+   * @notImplemented
+   * @returns string
+   */
   decorator(): string {
     return '';
   }
@@ -36,16 +43,19 @@ export class AbstractProperty<
    * @returns
    */
   requiredMark(): string {
+    if (this.defaultValue()) {
+      return ' = ';
+    }
     const classType = this.options.classType;
     const isRequired = this.options.required;
     switch (classType) {
       case 'class':
-        return isRequired ? '!' : '?';
+        return isRequired ? '!:' : '?:';
       case 'interface':
       case 'type':
-        return isRequired ? '' : '?';
+        return isRequired ? ':' : '?:';
       default:
-        return '?';
+        return '?:';
     }
   }
 
@@ -57,7 +67,16 @@ export class AbstractProperty<
    * @returns
    */
   propertyType() {
-    return this.options.type;
+    if (this.defaultValue()) {
+      return '';
+    }
+
+    const type = this.options.type;
+
+    if (this.options.isArray) {
+      return `${type}[]`;
+    }
+    return type;
   }
 
   /**
@@ -65,6 +84,6 @@ export class AbstractProperty<
    * @returns
    */
   code(): string {
-    return `${this.comment()}${this.decorator()}${this.propertyName()}${this.requiredMark()}: ${this.propertyType()} ${this.defaultValue()}`;
+    return `${this.comment()}${this.decorator()}${this.propertyName()}${this.requiredMark()}${this.propertyType()}${this.defaultValue()}`;
   }
 }

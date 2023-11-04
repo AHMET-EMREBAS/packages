@@ -7,5 +7,5 @@ export class ImportOptions {
   /**
    * What do you want to import from the package
    */
-  item: string;
+  items: string[];
 }

@@ -4,7 +4,7 @@ export class CommonPropertyOptions<TPropertyType> {
   propertyName: string;
   type: TPropertyType;
   isArray?: boolean;
-  required: boolean;
+  required?: boolean;
   classType: ClassType;
   comment?: string;
 }
