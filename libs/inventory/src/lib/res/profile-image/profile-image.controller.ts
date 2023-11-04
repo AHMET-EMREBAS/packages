@@ -21,6 +21,7 @@ import {
   ProfileImageEntityName,
   ProfileImageRest as Rest,
 } from './profile-image.meta';
+import { Throttle } from '@nestjs/throttler';
 
 @ApiBearerAuth(ACCESS_TOKEN)
 @ApiTags(ProfileImageEntityName + 'Controller')
@@ -38,6 +39,7 @@ export class ProfileImageController {
     return this.service.findOneById(id);
   }
 
+  @Throttle({ default: { limit: 1, ttl: 5000 } })
   @Rest.Post()
   save(@Body(ValidationPipe) body: CreateProfileImageDto) {
     return this.service.save(body);

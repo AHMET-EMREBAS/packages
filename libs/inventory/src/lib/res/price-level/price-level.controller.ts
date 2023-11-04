@@ -21,6 +21,7 @@ import {
   PriceLevelEntityName,
   PriceLevelRest as Rest,
 } from './price-level.meta';
+import { Throttle } from '@nestjs/throttler';
 
 @ApiBearerAuth(ACCESS_TOKEN)
 @ApiTags(PriceLevelEntityName + 'Controller')
@@ -38,6 +39,7 @@ export class PriceLevelController {
     return this.service.findOneById(id);
   }
 
+  @Throttle({ default: { limit: 1, ttl: 5000 } })
   @Rest.Post()
   save(@Body(ValidationPipe) body: CreatePriceLevelDto) {
     return this.service.save(body);

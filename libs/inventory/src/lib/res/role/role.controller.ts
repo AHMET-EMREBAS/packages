@@ -14,6 +14,7 @@ import {
 import { QueryRoleDto, CreateRoleDto, UpdateRoleDto } from './dto';
 import { RoleService } from './role.service';
 import { RoleEntityName, RoleRest as Rest } from './role.meta';
+import { Throttle } from '@nestjs/throttler';
 
 @ApiBearerAuth(ACCESS_TOKEN)
 @ApiTags(RoleEntityName + 'Controller')
@@ -31,6 +32,7 @@ export class RoleController {
     return this.service.findOneById(id);
   }
 
+  @Throttle({ default: { limit: 1, ttl: 5000 } })
   @Rest.Post()
   save(@Body(ValidationPipe) body: CreateRoleDto) {
     return this.service.save(body);

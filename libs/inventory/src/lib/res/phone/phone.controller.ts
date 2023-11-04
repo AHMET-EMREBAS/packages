@@ -14,6 +14,7 @@ import {
 import { QueryPhoneDto, CreatePhoneDto, UpdatePhoneDto } from './dto';
 import { PhoneService } from './phone.service';
 import { PhoneEntityName, PhoneRest as Rest } from './phone.meta';
+import { Throttle } from '@nestjs/throttler';
 
 @ApiBearerAuth(ACCESS_TOKEN)
 @ApiTags(PhoneEntityName + 'Controller')
@@ -31,6 +32,7 @@ export class PhoneController {
     return this.service.findOneById(id);
   }
 
+  @Throttle({ default: { limit: 1, ttl: 5000 } })
   @Rest.Post()
   save(@Body(ValidationPipe) body: CreatePhoneDto) {
     return this.service.save(body);

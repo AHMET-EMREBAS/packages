@@ -21,6 +21,7 @@ import {
   ExperienceEntityName,
   ExperienceRest as Rest,
 } from './experience.meta';
+import { Throttle } from '@nestjs/throttler';
 
 @ApiBearerAuth(ACCESS_TOKEN)
 @ApiTags(ExperienceEntityName + 'Controller')
@@ -38,6 +39,7 @@ export class ExperienceController {
     return this.service.findOneById(id);
   }
 
+  @Throttle({ default: { limit: 1, ttl: 5000 } })
   @Rest.Post()
   save(@Body(ValidationPipe) body: CreateExperienceDto) {
     return this.service.save(body);

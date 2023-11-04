@@ -14,6 +14,7 @@ import {
 import { QueryFeatureDto, CreateFeatureDto, UpdateFeatureDto } from './dto';
 import { FeatureService } from './feature.service';
 import { FeatureEntityName, FeatureRest as Rest } from './feature.meta';
+import { Throttle } from '@nestjs/throttler';
 
 @ApiBearerAuth(ACCESS_TOKEN)
 @ApiTags(FeatureEntityName + 'Controller')
@@ -31,6 +32,7 @@ export class FeatureController {
     return this.service.findOneById(id);
   }
 
+  @Throttle({ default: { limit: 1, ttl: 5000 } })
   @Rest.Post()
   save(@Body(ValidationPipe) body: CreateFeatureDto) {
     return this.service.save(body);

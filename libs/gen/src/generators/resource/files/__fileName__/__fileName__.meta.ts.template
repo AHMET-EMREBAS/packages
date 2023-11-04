@@ -11,7 +11,7 @@ export const <%- className %>PluralViewPath = '<%- fileName %>s-view';
 
 export const <%- className %>Searchables: (keyof <%- className %>)[] = [<%- searchables %>];
 export const <%- className %>UniqueFields: (keyof <%- className %>)[] = [<%- uniques %>];
-export const <%- className %>ViewSearchables: (keyof <%- className %>)[] = [<%- viewSearchables %>];
+export const <%- className %>ViewSearchables: string[] = [<%- viewSearchables %>];
 
 export const <%- className %>Rest = new Rest(
   <%- className %>EntityName,

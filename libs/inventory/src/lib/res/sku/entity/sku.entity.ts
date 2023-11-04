@@ -4,10 +4,10 @@ import { Product } from '../../product';
 
 @Entity()
 export class Sku extends BaseEntity {
-  @Column({ type: 'string', required: true })
+  @Column({ type: 'string', required: true, unique: true })
   barcode?: string;
 
-  @Column({ type: 'string', required: true })
+  @Column({ type: 'string', required: true, unique: true })
   sku?: string;
 
   @Column({ type: 'string' })

@@ -14,6 +14,7 @@ import {
 import { QueryPriceDto, CreatePriceDto, UpdatePriceDto } from './dto';
 import { PriceService } from './price.service';
 import { PriceEntityName, PriceRest as Rest } from './price.meta';
+import { Throttle } from '@nestjs/throttler';
 
 @ApiBearerAuth(ACCESS_TOKEN)
 @ApiTags(PriceEntityName + 'Controller')
@@ -31,6 +32,7 @@ export class PriceController {
     return this.service.findOneById(id);
   }
 
+  @Throttle({ default: { limit: 1, ttl: 5000 } })
   @Rest.Post()
   save(@Body(ValidationPipe) body: CreatePriceDto) {
     return this.service.save(body);

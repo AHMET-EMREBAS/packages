@@ -3,7 +3,7 @@ import { User } from '../../user';
 
 @Entity()
 export class Email extends BaseEntity {
-  @Column({ type: 'string', required: true, format: 'email' })
+  @Column({ type: 'string', required: true, unique: true, format: 'email' })
   email?: string;
 
   @Relation({ target: User, type: 'owner' })

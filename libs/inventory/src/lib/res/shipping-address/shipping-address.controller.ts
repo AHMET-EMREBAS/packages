@@ -21,6 +21,7 @@ import {
   ShippingAddressEntityName,
   ShippingAddressRest as Rest,
 } from './shipping-address.meta';
+import { Throttle } from '@nestjs/throttler';
 
 @ApiBearerAuth(ACCESS_TOKEN)
 @ApiTags(ShippingAddressEntityName + 'Controller')
@@ -38,6 +39,7 @@ export class ShippingAddressController {
     return this.service.findOneById(id);
   }
 
+  @Throttle({ default: { limit: 1, ttl: 5000 } })
   @Rest.Post()
   save(@Body(ValidationPipe) body: CreateShippingAddressDto) {
     return this.service.save(body);

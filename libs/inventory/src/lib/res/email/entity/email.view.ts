@@ -7,17 +7,10 @@ import { User } from '../../user';
     return datasource
       .createQueryBuilder()
       .select('c.id', 'id')
-      .addSelect('user.id', 'userId')
-      .addSelect('user.username', 'username')
-      .from(Email, 'c')
-      .leftJoin(User, 'user', 'user.id = c.userId');
+      .from(Email, 'c');
   },
 })
 export class EmailView {
   @ViewColumn({ type: 'string' })
   id!: number;
-
-  @ViewColumn({ type: 'number' }) userId!: number;
-  
-  @ViewColumn({ type: 'string' }) username!: string;
 }

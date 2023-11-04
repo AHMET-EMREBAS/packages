@@ -1,5 +1,6 @@
 import { Module } from '@nestjs/common';
-import { TypeOrmModule } from '@nestjs/typeorm';
+
+import { AchievementModule } from './achievement';
 import { AddressModule } from './address';
 import { CategoryModule } from './category';
 import { ContactModule } from './contact';
@@ -32,6 +33,7 @@ import { UserModule } from './user';
 
 @Module({
   imports: [
+    AchievementModule,
     AddressModule,
     CategoryModule,
     ContactModule,

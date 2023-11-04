@@ -3,7 +3,7 @@ import { Permission } from '../../permission';
 
 @Entity()
 export class Role extends BaseEntity {
-  @Column({ type: 'string', required: true })
+  @Column({ type: 'string', required: true, unique: true })
   role?: string;
 
   @Relation({ target: Permission, type: 'subs' })

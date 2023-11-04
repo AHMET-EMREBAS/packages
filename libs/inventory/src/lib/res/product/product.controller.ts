@@ -14,6 +14,7 @@ import {
 import { QueryProductDto, CreateProductDto, UpdateProductDto } from './dto';
 import { ProductService } from './product.service';
 import { ProductEntityName, ProductRest as Rest } from './product.meta';
+import { Throttle } from '@nestjs/throttler';
 
 @ApiBearerAuth(ACCESS_TOKEN)
 @ApiTags(ProductEntityName + 'Controller')
@@ -31,6 +32,7 @@ export class ProductController {
     return this.service.findOneById(id);
   }
 
+  @Throttle({ default: { limit: 1, ttl: 5000 } })
   @Rest.Post()
   save(@Body(ValidationPipe) body: CreateProductDto) {
     return this.service.save(body);

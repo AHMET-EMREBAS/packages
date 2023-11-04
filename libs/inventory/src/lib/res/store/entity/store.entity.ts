@@ -3,7 +3,7 @@ import { PriceLevel } from '../../price-level';
 
 @Entity()
 export class Store extends BaseEntity {
-  @Column({ type: 'string', required: true })
+  @Column({ type: 'string', required: true, unique: true })
   name?: string;
 
   @Relation({ target: PriceLevel, type: 'sub' })

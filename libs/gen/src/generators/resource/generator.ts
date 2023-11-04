@@ -24,9 +24,12 @@ export async function resourceGenerator(
     ...names(name),
     properties: printProperties(modelOptions),
     columns: printColumns(modelOptions),
-    uniques: modelOptions.unique?.join(', ') || '',
-    searchables: modelOptions.searchables?.join(', ') || '',
-    viewSearchables: modelOptions.viewSearchables?.join(', ') || '',
+    uniques: modelOptions.unique?.map((e) => `'${e}'`).join(', ') || '',
+    searchables:
+      modelOptions.searchables?.map((e) => `'${e}'`).join(', ') || '',
+      
+    viewSearchables:
+      modelOptions.viewSearchables?.map((e) => `'${e}'`).join(', ') || '',
     imports: relationTargetsImports(modelOptions, '../../'),
     moduleImports: relationTargetsImports(modelOptions, '../'),
     targets: relationTargets(modelOptions),

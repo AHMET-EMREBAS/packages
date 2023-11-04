@@ -5,10 +5,11 @@ import {
   InjectRepository,
 } from './imports';
 import { Customer } from './entity';
+import { CustomerUniqueFields } from './customer.meta';
 
 @Injectable()
 export class CustomerService extends ResourceService<Customer> {
   constructor(@InjectRepository(Customer) repo: Repository<Customer>) {
-    super(repo);
+    super(repo, CustomerUniqueFields);
   }
 }

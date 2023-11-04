@@ -21,6 +21,7 @@ import {
   DepartmentEntityName,
   DepartmentRest as Rest,
 } from './department.meta';
+import { Throttle } from '@nestjs/throttler';
 
 @ApiBearerAuth(ACCESS_TOKEN)
 @ApiTags(DepartmentEntityName + 'Controller')
@@ -38,6 +39,7 @@ export class DepartmentController {
     return this.service.findOneById(id);
   }
 
+  @Throttle({ default: { limit: 1, ttl: 5000 } })
   @Rest.Post()
   save(@Body(ValidationPipe) body: CreateDepartmentDto) {
     return this.service.save(body);

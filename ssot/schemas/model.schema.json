@@ -25,6 +25,34 @@
       "items": {
         "$ref": "./property-names.schema.json"
       }
+    },
+    "uniqueByOwnerFields": {
+      "type": "array",
+      "uniqueItems": true,
+      "items": {
+        "$ref": "./property-names.schema.json"
+      }
+    },
+    "ownerFields": {
+      "type": "array",
+      "uniqueItems": true,
+      "items": {
+        "$ref": "./property-names.schema.json"
+      }
+    },
+    "searchables": {
+      "uniqueItems": true,
+      "type": "array",
+      "items": {
+        "$ref": "./property-names.schema.json"
+      }
+    },
+    "viewSearchables": {
+      "uniqueItems": true,
+      "type": "array",
+      "items": {
+        "$ref": "./property-names.schema.json"
+      }
     }
   },
   "required": ["name"]

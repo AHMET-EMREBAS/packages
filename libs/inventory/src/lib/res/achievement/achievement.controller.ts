@@ -21,6 +21,7 @@ import {
   AchievementEntityName,
   AchievementRest as Rest,
 } from './achievement.meta';
+import { Throttle } from '@nestjs/throttler';
 
 @ApiBearerAuth(ACCESS_TOKEN)
 @ApiTags(AchievementEntityName + 'Controller')
@@ -38,6 +39,7 @@ export class AchievementController {
     return this.service.findOneById(id);
   }
 
+  @Throttle({ default: { limit: 1, ttl: 5000 } })
   @Rest.Post()
   save(@Body(ValidationPipe) body: CreateAchievementDto) {
     return this.service.save(body);

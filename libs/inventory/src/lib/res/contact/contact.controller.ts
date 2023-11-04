@@ -14,6 +14,7 @@ import {
 import { QueryContactDto, CreateContactDto, UpdateContactDto } from './dto';
 import { ContactService } from './contact.service';
 import { ContactEntityName, ContactRest as Rest } from './contact.meta';
+import { Throttle } from '@nestjs/throttler';
 
 @ApiBearerAuth(ACCESS_TOKEN)
 @ApiTags(ContactEntityName + 'Controller')
@@ -31,6 +32,7 @@ export class ContactController {
     return this.service.findOneById(id);
   }
 
+  @Throttle({ default: { limit: 1, ttl: 5000 } })
   @Rest.Post()
   save(@Body(ValidationPipe) body: CreateContactDto) {
     return this.service.save(body);

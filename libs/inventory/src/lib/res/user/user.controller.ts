@@ -14,6 +14,7 @@ import {
 import { QueryUserDto, CreateUserDto, UpdateUserDto } from './dto';
 import { UserService } from './user.service';
 import { UserEntityName, UserRest as Rest } from './user.meta';
+import { Throttle } from '@nestjs/throttler';
 
 @ApiBearerAuth(ACCESS_TOKEN)
 @ApiTags(UserEntityName + 'Controller')
@@ -31,6 +32,7 @@ export class UserController {
     return this.service.findOneById(id);
   }
 
+  @Throttle({ default: { limit: 1, ttl: 5000 } })
   @Rest.Post()
   save(@Body(ValidationPipe) body: CreateUserDto) {
     return this.service.save(body);

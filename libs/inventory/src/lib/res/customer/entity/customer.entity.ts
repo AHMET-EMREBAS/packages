@@ -8,7 +8,7 @@ export class Customer extends BaseEntity {
   @Column({ type: 'string', required: true })
   lastName?: string;
 
-  @Column({ type: 'string', required: true, format: 'email' })
+  @Column({ type: 'string', required: true, unique: true, format: 'email' })
   username?: string;
 
   @Column({ type: 'string', required: true, format: 'password' })

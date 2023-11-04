@@ -38,7 +38,6 @@ export class CategoryController {
     return this.service.save(body);
   }
 
-  @Throttle({ default: { limit: 1, ttl: 5000 } })
   @Rest.Update()
   update(@ParamId() id: number, @Body(ValidationPipe) body: UpdateCategoryDto) {
     return this.service.update(id, body);

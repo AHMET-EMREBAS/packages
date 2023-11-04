@@ -14,6 +14,7 @@ import { InventoryModule } from '@techbir/inventory';
 import { MetaController } from './meta.controller';
 import { ThrottlerModule, ThrottlerGuard } from '@nestjs/throttler';
 import { APP_GUARD } from '@nestjs/core';
+
 @Module({
   imports: [
     HttpModule,
@@ -46,7 +47,6 @@ import { APP_GUARD } from '@nestjs/core';
       synchronize: true,
       dropSchema: true,
     }),
-
     ScheduleModule.forRoot(),
     EventEmitterModule.forRoot({ delimiter: '.' }),
     InventoryModule,

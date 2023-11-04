@@ -14,6 +14,7 @@ import {
 import { QueryEmailDto, CreateEmailDto, UpdateEmailDto } from './dto';
 import { EmailService } from './email.service';
 import { EmailEntityName, EmailRest as Rest } from './email.meta';
+import { Throttle } from '@nestjs/throttler';
 
 @ApiBearerAuth(ACCESS_TOKEN)
 @ApiTags(EmailEntityName + 'Controller')
@@ -31,6 +32,7 @@ export class EmailController {
     return this.service.findOneById(id);
   }
 
+  @Throttle({ default: { limit: 1, ttl: 5000 } })
   @Rest.Post()
   save(@Body(ValidationPipe) body: CreateEmailDto) {
     return this.service.save(body);

@@ -1,8 +1,9 @@
 import { Dto, FindOptionsOrder, QueryDto, SearchProperty } from '../imports';
 import { Permission } from '../entity';
+import { PermissionViewSearchables } from '../permission.meta';
 
 @Dto()
 export class QueryPermissionViewDto extends QueryDto {
-  @SearchProperty([])
+  @SearchProperty(PermissionViewSearchables)
   override search?: FindOptionsOrder<Permission>;
 }

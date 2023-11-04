@@ -21,6 +21,7 @@ import {
   CustomerPhoneEntityName,
   CustomerPhoneRest as Rest,
 } from './customer-phone.meta';
+import { Throttle } from '@nestjs/throttler';
 
 @ApiBearerAuth(ACCESS_TOKEN)
 @ApiTags(CustomerPhoneEntityName + 'Controller')
@@ -38,6 +39,7 @@ export class CustomerPhoneController {
     return this.service.findOneById(id);
   }
 
+  @Throttle({ default: { limit: 1, ttl: 5000 } })
   @Rest.Post()
   save(@Body(ValidationPipe) body: CreateCustomerPhoneDto) {
     return this.service.save(body);

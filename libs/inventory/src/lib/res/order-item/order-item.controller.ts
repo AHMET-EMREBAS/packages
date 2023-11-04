@@ -18,6 +18,7 @@ import {
 } from './dto';
 import { OrderItemService } from './order-item.service';
 import { OrderItemEntityName, OrderItemRest as Rest } from './order-item.meta';
+import { Throttle } from '@nestjs/throttler';
 
 @ApiBearerAuth(ACCESS_TOKEN)
 @ApiTags(OrderItemEntityName + 'Controller')
@@ -35,6 +36,7 @@ export class OrderItemController {
     return this.service.findOneById(id);
   }
 
+  @Throttle({ default: { limit: 1, ttl: 5000 } })
   @Rest.Post()
   save(@Body(ValidationPipe) body: CreateOrderItemDto) {
     return this.service.save(body);

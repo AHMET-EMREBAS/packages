@@ -14,6 +14,7 @@ import {
 import { QuerySkuDto, CreateSkuDto, UpdateSkuDto } from './dto';
 import { SkuService } from './sku.service';
 import { SkuEntityName, SkuRest as Rest } from './sku.meta';
+import { Throttle } from '@nestjs/throttler';
 
 @ApiBearerAuth(ACCESS_TOKEN)
 @ApiTags(SkuEntityName + 'Controller')
@@ -31,6 +32,7 @@ export class SkuController {
     return this.service.findOneById(id);
   }
 
+  @Throttle({ default: { limit: 1, ttl: 5000 } })
   @Rest.Post()
   save(@Body(ValidationPipe) body: CreateSkuDto) {
     return this.service.save(body);

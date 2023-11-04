@@ -26,6 +26,21 @@ relations:
     type: owner
     target: Customer
 
+ownerFields:
+  - user
+
+uniqueByOwnerFields:
+  - street
+  - city
+  - state
+  - zip
+
+searchables:
+  - street
+  - state
+  - city
+  - zip
+
 required:
   - street
   - city

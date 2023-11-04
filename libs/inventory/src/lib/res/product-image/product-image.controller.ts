@@ -21,6 +21,7 @@ import {
   ProductImageEntityName,
   ProductImageRest as Rest,
 } from './product-image.meta';
+import { Throttle } from '@nestjs/throttler';
 
 @ApiBearerAuth(ACCESS_TOKEN)
 @ApiTags(ProductImageEntityName + 'Controller')
@@ -38,6 +39,7 @@ export class ProductImageController {
     return this.service.findOneById(id);
   }
 
+  @Throttle({ default: { limit: 1, ttl: 5000 } })
   @Rest.Post()
   save(@Body(ValidationPipe) body: CreateProductImageDto) {
     return this.service.save(body);

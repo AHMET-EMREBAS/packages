@@ -14,6 +14,7 @@ import {
 import { QuerySkillDto, CreateSkillDto, UpdateSkillDto } from './dto';
 import { SkillService } from './skill.service';
 import { SkillEntityName, SkillRest as Rest } from './skill.meta';
+import { Throttle } from '@nestjs/throttler';
 
 @ApiBearerAuth(ACCESS_TOKEN)
 @ApiTags(SkillEntityName + 'Controller')
@@ -31,6 +32,7 @@ export class SkillController {
     return this.service.findOneById(id);
   }
 
+  @Throttle({ default: { limit: 1, ttl: 5000 } })
   @Rest.Post()
   save(@Body(ValidationPipe) body: CreateSkillDto) {
     return this.service.save(body);

@@ -10,5 +10,18 @@ relations:
     target: User
     type: owner
 
+searchables:
+  - description
+
+viewSearchables:
+  - firstName
+  - lastName
+
+ownerFields:
+  - user
+
+uniqueByOwnerFields:
+  - description
+
 required:
   - description

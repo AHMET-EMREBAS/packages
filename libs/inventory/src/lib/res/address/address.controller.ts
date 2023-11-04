@@ -14,6 +14,7 @@ import {
 import { QueryAddressDto, CreateAddressDto, UpdateAddressDto } from './dto';
 import { AddressService } from './address.service';
 import { AddressEntityName, AddressRest as Rest } from './address.meta';
+import { Throttle } from '@nestjs/throttler';
 
 @ApiBearerAuth(ACCESS_TOKEN)
 @ApiTags(AddressEntityName + 'Controller')
@@ -31,6 +32,7 @@ export class AddressController {
     return this.service.findOneById(id);
   }
 
+  @Throttle({ default: { limit: 1, ttl: 5000 } })
   @Rest.Post()
   save(@Body(ValidationPipe) body: CreateAddressDto) {
     return this.service.save(body);
