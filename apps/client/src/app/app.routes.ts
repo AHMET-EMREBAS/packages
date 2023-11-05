@@ -55,7 +55,6 @@ export const appRoutes: Route[] = [
   {
     path: 'category',
     loadChildren: () => ResourceRoutes('Category'),
-
     providers: [
       provideFormGroup({ name: '' }),
       provideTableColumns([{ name: 'name', label: 'Category', icon: 'info' }]),

@@ -12,7 +12,20 @@
         "{workspaceRoot}/dist/{projectRoot}"
       ],
       "options": {
-        "project": "libs/material/ng-package.json"
+        "project": "libs/material/ng-package.json",
+        "assets": [
+          "libs/material/*.md",
+          {
+            "input": "./libs/material/src/styles",
+            "glob": "**/**",
+            "output": "."
+          },
+          {
+            "input": "./libs/material/src/assets",
+            "glob": "**/**",
+            "output": "."
+          }
+        ]
       },
       "configurations": {
         "production": {
@@ -51,6 +64,87 @@
           "libs/material/**/*.html",
           "libs/material/package.json"
         ]
+      }
+    },
+    "storybook": {
+      "executor": "@storybook/angular:start-storybook",
+      "options": {
+        "port": 4400,
+        "configDir": "libs/material/.storybook",
+        "browserTarget": "material:build-storybook",
+        "compodoc": true,
+        "compodocArgs": [
+          "-e",
+          "json",
+          "-d",
+          "libs/material/.storybook",
+          "-p",
+          "libs/material/tsconfig.json"
+        ],
+        "assets": [
+          "libs/material/src/assets",
+          "libs/material/src/favicon.svg",
+          "libs/material/src/styles"
+        ],
+        "styles": [
+          "libs/material/src/style.scss"
+        ]
+      },
+      "configurations": {
+        "ci": {
+          "quiet": true
+        }
+      }
+    },
+    "build-storybook": {
+      "executor": "@storybook/angular:build-storybook",
+      "outputs": [
+        "{options.outputDir}"
+      ],
+      "options": {
+        "outputDir": "dist/storybook/material",
+        "configDir": "libs/material/.storybook",
+        "browserTarget": "material:build-storybook",
+        "compodoc": true,
+        "compodocArgs": [
+          "-e",
+          "json",
+          "-d",
+          "libs/material/.storybook",
+          "-p",
+          "libs/material/tsconfig.json"
+        ],
+        "assets": [
+          "libs/material/src/assets",
+          "libs/material/src/favicon.svg",
+          "libs/material/src/styles"
+        ],
+        "styles": [
+          "libs/material/src/style.scss"
+        ]
+      },
+      "configurations": {
+        "ci": {
+          "quiet": true
+        }
+      }
+    },
+    "test-storybook": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "test-storybook -c libs/material/.storybook --url=http://localhost:4400"
+      }
+    },
+    "static-storybook": {
+      "executor": "@nx/web:file-server",
+      "options": {
+        "buildTarget": "material:build-storybook",
+        "staticFilePath": "dist/storybook/material"
+      },
+      "configurations": {
+        "ci": {
+          "buildTarget": "material:build-storybook:ci"
+        }
       }
     }
   }
