@@ -2,9 +2,11 @@ import { Route } from '@angular/router';
 import {
   ResourceRoutes,
   TextFieldComponent,
+  TextareaComponent,
   provideFormFieldAppearance,
   provideFormFields,
   provideFormGroup,
+  provideTableColumns
 } from '@techbir/material';
 
 export const appRoutes: Route[] = [
@@ -23,6 +25,10 @@ export const appRoutes: Route[] = [
 
     providers: [
       provideFormGroup({ name: '', description: '' }),
+      provideTableColumns([
+        { name: 'name', label: 'Product Name', icon: 'info' },
+        { name: 'description', label: 'Description', icon: 'description' },
+      ]),
       provideFormFieldAppearance('outline'),
       provideFormFields([
         {
@@ -35,7 +41,7 @@ export const appRoutes: Route[] = [
           name: 'description',
           icon: 'description',
           label: 'Product Description',
-          component: TextFieldComponent,
+          component: TextareaComponent,
         },
       ]),
     ],
