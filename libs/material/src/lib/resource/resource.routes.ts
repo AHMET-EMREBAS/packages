@@ -19,8 +19,8 @@ export const ResourceRoutes: (entityName: string) => Routes = (
       },
       provideNavItems([
         { icon: 'dashboard', name: 'dashboard', route: 'dashboard' },
-        { icon: 'table_view', name: `table`, route: 'table' },
-        { icon: 'add', name: `create`, route: 'create' },
+        { icon: 'dataset', name: `table`, route: 'table' },
+        { icon: 'add_box', name: `create`, route: 'create' },
         { icon: 'settings', name: `config`, route: 'config' },
       ]),
       provideLocalStoreService(entityName + 'Navigation'),
