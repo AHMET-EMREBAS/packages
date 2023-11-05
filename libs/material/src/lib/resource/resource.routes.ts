@@ -1,9 +1,9 @@
 import { Routes } from '@angular/router';
 import {
   provideNavItems,
-  ENTITY_NAME_TOKEN,
   ResourceService,
   provideLocalStoreService,
+  provideEntityName,
 } from '../api';
 import '@angular/localize';
 
@@ -13,13 +13,10 @@ export const ResourceRoutes: (entityName: string) => Routes = (
   {
     title: entityName,
     providers: [
-      {
-        provide: ENTITY_NAME_TOKEN,
-        useValue: entityName,
-      },
+      provideEntityName(entityName),
       provideNavItems([
         { icon: 'dashboard', name: 'dashboard', route: 'dashboard' },
-        { icon: 'dataset', name: `table`, route: 'table' },
+        { icon: 'dataset', name: `view`, route: 'view' },
         { icon: 'add_box', name: `create`, route: 'create' },
         { icon: 'settings', name: `config`, route: 'config' },
       ]),
@@ -52,14 +49,14 @@ export const ResourceRoutes: (entityName: string) => Routes = (
 
       {
         title: $localize`View ${entityName}s`,
-        path: 'table',
+        path: 'view',
         loadComponent: () =>
-          import('./table/table.component').then((c) => c.TableComponent),
-        providers: [provideLocalStoreService(entityName + 'Table')],
+          import('./view/view.component').then((c) => c.ViewComponent),
+        providers: [provideLocalStoreService(entityName + 'View')],
       },
       {
         title: $localize`Details of ${entityName}`,
-        path: 'detail/:id',
+        path: 'view/:id',
         loadComponent: () =>
           import('./detail/detail.component').then((c) => c.DetailComponent),
         providers: [provideLocalStoreService(entityName + 'Detail')],

@@ -1,26 +1,43 @@
-import { FormControl, FormGroup } from '@angular/forms';
 import { Route } from '@angular/router';
-import { ResourceRoutes } from '@techbir/material';
+import {
+  ResourceRoutes,
+  TextFieldComponent,
+  provideFormFieldAppearance,
+  provideFormFields,
+  provideFormGroup,
+} from '@techbir/material';
 
 export const appRoutes: Route[] = [
   {
     path: 'sample',
     loadChildren: () => ResourceRoutes('Sample'),
     providers: [
-      {
-        provide: FormGroup,
-        useValue: new FormGroup({ name: new FormControl('') }),
-      },
+      provideFormGroup({ name: '' }),
+      provideFormFieldAppearance('fill'),
+      provideFormFields([{ name: 'name', component: TextFieldComponent }]),
     ],
   },
   {
     path: 'product',
     loadChildren: () => ResourceRoutes('Product'),
+
     providers: [
-      {
-        provide: FormGroup,
-        useValue: new FormGroup({ name: new FormControl('') }),
-      },
+      provideFormGroup({ name: '', description: '' }),
+      provideFormFieldAppearance('outline'),
+      provideFormFields([
+        {
+          name: 'name',
+          icon: 'info',
+          label: 'Product Name',
+          component: TextFieldComponent,
+        },
+        {
+          name: 'description',
+          icon: 'description',
+          label: 'Product Description',
+          component: TextFieldComponent,
+        },
+      ]),
     ],
   },
 ];

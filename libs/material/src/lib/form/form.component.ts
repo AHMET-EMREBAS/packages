@@ -1,35 +1,26 @@
-import { Component, Inject, Input, ViewEncapsulation } from '@angular/core';
+import { Component, Inject, Optional, ViewEncapsulation } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { MatInputModule } from '@angular/material/input';
-import { MatFormFieldModule } from '@angular/material/form-field';
+import { FormGroup } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
-import { ResourceService } from '../api';
+import { FORM_FIELDS_TOKEN, FormField, ResourceService } from '../api';
+import { TextFieldComponent } from './text-field/text-field.component';
+import { MatStepperModule } from '@angular/material/stepper';
 
 @Component({
   selector: 'techbir-form',
   standalone: true,
-  imports: [
-    CommonModule,
-    ReactiveFormsModule,
-    FormsModule,
-    MatInputModule,
-    MatFormFieldModule,
-    MatButtonModule,
-    MatIconModule,
-  ],
+  imports: [CommonModule, MatStepperModule, MatButtonModule, MatIconModule],
   templateUrl: './form.component.html',
   styleUrls: ['./form.component.scss'],
   encapsulation: ViewEncapsulation.None,
 })
 export class FormComponent {
-  private readonly id = new Date().getTime();
-  @Input() hideActions = false;
-
   constructor(
-    @Inject(FormGroup) public readonly formGroup: FormGroup,
-    private readonly service: ResourceService<unknown>
+    @Inject(FormGroup) public formGroup: FormGroup,
+    @Inject(FORM_FIELDS_TOKEN)
+    public formFields: FormField[],
+    private service: ResourceService<unknown>
   ) {}
 
   /**
@@ -49,17 +40,12 @@ export class FormComponent {
   }
 
   /**
-   * FormGroup value
-   * @returns
+   * Submit form
    */
-  value() {
-    return { ...this.formGroup.value, id: this.id };
-  }
-
   submit() {
     if (this.isFormValid()) {
-      console.log('Submitting form ', this.value());
-      this.service.addOneToCache(this.value());
+      const formValue = { ...this.formGroup.value };
+      this.service.saveItem(formValue);
     }
   }
 

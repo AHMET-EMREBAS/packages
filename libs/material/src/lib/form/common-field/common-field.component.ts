@@ -36,9 +36,10 @@ export class CommonFieldModule {}
 
 @Component({ template: '' })
 export class CommonFieldComponent implements OnInit {
-  @Input() controlName!: string;
+  @Input() name!: string;
   @Input() label = '';
   @Input() icon = '';
+  
   private control!: AbstractControl;
 
   errorMessage$!: Observable<string | undefined>;
@@ -54,10 +55,10 @@ export class CommonFieldComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    const foundControl = this.formGroup.get(this.controlName);
+    const foundControl = this.formGroup.get(this.name);
 
     if (!foundControl) {
-      throw new Error(`${this.controlName} control is not found in formGroup!`);
+      throw new Error(`${this.name} control is not found in formGroup!`);
     }
 
     this.control = foundControl;

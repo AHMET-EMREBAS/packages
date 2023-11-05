@@ -36,10 +36,12 @@ import { MatTooltipModule } from '@angular/material/tooltip';
   ],
 })
 export class NavigationComponent implements AfterViewInit {
+  @ViewChild('drawer') drawer!: MatDrawer;
+
   private breakpointObserver = inject(BreakpointObserver);
   readonly title = inject(Title);
-  @ViewChild('drawer') drawer!: MatDrawer;
-  miniSidenav: boolean = this.lss.get('miniSidenav');
+
+  miniSidenav = !!this.lss.get<boolean>('miniSidenav');
 
   isHandset = false;
   isHandset$: Observable<boolean> = this.breakpointObserver

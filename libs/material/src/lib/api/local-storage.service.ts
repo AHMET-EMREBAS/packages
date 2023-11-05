@@ -13,11 +13,13 @@ export class LocalStoreService {
     localStorage.setItem(this.itemName(key), valueAsString);
   }
 
-  get(key: string): any {
+  get<T>(key: string): T | undefined {
     const value = localStorage.getItem(this.itemName(key));
     if (value != undefined) {
-      return JSON.parse(value);
+      return JSON.parse(value) as T;
     }
+
+    return undefined;
   }
 }
 

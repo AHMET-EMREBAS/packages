@@ -1,7 +1,7 @@
 <div [formGroup]="formGroup">
   <mat-form-field [appearance]="appearance">
     <mat-label>{{ label || 'Form Field' }}</mat-label>
-    <input #inputRef type="text" matInput [formControlName]="controlName" />
+    <input #inputRef type="text" matInput [formControlName]="name" />
 
     <mat-icon matPrefix color="primary">{{ icon || 'info' }}</mat-icon>
 
