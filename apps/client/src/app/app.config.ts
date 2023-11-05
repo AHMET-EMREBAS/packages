@@ -14,6 +14,7 @@ import { provideEffects } from '@ngrx/effects';
 import { provideEntityData, withEffects } from '@ngrx/data';
 import { entityConfig } from './entity-metadata';
 import { provideHttpClient } from '@angular/common/http';
+import { LocationStrategy } from '@angular/common';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -23,6 +24,7 @@ export const appConfig: ApplicationConfig = {
       withHashLocation(),
       withRouterConfig({
         onSameUrlNavigation: 'reload',
+        urlUpdateStrategy: 'deferred',
       })
     ),
     provideAnimations(),

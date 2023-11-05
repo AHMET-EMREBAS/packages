@@ -3,8 +3,16 @@
 }
 
 .sidenav {
-  width: 200px;
+  width: 300px;
+  transition: width ease-in-out 400ms;
 }
+
+.mini-sidenav {
+  width: 60px;
+  /* transition: width ease-in-out 400ms; */
+}
+
+
 
 .sidenav .mat-toolbar {
   background: inherit;
@@ -14,4 +22,24 @@
   position: sticky;
   top: 0;
   z-index: 1;
+}
+
+
+.nav-item {
+  border: 1px dashed transparent;
+  box-sizing: border-box;
+  transition: border-color ease-in-out 400ms;
+}
+
+.material-icons {
+  transition: color ease-in-out 400ms;
+}
+
+
+.router-link-active {
+  border: 1px dashed orangered;
+
+  .material-icons {
+    color: orangered;
+  }
 }

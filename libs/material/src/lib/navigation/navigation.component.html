@@ -2,20 +2,50 @@
   <mat-sidenav
     #drawer
     class="sidenav"
+    [class.mini-sidenav]="miniSidenav"
     fixedInViewport
     [attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'"
     [mode]="(isHandset$ | async) ? 'over' : 'side'"
     [opened]="(isHandset$ | async) === false"
   >
-    <mat-toolbar>Menu</mat-toolbar>
+    <mat-toolbar>
+      <img src="./assets/icons/icon-72x72.png" alt="App Logo" width="30" />
+    </mat-toolbar>
+
     <mat-nav-list>
+      <a
+        mat-list-item
+        (click)="toggleMiniSidenav()"
+        i18n-aria-label
+        aria-label="Minimize Sidenav"
+        [matTooltip]="miniSidenav ? 'Maximize Sidenav' : 'Minimize Sidenav'"
+        matTooltipPosition="right"
+      >
+        <mat-icon matListItemIcon style="transform: rotate(90deg)">
+          {{ miniSidenav ? 'unfold_more' : 'unfold_less' }}
+        </mat-icon>
+      </a>
+
       <a
         mat-list-item
         [routerLink]="[item.route]"
         routerLinkActive="router-link-active"
+        [routerLinkActiveOptions]="{ exact: true }"
         *ngFor="let item of navItems"
-        >{{ item.name | titlecase }}</a
+        class="nav-item"
+        (click)="navItemClickHandler(item)"
+        matTooltip="{{ item.name | titlecase }}"
+        matTooltipPosition="right"
+        [matTooltipDisabled]="!miniSidenav"
       >
+        <span matListItemLine>
+          {{ item.name | titlecase }}
+        </span>
+
+        <span matListItemIcon>
+          <mat-icon color="primary">{{ item.icon }}</mat-icon>
+        </span>
+      </a>
     </mat-nav-list>
   </mat-sidenav>
   <mat-sidenav-content>
@@ -25,9 +55,10 @@
         aria-label="Toggle sidenav"
         mat-icon-button
         (click)="drawer.toggle()"
-        *ngIf="isHandset$ | async"
       >
-        <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
+        <mat-icon aria-label="Side nav toggle icon">
+          {{ drawer.opened ? 'menu_open' : 'menu' }}
+        </mat-icon>
       </button>
       <span>{{ title.getTitle() }}</span>
     </mat-toolbar>
