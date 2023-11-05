@@ -31,12 +31,14 @@
         [routerLink]="[item.route]"
         routerLinkActive="router-link-active"
         [routerLinkActiveOptions]="{ exact: true }"
-        *ngFor="let item of navItems"
-        class="nav-item"
-        (click)="navItemClickHandler(item)"
         matTooltip="{{ item.name | titlecase }}"
         matTooltipPosition="right"
         [matTooltipDisabled]="!miniSidenav"
+        class="nav-item"
+        (click)="navItemClickHandler(item)"
+        i18n-aria-label
+        [attr.aria-label]="item.name + ' Page'"
+        *ngFor="let item of navItems"
       >
         <span matListItemLine>
           {{ item.name | titlecase }}
@@ -45,6 +47,19 @@
         <span matListItemIcon>
           <mat-icon color="primary">{{ item.icon }}</mat-icon>
         </span>
+      </a>
+      <a
+        [routerLink]="['..']"
+        routerLinkActive="router-link-active"
+        [routerLinkActiveOptions]="{ exact: true }"
+        mat-list-item
+        i18n-aria-label
+        aria-label="Back"
+        matTooltip="Back"
+        matTooltipPosition="right"
+      >
+        <mat-icon matListItemIcon>arrow_back</mat-icon>
+        <span matListItemLine i18n> Back</span>
       </a>
     </mat-nav-list>
   </mat-sidenav>

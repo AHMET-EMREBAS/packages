@@ -3,7 +3,6 @@ import {
   provideNavItems,
   ENTITY_NAME_TOKEN,
   ResourceService,
-  LocalStoreService,
   provideLocalStoreService,
 } from '../api';
 import '@angular/localize';
@@ -19,11 +18,10 @@ export const ResourceRoutes: (entityName: string) => Routes = (
         useValue: entityName,
       },
       provideNavItems([
-        { icon: 'dashboard', name: 'dashboard', route: './' },
+        { icon: 'dashboard', name: 'dashboard', route: 'dashboard' },
         { icon: 'table_view', name: `table`, route: 'table' },
         { icon: 'add', name: `create`, route: 'create' },
         { icon: 'settings', name: `config`, route: 'config' },
-        { icon: 'arrow_back', name: 'Back Home', route: '..' },
       ]),
       provideLocalStoreService(entityName + 'Navigation'),
       ResourceService,
@@ -45,7 +43,7 @@ export const ResourceRoutes: (entityName: string) => Routes = (
         path: 'dashboard',
 
         loadComponent: () =>
-          import('./../dashboard/dashboard.component').then(
+          import('./dashboard/dashboard.component').then(
             (c) => c.DashboardComponent
           ),
 

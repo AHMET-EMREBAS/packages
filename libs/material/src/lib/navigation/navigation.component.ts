@@ -74,8 +74,14 @@ export class NavigationComponent implements AfterViewInit {
     await this.drawer.open();
   }
 
+  canPersistRoute(fragmentPath: string) {
+    return /[a-z-]{1,}/.test(fragmentPath);
+  }
   navItemClickHandler(navItem: NavItem) {
     if (this.isHandset) this.drawer.close();
-    this.lss.set('lastRoute', navItem.route);
+
+    if (this.canPersistRoute(navItem.route)) {
+      this.lss.set('lastRoute', navItem.route);
+    }
   }
 }

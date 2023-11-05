@@ -6,7 +6,7 @@ import { MatMenuModule } from '@angular/material/menu';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
-import { ENTITY_NAME_TOKEN, ResourceService } from '../api';
+import { ENTITY_NAME_TOKEN, ResourceService } from '../../api';
 import { Observable } from 'rxjs';
 import { CommonModule } from '@angular/common';
 
