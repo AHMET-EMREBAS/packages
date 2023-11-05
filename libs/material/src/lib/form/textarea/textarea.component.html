@@ -1,0 +1,7 @@
+<div [formGroup]="formGroup">
+  <mat-form-field [appearance]="appearance">
+    <mat-label>{{ label || 'Form Field' }}</mat-label>
+    <textarea type="text" matInput [formControlName]="controlName"></textarea>
+    <mat-error>{{ errorMessage$ | async }}</mat-error>
+  </mat-form-field>
+</div>

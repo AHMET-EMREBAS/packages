@@ -1,0 +1,16 @@
+<form class="form-component" [formGroup]="formGroup" [noValidate]="true">
+  <ng-content></ng-content>
+
+  <div class="form-actions" *ngIf="!hideActions">
+    <button
+      type="button"
+      mat-raised-button
+      color="primary"
+      (click)="submit()"
+      [disabled]="isFormInvalid()"
+    >
+      Submit
+    </button>
+    <button type="button" mat-raised-button (click)="reset()">Reset</button>
+  </div>
+</form>
