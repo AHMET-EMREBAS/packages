@@ -12,20 +12,7 @@
         "{workspaceRoot}/dist/{projectRoot}"
       ],
       "options": {
-        "project": "libs/material/ng-package.json",
-        "assets": [
-          "libs/material/*.md",
-          {
-            "input": "./libs/material/src/styles",
-            "glob": "**/**",
-            "output": "."
-          },
-          {
-            "input": "./libs/material/src/assets",
-            "glob": "**/**",
-            "output": "."
-          }
-        ]
+        "project": "libs/material/ng-package.json"
       },
       "configurations": {
         "production": {
@@ -85,9 +72,6 @@
           "libs/material/src/assets",
           "libs/material/src/favicon.svg",
           "libs/material/src/styles"
-        ],
-        "styles": [
-          "libs/material/src/style.scss"
         ]
       },
       "configurations": {
@@ -102,7 +86,7 @@
         "{options.outputDir}"
       ],
       "options": {
-        "outputDir": "dist/storybook/material",
+        "outputDir": "docs/material",
         "configDir": "libs/material/.storybook",
         "browserTarget": "material:build-storybook",
         "compodoc": true,
@@ -118,9 +102,6 @@
           "libs/material/src/assets",
           "libs/material/src/favicon.svg",
           "libs/material/src/styles"
-        ],
-        "styles": [
-          "libs/material/src/style.scss"
         ]
       },
       "configurations": {
@@ -133,18 +114,6 @@
       "executor": "nx:run-commands",
       "options": {
         "command": "test-storybook -c libs/material/.storybook --url=http://localhost:4400"
-      }
-    },
-    "static-storybook": {
-      "executor": "@nx/web:file-server",
-      "options": {
-        "buildTarget": "material:build-storybook",
-        "staticFilePath": "dist/storybook/material"
-      },
-      "configurations": {
-        "ci": {
-          "buildTarget": "material:build-storybook:ci"
-        }
       }
     }
   }
