@@ -13,8 +13,8 @@ export const ValidationPipe = new __ValidationPipe({
   },
   stopAtFirstError: true,
   validationError: {
-    target: false,
-    value: false,
+    target: true,
+    value: true,
   },
 });
 

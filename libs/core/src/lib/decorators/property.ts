@@ -30,6 +30,7 @@ export type PropertyOptions = ApiPropertyOptions & {
   unique?: boolean;
   type: PropertyType;
   target?: any;
+  novalidate?: boolean;
 };
 
 export function propertyType(options: PropertyOptions) {
@@ -68,6 +69,10 @@ export function Property(options?: PropertyOptions): PropertyDecorator {
     Expose(),
     ApiProperty({ ...options, required: options?.required == true }),
   ];
+
+  if (options?.novalidate) {
+    return CombinePropertyDecorators(...decorators);
+  }
 
   const pushIf = (value: any, dec: (value: any) => PropertyDecorator) => {
     if (value != false && value != undefined) {

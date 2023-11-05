@@ -5,9 +5,9 @@ import { <%- className %> } from './entity'
 export const <%- className %>EntityName = '<%- className %>';
 export const <%- className %>ViewName = '<%- className %>';
 export const <%- className %>SingularPath = '<%- fileName %>';
-export const <%- className %>PluralPath = '<%- fileName %>s';
+export const <%- className %>PluralPath = '<%- pluralFileName %>';
 export const <%- className %>SingularViewPath = '<%- fileName %>-view';
-export const <%- className %>PluralViewPath = '<%- fileName %>s-view';
+export const <%- className %>PluralViewPath = '<%- pluralFileName %>-view';
 
 export const <%- className %>Searchables: (keyof <%- className %>)[] = [<%- searchables %>];
 export const <%- className %>UniqueFields: (keyof <%- className %>)[] = [<%- uniques %>];

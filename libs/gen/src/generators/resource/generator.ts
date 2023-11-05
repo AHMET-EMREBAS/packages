@@ -9,6 +9,7 @@ import {
   projectRoot,
   projectModuleImports,
 } from './model-printer';
+import { plural } from '@techbir/utils';
 
 export async function resourceGenerator(
   tree: Tree,
@@ -22,12 +23,13 @@ export async function resourceGenerator(
   const { allModulesImport, moduleList } = projectModuleImports(project);
   generateFiles(tree, join(__dirname, 'files'), PROJECT_ROOT, {
     ...names(name),
+    pluralFileName: plural(names(name).fileName),
     properties: printProperties(modelOptions),
     columns: printColumns(modelOptions),
     uniques: modelOptions.unique?.map((e) => `'${e}'`).join(', ') || '',
     searchables:
       modelOptions.searchables?.map((e) => `'${e}'`).join(', ') || '',
-      
+
     viewSearchables:
       modelOptions.viewSearchables?.map((e) => `'${e}'`).join(', ') || '',
     imports: relationTargetsImports(modelOptions, '../../'),

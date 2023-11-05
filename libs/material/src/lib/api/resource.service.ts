@@ -3,8 +3,17 @@ import { Inject, Injectable, Provider, inject } from '@angular/core';
 import {
   EntityCollectionServiceBase,
   EntityCollectionServiceElementsFactory,
+  MergeStrategy,
 } from '@ngrx/data';
-import { Observable, catchError, map, of } from 'rxjs';
+import {
+  Observable,
+  catchError,
+  debounceTime,
+  delay,
+  firstValueFrom,
+  map,
+  of,
+} from 'rxjs';
 import { excludeUndefined, names } from '@techbir/utils';
 
 export type QueryObject = {
@@ -30,10 +39,15 @@ export class ResourceService<T> extends EntityCollectionServiceBase<T> {
   nameVariants = names(this.entityName);
 
   allCount$: Observable<number> = inject(HttpClient)
-    .get<number>(`api/meta/${this.nameVariants.fileName}/count`)
+    .get<{ count: number }>(`api/meta/count/${this.nameVariants.fileName}`)
     .pipe(
+      debounceTime(1000),
       map((value) => {
-        return value || 999999;
+        const count = value?.count;
+        if (count != undefined) {
+          return count;
+        }
+        return 999999;
       }),
       catchError(() => {
         return of(99999999);
@@ -74,10 +88,13 @@ export class ResourceService<T> extends EntityCollectionServiceBase<T> {
    * @param item
    */
   saveItem(item: T) {
-    this.addOneToCache({ ...item, id: this.nid() });
+    this.add({ ...item, id: this.nid() });
   }
 
   queryItem(query: QueryObject) {
-    return this.getWithQuery(excludeUndefined(query));
+    this.clearCache();
+    this.getWithQuery(excludeUndefined(query), {
+      mergeStrategy: MergeStrategy.OverwriteChanges,
+    });
   }
 }

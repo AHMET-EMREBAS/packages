@@ -40,7 +40,7 @@ export class QueryDto {
   @PickKeyValue('orderBy', 'orderDir', { id: 'asc' })
   order?: FindOptionsOrder<any>;
 
-  @Property({ type: 'string', maxLength: 100 })
+  @Property({ type: 'string', novalidate: true })
   search?: FindOptionsWhere<any>[] | FindOptionsWhere<any>;
 
   @Property({ type: 'string', description: 'Find by key and value' })

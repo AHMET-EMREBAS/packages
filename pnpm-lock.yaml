@@ -98,6 +98,9 @@ dependencies:
   '@swc/helpers':
     specifier: ~0.5.2
     version: 0.5.2
+  angular-animations:
+    specifier: ^0.11.0
+    version: 0.11.0(@angular/animations@16.2.0)
   axios:
     specifier: ^1.0.0
     version: 1.6.0
@@ -7763,6 +7766,15 @@ packages:
     requiresBuild: true
     dev: true
     optional: true
+
+  /angular-animations@0.11.0(@angular/animations@16.2.0):
+    resolution: {integrity: sha512-P2RuOe+T97bhgGDLtOYK9V45QA5y+kFUxoJfRAua8Ymo0bI5lWyw8oiVmBoEIZUU+nooYoJvQXgVKuZJA7/z3g==}
+    peerDependencies:
+      '@angular/animations': '>=6.0.0'
+    dependencies:
+      '@angular/animations': 16.2.0(@angular/core@16.2.0)
+      tslib: 2.6.2
+    dev: false
 
   /ansi-align@3.0.1:
     resolution: {integrity: sha512-IOfwwBF5iczOjp/WeY4YxyjqAFMQoZufdQWDd19SEExbVLNXqvpzSJ/M7Za4/sCPmQ0+GRquoA7bGcINcxew6w==}

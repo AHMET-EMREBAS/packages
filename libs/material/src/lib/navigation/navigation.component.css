@@ -35,6 +35,7 @@
   0% {
     transform: rotate(0deg);
   }
+
   100% {
     transform: rotate(360deg);
   }
@@ -57,4 +58,11 @@
   .material-icons {
     color: orangered;
   }
+}
+
+
+mat-sidenav-content {
+  border: 3px dashed gray;
+  box-sizing: border-box;
+  overflow-y: auto;
 }

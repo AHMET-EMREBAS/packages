@@ -2,6 +2,7 @@
   <mat-form-field [appearance]="appearance">
     <mat-label>{{ label || 'Form Field' }}</mat-label>
     <textarea type="text" matInput [formControlName]="name"></textarea>
+    <mat-icon matPrefix color="primary">{{ icon || 'info' }}</mat-icon>
     <mat-error>{{ errorMessage$ | async }}</mat-error>
   </mat-form-field>
 </div>

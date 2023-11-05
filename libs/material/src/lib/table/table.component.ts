@@ -2,27 +2,31 @@ import {
   AfterViewInit,
   Component,
   Inject,
+  OnDestroy,
   OnInit,
-  Optional,
   ViewChild,
 } from '@angular/core';
-import { MatTableModule, MatTable } from '@angular/material/table';
-import {
-  MatPaginatorModule,
-  MatPaginator,
-  PageEvent,
-} from '@angular/material/paginator';
-import { MatSortModule, MatSort, Sort } from '@angular/material/sort';
-import { Observable } from 'rxjs';
+import { MatTableModule } from '@angular/material/table';
+import { MatPaginatorModule, MatPaginator } from '@angular/material/paginator';
+import { MatSortModule, MatSort, SortDirection } from '@angular/material/sort';
+import { Observable, debounceTime, map, merge, tap } from 'rxjs';
 import {
   LocalStoreService,
+  QueryObject,
   ResourceService,
+  SEARCH_CONTROL_TOKEN,
   TABLE_COLUMNS_TOKEN,
   TableColumn,
 } from '../api';
 import { CommonModule } from '@angular/common';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
+import { FormControl, FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+import { PluralPipe } from '../pipes/plural.pipe';
+import { slideInRightOnEnterAnimation } from 'angular-animations';
+import '@angular/localize/init';
 
 @Component({
   selector: 'techbir-table',
@@ -31,31 +35,60 @@ import { MatButtonModule } from '@angular/material/button';
   standalone: true,
   imports: [
     CommonModule,
+    MatFormFieldModule,
+    MatInputModule,
+    ReactiveFormsModule,
+    FormsModule,
     MatIconModule,
     MatButtonModule,
     MatTableModule,
     MatPaginatorModule,
     MatSortModule,
+    PluralPipe,
+  ],
+  animations: [
+    slideInRightOnEnterAnimation({ anchor: 'enter', duration: 200 }),
   ],
 })
-export class TableComponent implements OnInit, AfterViewInit {
-  @ViewChild(MatPaginator) paginator!: MatPaginator;
-  @ViewChild(MatSort) sort!: MatSort;
-  @ViewChild(MatTable) table!: MatTable<any>;
+export class TableComponent implements OnInit, AfterViewInit, OnDestroy {
+  @ViewChild(MatPaginator) matPage!: MatPaginator;
+  @ViewChild(MatSort) matSort!: MatSort;
 
-  count$: Observable<number> = this.service.allCount$;
-  data$: Observable<any> = this.service.filteredEntities$;
+  readonly entityName = this.service.entityName;
+  readonly count$: Observable<number> = this.service.allCount$;
+  data: any[] = [];
+  readonly data$: Observable<any> = this.service.filteredEntities$.pipe(
+    debounceTime(400),
+    map((data) => {
+      this.data = [];
+      let i = 0;
+      for (const d of data) {
+        setTimeout(() => {
+          this.data = [...this.data, d];
+        }, i * 50);
+        i++;
+      }
+    })
+  );
+
+  tableEvents$!: Observable<void>;
 
   columns!: string[];
   displayedColumns!: string[];
-
   visibleColumns!: TableColumn[];
+
+  pageSize = this.lss.get<number>('pageSize') || 20;
+  pageIndex = this.lss.get<number>('pageIndex') || 0;
+  active = this.lss.get<string>('active') || 'id';
+  direction: SortDirection = this.lss.get<SortDirection>('direction') || 'asc';
 
   constructor(
     private readonly service: ResourceService<any>,
     private readonly lss: LocalStoreService,
     @Inject(TABLE_COLUMNS_TOKEN)
-    public readonly tableColumns: TableColumn[]
+    private readonly tableColumns: TableColumn[],
+    @Inject(SEARCH_CONTROL_TOKEN)
+    public readonly searchControl: FormControl
   ) {}
 
   ngOnInit(): void {
@@ -69,20 +102,54 @@ export class TableComponent implements OnInit, AfterViewInit {
       this.displayedColumns = [...this.columns];
     }
 
-
-    this.columns.unshift('id')
-    this.displayedColumns.unshift('id')
+    this.columns.unshift('id');
+    this.displayedColumns.unshift('id');
   }
 
-  ngAfterViewInit(): void {}
+  ngAfterViewInit(): void {
+    this.tableEvents$ = merge(
+      this.matPage.page,
+      this.matSort.sortChange,
+      this.searchControl.valueChanges
+    ).pipe(
+      debounceTime(600),
+      tap((value) => {
+        this.getAll();
+      }),
+      map((value: any) => {
+        return value;
+      })
+    );
 
-  sortTable(sortEvent: any) {
-    console.log(sortEvent);
+    this.getAll();
   }
 
-  pageTable(pageEvent: PageEvent) {
+  ngOnDestroy(): void {
+    // Save page config
+    const pageIndex = this.matPage.pageIndex;
+    const pageSize = this.matPage.pageSize;
+    this.lss.set('pageIndex', pageIndex);
+    this.lss.set('pageSize', pageSize);
 
-    console.log(pageEvent)
+    // Save sort config
+    const direction = this.matSort.direction;
+    const active = this.matSort.active;
+    this.lss.set('direction', direction);
+    this.lss.set('active', active);
   }
 
+  getAll() {
+    this.service.queryItem(this.prepareQuery());
+  }
+
+  private prepareQuery(): QueryObject {
+    return {
+      take: this.matPage.pageSize,
+      skip: this.matPage.pageIndex * this.matPage.pageSize,
+      orderBy: this.matSort.active,
+      orderDir: this.matSort.direction,
+      search: this.searchControl.value || undefined,
+      withDeleted: false,
+    };
+  }
 }

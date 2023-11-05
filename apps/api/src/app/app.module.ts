@@ -24,12 +24,12 @@ import { APP_GUARD } from '@nestjs/core';
     }),
     ThrottlerModule.forRoot([
       {
-        ttl: 5000,
+        ttl: 2000,
         limit: 1,
         name: 'post',
       },
       {
-        ttl: 1000,
+        ttl: 400,
         limit: 1,
         name: 'query',
       },

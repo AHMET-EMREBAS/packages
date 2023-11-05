@@ -6,7 +6,7 @@ import {
   provideFormFieldAppearance,
   provideFormFields,
   provideFormGroup,
-  provideTableColumns
+  provideTableColumns,
 } from '@techbir/material';
 
 export const appRoutes: Route[] = [
@@ -22,26 +22,50 @@ export const appRoutes: Route[] = [
   {
     path: 'product',
     loadChildren: () => ResourceRoutes('Product'),
-
     providers: [
-      provideFormGroup({ name: '', description: '' }),
+      provideFormGroup({ name: '', description: '', barcode: '' }),
+      provideFormFieldAppearance('fill'),
       provideTableColumns([
         { name: 'name', label: 'Product Name', icon: 'info' },
         { name: 'description', label: 'Description', icon: 'description' },
+        { name: 'barcode', label: 'Barcode', icon: 'barcode' },
       ]),
+      provideFormFields([
+        {
+          label: 'Product Barcode',
+          name: 'barcode',
+          component: TextFieldComponent,
+          icon: 'barcode',
+        },
+        {
+          label: 'Product Name',
+          name: 'name',
+          component: TextFieldComponent,
+          icon: 'info',
+        },
+        {
+          label: 'Product Description',
+          name: 'description',
+          component: TextareaComponent,
+          icon: 'description',
+        },
+      ]),
+    ],
+  },
+  {
+    path: 'category',
+    loadChildren: () => ResourceRoutes('Category'),
+
+    providers: [
+      provideFormGroup({ name: '' }),
+      provideTableColumns([{ name: 'name', label: 'Category', icon: 'info' }]),
       provideFormFieldAppearance('outline'),
       provideFormFields([
         {
           name: 'name',
           icon: 'info',
-          label: 'Product Name',
+          label: 'Category',
           component: TextFieldComponent,
-        },
-        {
-          name: 'description',
-          icon: 'description',
-          label: 'Product Description',
-          component: TextareaComponent,
         },
       ]),
     ],

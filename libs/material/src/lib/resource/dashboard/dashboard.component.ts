@@ -1,6 +1,6 @@
 import { Component, Inject, inject } from '@angular/core';
 import { Breakpoints, BreakpointObserver } from '@angular/cdk/layout';
-import { map } from 'rxjs/operators';
+import { delay, map } from 'rxjs/operators';
 import { MatGridListModule } from '@angular/material/grid-list';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatIconModule } from '@angular/material/icon';
@@ -9,6 +9,7 @@ import { MatCardModule } from '@angular/material/card';
 import { ENTITY_NAME_TOKEN, ResourceService } from '../../api';
 import { Observable } from 'rxjs';
 import { CommonModule } from '@angular/common';
+import { SkeletonComponent } from '../../skeleton/skeleton.component';
 
 @Component({
   selector: 'techbir-dashboard',
@@ -22,12 +23,21 @@ import { CommonModule } from '@angular/common';
     MatIconModule,
     MatButtonModule,
     MatCardModule,
+    SkeletonComponent,
   ],
 })
 export class DashboardComponent {
   private breakpointObserver = inject(BreakpointObserver);
 
-  readonly count$: Observable<number> = this.service.count$;
+  isCountLoading = true;
+  readonly count$: Observable<number> = this.service.allCount$.pipe(
+    delay(2000),
+    map((data) => {
+      console.log(data);
+      this.isCountLoading = false;
+      return data;
+    })
+  );
 
   /** Based on the screen size, switch from standard to one column per row */
   cards = this.breakpointObserver.observe(Breakpoints.Handset).pipe(

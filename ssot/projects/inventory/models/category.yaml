@@ -7,6 +7,9 @@ properties:
     maxLength: 30
     inputType: text
 
+searchables:
+  - name
+
 unique:
   - name
 

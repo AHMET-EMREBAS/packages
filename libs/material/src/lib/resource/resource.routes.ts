@@ -4,6 +4,7 @@ import {
   ResourceService,
   provideLocalStoreService,
   provideEntityName,
+  provideSearchControl,
 } from '../api';
 import '@angular/localize';
 
@@ -14,6 +15,7 @@ export const ResourceRoutes: (entityName: string) => Routes = (
     title: entityName,
     providers: [
       provideEntityName(entityName),
+      provideSearchControl(),
       provideNavItems([
         { icon: 'dashboard', name: 'dashboard', route: 'dashboard' },
         { icon: 'dataset', name: `view`, route: 'view' },

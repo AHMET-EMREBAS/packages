@@ -1,7 +1,8 @@
 <div class="grid-container">
   <h1 class="mat-h1">Dashboard</h1>
 
-  <p>
+  <p style="position: relative;">
+    <techbir-skeleton *ngIf="isCountLoading"></techbir-skeleton>
     <span *ngIf="count$ | async as itemCount">
       There are {{ itemCount }} {{ entityName }}.
     </span>
