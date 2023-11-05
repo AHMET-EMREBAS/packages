@@ -73,7 +73,8 @@
     "extract-i18n": {
       "executor": "@angular-devkit/build-angular:extract-i18n",
       "options": {
-        "browserTarget": "client:build"
+        "browserTarget": "client:build",
+        "outputPath": "apps/client/src/locale"
       }
     },
     "lint": {
@@ -107,8 +108,7 @@
     "serve-static": {
       "executor": "@nx/web:file-server",
       "options": {
-        "buildTarget": "client:build",
-        "outputPath": "apps/webapp/src/locale"
+        "buildTarget": "client:build"
       }
     }
   },
