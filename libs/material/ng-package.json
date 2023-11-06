@@ -15,5 +15,10 @@
       "glob": "**/*",
       "output": "assets"
     },
+    {
+      "input": "src",
+      "glob": "_index.scss",
+      "output": ""
+    }
   ]
 }

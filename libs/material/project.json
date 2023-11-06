@@ -72,6 +72,9 @@
           "libs/material/src/assets",
           "libs/material/src/favicon.svg",
           "libs/material/src/styles"
+        ],
+        "styles": [
+          "libs/material/src/styles.css"
         ]
       },
       "configurations": {
@@ -102,6 +105,9 @@
           "libs/material/src/assets",
           "libs/material/src/favicon.svg",
           "libs/material/src/styles"
+        ],
+        "styles": [
+          "libs/material/src/styles.css"
         ]
       },
       "configurations": {

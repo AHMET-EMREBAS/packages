@@ -4304,7 +4304,7 @@
                 "deprecated": false,
                 "deprecationMessage": "",
                 "type": "Meta<CheckboxComponent>",
-                "defaultValue": "{\n  component: CheckboxComponent,\n  title: 'CheckboxComponent',\n}"
+                "defaultValue": "{\n  component: CheckboxComponent,\n  title: 'CheckboxComponent',\n  decorators: [\n    moduleMetadata({\n      imports: [CommonModule, MatCheckboxModule],\n      providers: [provideFormGroup({ active: false }), ],\n    }),\n  ],\n}"
             },
             {
                 "name": "meta",
@@ -5668,7 +5668,7 @@
                     "deprecated": false,
                     "deprecationMessage": "",
                     "type": "Meta<CheckboxComponent>",
-                    "defaultValue": "{\n  component: CheckboxComponent,\n  title: 'CheckboxComponent',\n}"
+                    "defaultValue": "{\n  component: CheckboxComponent,\n  title: 'CheckboxComponent',\n  decorators: [\n    moduleMetadata({\n      imports: [CommonModule, MatCheckboxModule],\n      providers: [provideFormGroup({ active: false }), ],\n    }),\n  ],\n}"
                 },
                 {
                     "name": "Primary",
