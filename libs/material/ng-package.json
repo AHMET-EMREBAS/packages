@@ -16,7 +16,7 @@
       "output": "assets"
     },
     {
-      "input": "src",
+      "input": "src/styles",
       "glob": "_index.scss",
       "output": ""
     }

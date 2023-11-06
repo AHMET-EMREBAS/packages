@@ -25,5 +25,5 @@
       "@techbir/utils": ["libs/utils/src/index.ts"]
     }
   },
-  "exclude": ["node_modules", "tmp"]
+  "exclude": ["node_modules", "tmp", "docs", "doc", "tools", "dist"]
 }
