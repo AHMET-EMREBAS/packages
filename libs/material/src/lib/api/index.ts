@@ -1,9 +1,12 @@
 // @index('./*', f => `export * from '${f.path}'`)
-export * from './url.interceptor'
 export * from './can-active.service'
+export * from './date-filter.provider'
+export * from './date-selection-strategy.provider'
 export * from './form.provider'
+export * from './input-filter.provider'
 export * from './local-storage.service'
 export * from './nav-item.provider'
 export * from './resource.service'
 export * from './table.provider'
+export * from './url.interceptor'
 export * from './view.provider'

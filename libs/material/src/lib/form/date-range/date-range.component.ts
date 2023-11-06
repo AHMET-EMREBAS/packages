@@ -1,26 +1,18 @@
 import { Component } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { FormControl, FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { FormControl } from '@angular/forms';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
-import { MatFormFieldModule } from '@angular/material/form-field';
-import { MatInputModule } from '@angular/material/input';
-import { CommonFieldComponent } from '../common-field/common-field.component';
+import {
+  CommonFieldComponent,
+  CommonFieldModule,
+} from '../common-field/common-field.component';
 import { combineLatest, debounceTime, map } from 'rxjs';
 import '@angular/localize/init';
 
 @Component({
   selector: 'techbir-date-range',
   standalone: true,
-  imports: [
-    CommonModule,
-    FormsModule,
-    ReactiveFormsModule,
-    MatDatepickerModule,
-    MatNativeDateModule,
-    MatFormFieldModule,
-    MatInputModule,
-  ],
+  imports: [CommonFieldModule, MatDatepickerModule, MatNativeDateModule],
   templateUrl: './date-range.component.html',
   styleUrls: ['./date-range.component.scss'],
 })

@@ -10,7 +10,14 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
-import { provideFormGroup } from '../../api';
+import {
+  FiveDayRangeSelectionStrategy,
+  WeekDaysStrategy,
+  WeekEndsStrategy,
+  provideDateRangeSelectionStrategy,
+  provideFormGroup,
+} from '../../api';
+import { CommonFieldModule } from '../common-field/common-field.component';
 
 const meta: Meta<DateRangeComponent> = {
   component: DateRangeComponent,
@@ -18,16 +25,17 @@ const meta: Meta<DateRangeComponent> = {
   decorators: [
     moduleMetadata({
       imports: [
-        CommonModule,
+        CommonFieldModule,
         BrowserAnimationsModule,
-        FormsModule,
-        ReactiveFormsModule,
         MatDatepickerModule,
         MatNativeDateModule,
-        MatFormFieldModule,
-        MatInputModule,
       ],
-      providers: [provideFormGroup({ range: '' })],
+      providers: [
+        provideFormGroup({ range: '' }),
+        // provideDateRangeSelectionStrategy(FiveDayRangeSelectionStrategy),
+        // provideDateRangeSelectionStrategy(WeekDaysStrategy),
+        provideDateRangeSelectionStrategy(WeekEndsStrategy),
+      ],
     }),
   ],
 };

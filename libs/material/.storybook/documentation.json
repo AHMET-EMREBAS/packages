@@ -301,8 +301,136 @@
             "type": "injectable"
         },
         {
+            "name": "FiveDayRangeSelectionStrategy",
+            "id": "injectable-FiveDayRangeSelectionStrategy-356519a0897570d7376ce5df446d821cd80e048ffd3052628127e605b03fa920572a7bc48c3812ac2203f4ea6927f9e827d787af8a9807accbe1aa677a04a7da",
+            "file": "libs/material/src/lib/api/date-selection-strategy.provider.ts",
+            "properties": [],
+            "methods": [
+                {
+                    "name": "__create",
+                    "args": [
+                        {
+                            "name": "date",
+                            "type": "D | null",
+                            "deprecated": false,
+                            "deprecationMessage": ""
+                        }
+                    ],
+                    "optional": false,
+                    "returnType": "DateRange<D>",
+                    "typeParameters": [],
+                    "line": 33,
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "modifierKind": [
+                        123
+                    ],
+                    "jsdoctags": [
+                        {
+                            "name": "date",
+                            "type": "D | null",
+                            "deprecated": false,
+                            "deprecationMessage": "",
+                            "tagName": {
+                                "text": "param"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "name": "createPreview",
+                    "args": [
+                        {
+                            "name": "activeDate",
+                            "type": "D | null",
+                            "deprecated": false,
+                            "deprecationMessage": ""
+                        }
+                    ],
+                    "optional": false,
+                    "returnType": "DateRange<D>",
+                    "typeParameters": [],
+                    "line": 29,
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "jsdoctags": [
+                        {
+                            "name": "activeDate",
+                            "type": "D | null",
+                            "deprecated": false,
+                            "deprecationMessage": "",
+                            "tagName": {
+                                "text": "param"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "name": "selectionFinished",
+                    "args": [
+                        {
+                            "name": "date",
+                            "type": "D | null",
+                            "deprecated": false,
+                            "deprecationMessage": ""
+                        }
+                    ],
+                    "optional": false,
+                    "returnType": "DateRange<D>",
+                    "typeParameters": [],
+                    "line": 25,
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "jsdoctags": [
+                        {
+                            "name": "date",
+                            "type": "D | null",
+                            "deprecated": false,
+                            "deprecationMessage": "",
+                            "tagName": {
+                                "text": "param"
+                            }
+                        }
+                    ]
+                }
+            ],
+            "deprecated": false,
+            "deprecationMessage": "",
+            "description": "",
+            "rawdescription": "\n",
+            "sourceCode": "import { Injectable, Provider, Type } from '@angular/core';\r\nimport { DateAdapter } from '@angular/material/core';\r\nimport {\r\n  DateFilterFn,\r\n  DateRange,\r\n  MAT_DATE_RANGE_SELECTION_STRATEGY,\r\n  MatDateRangeSelectionStrategy,\r\n} from '@angular/material/datepicker';\r\n\r\nexport function provideDateRangeSelectionStrategy(\r\n  strategy: Type<MatDateRangeSelectionStrategy<any>>\r\n): Provider {\r\n  return {\r\n    provide: MAT_DATE_RANGE_SELECTION_STRATEGY,\r\n    useClass: strategy,\r\n  };\r\n}\r\n\r\n@Injectable({ providedIn: 'root' })\r\nexport class FiveDayRangeSelectionStrategy<D>\r\n  implements MatDateRangeSelectionStrategy<D>\r\n{\r\n  constructor(private _dateAdapter: DateAdapter<D>) {}\r\n\r\n  selectionFinished(date: D | null): DateRange<D> {\r\n    return this.__create(date);\r\n  }\r\n\r\n  createPreview(activeDate: D | null): DateRange<D> {\r\n    return this.__create(activeDate);\r\n  }\r\n\r\n  private __create(date: D | null): DateRange<D> {\r\n    if (date) {\r\n      const start = this._dateAdapter.addCalendarDays(date, -2);\r\n      const end = this._dateAdapter.addCalendarDays(date, 2);\r\n      return new DateRange<D>(start, end);\r\n    }\r\n\r\n    return new DateRange<D>(null, null);\r\n  }\r\n}\r\n\r\n@Injectable({ providedIn: 'root' })\r\nexport class WeekDaysStrategy<D> implements MatDateRangeSelectionStrategy<D> {\r\n  constructor(private _dateAdapter: DateAdapter<D>) {}\r\n\r\n  selectionFinished(date: D | null): DateRange<D> {\r\n    return this.__create(date);\r\n  }\r\n\r\n  createPreview(activeDate: D | null): DateRange<D> {\r\n    return this.__create(activeDate);\r\n  }\r\n\r\n  private __create(date: D | null): DateRange<D> {\r\n    if (date) {\r\n      const dayOfWeek = this._dateAdapter.getDayOfWeek(date);\r\n      const start = this._dateAdapter.addCalendarDays(date, -dayOfWeek + 1);\r\n      const end = this._dateAdapter.addCalendarDays(date, -dayOfWeek + 5);\r\n      return new DateRange<D>(start, end);\r\n    }\r\n\r\n    return new DateRange<D>(null, null);\r\n  }\r\n}\r\n\r\n@Injectable({ providedIn: 'root' })\r\nexport class WeekEndsStrategy<D> implements MatDateRangeSelectionStrategy<D> {\r\n  constructor(private _dateAdapter: DateAdapter<D>) {}\r\n\r\n  selectionFinished(date: D | null): DateRange<D> {\r\n    return this.__create(date);\r\n  }\r\n\r\n  createPreview(activeDate: D | null): DateRange<D> {\r\n    return this.__create(activeDate);\r\n  }\r\n\r\n  private __create(date: D | null): DateRange<D> {\r\n    if (date) {\r\n      // 3 --> 0 6\r\n\r\n      const dayOfWeek = this._dateAdapter.getDayOfWeek(date);\r\n\r\n      // Set saturday\r\n      let saturday = 0;\r\n\r\n      if (dayOfWeek === 0) {\r\n        saturday = -1;\r\n      } else if (dayOfWeek === 6) {\r\n        saturday = 0;\r\n      } else {\r\n        saturday = -dayOfWeek - 1;\r\n      }\r\n\r\n      const start = this._dateAdapter.addCalendarDays(date, saturday);\r\n      const end = this._dateAdapter.addCalendarDays(date, saturday + 1);\r\n      return new DateRange<D>(start, end);\r\n    }\r\n\r\n    return new DateRange<D>(null, null);\r\n  }\r\n}\r\n",
+            "constructorObj": {
+                "name": "constructor",
+                "description": "",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "args": [
+                    {
+                        "name": "_dateAdapter",
+                        "type": "DateAdapter<D>",
+                        "deprecated": false,
+                        "deprecationMessage": ""
+                    }
+                ],
+                "line": 22,
+                "jsdoctags": [
+                    {
+                        "name": "_dateAdapter",
+                        "type": "DateAdapter<D>",
+                        "deprecated": false,
+                        "deprecationMessage": "",
+                        "tagName": {
+                            "text": "param"
+                        }
+                    }
+                ]
+            },
+            "extends": [],
+            "type": "injectable"
+        },
+        {
             "name": "ResourceService",
-            "id": "injectable-ResourceService-50cd822bfb8569ad977c8e5fcb8a2a6c9f369e72b4c07b9f32b45004a6e22ee1740aef784d02706d2314af698e24584c86d4ffd1f71514e0e37fc522d65fafab",
+            "id": "injectable-ResourceService-7a0c3d295658cdd254664d0a9e6ec0624b2438efd2a5c874886bdba5960c2222854319bcafd728e6993deaae2a25fb2318ff5fe2acd0d8141e52d0e1e6c2106c",
             "file": "libs/material/src/lib/api/resource.service.ts",
             "properties": [
                 {
@@ -348,8 +476,8 @@
                     "jsdoctags": [
                         {
                             "name": {
-                                "pos": 1667,
-                                "end": 1669,
+                                "pos": 1677,
+                                "end": 1679,
                                 "flags": 16842752,
                                 "modifierFlagsCache": 0,
                                 "transformFlags": 0,
@@ -360,8 +488,8 @@
                             "deprecated": false,
                             "deprecationMessage": "",
                             "tagName": {
-                                "pos": 1661,
-                                "end": 1666,
+                                "pos": 1671,
+                                "end": 1676,
                                 "flags": 16842752,
                                 "modifierFlagsCache": 0,
                                 "transformFlags": 0,
@@ -372,8 +500,8 @@
                         },
                         {
                             "tagName": {
-                                "pos": 1677,
-                                "end": 1684,
+                                "pos": 1687,
+                                "end": 1694,
                                 "flags": 16842752,
                                 "modifierFlagsCache": 0,
                                 "transformFlags": 0,
@@ -446,8 +574,8 @@
                     "jsdoctags": [
                         {
                             "name": {
-                                "pos": 1964,
-                                "end": 1968,
+                                "pos": 1974,
+                                "end": 1978,
                                 "flags": 16842752,
                                 "modifierFlagsCache": 0,
                                 "transformFlags": 0,
@@ -458,8 +586,8 @@
                             "deprecated": false,
                             "deprecationMessage": "",
                             "tagName": {
-                                "pos": 1958,
-                                "end": 1963,
+                                "pos": 1968,
+                                "end": 1973,
                                 "flags": 16842752,
                                 "modifierFlagsCache": 0,
                                 "transformFlags": 0,
@@ -491,8 +619,8 @@
                     "jsdoctags": [
                         {
                             "name": {
-                                "pos": 1810,
-                                "end": 1814,
+                                "pos": 1820,
+                                "end": 1824,
                                 "flags": 16842752,
                                 "modifierFlagsCache": 0,
                                 "transformFlags": 0,
@@ -503,8 +631,8 @@
                             "deprecated": false,
                             "deprecationMessage": "",
                             "tagName": {
-                                "pos": 1804,
-                                "end": 1809,
+                                "pos": 1814,
+                                "end": 1819,
                                 "flags": 16842752,
                                 "modifierFlagsCache": 0,
                                 "transformFlags": 0,
@@ -515,8 +643,8 @@
                         },
                         {
                             "tagName": {
-                                "pos": 1822,
-                                "end": 1829,
+                                "pos": 1832,
+                                "end": 1839,
                                 "flags": 16842752,
                                 "modifierFlagsCache": 0,
                                 "transformFlags": 0,
@@ -532,7 +660,7 @@
             "deprecationMessage": "",
             "description": "",
             "rawdescription": "\n",
-            "sourceCode": "import { HttpClient } from '@angular/common/http';\r\nimport { Inject, Injectable, Provider, inject } from '@angular/core';\r\nimport {\r\n  EntityCollectionServiceBase,\r\n  EntityCollectionServiceElementsFactory,\r\n  MergeStrategy,\r\n} from '@ngrx/data';\r\nimport {\r\n  Observable,\r\n  catchError,\r\n  debounceTime,\r\n  delay,\r\n  firstValueFrom,\r\n  map,\r\n  of,\r\n} from 'rxjs';\r\nimport { excludeUndefined, names } from '@techbir/utils';\r\n\r\nexport type QueryObject = {\r\n  take?: number;\r\n  skip?: number;\r\n  orderBy?: string;\r\n  orderDir?: string;\r\n  withDeleted?: boolean;\r\n  search?: string;\r\n};\r\n\r\nexport const ENTITY_NAME_TOKEN = 'ENTITY_NAME_TOKEN';\r\n\r\nexport function provideEntityName(name: string): Provider {\r\n  return {\r\n    provide: ENTITY_NAME_TOKEN,\r\n    useValue: name,\r\n  };\r\n}\r\n\r\n@Injectable({ providedIn: 'root', useExisting: true })\r\nexport class ResourceService<T> extends EntityCollectionServiceBase<T> {\r\n  nameVariants = names(this.entityName);\r\n\r\n  allCount$: Observable<number> = inject(HttpClient)\r\n    .get<{ count: number }>(`api/meta/count/${this.nameVariants.fileName}`)\r\n    .pipe(\r\n      debounceTime(1000),\r\n      map((value) => {\r\n        const count = value?.count;\r\n        if (count != undefined) {\r\n          return count;\r\n        }\r\n        return 999999;\r\n      }),\r\n      catchError(() => {\r\n        return of(99999999);\r\n      })\r\n    );\r\n\r\n  constructor(\r\n    @Inject(ENTITY_NAME_TOKEN) entityName: string,\r\n    serviceElementsFactory: EntityCollectionServiceElementsFactory\r\n  ) {\r\n    super(entityName, serviceElementsFactory);\r\n  }\r\n\r\n  private nid() {\r\n    return new Date().getTime();\r\n  }\r\n\r\n  /**\r\n   * Use this method\r\n   * @param id\r\n   * @returns\r\n   */\r\n  deleteItem(id: number) {\r\n    return this.removeOneFromCache(id);\r\n  }\r\n\r\n  /**\r\n   * Use this method\r\n   * @param item\r\n   * @returns\r\n   */\r\n  updateItem(item: T) {\r\n    return this.updateOneInCache(item);\r\n  }\r\n\r\n  /**\r\n   * @important Use this method!\r\n   * @param item\r\n   */\r\n  saveItem(item: T) {\r\n    this.add({ ...item, id: this.nid() });\r\n  }\r\n\r\n  queryItem(query: QueryObject) {\r\n    this.clearCache();\r\n    this.getWithQuery(excludeUndefined(query), {\r\n      mergeStrategy: MergeStrategy.OverwriteChanges,\r\n    });\r\n  }\r\n}\r\n",
+            "sourceCode": "import { HttpClient } from '@angular/common/http';\r\nimport { Inject, Injectable, Optional, Provider, inject } from '@angular/core';\r\nimport {\r\n  EntityCollectionServiceBase,\r\n  EntityCollectionServiceElementsFactory,\r\n  MergeStrategy,\r\n} from '@ngrx/data';\r\nimport {\r\n  Observable,\r\n  catchError,\r\n  debounceTime,\r\n  delay,\r\n  firstValueFrom,\r\n  map,\r\n  of,\r\n} from 'rxjs';\r\nimport { excludeUndefined, names } from '@techbir/utils';\r\n\r\nexport type QueryObject = {\r\n  take?: number;\r\n  skip?: number;\r\n  orderBy?: string;\r\n  orderDir?: string;\r\n  withDeleted?: boolean;\r\n  search?: string;\r\n};\r\n\r\nexport const ENTITY_NAME_TOKEN = 'ENTITY_NAME_TOKEN';\r\n\r\nexport function provideEntityName(name: string): Provider {\r\n  return {\r\n    provide: ENTITY_NAME_TOKEN,\r\n    useValue: name,\r\n  };\r\n}\r\n\r\n@Injectable({ providedIn: 'root', useExisting: true })\r\nexport class ResourceService<T> extends EntityCollectionServiceBase<T> {\r\n  nameVariants = names(this.entityName);\r\n\r\n  allCount$: Observable<number> = inject(HttpClient)\r\n    .get<{ count: number }>(`api/meta/count/${this.nameVariants.fileName}`)\r\n    .pipe(\r\n      debounceTime(1000),\r\n      map((value) => {\r\n        const count = value?.count;\r\n        if (count != undefined) {\r\n          return count;\r\n        }\r\n        return 999999;\r\n      }),\r\n      catchError(() => {\r\n        return of(99999999);\r\n      })\r\n    );\r\n\r\n  constructor(\r\n    @Inject(ENTITY_NAME_TOKEN) entityName: string,\r\n    serviceElementsFactory: EntityCollectionServiceElementsFactory\r\n  ) {\r\n    super(entityName, serviceElementsFactory);\r\n  }\r\n\r\n  private nid() {\r\n    return new Date().getTime();\r\n  }\r\n\r\n  /**\r\n   * Use this method\r\n   * @param id\r\n   * @returns\r\n   */\r\n  deleteItem(id: number) {\r\n    return this.removeOneFromCache(id);\r\n  }\r\n\r\n  /**\r\n   * Use this method\r\n   * @param item\r\n   * @returns\r\n   */\r\n  updateItem(item: T) {\r\n    return this.updateOneInCache(item);\r\n  }\r\n\r\n  /**\r\n   * @important Use this method!\r\n   * @param item\r\n   */\r\n  saveItem(item: T) {\r\n    this.add({ ...item, id: this.nid() });\r\n  }\r\n\r\n  queryItem(query: QueryObject) {\r\n    this.clearCache();\r\n    this.getWithQuery(excludeUndefined(query), {\r\n      mergeStrategy: MergeStrategy.OverwriteChanges,\r\n    });\r\n  }\r\n}\r\n",
             "constructorObj": {
                 "name": "constructor",
                 "description": "",
@@ -578,11 +706,313 @@
                 "EntityCollectionServiceBase"
             ],
             "type": "injectable"
+        },
+        {
+            "name": "WeekDaysStrategy",
+            "id": "injectable-WeekDaysStrategy-356519a0897570d7376ce5df446d821cd80e048ffd3052628127e605b03fa920572a7bc48c3812ac2203f4ea6927f9e827d787af8a9807accbe1aa677a04a7da",
+            "file": "libs/material/src/lib/api/date-selection-strategy.provider.ts",
+            "properties": [],
+            "methods": [
+                {
+                    "name": "__create",
+                    "args": [
+                        {
+                            "name": "date",
+                            "type": "D | null",
+                            "deprecated": false,
+                            "deprecationMessage": ""
+                        }
+                    ],
+                    "optional": false,
+                    "returnType": "DateRange<D>",
+                    "typeParameters": [],
+                    "line": 56,
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "modifierKind": [
+                        123
+                    ],
+                    "jsdoctags": [
+                        {
+                            "name": "date",
+                            "type": "D | null",
+                            "deprecated": false,
+                            "deprecationMessage": "",
+                            "tagName": {
+                                "text": "param"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "name": "createPreview",
+                    "args": [
+                        {
+                            "name": "activeDate",
+                            "type": "D | null",
+                            "deprecated": false,
+                            "deprecationMessage": ""
+                        }
+                    ],
+                    "optional": false,
+                    "returnType": "DateRange<D>",
+                    "typeParameters": [],
+                    "line": 52,
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "jsdoctags": [
+                        {
+                            "name": "activeDate",
+                            "type": "D | null",
+                            "deprecated": false,
+                            "deprecationMessage": "",
+                            "tagName": {
+                                "text": "param"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "name": "selectionFinished",
+                    "args": [
+                        {
+                            "name": "date",
+                            "type": "D | null",
+                            "deprecated": false,
+                            "deprecationMessage": ""
+                        }
+                    ],
+                    "optional": false,
+                    "returnType": "DateRange<D>",
+                    "typeParameters": [],
+                    "line": 48,
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "jsdoctags": [
+                        {
+                            "name": "date",
+                            "type": "D | null",
+                            "deprecated": false,
+                            "deprecationMessage": "",
+                            "tagName": {
+                                "text": "param"
+                            }
+                        }
+                    ]
+                }
+            ],
+            "deprecated": false,
+            "deprecationMessage": "",
+            "description": "",
+            "rawdescription": "\n",
+            "sourceCode": "import { Injectable, Provider, Type } from '@angular/core';\r\nimport { DateAdapter } from '@angular/material/core';\r\nimport {\r\n  DateFilterFn,\r\n  DateRange,\r\n  MAT_DATE_RANGE_SELECTION_STRATEGY,\r\n  MatDateRangeSelectionStrategy,\r\n} from '@angular/material/datepicker';\r\n\r\nexport function provideDateRangeSelectionStrategy(\r\n  strategy: Type<MatDateRangeSelectionStrategy<any>>\r\n): Provider {\r\n  return {\r\n    provide: MAT_DATE_RANGE_SELECTION_STRATEGY,\r\n    useClass: strategy,\r\n  };\r\n}\r\n\r\n@Injectable({ providedIn: 'root' })\r\nexport class FiveDayRangeSelectionStrategy<D>\r\n  implements MatDateRangeSelectionStrategy<D>\r\n{\r\n  constructor(private _dateAdapter: DateAdapter<D>) {}\r\n\r\n  selectionFinished(date: D | null): DateRange<D> {\r\n    return this.__create(date);\r\n  }\r\n\r\n  createPreview(activeDate: D | null): DateRange<D> {\r\n    return this.__create(activeDate);\r\n  }\r\n\r\n  private __create(date: D | null): DateRange<D> {\r\n    if (date) {\r\n      const start = this._dateAdapter.addCalendarDays(date, -2);\r\n      const end = this._dateAdapter.addCalendarDays(date, 2);\r\n      return new DateRange<D>(start, end);\r\n    }\r\n\r\n    return new DateRange<D>(null, null);\r\n  }\r\n}\r\n\r\n@Injectable({ providedIn: 'root' })\r\nexport class WeekDaysStrategy<D> implements MatDateRangeSelectionStrategy<D> {\r\n  constructor(private _dateAdapter: DateAdapter<D>) {}\r\n\r\n  selectionFinished(date: D | null): DateRange<D> {\r\n    return this.__create(date);\r\n  }\r\n\r\n  createPreview(activeDate: D | null): DateRange<D> {\r\n    return this.__create(activeDate);\r\n  }\r\n\r\n  private __create(date: D | null): DateRange<D> {\r\n    if (date) {\r\n      const dayOfWeek = this._dateAdapter.getDayOfWeek(date);\r\n      const start = this._dateAdapter.addCalendarDays(date, -dayOfWeek + 1);\r\n      const end = this._dateAdapter.addCalendarDays(date, -dayOfWeek + 5);\r\n      return new DateRange<D>(start, end);\r\n    }\r\n\r\n    return new DateRange<D>(null, null);\r\n  }\r\n}\r\n\r\n@Injectable({ providedIn: 'root' })\r\nexport class WeekEndsStrategy<D> implements MatDateRangeSelectionStrategy<D> {\r\n  constructor(private _dateAdapter: DateAdapter<D>) {}\r\n\r\n  selectionFinished(date: D | null): DateRange<D> {\r\n    return this.__create(date);\r\n  }\r\n\r\n  createPreview(activeDate: D | null): DateRange<D> {\r\n    return this.__create(activeDate);\r\n  }\r\n\r\n  private __create(date: D | null): DateRange<D> {\r\n    if (date) {\r\n      // 3 --> 0 6\r\n\r\n      const dayOfWeek = this._dateAdapter.getDayOfWeek(date);\r\n\r\n      // Set saturday\r\n      let saturday = 0;\r\n\r\n      if (dayOfWeek === 0) {\r\n        saturday = -1;\r\n      } else if (dayOfWeek === 6) {\r\n        saturday = 0;\r\n      } else {\r\n        saturday = -dayOfWeek - 1;\r\n      }\r\n\r\n      const start = this._dateAdapter.addCalendarDays(date, saturday);\r\n      const end = this._dateAdapter.addCalendarDays(date, saturday + 1);\r\n      return new DateRange<D>(start, end);\r\n    }\r\n\r\n    return new DateRange<D>(null, null);\r\n  }\r\n}\r\n",
+            "constructorObj": {
+                "name": "constructor",
+                "description": "",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "args": [
+                    {
+                        "name": "_dateAdapter",
+                        "type": "DateAdapter<D>",
+                        "deprecated": false,
+                        "deprecationMessage": ""
+                    }
+                ],
+                "line": 45,
+                "jsdoctags": [
+                    {
+                        "name": "_dateAdapter",
+                        "type": "DateAdapter<D>",
+                        "deprecated": false,
+                        "deprecationMessage": "",
+                        "tagName": {
+                            "text": "param"
+                        }
+                    }
+                ]
+            },
+            "extends": [],
+            "type": "injectable"
+        },
+        {
+            "name": "WeekEndsStrategy",
+            "id": "injectable-WeekEndsStrategy-356519a0897570d7376ce5df446d821cd80e048ffd3052628127e605b03fa920572a7bc48c3812ac2203f4ea6927f9e827d787af8a9807accbe1aa677a04a7da",
+            "file": "libs/material/src/lib/api/date-selection-strategy.provider.ts",
+            "properties": [],
+            "methods": [
+                {
+                    "name": "__create",
+                    "args": [
+                        {
+                            "name": "date",
+                            "type": "D | null",
+                            "deprecated": false,
+                            "deprecationMessage": ""
+                        }
+                    ],
+                    "optional": false,
+                    "returnType": "DateRange<D>",
+                    "typeParameters": [],
+                    "line": 80,
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "modifierKind": [
+                        123
+                    ],
+                    "jsdoctags": [
+                        {
+                            "name": "date",
+                            "type": "D | null",
+                            "deprecated": false,
+                            "deprecationMessage": "",
+                            "tagName": {
+                                "text": "param"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "name": "createPreview",
+                    "args": [
+                        {
+                            "name": "activeDate",
+                            "type": "D | null",
+                            "deprecated": false,
+                            "deprecationMessage": ""
+                        }
+                    ],
+                    "optional": false,
+                    "returnType": "DateRange<D>",
+                    "typeParameters": [],
+                    "line": 76,
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "jsdoctags": [
+                        {
+                            "name": "activeDate",
+                            "type": "D | null",
+                            "deprecated": false,
+                            "deprecationMessage": "",
+                            "tagName": {
+                                "text": "param"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "name": "selectionFinished",
+                    "args": [
+                        {
+                            "name": "date",
+                            "type": "D | null",
+                            "deprecated": false,
+                            "deprecationMessage": ""
+                        }
+                    ],
+                    "optional": false,
+                    "returnType": "DateRange<D>",
+                    "typeParameters": [],
+                    "line": 72,
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "jsdoctags": [
+                        {
+                            "name": "date",
+                            "type": "D | null",
+                            "deprecated": false,
+                            "deprecationMessage": "",
+                            "tagName": {
+                                "text": "param"
+                            }
+                        }
+                    ]
+                }
+            ],
+            "deprecated": false,
+            "deprecationMessage": "",
+            "description": "",
+            "rawdescription": "\n",
+            "sourceCode": "import { Injectable, Provider, Type } from '@angular/core';\r\nimport { DateAdapter } from '@angular/material/core';\r\nimport {\r\n  DateFilterFn,\r\n  DateRange,\r\n  MAT_DATE_RANGE_SELECTION_STRATEGY,\r\n  MatDateRangeSelectionStrategy,\r\n} from '@angular/material/datepicker';\r\n\r\nexport function provideDateRangeSelectionStrategy(\r\n  strategy: Type<MatDateRangeSelectionStrategy<any>>\r\n): Provider {\r\n  return {\r\n    provide: MAT_DATE_RANGE_SELECTION_STRATEGY,\r\n    useClass: strategy,\r\n  };\r\n}\r\n\r\n@Injectable({ providedIn: 'root' })\r\nexport class FiveDayRangeSelectionStrategy<D>\r\n  implements MatDateRangeSelectionStrategy<D>\r\n{\r\n  constructor(private _dateAdapter: DateAdapter<D>) {}\r\n\r\n  selectionFinished(date: D | null): DateRange<D> {\r\n    return this.__create(date);\r\n  }\r\n\r\n  createPreview(activeDate: D | null): DateRange<D> {\r\n    return this.__create(activeDate);\r\n  }\r\n\r\n  private __create(date: D | null): DateRange<D> {\r\n    if (date) {\r\n      const start = this._dateAdapter.addCalendarDays(date, -2);\r\n      const end = this._dateAdapter.addCalendarDays(date, 2);\r\n      return new DateRange<D>(start, end);\r\n    }\r\n\r\n    return new DateRange<D>(null, null);\r\n  }\r\n}\r\n\r\n@Injectable({ providedIn: 'root' })\r\nexport class WeekDaysStrategy<D> implements MatDateRangeSelectionStrategy<D> {\r\n  constructor(private _dateAdapter: DateAdapter<D>) {}\r\n\r\n  selectionFinished(date: D | null): DateRange<D> {\r\n    return this.__create(date);\r\n  }\r\n\r\n  createPreview(activeDate: D | null): DateRange<D> {\r\n    return this.__create(activeDate);\r\n  }\r\n\r\n  private __create(date: D | null): DateRange<D> {\r\n    if (date) {\r\n      const dayOfWeek = this._dateAdapter.getDayOfWeek(date);\r\n      const start = this._dateAdapter.addCalendarDays(date, -dayOfWeek + 1);\r\n      const end = this._dateAdapter.addCalendarDays(date, -dayOfWeek + 5);\r\n      return new DateRange<D>(start, end);\r\n    }\r\n\r\n    return new DateRange<D>(null, null);\r\n  }\r\n}\r\n\r\n@Injectable({ providedIn: 'root' })\r\nexport class WeekEndsStrategy<D> implements MatDateRangeSelectionStrategy<D> {\r\n  constructor(private _dateAdapter: DateAdapter<D>) {}\r\n\r\n  selectionFinished(date: D | null): DateRange<D> {\r\n    return this.__create(date);\r\n  }\r\n\r\n  createPreview(activeDate: D | null): DateRange<D> {\r\n    return this.__create(activeDate);\r\n  }\r\n\r\n  private __create(date: D | null): DateRange<D> {\r\n    if (date) {\r\n      // 3 --> 0 6\r\n\r\n      const dayOfWeek = this._dateAdapter.getDayOfWeek(date);\r\n\r\n      // Set saturday\r\n      let saturday = 0;\r\n\r\n      if (dayOfWeek === 0) {\r\n        saturday = -1;\r\n      } else if (dayOfWeek === 6) {\r\n        saturday = 0;\r\n      } else {\r\n        saturday = -dayOfWeek - 1;\r\n      }\r\n\r\n      const start = this._dateAdapter.addCalendarDays(date, saturday);\r\n      const end = this._dateAdapter.addCalendarDays(date, saturday + 1);\r\n      return new DateRange<D>(start, end);\r\n    }\r\n\r\n    return new DateRange<D>(null, null);\r\n  }\r\n}\r\n",
+            "constructorObj": {
+                "name": "constructor",
+                "description": "",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "args": [
+                    {
+                        "name": "_dateAdapter",
+                        "type": "DateAdapter<D>",
+                        "deprecated": false,
+                        "deprecationMessage": ""
+                    }
+                ],
+                "line": 69,
+                "jsdoctags": [
+                    {
+                        "name": "_dateAdapter",
+                        "type": "DateAdapter<D>",
+                        "deprecated": false,
+                        "deprecationMessage": "",
+                        "tagName": {
+                            "text": "param"
+                        }
+                    }
+                ]
+            },
+            "extends": [],
+            "type": "injectable"
         }
     ],
     "guards": [],
     "interceptors": [],
     "classes": [
+        {
+            "name": "InputValueFilter",
+            "id": "class-InputValueFilter-82201a1f93a66f9bb6d8fedd631edb716a65e87a4db51505fa6f160b64bf9cd78f1d2005385b0ab74a0f088080e912bee46ffdb0aa9ba18cc764987ada900ef0",
+            "file": "libs/material/src/lib/api/input-filter.provider.ts",
+            "deprecated": false,
+            "deprecationMessage": "",
+            "type": "class",
+            "sourceCode": "export class InputValueFilter<V> {\r\n  filter(v: V): V | undefined {\r\n    return undefined;\r\n  }\r\n}\r\n",
+            "properties": [],
+            "methods": [
+                {
+                    "name": "filter",
+                    "args": [
+                        {
+                            "name": "v",
+                            "type": "V",
+                            "deprecated": false,
+                            "deprecationMessage": ""
+                        }
+                    ],
+                    "optional": false,
+                    "returnType": "V | undefined",
+                    "typeParameters": [],
+                    "line": 2,
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "jsdoctags": [
+                        {
+                            "name": "v",
+                            "type": "V",
+                            "deprecated": false,
+                            "deprecationMessage": "",
+                            "tagName": {
+                                "text": "param"
+                            }
+                        }
+                    ]
+                }
+            ],
+            "indexSignatures": [],
+            "extends": [],
+            "inputsClass": [],
+            "outputsClass": [],
+            "hostBindings": [],
+            "hostListeners": []
+        },
         {
             "name": "LocalStoreService",
             "id": "class-LocalStoreService-b915202997db701e3eaeb41a968075c37eb5c11a3cb1e43a8fecc0550743c1af8acb88a36a608cca719701553819a9993a6fc174eaa38b2e1ec886af647dc2c6",
@@ -2038,7 +2468,7 @@
         },
         {
             "name": "DateRangeComponent",
-            "id": "component-DateRangeComponent-64ad79b0cbd5dd320939b6cdad269877250e354c2341aedca6a2e2a636233e809d82f054b0c9435315011dde8159631689e13da6d221d2a7c9f836c22cceaf61",
+            "id": "component-DateRangeComponent-8d737ef44bcce4577bdc75e4a9f110e1de1dd6d836dd71211bfc6214628440c29c26e6eb9cbad045a84642a0f1fe5c76dcfee45f63a207fa9e596476693f092b",
             "file": "libs/material/src/lib/form/date-range/date-range.component.ts",
             "encapsulation": [],
             "entryComponents": [],
@@ -2052,6 +2482,244 @@
             "styles": [],
             "templateUrl": [
                 "./date-range.component.html"
+            ],
+            "viewProviders": [],
+            "hostDirectives": [],
+            "inputsClass": [
+                {
+                    "name": "icon",
+                    "defaultValue": "''",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "rawdescription": "\n\nProperty icon\n",
+                    "description": "<p>Property icon</p>\n",
+                    "line": 54,
+                    "type": "string",
+                    "decorators": [],
+                    "inheritance": {
+                        "file": "CommonFieldComponent"
+                    }
+                },
+                {
+                    "name": "label",
+                    "defaultValue": "''",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "rawdescription": "\n\nProperty label\n",
+                    "description": "<p>Property label</p>\n",
+                    "line": 49,
+                    "type": "string",
+                    "decorators": [],
+                    "inheritance": {
+                        "file": "CommonFieldComponent"
+                    }
+                },
+                {
+                    "name": "name",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "rawdescription": "\n\nProperty name\n",
+                    "description": "<p>Property name</p>\n",
+                    "line": 44,
+                    "type": "string",
+                    "decorators": [],
+                    "inheritance": {
+                        "file": "CommonFieldComponent"
+                    }
+                }
+            ],
+            "outputsClass": [],
+            "propertiesClass": [
+                {
+                    "name": "updateValue$",
+                    "defaultValue": "combineLatest([\n    this.__startControl.valueChanges,\n    this.__endControl.valueChanges,\n  ]).pipe(\n    debounceTime(400),\n    map(([start, end]) => {\n      this.formGroup.get(this.name)?.setValue({ start, end });\n    })\n  )",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "",
+                    "optional": false,
+                    "description": "",
+                    "line": 30
+                },
+                {
+                    "name": "appearance",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "",
+                    "optional": false,
+                    "description": "",
+                    "line": 70,
+                    "decorators": [
+                        {
+                            "name": "Optional",
+                            "stringifiedArguments": ""
+                        },
+                        {
+                            "name": "Inject",
+                            "stringifiedArguments": "FORM_FIELD_APPEARANCE_TOKEN"
+                        }
+                    ],
+                    "modifierKind": [
+                        170,
+                        170,
+                        125,
+                        148
+                    ],
+                    "inheritance": {
+                        "file": "CommonFieldComponent"
+                    }
+                },
+                {
+                    "name": "control",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "AbstractControl",
+                    "optional": false,
+                    "description": "<p>FormControl instance</p>\n",
+                    "line": 59,
+                    "rawdescription": "\n\nFormControl instance\n",
+                    "modifierKind": [
+                        123
+                    ],
+                    "inheritance": {
+                        "file": "CommonFieldComponent"
+                    }
+                },
+                {
+                    "name": "errorMessage$",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "Observable<string | undefined>",
+                    "optional": false,
+                    "description": "<p>Obserable error message</p>\n",
+                    "line": 64,
+                    "rawdescription": "\n\nObserable error message\n",
+                    "inheritance": {
+                        "file": "CommonFieldComponent"
+                    }
+                },
+                {
+                    "name": "formGroup",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "FormGroup",
+                    "optional": false,
+                    "description": "",
+                    "line": 67,
+                    "decorators": [
+                        {
+                            "name": "Inject",
+                            "stringifiedArguments": "FormGroup"
+                        }
+                    ],
+                    "modifierKind": [
+                        170,
+                        125,
+                        148
+                    ],
+                    "inheritance": {
+                        "file": "CommonFieldComponent"
+                    }
+                }
+            ],
+            "methodsClass": [
+                {
+                    "name": "getErrorMessage",
+                    "args": [],
+                    "optional": false,
+                    "returnType": "string | undefined",
+                    "typeParameters": [],
+                    "line": 97,
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "rawdescription": "\n\nGet error message if any\n",
+                    "description": "<p>Get error message if any</p>\n",
+                    "modifierKind": [
+                        123
+                    ],
+                    "jsdoctags": [
+                        {
+                            "tagName": {
+                                "pos": 2044,
+                                "end": 2051,
+                                "flags": 16842752,
+                                "modifierFlagsCache": 0,
+                                "transformFlags": 0,
+                                "kind": 80,
+                                "escapedText": "returns"
+                            },
+                            "comment": "<p>string | undefined</p>\n"
+                        }
+                    ],
+                    "inheritance": {
+                        "file": "CommonFieldComponent"
+                    }
+                },
+                {
+                    "name": "ngOnInit",
+                    "args": [],
+                    "optional": false,
+                    "returnType": "void",
+                    "typeParameters": [],
+                    "line": 76,
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "inheritance": {
+                        "file": "CommonFieldComponent"
+                    }
+                }
+            ],
+            "deprecated": false,
+            "deprecationMessage": "",
+            "hostBindings": [],
+            "hostListeners": [],
+            "standalone": true,
+            "imports": [
+                {
+                    "name": "CommonFieldModule",
+                    "type": "module"
+                },
+                {
+                    "name": "MatDatepickerModule",
+                    "type": "module"
+                },
+                {
+                    "name": "MatNativeDateModule",
+                    "type": "module"
+                }
+            ],
+            "description": "",
+            "rawdescription": "\n",
+            "type": "component",
+            "sourceCode": "import { Component } from '@angular/core';\nimport { FormControl } from '@angular/forms';\nimport { MatDatepickerModule } from '@angular/material/datepicker';\nimport { MatNativeDateModule } from '@angular/material/core';\nimport {\n  CommonFieldComponent,\n  CommonFieldModule,\n} from '../common-field/common-field.component';\nimport { combineLatest, debounceTime, map } from 'rxjs';\nimport '@angular/localize/init';\n\n@Component({\n  selector: 'techbir-date-range',\n  standalone: true,\n  imports: [CommonFieldModule, MatDatepickerModule, MatNativeDateModule],\n  templateUrl: './date-range.component.html',\n  styleUrls: ['./date-range.component.scss'],\n})\nexport class DateRangeComponent extends CommonFieldComponent {\n  /**\n   * @ignore\n   */\n  __startControl = new FormControl('');\n\n  /**\n   * @ignore\n   */\n  __endControl = new FormControl('');\n\n  updateValue$ = combineLatest([\n    this.__startControl.valueChanges,\n    this.__endControl.valueChanges,\n  ]).pipe(\n    debounceTime(400),\n    map(([start, end]) => {\n      this.formGroup.get(this.name)?.setValue({ start, end });\n    })\n  );\n}\n",
+            "assetsDirs": [],
+            "styleUrlsData": [
+                {
+                    "data": "",
+                    "styleUrl": "./date-range.component.scss"
+                }
+            ],
+            "stylesData": "",
+            "extends": [
+                "CommonFieldComponent"
+            ],
+            "templateData": "{{ formGroup.get(name)?.value | json }}\n<ng-container *ngIf=\"updateValue$ | async\"></ng-container>\n<div [formGroup]=\"formGroup\">\n  <mat-form-field class=\"example-form-field\">\n    <mat-label>{{ label || name | titlecase }}</mat-label>\n    <mat-date-range-input [rangePicker]=\"dateRangePicker\">\n      <input\n        matStartDate\n        i18n-placeholder\n        placeholder=\"Start date\"\n        [formControl]=\"__startControl\"\n      />\n      <input\n        matEndDate\n        i18n-placeholder\n        placeholder=\"End date\"\n        [formControl]=\"__endControl\"\n      />\n    </mat-date-range-input>\n    <mat-hint>MM/DD/YYYY – MM/DD/YYYY</mat-hint>\n    <mat-datepicker-toggle\n      matIconSuffix\n      [for]=\"dateRangePicker\"\n    ></mat-datepicker-toggle>\n    <mat-date-range-picker #dateRangePicker></mat-date-range-picker>\n  </mat-form-field>\n</div>\n"
+        },
+        {
+            "name": "DateTimeComponent",
+            "id": "component-DateTimeComponent-e5e4cce3766a17a104efa21d3513337099df8e588d08cbbb051f29a9cfb5a6ffcf8875a3403827375e2b58c482537bb453c9e44e844a493277e5c79e0f53edba",
+            "file": "libs/material/src/lib/form/date-time/date-time.component.ts",
+            "encapsulation": [],
+            "entryComponents": [],
+            "inputs": [],
+            "outputs": [],
+            "providers": [],
+            "selector": "techbir-date-time",
+            "styleUrls": [
+                "./date-time.component.scss"
+            ],
+            "styles": [],
+            "templateUrl": [
+                "./date-time.component.html"
             ],
             "viewProviders": [],
             "hostDirectives": [],
@@ -2235,15 +2903,7 @@
             "standalone": true,
             "imports": [
                 {
-                    "name": "CommonModule",
-                    "type": "module"
-                },
-                {
-                    "name": "FormsModule",
-                    "type": "module"
-                },
-                {
-                    "name": "ReactiveFormsModule",
+                    "name": "CommonFieldModule",
                     "type": "module"
                 },
                 {
@@ -2253,71 +2913,12 @@
                 {
                     "name": "MatNativeDateModule",
                     "type": "module"
-                },
-                {
-                    "name": "MatFormFieldModule",
-                    "type": "module"
-                },
-                {
-                    "name": "MatInputModule",
-                    "type": "module"
                 }
             ],
             "description": "",
             "rawdescription": "\n",
             "type": "component",
-            "sourceCode": "import { Component } from '@angular/core';\nimport { CommonModule } from '@angular/common';\nimport { FormsModule, ReactiveFormsModule } from '@angular/forms';\nimport { MatDatepickerModule } from '@angular/material/datepicker';\nimport { MatNativeDateModule } from '@angular/material/core';\nimport { MatFormFieldModule } from '@angular/material/form-field';\nimport { MatInputModule } from '@angular/material/input';\nimport { CommonFieldComponent } from '../common-field/common-field.component';\n\n@Component({\n  selector: 'techbir-date-range',\n  standalone: true,\n  imports: [\n    CommonModule,\n    FormsModule,\n    ReactiveFormsModule,\n    MatDatepickerModule,\n    MatNativeDateModule,\n    MatFormFieldModule,\n    MatInputModule,\n  ],\n  templateUrl: './date-range.component.html',\n  styleUrls: ['./date-range.component.scss'],\n})\nexport class DateRangeComponent extends CommonFieldComponent {}\n",
-            "assetsDirs": [],
-            "styleUrlsData": [
-                {
-                    "data": "",
-                    "styleUrl": "./date-range.component.scss"
-                }
-            ],
-            "stylesData": "",
-            "extends": [
-                "CommonFieldComponent"
-            ],
-            "templateData": "<div [formGroup]=\"formGroup\">\n  <mat-form-field class=\"example-form-field\">\n    <mat-label>First campaign</mat-label>\n    <mat-date-range-input\n      [formControlName]=\"name\"\n      [rangePicker]=\"campaignOnePicker\"\n    >\n      <input matStartDate placeholder=\"Start date\" formControlName=\"start\" />\n      <input matEndDate placeholder=\"End date\" formControlName=\"end\" />\n    </mat-date-range-input>\n    <mat-hint>MM/DD/YYYY – MM/DD/YYYY</mat-hint>\n    <mat-datepicker-toggle\n      matIconSuffix\n      [for]=\"campaignOnePicker\"\n    ></mat-datepicker-toggle>\n    <mat-date-range-picker #campaignOnePicker></mat-date-range-picker>\n  </mat-form-field>\n</div>\n"
-        },
-        {
-            "name": "DateTimeComponent",
-            "id": "component-DateTimeComponent-9e90b768ca9c97ccab0545f022aaae3dbf761f9af499e589c1d9a451b69928dbbcf3c5b9c9b87e8ffee0f143c988b35b3fde6d97b11189f01761465395bf9cbf",
-            "file": "libs/material/src/lib/form/date-time/date-time.component.ts",
-            "encapsulation": [],
-            "entryComponents": [],
-            "inputs": [],
-            "outputs": [],
-            "providers": [],
-            "selector": "techbir-date-time",
-            "styleUrls": [
-                "./date-time.component.scss"
-            ],
-            "styles": [],
-            "templateUrl": [
-                "./date-time.component.html"
-            ],
-            "viewProviders": [],
-            "hostDirectives": [],
-            "inputsClass": [],
-            "outputsClass": [],
-            "propertiesClass": [],
-            "methodsClass": [],
-            "deprecated": false,
-            "deprecationMessage": "",
-            "hostBindings": [],
-            "hostListeners": [],
-            "standalone": true,
-            "imports": [
-                {
-                    "name": "CommonModule",
-                    "type": "module"
-                }
-            ],
-            "description": "",
-            "rawdescription": "\n",
-            "type": "component",
-            "sourceCode": "import { Component } from '@angular/core';\nimport { CommonModule } from '@angular/common';\n\n@Component({\n  selector: 'techbir-date-time',\n  standalone: true,\n  imports: [CommonModule],\n  templateUrl: './date-time.component.html',\n  styleUrls: ['./date-time.component.scss'],\n})\nexport class DateTimeComponent {}\n",
+            "sourceCode": "import { Component, Injectable, Provider, Type } from '@angular/core';\nimport {\n  CommonFieldComponent,\n  CommonFieldModule,\n} from '../common-field/common-field.component';\nimport { MatDatepickerModule } from '@angular/material/datepicker';\nimport { MatNativeDateModule } from '@angular/material/core';\nimport {} from '@angular/material/core';\n\n@Component({\n  selector: 'techbir-date-time',\n  standalone: true,\n  imports: [CommonFieldModule, MatDatepickerModule, MatNativeDateModule],\n  templateUrl: './date-time.component.html',\n  styleUrls: ['./date-time.component.scss'],\n})\nexport class DateTimeComponent extends CommonFieldComponent {}\n",
             "assetsDirs": [],
             "styleUrlsData": [
                 {
@@ -2326,8 +2927,10 @@
                 }
             ],
             "stylesData": "",
-            "extends": [],
-            "templateData": "<p>date-time works!</p>\n"
+            "extends": [
+                "CommonFieldComponent"
+            ],
+            "templateData": "<div [formGroup]=\"formGroup\">\n  <input\n    type=\"text\"\n    [formControlName]=\"name\"\n    style=\"position: absolute; visibility: collapse\"\n  />\n\n  <mat-form-field>\n    <mat-label>{{ label || name | titlecase }}</mat-label>\n    <input matInput [matDatepicker]=\"picker\" />\n    <mat-hint>MM/DD/YYYY</mat-hint>\n    <mat-datepicker-toggle matIconSuffix [for]=\"picker\"></mat-datepicker-toggle>\n    <mat-datepicker #picker> </mat-datepicker>\n  </mat-form-field>\n</div>\n"
         },
         {
             "name": "DeleteComponent",
@@ -4243,6 +4846,270 @@
             "templateData": "<div [formGroup]=\"formGroup\">\n  <mat-form-field [appearance]=\"appearance\">\n    <mat-label>{{ label || 'Form Field' }}</mat-label>\n    <input #inputRef type=\"text\" matInput [formControlName]=\"name\" />\n    <mat-icon matPrefix color=\"primary\">{{ icon || 'info' }}</mat-icon>\n    <mat-error>{{ errorMessage$ | async }}</mat-error>\n  </mat-form-field>\n</div>\n"
         },
         {
+            "name": "TimePickerComponent",
+            "id": "component-TimePickerComponent-68e66b4bd712ceb494057c4dd0933c5e6669914bba7eaea71ceae22d6b60256e8eae7c447dcced9db82166fdbddfc8fd8123f070735586aa64bb675b28de4b10",
+            "file": "libs/material/src/lib/form/time-picker/time-picker.component.ts",
+            "encapsulation": [],
+            "entryComponents": [],
+            "inputs": [],
+            "outputs": [],
+            "providers": [],
+            "selector": "techbir-time-picker",
+            "styleUrls": [
+                "./time-picker.component.scss"
+            ],
+            "styles": [],
+            "templateUrl": [
+                "./time-picker.component.html"
+            ],
+            "viewProviders": [],
+            "hostDirectives": [],
+            "inputsClass": [
+                {
+                    "name": "icon",
+                    "defaultValue": "''",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "rawdescription": "\n\nProperty icon\n",
+                    "description": "<p>Property icon</p>\n",
+                    "line": 54,
+                    "type": "string",
+                    "decorators": [],
+                    "inheritance": {
+                        "file": "CommonFieldComponent"
+                    }
+                },
+                {
+                    "name": "label",
+                    "defaultValue": "''",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "rawdescription": "\n\nProperty label\n",
+                    "description": "<p>Property label</p>\n",
+                    "line": 49,
+                    "type": "string",
+                    "decorators": [],
+                    "inheritance": {
+                        "file": "CommonFieldComponent"
+                    }
+                },
+                {
+                    "name": "name",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "rawdescription": "\n\nProperty name\n",
+                    "description": "<p>Property name</p>\n",
+                    "line": 44,
+                    "type": "string",
+                    "decorators": [],
+                    "inheritance": {
+                        "file": "CommonFieldComponent"
+                    }
+                }
+            ],
+            "outputsClass": [],
+            "propertiesClass": [
+                {
+                    "name": "hours",
+                    "defaultValue": "slideLeft(range(1, 12))",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "",
+                    "optional": false,
+                    "description": "",
+                    "line": 29
+                },
+                {
+                    "name": "hourValue",
+                    "defaultValue": "0",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "number",
+                    "optional": false,
+                    "description": "",
+                    "line": 27
+                },
+                {
+                    "name": "minutes",
+                    "defaultValue": "range(0, 59, 5)",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "",
+                    "optional": false,
+                    "description": "",
+                    "line": 30
+                },
+                {
+                    "name": "minuteValue",
+                    "defaultValue": "0",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "number",
+                    "optional": false,
+                    "description": "",
+                    "line": 28
+                },
+                {
+                    "name": "appearance",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "",
+                    "optional": false,
+                    "description": "",
+                    "line": 70,
+                    "decorators": [
+                        {
+                            "name": "Optional",
+                            "stringifiedArguments": ""
+                        },
+                        {
+                            "name": "Inject",
+                            "stringifiedArguments": "FORM_FIELD_APPEARANCE_TOKEN"
+                        }
+                    ],
+                    "modifierKind": [
+                        170,
+                        170,
+                        125,
+                        148
+                    ],
+                    "inheritance": {
+                        "file": "CommonFieldComponent"
+                    }
+                },
+                {
+                    "name": "control",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "AbstractControl",
+                    "optional": false,
+                    "description": "<p>FormControl instance</p>\n",
+                    "line": 59,
+                    "rawdescription": "\n\nFormControl instance\n",
+                    "modifierKind": [
+                        123
+                    ],
+                    "inheritance": {
+                        "file": "CommonFieldComponent"
+                    }
+                },
+                {
+                    "name": "errorMessage$",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "Observable<string | undefined>",
+                    "optional": false,
+                    "description": "<p>Obserable error message</p>\n",
+                    "line": 64,
+                    "rawdescription": "\n\nObserable error message\n",
+                    "inheritance": {
+                        "file": "CommonFieldComponent"
+                    }
+                },
+                {
+                    "name": "formGroup",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "FormGroup",
+                    "optional": false,
+                    "description": "",
+                    "line": 67,
+                    "decorators": [
+                        {
+                            "name": "Inject",
+                            "stringifiedArguments": "FormGroup"
+                        }
+                    ],
+                    "modifierKind": [
+                        170,
+                        125,
+                        148
+                    ],
+                    "inheritance": {
+                        "file": "CommonFieldComponent"
+                    }
+                }
+            ],
+            "methodsClass": [
+                {
+                    "name": "getErrorMessage",
+                    "args": [],
+                    "optional": false,
+                    "returnType": "string | undefined",
+                    "typeParameters": [],
+                    "line": 97,
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "rawdescription": "\n\nGet error message if any\n",
+                    "description": "<p>Get error message if any</p>\n",
+                    "modifierKind": [
+                        123
+                    ],
+                    "jsdoctags": [
+                        {
+                            "tagName": {
+                                "pos": 2044,
+                                "end": 2051,
+                                "flags": 16842752,
+                                "modifierFlagsCache": 0,
+                                "transformFlags": 0,
+                                "kind": 80,
+                                "escapedText": "returns"
+                            },
+                            "comment": "<p>string | undefined</p>\n"
+                        }
+                    ],
+                    "inheritance": {
+                        "file": "CommonFieldComponent"
+                    }
+                },
+                {
+                    "name": "ngOnInit",
+                    "args": [],
+                    "optional": false,
+                    "returnType": "void",
+                    "typeParameters": [],
+                    "line": 76,
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "inheritance": {
+                        "file": "CommonFieldComponent"
+                    }
+                }
+            ],
+            "deprecated": false,
+            "deprecationMessage": "",
+            "hostBindings": [],
+            "hostListeners": [],
+            "standalone": true,
+            "imports": [
+                {
+                    "name": "CommonFieldModule",
+                    "type": "module"
+                },
+                {
+                    "name": "MatButtonModule",
+                    "type": "module"
+                }
+            ],
+            "description": "",
+            "rawdescription": "\n",
+            "type": "component",
+            "sourceCode": "import { Component, OnInit } from '@angular/core';\nimport {\n  CommonFieldComponent,\n  CommonFieldModule,\n} from '../common-field/common-field.component';\nimport { MatButtonModule } from '@angular/material/button';\nfunction range(start: number, end: number, step = 1) {\n  const n = [];\n  for (let i = start; i <= end; i = i + step) {\n    n.push(i);\n  }\n  return n;\n}\n\nfunction slideLeft(arr: any[]) {\n  return [arr.pop(), ...arr];\n}\n\n@Component({\n  selector: 'techbir-time-picker',\n  standalone: true,\n  imports: [CommonFieldModule, MatButtonModule],\n  templateUrl: './time-picker.component.html',\n  styleUrls: ['./time-picker.component.scss'],\n})\nexport class TimePickerComponent extends CommonFieldComponent {\n  hourValue = 0;\n  minuteValue = 0;\n  hours = slideLeft(range(1, 12));\n  minutes = range(0, 59, 5);\n}\n",
+            "assetsDirs": [],
+            "styleUrlsData": [
+                {
+                    "data": "button {\r\n  width: 30px;\r\n  height: 30px;\r\n  border-radius: 100%;\r\n  position: absolute;\r\n  border: 3px solid transparent;\r\n  transition: border ease-in-out 400ms;\r\n}\r\n\r\n.select-hours,\r\n.select-minutes {\r\n  width: 204px;\r\n  height: 204px;\r\n  padding: 0px;\r\n  position: relative;\r\n}\r\n.select-hours {\r\n  border: 2px solid orange;\r\n}\r\n\r\n.select-minutes {\r\n  border: 2px solid blue;\r\n}\r\n\r\n.line {\r\n  width: 30px;\r\n  background-color: rgba(220, 220, 220, 0.769);\r\n  height: 100px;\r\n  position: absolute;\r\n  top: 0px;\r\n  left: 87px;\r\n  display: flex;\r\n  justify-content: flex-end;\r\n  overflow: visible;\r\n  border-radius: 100%;\r\n  user-select: none;\r\n  cursor: pointer;\r\n}\r\n.line:hover {\r\n  background-color: rgb(124, 124, 124);\r\n  z-index: 1;\r\n}\r\n.line:hover button {\r\n  border: 3px solid rgba(0, 0, 0, 0.474);\r\n  transition: box-shadow ease-in-out 400ms;\r\n}\r\n\r\n@for $i from 0 through 59 {\r\n  @keyframes a-#{$i} {\r\n    0% {\r\n      transform: rotate(0deg);\r\n      height: 0px;\r\n      top: 100px;\r\n    }\r\n    100% {\r\n      transform: rotate(#{$i * 30}deg);\r\n      height: 100px;\r\n      top: 0px;\r\n    }\r\n  }\r\n\r\n  .line:nth-child(#{$i + 1}) {\r\n    transform: rotate(#{$i * 30}deg);\r\n    transform-origin: bottom;\r\n    animation: a-#{$i} 3000ms cubic-bezier(0.165, 0.84, 0.44, 1) 0ms;\r\n    button {\r\n      transform: rotate(-#{$i * 30}deg);\r\n    }\r\n  }\r\n}\r\n\r\n.time-value {\r\n  position: absolute;\r\n  margin: auto;\r\n  top: 85px;\r\n  left: 85px;\r\n  z-index: 2;\r\n  background-color: gray;\r\n  color: white;\r\n  font-size: 16px;\r\n  width: 30px;\r\n  height: 30px;\r\n  border-radius: 100%;\r\n  display: flex;\r\n  flex-direction: column;\r\n  justify-content: center;\r\n  align-items: center;\r\n}\r\n",
+                    "styleUrl": "./time-picker.component.scss"
+                }
+            ],
+            "stylesData": "",
+            "extends": [
+                "CommonFieldComponent"
+            ],
+            "templateData": "<ng-container *ngIf=\"hours\">\n  <div class=\"select-hours\">\n    <div class=\"time-value\">{{ hourValue }}</div>\n    <ng-container *ngFor=\"let h of hours\">\n      <div class=\"line\" (click)=\"hourValue = h\">\n        <button mat-mini-fab class=\"hour\" color=\"accent\">\n          {{ h }}\n        </button>\n      </div>\n    </ng-container>\n  </div>\n</ng-container>\n\n<ng-container *ngIf=\"minutes\">\n  <div class=\"select-minutes\">\n    <div class=\"time-value\">{{ minuteValue }}</div>\n    <ng-container *ngFor=\"let m of minutes\">\n      <div class=\"line\" (click)=\"minuteValue = m\">\n        <button mat-mini-fab class=\"minute\" color=\"primary\">\n          {{ m }}\n        </button>\n      </div>\n    </ng-container>\n  </div>\n</ng-container>\n"
+        },
+        {
             "name": "UpdateComponent",
             "id": "component-UpdateComponent-48bf266a103ed8743a8b2f34e1b20a4f93f6c3839cb97dc19e7aeb0314e526f2ff27aa93e942d180ae1add309eb5afe2968ad51b81bf479e3243577d01f2082d",
             "file": "libs/material/src/lib/resource/update/update.component.ts",
@@ -4419,6 +5286,16 @@
     "miscellaneous": {
         "variables": [
             {
+                "name": "DATE_PICKER_FILTER_STRATEGY",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "libs/material/src/lib/api/date-filter.provider.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "string",
+                "defaultValue": "'DATE_PICKER_FILTER_STRATEGY'"
+            },
+            {
                 "name": "ENTITY_NAME_TOKEN",
                 "ctype": "miscellaneous",
                 "subtype": "variable",
@@ -4558,7 +5435,7 @@
                 "deprecated": false,
                 "deprecationMessage": "",
                 "type": "Story",
-                "defaultValue": "{\n  args: {},\n  play: async ({ canvasElement }) => {\n    const canvas = within(canvasElement);\n    expect(canvas.getByText(/date-time works!/gi)).toBeTruthy();\n  },\n}"
+                "defaultValue": "{\n  args: { name: 'dob', label: 'Dob & Time' },\n  play: async ({ canvasElement }) => {\n    const canvas = within(canvasElement);\n    expect(canvas.getByText(/date-time works!/gi)).toBeTruthy();\n  },\n}"
             },
             {
                 "name": "Heading",
@@ -4628,7 +5505,7 @@
                 "deprecated": false,
                 "deprecationMessage": "",
                 "type": "Story",
-                "defaultValue": "{\n  args: {},\n  play: async ({ canvasElement }) => {\n    const canvas = within(canvasElement);\n    expect(canvas.getByText(/text-field works!/gi)).toBeTruthy();\n  },\n}"
+                "defaultValue": "{\n  args: {\n    name: 'name',\n    label: 'First Name',\n    icon: 'badge',\n  },\n  play: async ({ canvasElement }) => {\n    const canvas = within(canvasElement);\n    expect(canvas.getByText(/text-field works!/gi)).toBeTruthy();\n  },\n}"
             },
             {
                 "name": "Heading",
@@ -4638,7 +5515,17 @@
                 "deprecated": false,
                 "deprecationMessage": "",
                 "type": "Story",
-                "defaultValue": "{\n  args: {},\n  play: async ({ canvasElement }) => {\n    const canvas = within(canvasElement);\n    expect(canvas.getByText(/textarea works!/gi)).toBeTruthy();\n  },\n}"
+                "defaultValue": "{\n  args: { name: 'name' },\n  play: async ({ canvasElement }) => {\n    const canvas = within(canvasElement);\n    expect(canvas.getByText(/textarea works!/gi)).toBeTruthy();\n  },\n}"
+            },
+            {
+                "name": "Heading",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "libs/material/src/lib/form/time-picker/time-picker.component.stories.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "Story",
+                "defaultValue": "{\n  args: { name: 'time' },\n  play: async ({ canvasElement }) => {\n    const canvas = within(canvasElement);\n    expect(canvas.getByText(/time-picker works!/gi)).toBeTruthy();\n  },\n}"
             },
             {
                 "name": "Heading",
@@ -4649,66 +5536,6 @@
                 "deprecationMessage": "",
                 "type": "Story",
                 "defaultValue": "{\n  args: {},\n  play: async ({ canvasElement }) => {\n    const canvas = within(canvasElement);\n    expect(canvas.getByText(/config works!/gi)).toBeTruthy();\n  },\n}"
-            },
-            {
-                "name": "Heading",
-                "ctype": "miscellaneous",
-                "subtype": "variable",
-                "file": "libs/material/src/lib/resource/create/create.component.stories.ts",
-                "deprecated": false,
-                "deprecationMessage": "",
-                "type": "Story",
-                "defaultValue": "{\n  args: {},\n  play: async ({ canvasElement }) => {\n    const canvas = within(canvasElement);\n    expect(canvas.getByText(/create works!/gi)).toBeTruthy();\n  },\n}"
-            },
-            {
-                "name": "Heading",
-                "ctype": "miscellaneous",
-                "subtype": "variable",
-                "file": "libs/material/src/lib/resource/dashboard/dashboard.component.stories.ts",
-                "deprecated": false,
-                "deprecationMessage": "",
-                "type": "Story",
-                "defaultValue": "{\n  args: {},\n  play: async ({ canvasElement }) => {\n    const canvas = within(canvasElement);\n    expect(canvas.getByText(/dashboard works!/gi)).toBeTruthy();\n  },\n}"
-            },
-            {
-                "name": "Heading",
-                "ctype": "miscellaneous",
-                "subtype": "variable",
-                "file": "libs/material/src/lib/resource/delete/delete.component.stories.ts",
-                "deprecated": false,
-                "deprecationMessage": "",
-                "type": "Story",
-                "defaultValue": "{\n  args: {},\n  play: async ({ canvasElement }) => {\n    const canvas = within(canvasElement);\n    expect(canvas.getByText(/delete works!/gi)).toBeTruthy();\n  },\n}"
-            },
-            {
-                "name": "Heading",
-                "ctype": "miscellaneous",
-                "subtype": "variable",
-                "file": "libs/material/src/lib/resource/detail/detail.component.stories.ts",
-                "deprecated": false,
-                "deprecationMessage": "",
-                "type": "Story",
-                "defaultValue": "{\n  args: {},\n  play: async ({ canvasElement }) => {\n    const canvas = within(canvasElement);\n    expect(canvas.getByText(/detail works!/gi)).toBeTruthy();\n  },\n}"
-            },
-            {
-                "name": "Heading",
-                "ctype": "miscellaneous",
-                "subtype": "variable",
-                "file": "libs/material/src/lib/resource/update/update.component.stories.ts",
-                "deprecated": false,
-                "deprecationMessage": "",
-                "type": "Story",
-                "defaultValue": "{\n  args: {},\n  play: async ({ canvasElement }) => {\n    const canvas = within(canvasElement);\n    expect(canvas.getByText(/update works!/gi)).toBeTruthy();\n  },\n}"
-            },
-            {
-                "name": "Heading",
-                "ctype": "miscellaneous",
-                "subtype": "variable",
-                "file": "libs/material/src/lib/resource/view/view.component.stories.ts",
-                "deprecated": false,
-                "deprecationMessage": "",
-                "type": "Story",
-                "defaultValue": "{\n  args: {},\n  play: async ({ canvasElement }) => {\n    const canvas = within(canvasElement);\n    expect(canvas.getByText(/view works!/gi)).toBeTruthy();\n  },\n}"
             },
             {
                 "name": "LOCAL_STOREAGE_NAME_TOKEN",
@@ -4798,7 +5625,7 @@
                 "deprecated": false,
                 "deprecationMessage": "",
                 "type": "Meta<DateRangeComponent>",
-                "defaultValue": "{\n  component: DateRangeComponent,\n  title: 'DateRangeComponent',\n  decorators: [\n    moduleMetadata({\n      imports: [\n        CommonModule,\n        BrowserAnimationsModule,\n        FormsModule,\n        ReactiveFormsModule,\n        MatDatepickerModule,\n        MatNativeDateModule,\n        MatFormFieldModule,\n        MatInputModule,\n      ],\n      providers: [provideFormGroup({ range: new Date() })],\n    }),\n  ],\n}"
+                "defaultValue": "{\n  component: DateRangeComponent,\n  title: 'DateRangeComponent',\n  decorators: [\n    moduleMetadata({\n      imports: [\n        CommonFieldModule,\n        BrowserAnimationsModule,\n        MatDatepickerModule,\n        MatNativeDateModule,\n      ],\n      providers: [\n        provideFormGroup({ range: '' }),\n        // provideDateRangeSelectionStrategy(FiveDayRangeSelectionStrategy),\n        // provideDateRangeSelectionStrategy(WeekDaysStrategy),\n        provideDateRangeSelectionStrategy(WeekEndsStrategy),\n      ],\n    }),\n  ],\n}"
             },
             {
                 "name": "meta",
@@ -4808,7 +5635,7 @@
                 "deprecated": false,
                 "deprecationMessage": "",
                 "type": "Meta<DateTimeComponent>",
-                "defaultValue": "{\n  component: DateTimeComponent,\n  title: 'DateTimeComponent',\n}"
+                "defaultValue": "{\n  component: DateTimeComponent,\n  title: 'DateTimeComponent',\n  decorators: [\n    moduleMetadata({\n      imports: [\n        BrowserAnimationsModule,\n        CommonFieldModule,\n        MatDatepickerModule,\n        MatNativeDateModule,\n      ],\n      providers: [provideFormGroup({ dob: '' })],\n    }),\n  ],\n}"
             },
             {
                 "name": "meta",
@@ -4878,7 +5705,7 @@
                 "deprecated": false,
                 "deprecationMessage": "",
                 "type": "Meta<TextFieldComponent>",
-                "defaultValue": "{\n  component: TextFieldComponent,\n  title: 'TextFieldComponent',\n}"
+                "defaultValue": "{\n  component: TextFieldComponent,\n  title: 'TextFieldComponent',\n  decorators: [\n    moduleMetadata({\n      imports: [CommonFieldModule],\n      providers: [provideFormGroup({ name: '' })],\n    }),\n  ],\n}"
             },
             {
                 "name": "meta",
@@ -4888,7 +5715,17 @@
                 "deprecated": false,
                 "deprecationMessage": "",
                 "type": "Meta<TextareaComponent>",
-                "defaultValue": "{\n  component: TextareaComponent,\n  title: 'TextareaComponent',\n}"
+                "defaultValue": "{\n  component: TextareaComponent,\n  title: 'TextareaComponent',\n\n  decorators: [\n    moduleMetadata({\n      imports: [CommonFieldModule],\n      providers: [\n        provideFormGroup({ name: '' }),\n      ],\n    }),\n  ],\n}"
+            },
+            {
+                "name": "meta",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "libs/material/src/lib/form/time-picker/time-picker.component.stories.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "Meta<TimePickerComponent>",
+                "defaultValue": "{\n  component: TimePickerComponent,\n  title: 'TimePickerComponent',\n  decorators: [\n    moduleMetadata({\n      imports: [CommonFieldModule],\n      providers: [provideFormGroup({ time: '' })],\n    }),\n  ],\n}"
             },
             {
                 "name": "meta",
@@ -4899,66 +5736,6 @@
                 "deprecationMessage": "",
                 "type": "Meta<ConfigComponent>",
                 "defaultValue": "{\n  component: ConfigComponent,\n  title: 'ConfigComponent',\n}"
-            },
-            {
-                "name": "meta",
-                "ctype": "miscellaneous",
-                "subtype": "variable",
-                "file": "libs/material/src/lib/resource/create/create.component.stories.ts",
-                "deprecated": false,
-                "deprecationMessage": "",
-                "type": "Meta<CreateComponent>",
-                "defaultValue": "{\n  component: CreateComponent,\n  title: 'CreateComponent',\n}"
-            },
-            {
-                "name": "meta",
-                "ctype": "miscellaneous",
-                "subtype": "variable",
-                "file": "libs/material/src/lib/resource/dashboard/dashboard.component.stories.ts",
-                "deprecated": false,
-                "deprecationMessage": "",
-                "type": "Meta<DashboardComponent>",
-                "defaultValue": "{\n  component: DashboardComponent,\n  title: 'DashboardComponent',\n}"
-            },
-            {
-                "name": "meta",
-                "ctype": "miscellaneous",
-                "subtype": "variable",
-                "file": "libs/material/src/lib/resource/delete/delete.component.stories.ts",
-                "deprecated": false,
-                "deprecationMessage": "",
-                "type": "Meta<DeleteComponent>",
-                "defaultValue": "{\n  component: DeleteComponent,\n  title: 'DeleteComponent',\n}"
-            },
-            {
-                "name": "meta",
-                "ctype": "miscellaneous",
-                "subtype": "variable",
-                "file": "libs/material/src/lib/resource/detail/detail.component.stories.ts",
-                "deprecated": false,
-                "deprecationMessage": "",
-                "type": "Meta<DetailComponent>",
-                "defaultValue": "{\n  component: DetailComponent,\n  title: 'DetailComponent',\n}"
-            },
-            {
-                "name": "meta",
-                "ctype": "miscellaneous",
-                "subtype": "variable",
-                "file": "libs/material/src/lib/resource/update/update.component.stories.ts",
-                "deprecated": false,
-                "deprecationMessage": "",
-                "type": "Meta<UpdateComponent>",
-                "defaultValue": "{\n  component: UpdateComponent,\n  title: 'UpdateComponent',\n}"
-            },
-            {
-                "name": "meta",
-                "ctype": "miscellaneous",
-                "subtype": "variable",
-                "file": "libs/material/src/lib/resource/view/view.component.stories.ts",
-                "deprecated": false,
-                "deprecationMessage": "",
-                "type": "Meta<ViewComponent>",
-                "defaultValue": "{\n  component: ViewComponent,\n  title: 'ViewComponent',\n}"
             },
             {
                 "name": "NAV_ITEMS_TOKEN",
@@ -5058,7 +5835,7 @@
                 "deprecated": false,
                 "deprecationMessage": "",
                 "type": "Story",
-                "defaultValue": "{\n  args: {},\n}"
+                "defaultValue": "{\n  args: { name: 'dob', label: 'Dob & Time' },\n}"
             },
             {
                 "name": "Primary",
@@ -5128,7 +5905,7 @@
                 "deprecated": false,
                 "deprecationMessage": "",
                 "type": "Story",
-                "defaultValue": "{\n  args: {},\n}"
+                "defaultValue": "{\n  args: {\n    name: 'name',\n    label: 'First Name',\n    icon: 'badge',\n  },\n}"
             },
             {
                 "name": "Primary",
@@ -5138,73 +5915,23 @@
                 "deprecated": false,
                 "deprecationMessage": "",
                 "type": "Story",
-                "defaultValue": "{\n  args: {},\n}"
+                "defaultValue": "{\n  args: { name: 'name' },\n}"
+            },
+            {
+                "name": "Primary",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "libs/material/src/lib/form/time-picker/time-picker.component.stories.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "Story",
+                "defaultValue": "{\n  args: { name: 'time' },\n}"
             },
             {
                 "name": "Primary",
                 "ctype": "miscellaneous",
                 "subtype": "variable",
                 "file": "libs/material/src/lib/resource/config/config.component.stories.ts",
-                "deprecated": false,
-                "deprecationMessage": "",
-                "type": "Story",
-                "defaultValue": "{\n  args: {},\n}"
-            },
-            {
-                "name": "Primary",
-                "ctype": "miscellaneous",
-                "subtype": "variable",
-                "file": "libs/material/src/lib/resource/create/create.component.stories.ts",
-                "deprecated": false,
-                "deprecationMessage": "",
-                "type": "Story",
-                "defaultValue": "{\n  args: {},\n}"
-            },
-            {
-                "name": "Primary",
-                "ctype": "miscellaneous",
-                "subtype": "variable",
-                "file": "libs/material/src/lib/resource/dashboard/dashboard.component.stories.ts",
-                "deprecated": false,
-                "deprecationMessage": "",
-                "type": "Story",
-                "defaultValue": "{\n  args: {},\n}"
-            },
-            {
-                "name": "Primary",
-                "ctype": "miscellaneous",
-                "subtype": "variable",
-                "file": "libs/material/src/lib/resource/delete/delete.component.stories.ts",
-                "deprecated": false,
-                "deprecationMessage": "",
-                "type": "Story",
-                "defaultValue": "{\n  args: {},\n}"
-            },
-            {
-                "name": "Primary",
-                "ctype": "miscellaneous",
-                "subtype": "variable",
-                "file": "libs/material/src/lib/resource/detail/detail.component.stories.ts",
-                "deprecated": false,
-                "deprecationMessage": "",
-                "type": "Story",
-                "defaultValue": "{\n  args: {},\n}"
-            },
-            {
-                "name": "Primary",
-                "ctype": "miscellaneous",
-                "subtype": "variable",
-                "file": "libs/material/src/lib/resource/update/update.component.stories.ts",
-                "deprecated": false,
-                "deprecationMessage": "",
-                "type": "Story",
-                "defaultValue": "{\n  args: {},\n}"
-            },
-            {
-                "name": "Primary",
-                "ctype": "miscellaneous",
-                "subtype": "variable",
-                "file": "libs/material/src/lib/resource/view/view.component.stories.ts",
                 "deprecated": false,
                 "deprecationMessage": "",
                 "type": "Story",
@@ -5309,6 +6036,93 @@
                     {
                         "name": "isAsc",
                         "type": "boolean",
+                        "deprecated": false,
+                        "deprecationMessage": "",
+                        "tagName": {
+                            "text": "param"
+                        }
+                    }
+                ]
+            },
+            {
+                "name": "DisableWeekEndsStategy",
+                "file": "libs/material/src/lib/api/date-filter.provider.ts",
+                "ctype": "miscellaneous",
+                "subtype": "function",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "description": "",
+                "args": [
+                    {
+                        "name": "date",
+                        "type": "D",
+                        "deprecated": false,
+                        "deprecationMessage": ""
+                    }
+                ],
+                "returnType": "boolean",
+                "jsdoctags": [
+                    {
+                        "name": "date",
+                        "type": "D",
+                        "deprecated": false,
+                        "deprecationMessage": "",
+                        "tagName": {
+                            "text": "param"
+                        }
+                    }
+                ]
+            },
+            {
+                "name": "provideDatePickerFilter",
+                "file": "libs/material/src/lib/api/date-filter.provider.ts",
+                "ctype": "miscellaneous",
+                "subtype": "function",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "description": "",
+                "args": [
+                    {
+                        "name": "dateFilter",
+                        "type": "DateFilterFn",
+                        "deprecated": false,
+                        "deprecationMessage": ""
+                    }
+                ],
+                "returnType": "Provider",
+                "jsdoctags": [
+                    {
+                        "name": "dateFilter",
+                        "type": "DateFilterFn",
+                        "deprecated": false,
+                        "deprecationMessage": "",
+                        "tagName": {
+                            "text": "param"
+                        }
+                    }
+                ]
+            },
+            {
+                "name": "provideDateRangeSelectionStrategy",
+                "file": "libs/material/src/lib/api/date-selection-strategy.provider.ts",
+                "ctype": "miscellaneous",
+                "subtype": "function",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "description": "",
+                "args": [
+                    {
+                        "name": "strategy",
+                        "type": "Type",
+                        "deprecated": false,
+                        "deprecationMessage": ""
+                    }
+                ],
+                "returnType": "Provider",
+                "jsdoctags": [
+                    {
+                        "name": "strategy",
+                        "type": "Type",
                         "deprecated": false,
                         "deprecationMessage": "",
                         "tagName": {
@@ -5578,6 +6392,92 @@
                         "comment": ""
                     }
                 ]
+            },
+            {
+                "name": "range",
+                "file": "libs/material/src/lib/form/time-picker/time-picker.component.ts",
+                "ctype": "miscellaneous",
+                "subtype": "function",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "description": "",
+                "args": [
+                    {
+                        "name": "start",
+                        "type": "number",
+                        "deprecated": false,
+                        "deprecationMessage": ""
+                    },
+                    {
+                        "name": "end",
+                        "type": "number",
+                        "deprecated": false,
+                        "deprecationMessage": ""
+                    },
+                    {
+                        "name": "step",
+                        "type": "number",
+                        "deprecated": false,
+                        "deprecationMessage": "",
+                        "defaultValue": "1"
+                    }
+                ],
+                "jsdoctags": [
+                    {
+                        "name": "start",
+                        "type": "number",
+                        "deprecated": false,
+                        "deprecationMessage": "",
+                        "tagName": {
+                            "text": "param"
+                        }
+                    },
+                    {
+                        "name": "end",
+                        "type": "number",
+                        "deprecated": false,
+                        "deprecationMessage": "",
+                        "tagName": {
+                            "text": "param"
+                        }
+                    },
+                    {
+                        "name": "step",
+                        "type": "number",
+                        "deprecated": false,
+                        "deprecationMessage": "",
+                        "defaultValue": "1",
+                        "tagName": {
+                            "text": "param"
+                        }
+                    }
+                ]
+            },
+            {
+                "name": "slideLeft",
+                "file": "libs/material/src/lib/form/time-picker/time-picker.component.ts",
+                "ctype": "miscellaneous",
+                "subtype": "function",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "description": "",
+                "args": [
+                    {
+                        "name": "arr",
+                        "deprecated": false,
+                        "deprecationMessage": ""
+                    }
+                ],
+                "jsdoctags": [
+                    {
+                        "name": "arr",
+                        "deprecated": false,
+                        "deprecationMessage": "",
+                        "tagName": {
+                            "text": "param"
+                        }
+                    }
+                ]
             }
         ],
         "typealiases": [
@@ -5816,74 +6716,19 @@
                 "name": "Story",
                 "ctype": "miscellaneous",
                 "subtype": "typealias",
+                "rawtype": "StoryObj<TimePickerComponent>",
+                "file": "libs/material/src/lib/form/time-picker/time-picker.component.stories.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "description": "",
+                "kind": 183
+            },
+            {
+                "name": "Story",
+                "ctype": "miscellaneous",
+                "subtype": "typealias",
                 "rawtype": "StoryObj<ConfigComponent>",
                 "file": "libs/material/src/lib/resource/config/config.component.stories.ts",
-                "deprecated": false,
-                "deprecationMessage": "",
-                "description": "",
-                "kind": 183
-            },
-            {
-                "name": "Story",
-                "ctype": "miscellaneous",
-                "subtype": "typealias",
-                "rawtype": "StoryObj<CreateComponent>",
-                "file": "libs/material/src/lib/resource/create/create.component.stories.ts",
-                "deprecated": false,
-                "deprecationMessage": "",
-                "description": "",
-                "kind": 183
-            },
-            {
-                "name": "Story",
-                "ctype": "miscellaneous",
-                "subtype": "typealias",
-                "rawtype": "StoryObj<DashboardComponent>",
-                "file": "libs/material/src/lib/resource/dashboard/dashboard.component.stories.ts",
-                "deprecated": false,
-                "deprecationMessage": "",
-                "description": "",
-                "kind": 183
-            },
-            {
-                "name": "Story",
-                "ctype": "miscellaneous",
-                "subtype": "typealias",
-                "rawtype": "StoryObj<DeleteComponent>",
-                "file": "libs/material/src/lib/resource/delete/delete.component.stories.ts",
-                "deprecated": false,
-                "deprecationMessage": "",
-                "description": "",
-                "kind": 183
-            },
-            {
-                "name": "Story",
-                "ctype": "miscellaneous",
-                "subtype": "typealias",
-                "rawtype": "StoryObj<DetailComponent>",
-                "file": "libs/material/src/lib/resource/detail/detail.component.stories.ts",
-                "deprecated": false,
-                "deprecationMessage": "",
-                "description": "",
-                "kind": 183
-            },
-            {
-                "name": "Story",
-                "ctype": "miscellaneous",
-                "subtype": "typealias",
-                "rawtype": "StoryObj<UpdateComponent>",
-                "file": "libs/material/src/lib/resource/update/update.component.stories.ts",
-                "deprecated": false,
-                "deprecationMessage": "",
-                "description": "",
-                "kind": 183
-            },
-            {
-                "name": "Story",
-                "ctype": "miscellaneous",
-                "subtype": "typealias",
-                "rawtype": "StoryObj<ViewComponent>",
-                "file": "libs/material/src/lib/resource/view/view.component.stories.ts",
                 "deprecated": false,
                 "deprecationMessage": "",
                 "description": "",
@@ -5903,6 +6748,18 @@
         ],
         "enumerations": [],
         "groupedVariables": {
+            "libs/material/src/lib/api/date-filter.provider.ts": [
+                {
+                    "name": "DATE_PICKER_FILTER_STRATEGY",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "libs/material/src/lib/api/date-filter.provider.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "string",
+                    "defaultValue": "'DATE_PICKER_FILTER_STRATEGY'"
+                }
+            ],
             "libs/material/src/lib/api/resource.service.ts": [
                 {
                     "name": "ENTITY_NAME_TOKEN",
@@ -6206,7 +7063,7 @@
                     "deprecated": false,
                     "deprecationMessage": "",
                     "type": "Meta<DateRangeComponent>",
-                    "defaultValue": "{\n  component: DateRangeComponent,\n  title: 'DateRangeComponent',\n  decorators: [\n    moduleMetadata({\n      imports: [\n        CommonModule,\n        BrowserAnimationsModule,\n        FormsModule,\n        ReactiveFormsModule,\n        MatDatepickerModule,\n        MatNativeDateModule,\n        MatFormFieldModule,\n        MatInputModule,\n      ],\n      providers: [provideFormGroup({ range: new Date() })],\n    }),\n  ],\n}"
+                    "defaultValue": "{\n  component: DateRangeComponent,\n  title: 'DateRangeComponent',\n  decorators: [\n    moduleMetadata({\n      imports: [\n        CommonFieldModule,\n        BrowserAnimationsModule,\n        MatDatepickerModule,\n        MatNativeDateModule,\n      ],\n      providers: [\n        provideFormGroup({ range: '' }),\n        // provideDateRangeSelectionStrategy(FiveDayRangeSelectionStrategy),\n        // provideDateRangeSelectionStrategy(WeekDaysStrategy),\n        provideDateRangeSelectionStrategy(WeekEndsStrategy),\n      ],\n    }),\n  ],\n}"
                 },
                 {
                     "name": "Primary",
@@ -6228,7 +7085,7 @@
                     "deprecated": false,
                     "deprecationMessage": "",
                     "type": "Story",
-                    "defaultValue": "{\n  args: {},\n  play: async ({ canvasElement }) => {\n    const canvas = within(canvasElement);\n    expect(canvas.getByText(/date-time works!/gi)).toBeTruthy();\n  },\n}"
+                    "defaultValue": "{\n  args: { name: 'dob', label: 'Dob & Time' },\n  play: async ({ canvasElement }) => {\n    const canvas = within(canvasElement);\n    expect(canvas.getByText(/date-time works!/gi)).toBeTruthy();\n  },\n}"
                 },
                 {
                     "name": "meta",
@@ -6238,7 +7095,7 @@
                     "deprecated": false,
                     "deprecationMessage": "",
                     "type": "Meta<DateTimeComponent>",
-                    "defaultValue": "{\n  component: DateTimeComponent,\n  title: 'DateTimeComponent',\n}"
+                    "defaultValue": "{\n  component: DateTimeComponent,\n  title: 'DateTimeComponent',\n  decorators: [\n    moduleMetadata({\n      imports: [\n        BrowserAnimationsModule,\n        CommonFieldModule,\n        MatDatepickerModule,\n        MatNativeDateModule,\n      ],\n      providers: [provideFormGroup({ dob: '' })],\n    }),\n  ],\n}"
                 },
                 {
                     "name": "Primary",
@@ -6248,7 +7105,7 @@
                     "deprecated": false,
                     "deprecationMessage": "",
                     "type": "Story",
-                    "defaultValue": "{\n  args: {},\n}"
+                    "defaultValue": "{\n  args: { name: 'dob', label: 'Dob & Time' },\n}"
                 }
             ],
             "libs/material/src/lib/form/number/number.component.stories.ts": [
@@ -6452,7 +7309,7 @@
                     "deprecated": false,
                     "deprecationMessage": "",
                     "type": "Story",
-                    "defaultValue": "{\n  args: {},\n  play: async ({ canvasElement }) => {\n    const canvas = within(canvasElement);\n    expect(canvas.getByText(/text-field works!/gi)).toBeTruthy();\n  },\n}"
+                    "defaultValue": "{\n  args: {\n    name: 'name',\n    label: 'First Name',\n    icon: 'badge',\n  },\n  play: async ({ canvasElement }) => {\n    const canvas = within(canvasElement);\n    expect(canvas.getByText(/text-field works!/gi)).toBeTruthy();\n  },\n}"
                 },
                 {
                     "name": "meta",
@@ -6462,7 +7319,7 @@
                     "deprecated": false,
                     "deprecationMessage": "",
                     "type": "Meta<TextFieldComponent>",
-                    "defaultValue": "{\n  component: TextFieldComponent,\n  title: 'TextFieldComponent',\n}"
+                    "defaultValue": "{\n  component: TextFieldComponent,\n  title: 'TextFieldComponent',\n  decorators: [\n    moduleMetadata({\n      imports: [CommonFieldModule],\n      providers: [provideFormGroup({ name: '' })],\n    }),\n  ],\n}"
                 },
                 {
                     "name": "Primary",
@@ -6472,7 +7329,7 @@
                     "deprecated": false,
                     "deprecationMessage": "",
                     "type": "Story",
-                    "defaultValue": "{\n  args: {},\n}"
+                    "defaultValue": "{\n  args: {\n    name: 'name',\n    label: 'First Name',\n    icon: 'badge',\n  },\n}"
                 }
             ],
             "libs/material/src/lib/form/textarea/textarea.component.stories.ts": [
@@ -6484,7 +7341,7 @@
                     "deprecated": false,
                     "deprecationMessage": "",
                     "type": "Story",
-                    "defaultValue": "{\n  args: {},\n  play: async ({ canvasElement }) => {\n    const canvas = within(canvasElement);\n    expect(canvas.getByText(/textarea works!/gi)).toBeTruthy();\n  },\n}"
+                    "defaultValue": "{\n  args: { name: 'name' },\n  play: async ({ canvasElement }) => {\n    const canvas = within(canvasElement);\n    expect(canvas.getByText(/textarea works!/gi)).toBeTruthy();\n  },\n}"
                 },
                 {
                     "name": "meta",
@@ -6494,7 +7351,7 @@
                     "deprecated": false,
                     "deprecationMessage": "",
                     "type": "Meta<TextareaComponent>",
-                    "defaultValue": "{\n  component: TextareaComponent,\n  title: 'TextareaComponent',\n}"
+                    "defaultValue": "{\n  component: TextareaComponent,\n  title: 'TextareaComponent',\n\n  decorators: [\n    moduleMetadata({\n      imports: [CommonFieldModule],\n      providers: [\n        provideFormGroup({ name: '' }),\n      ],\n    }),\n  ],\n}"
                 },
                 {
                     "name": "Primary",
@@ -6504,7 +7361,39 @@
                     "deprecated": false,
                     "deprecationMessage": "",
                     "type": "Story",
-                    "defaultValue": "{\n  args: {},\n}"
+                    "defaultValue": "{\n  args: { name: 'name' },\n}"
+                }
+            ],
+            "libs/material/src/lib/form/time-picker/time-picker.component.stories.ts": [
+                {
+                    "name": "Heading",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "libs/material/src/lib/form/time-picker/time-picker.component.stories.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "Story",
+                    "defaultValue": "{\n  args: { name: 'time' },\n  play: async ({ canvasElement }) => {\n    const canvas = within(canvasElement);\n    expect(canvas.getByText(/time-picker works!/gi)).toBeTruthy();\n  },\n}"
+                },
+                {
+                    "name": "meta",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "libs/material/src/lib/form/time-picker/time-picker.component.stories.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "Meta<TimePickerComponent>",
+                    "defaultValue": "{\n  component: TimePickerComponent,\n  title: 'TimePickerComponent',\n  decorators: [\n    moduleMetadata({\n      imports: [CommonFieldModule],\n      providers: [provideFormGroup({ time: '' })],\n    }),\n  ],\n}"
+                },
+                {
+                    "name": "Primary",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "libs/material/src/lib/form/time-picker/time-picker.component.stories.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "Story",
+                    "defaultValue": "{\n  args: { name: 'time' },\n}"
                 }
             ],
             "libs/material/src/lib/resource/config/config.component.stories.ts": [
@@ -6533,198 +7422,6 @@
                     "ctype": "miscellaneous",
                     "subtype": "variable",
                     "file": "libs/material/src/lib/resource/config/config.component.stories.ts",
-                    "deprecated": false,
-                    "deprecationMessage": "",
-                    "type": "Story",
-                    "defaultValue": "{\n  args: {},\n}"
-                }
-            ],
-            "libs/material/src/lib/resource/create/create.component.stories.ts": [
-                {
-                    "name": "Heading",
-                    "ctype": "miscellaneous",
-                    "subtype": "variable",
-                    "file": "libs/material/src/lib/resource/create/create.component.stories.ts",
-                    "deprecated": false,
-                    "deprecationMessage": "",
-                    "type": "Story",
-                    "defaultValue": "{\n  args: {},\n  play: async ({ canvasElement }) => {\n    const canvas = within(canvasElement);\n    expect(canvas.getByText(/create works!/gi)).toBeTruthy();\n  },\n}"
-                },
-                {
-                    "name": "meta",
-                    "ctype": "miscellaneous",
-                    "subtype": "variable",
-                    "file": "libs/material/src/lib/resource/create/create.component.stories.ts",
-                    "deprecated": false,
-                    "deprecationMessage": "",
-                    "type": "Meta<CreateComponent>",
-                    "defaultValue": "{\n  component: CreateComponent,\n  title: 'CreateComponent',\n}"
-                },
-                {
-                    "name": "Primary",
-                    "ctype": "miscellaneous",
-                    "subtype": "variable",
-                    "file": "libs/material/src/lib/resource/create/create.component.stories.ts",
-                    "deprecated": false,
-                    "deprecationMessage": "",
-                    "type": "Story",
-                    "defaultValue": "{\n  args: {},\n}"
-                }
-            ],
-            "libs/material/src/lib/resource/dashboard/dashboard.component.stories.ts": [
-                {
-                    "name": "Heading",
-                    "ctype": "miscellaneous",
-                    "subtype": "variable",
-                    "file": "libs/material/src/lib/resource/dashboard/dashboard.component.stories.ts",
-                    "deprecated": false,
-                    "deprecationMessage": "",
-                    "type": "Story",
-                    "defaultValue": "{\n  args: {},\n  play: async ({ canvasElement }) => {\n    const canvas = within(canvasElement);\n    expect(canvas.getByText(/dashboard works!/gi)).toBeTruthy();\n  },\n}"
-                },
-                {
-                    "name": "meta",
-                    "ctype": "miscellaneous",
-                    "subtype": "variable",
-                    "file": "libs/material/src/lib/resource/dashboard/dashboard.component.stories.ts",
-                    "deprecated": false,
-                    "deprecationMessage": "",
-                    "type": "Meta<DashboardComponent>",
-                    "defaultValue": "{\n  component: DashboardComponent,\n  title: 'DashboardComponent',\n}"
-                },
-                {
-                    "name": "Primary",
-                    "ctype": "miscellaneous",
-                    "subtype": "variable",
-                    "file": "libs/material/src/lib/resource/dashboard/dashboard.component.stories.ts",
-                    "deprecated": false,
-                    "deprecationMessage": "",
-                    "type": "Story",
-                    "defaultValue": "{\n  args: {},\n}"
-                }
-            ],
-            "libs/material/src/lib/resource/delete/delete.component.stories.ts": [
-                {
-                    "name": "Heading",
-                    "ctype": "miscellaneous",
-                    "subtype": "variable",
-                    "file": "libs/material/src/lib/resource/delete/delete.component.stories.ts",
-                    "deprecated": false,
-                    "deprecationMessage": "",
-                    "type": "Story",
-                    "defaultValue": "{\n  args: {},\n  play: async ({ canvasElement }) => {\n    const canvas = within(canvasElement);\n    expect(canvas.getByText(/delete works!/gi)).toBeTruthy();\n  },\n}"
-                },
-                {
-                    "name": "meta",
-                    "ctype": "miscellaneous",
-                    "subtype": "variable",
-                    "file": "libs/material/src/lib/resource/delete/delete.component.stories.ts",
-                    "deprecated": false,
-                    "deprecationMessage": "",
-                    "type": "Meta<DeleteComponent>",
-                    "defaultValue": "{\n  component: DeleteComponent,\n  title: 'DeleteComponent',\n}"
-                },
-                {
-                    "name": "Primary",
-                    "ctype": "miscellaneous",
-                    "subtype": "variable",
-                    "file": "libs/material/src/lib/resource/delete/delete.component.stories.ts",
-                    "deprecated": false,
-                    "deprecationMessage": "",
-                    "type": "Story",
-                    "defaultValue": "{\n  args: {},\n}"
-                }
-            ],
-            "libs/material/src/lib/resource/detail/detail.component.stories.ts": [
-                {
-                    "name": "Heading",
-                    "ctype": "miscellaneous",
-                    "subtype": "variable",
-                    "file": "libs/material/src/lib/resource/detail/detail.component.stories.ts",
-                    "deprecated": false,
-                    "deprecationMessage": "",
-                    "type": "Story",
-                    "defaultValue": "{\n  args: {},\n  play: async ({ canvasElement }) => {\n    const canvas = within(canvasElement);\n    expect(canvas.getByText(/detail works!/gi)).toBeTruthy();\n  },\n}"
-                },
-                {
-                    "name": "meta",
-                    "ctype": "miscellaneous",
-                    "subtype": "variable",
-                    "file": "libs/material/src/lib/resource/detail/detail.component.stories.ts",
-                    "deprecated": false,
-                    "deprecationMessage": "",
-                    "type": "Meta<DetailComponent>",
-                    "defaultValue": "{\n  component: DetailComponent,\n  title: 'DetailComponent',\n}"
-                },
-                {
-                    "name": "Primary",
-                    "ctype": "miscellaneous",
-                    "subtype": "variable",
-                    "file": "libs/material/src/lib/resource/detail/detail.component.stories.ts",
-                    "deprecated": false,
-                    "deprecationMessage": "",
-                    "type": "Story",
-                    "defaultValue": "{\n  args: {},\n}"
-                }
-            ],
-            "libs/material/src/lib/resource/update/update.component.stories.ts": [
-                {
-                    "name": "Heading",
-                    "ctype": "miscellaneous",
-                    "subtype": "variable",
-                    "file": "libs/material/src/lib/resource/update/update.component.stories.ts",
-                    "deprecated": false,
-                    "deprecationMessage": "",
-                    "type": "Story",
-                    "defaultValue": "{\n  args: {},\n  play: async ({ canvasElement }) => {\n    const canvas = within(canvasElement);\n    expect(canvas.getByText(/update works!/gi)).toBeTruthy();\n  },\n}"
-                },
-                {
-                    "name": "meta",
-                    "ctype": "miscellaneous",
-                    "subtype": "variable",
-                    "file": "libs/material/src/lib/resource/update/update.component.stories.ts",
-                    "deprecated": false,
-                    "deprecationMessage": "",
-                    "type": "Meta<UpdateComponent>",
-                    "defaultValue": "{\n  component: UpdateComponent,\n  title: 'UpdateComponent',\n}"
-                },
-                {
-                    "name": "Primary",
-                    "ctype": "miscellaneous",
-                    "subtype": "variable",
-                    "file": "libs/material/src/lib/resource/update/update.component.stories.ts",
-                    "deprecated": false,
-                    "deprecationMessage": "",
-                    "type": "Story",
-                    "defaultValue": "{\n  args: {},\n}"
-                }
-            ],
-            "libs/material/src/lib/resource/view/view.component.stories.ts": [
-                {
-                    "name": "Heading",
-                    "ctype": "miscellaneous",
-                    "subtype": "variable",
-                    "file": "libs/material/src/lib/resource/view/view.component.stories.ts",
-                    "deprecated": false,
-                    "deprecationMessage": "",
-                    "type": "Story",
-                    "defaultValue": "{\n  args: {},\n  play: async ({ canvasElement }) => {\n    const canvas = within(canvasElement);\n    expect(canvas.getByText(/view works!/gi)).toBeTruthy();\n  },\n}"
-                },
-                {
-                    "name": "meta",
-                    "ctype": "miscellaneous",
-                    "subtype": "variable",
-                    "file": "libs/material/src/lib/resource/view/view.component.stories.ts",
-                    "deprecated": false,
-                    "deprecationMessage": "",
-                    "type": "Meta<ViewComponent>",
-                    "defaultValue": "{\n  component: ViewComponent,\n  title: 'ViewComponent',\n}"
-                },
-                {
-                    "name": "Primary",
-                    "ctype": "miscellaneous",
-                    "subtype": "variable",
-                    "file": "libs/material/src/lib/resource/view/view.component.stories.ts",
                     "deprecated": false,
                     "deprecationMessage": "",
                     "type": "Story",
@@ -6863,6 +7560,97 @@
                         {
                             "name": "isAsc",
                             "type": "boolean",
+                            "deprecated": false,
+                            "deprecationMessage": "",
+                            "tagName": {
+                                "text": "param"
+                            }
+                        }
+                    ]
+                }
+            ],
+            "libs/material/src/lib/api/date-filter.provider.ts": [
+                {
+                    "name": "DisableWeekEndsStategy",
+                    "file": "libs/material/src/lib/api/date-filter.provider.ts",
+                    "ctype": "miscellaneous",
+                    "subtype": "function",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "description": "",
+                    "args": [
+                        {
+                            "name": "date",
+                            "type": "D",
+                            "deprecated": false,
+                            "deprecationMessage": ""
+                        }
+                    ],
+                    "returnType": "boolean",
+                    "jsdoctags": [
+                        {
+                            "name": "date",
+                            "type": "D",
+                            "deprecated": false,
+                            "deprecationMessage": "",
+                            "tagName": {
+                                "text": "param"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "name": "provideDatePickerFilter",
+                    "file": "libs/material/src/lib/api/date-filter.provider.ts",
+                    "ctype": "miscellaneous",
+                    "subtype": "function",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "description": "",
+                    "args": [
+                        {
+                            "name": "dateFilter",
+                            "type": "DateFilterFn",
+                            "deprecated": false,
+                            "deprecationMessage": ""
+                        }
+                    ],
+                    "returnType": "Provider",
+                    "jsdoctags": [
+                        {
+                            "name": "dateFilter",
+                            "type": "DateFilterFn",
+                            "deprecated": false,
+                            "deprecationMessage": "",
+                            "tagName": {
+                                "text": "param"
+                            }
+                        }
+                    ]
+                }
+            ],
+            "libs/material/src/lib/api/date-selection-strategy.provider.ts": [
+                {
+                    "name": "provideDateRangeSelectionStrategy",
+                    "file": "libs/material/src/lib/api/date-selection-strategy.provider.ts",
+                    "ctype": "miscellaneous",
+                    "subtype": "function",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "description": "",
+                    "args": [
+                        {
+                            "name": "strategy",
+                            "type": "Type",
+                            "deprecated": false,
+                            "deprecationMessage": ""
+                        }
+                    ],
+                    "returnType": "Provider",
+                    "jsdoctags": [
+                        {
+                            "name": "strategy",
+                            "type": "Type",
                             "deprecated": false,
                             "deprecationMessage": "",
                             "tagName": {
@@ -7145,6 +7933,94 @@
                         }
                     ]
                 }
+            ],
+            "libs/material/src/lib/form/time-picker/time-picker.component.ts": [
+                {
+                    "name": "range",
+                    "file": "libs/material/src/lib/form/time-picker/time-picker.component.ts",
+                    "ctype": "miscellaneous",
+                    "subtype": "function",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "description": "",
+                    "args": [
+                        {
+                            "name": "start",
+                            "type": "number",
+                            "deprecated": false,
+                            "deprecationMessage": ""
+                        },
+                        {
+                            "name": "end",
+                            "type": "number",
+                            "deprecated": false,
+                            "deprecationMessage": ""
+                        },
+                        {
+                            "name": "step",
+                            "type": "number",
+                            "deprecated": false,
+                            "deprecationMessage": "",
+                            "defaultValue": "1"
+                        }
+                    ],
+                    "jsdoctags": [
+                        {
+                            "name": "start",
+                            "type": "number",
+                            "deprecated": false,
+                            "deprecationMessage": "",
+                            "tagName": {
+                                "text": "param"
+                            }
+                        },
+                        {
+                            "name": "end",
+                            "type": "number",
+                            "deprecated": false,
+                            "deprecationMessage": "",
+                            "tagName": {
+                                "text": "param"
+                            }
+                        },
+                        {
+                            "name": "step",
+                            "type": "number",
+                            "deprecated": false,
+                            "deprecationMessage": "",
+                            "defaultValue": "1",
+                            "tagName": {
+                                "text": "param"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "name": "slideLeft",
+                    "file": "libs/material/src/lib/form/time-picker/time-picker.component.ts",
+                    "ctype": "miscellaneous",
+                    "subtype": "function",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "description": "",
+                    "args": [
+                        {
+                            "name": "arr",
+                            "deprecated": false,
+                            "deprecationMessage": ""
+                        }
+                    ],
+                    "jsdoctags": [
+                        {
+                            "name": "arr",
+                            "deprecated": false,
+                            "deprecationMessage": "",
+                            "tagName": {
+                                "text": "param"
+                            }
+                        }
+                    ]
+                }
             ]
         },
         "groupedEnumerations": {},
@@ -7418,6 +8294,19 @@
                     "kind": 183
                 }
             ],
+            "libs/material/src/lib/form/time-picker/time-picker.component.stories.ts": [
+                {
+                    "name": "Story",
+                    "ctype": "miscellaneous",
+                    "subtype": "typealias",
+                    "rawtype": "StoryObj<TimePickerComponent>",
+                    "file": "libs/material/src/lib/form/time-picker/time-picker.component.stories.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "description": "",
+                    "kind": 183
+                }
+            ],
             "libs/material/src/lib/resource/config/config.component.stories.ts": [
                 {
                     "name": "Story",
@@ -7425,84 +8314,6 @@
                     "subtype": "typealias",
                     "rawtype": "StoryObj<ConfigComponent>",
                     "file": "libs/material/src/lib/resource/config/config.component.stories.ts",
-                    "deprecated": false,
-                    "deprecationMessage": "",
-                    "description": "",
-                    "kind": 183
-                }
-            ],
-            "libs/material/src/lib/resource/create/create.component.stories.ts": [
-                {
-                    "name": "Story",
-                    "ctype": "miscellaneous",
-                    "subtype": "typealias",
-                    "rawtype": "StoryObj<CreateComponent>",
-                    "file": "libs/material/src/lib/resource/create/create.component.stories.ts",
-                    "deprecated": false,
-                    "deprecationMessage": "",
-                    "description": "",
-                    "kind": 183
-                }
-            ],
-            "libs/material/src/lib/resource/dashboard/dashboard.component.stories.ts": [
-                {
-                    "name": "Story",
-                    "ctype": "miscellaneous",
-                    "subtype": "typealias",
-                    "rawtype": "StoryObj<DashboardComponent>",
-                    "file": "libs/material/src/lib/resource/dashboard/dashboard.component.stories.ts",
-                    "deprecated": false,
-                    "deprecationMessage": "",
-                    "description": "",
-                    "kind": 183
-                }
-            ],
-            "libs/material/src/lib/resource/delete/delete.component.stories.ts": [
-                {
-                    "name": "Story",
-                    "ctype": "miscellaneous",
-                    "subtype": "typealias",
-                    "rawtype": "StoryObj<DeleteComponent>",
-                    "file": "libs/material/src/lib/resource/delete/delete.component.stories.ts",
-                    "deprecated": false,
-                    "deprecationMessage": "",
-                    "description": "",
-                    "kind": 183
-                }
-            ],
-            "libs/material/src/lib/resource/detail/detail.component.stories.ts": [
-                {
-                    "name": "Story",
-                    "ctype": "miscellaneous",
-                    "subtype": "typealias",
-                    "rawtype": "StoryObj<DetailComponent>",
-                    "file": "libs/material/src/lib/resource/detail/detail.component.stories.ts",
-                    "deprecated": false,
-                    "deprecationMessage": "",
-                    "description": "",
-                    "kind": 183
-                }
-            ],
-            "libs/material/src/lib/resource/update/update.component.stories.ts": [
-                {
-                    "name": "Story",
-                    "ctype": "miscellaneous",
-                    "subtype": "typealias",
-                    "rawtype": "StoryObj<UpdateComponent>",
-                    "file": "libs/material/src/lib/resource/update/update.component.stories.ts",
-                    "deprecated": false,
-                    "deprecationMessage": "",
-                    "description": "",
-                    "kind": 183
-                }
-            ],
-            "libs/material/src/lib/resource/view/view.component.stories.ts": [
-                {
-                    "name": "Story",
-                    "ctype": "miscellaneous",
-                    "subtype": "typealias",
-                    "rawtype": "StoryObj<ViewComponent>",
-                    "file": "libs/material/src/lib/resource/view/view.component.stories.ts",
                     "deprecated": false,
                     "deprecationMessage": "",
                     "description": "",
@@ -7526,7 +8337,7 @@
     },
     "routes": [],
     "coverage": {
-        "count": 5,
+        "count": 6,
         "status": "low",
         "files": [
             {
@@ -7536,6 +8347,73 @@
                 "name": "CanActivateService",
                 "coveragePercent": 0,
                 "coverageCount": "0/10",
+                "status": "low"
+            },
+            {
+                "filePath": "libs/material/src/lib/api/date-filter.provider.ts",
+                "type": "function",
+                "linktype": "miscellaneous",
+                "linksubtype": "function",
+                "name": "DisableWeekEndsStategy",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "libs/material/src/lib/api/date-filter.provider.ts",
+                "type": "function",
+                "linktype": "miscellaneous",
+                "linksubtype": "function",
+                "name": "provideDatePickerFilter",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "libs/material/src/lib/api/date-filter.provider.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "DATE_PICKER_FILTER_STRATEGY",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "libs/material/src/lib/api/date-selection-strategy.provider.ts",
+                "type": "injectable",
+                "linktype": "injectable",
+                "name": "FiveDayRangeSelectionStrategy",
+                "coveragePercent": 0,
+                "coverageCount": "0/5",
+                "status": "low"
+            },
+            {
+                "filePath": "libs/material/src/lib/api/date-selection-strategy.provider.ts",
+                "type": "injectable",
+                "linktype": "injectable",
+                "name": "WeekDaysStrategy",
+                "coveragePercent": 0,
+                "coverageCount": "0/5",
+                "status": "low"
+            },
+            {
+                "filePath": "libs/material/src/lib/api/date-selection-strategy.provider.ts",
+                "type": "injectable",
+                "linktype": "injectable",
+                "name": "WeekEndsStrategy",
+                "coveragePercent": 0,
+                "coverageCount": "0/5",
+                "status": "low"
+            },
+            {
+                "filePath": "libs/material/src/lib/api/date-selection-strategy.provider.ts",
+                "type": "function",
+                "linktype": "miscellaneous",
+                "linksubtype": "function",
+                "name": "provideDateRangeSelectionStrategy",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
                 "status": "low"
             },
             {
@@ -7587,6 +8465,15 @@
                 "coveragePercent": 100,
                 "coverageCount": "1/1",
                 "status": "very-good"
+            },
+            {
+                "filePath": "libs/material/src/lib/api/input-filter.provider.ts",
+                "type": "class",
+                "linktype": "classe",
+                "name": "InputValueFilter",
+                "coveragePercent": 0,
+                "coverageCount": "0/2",
+                "status": "low"
             },
             {
                 "filePath": "libs/material/src/lib/api/local-storage.service.ts",
@@ -7838,8 +8725,8 @@
                 "type": "component",
                 "linktype": "component",
                 "name": "DateRangeComponent",
-                "coveragePercent": 60,
-                "coverageCount": "6/10",
+                "coveragePercent": 54,
+                "coverageCount": "6/11",
                 "status": "good"
             },
             {
@@ -7877,9 +8764,9 @@
                 "type": "component",
                 "linktype": "component",
                 "name": "DateTimeComponent",
-                "coveragePercent": 0,
-                "coverageCount": "0/1",
-                "status": "low"
+                "coveragePercent": 60,
+                "coverageCount": "6/10",
+                "status": "good"
             },
             {
                 "filePath": "libs/material/src/lib/form/date/date.component.stories.ts",
@@ -8272,6 +9159,65 @@
                 "status": "good"
             },
             {
+                "filePath": "libs/material/src/lib/form/time-picker/time-picker.component.stories.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "Heading",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "libs/material/src/lib/form/time-picker/time-picker.component.stories.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "meta",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "libs/material/src/lib/form/time-picker/time-picker.component.stories.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "Primary",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "libs/material/src/lib/form/time-picker/time-picker.component.ts",
+                "type": "component",
+                "linktype": "component",
+                "name": "TimePickerComponent",
+                "coveragePercent": 42,
+                "coverageCount": "6/14",
+                "status": "medium"
+            },
+            {
+                "filePath": "libs/material/src/lib/form/time-picker/time-picker.component.ts",
+                "type": "function",
+                "linktype": "miscellaneous",
+                "linksubtype": "function",
+                "name": "range",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "libs/material/src/lib/form/time-picker/time-picker.component.ts",
+                "type": "function",
+                "linktype": "miscellaneous",
+                "linksubtype": "function",
+                "name": "slideLeft",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
                 "filePath": "libs/material/src/lib/navigation/navigation.component.stories.ts",
                 "type": "variable",
                 "linktype": "miscellaneous",
@@ -8359,36 +9305,6 @@
                 "status": "low"
             },
             {
-                "filePath": "libs/material/src/lib/resource/create/create.component.stories.ts",
-                "type": "variable",
-                "linktype": "miscellaneous",
-                "linksubtype": "variable",
-                "name": "Heading",
-                "coveragePercent": 0,
-                "coverageCount": "0/1",
-                "status": "low"
-            },
-            {
-                "filePath": "libs/material/src/lib/resource/create/create.component.stories.ts",
-                "type": "variable",
-                "linktype": "miscellaneous",
-                "linksubtype": "variable",
-                "name": "meta",
-                "coveragePercent": 0,
-                "coverageCount": "0/1",
-                "status": "low"
-            },
-            {
-                "filePath": "libs/material/src/lib/resource/create/create.component.stories.ts",
-                "type": "variable",
-                "linktype": "miscellaneous",
-                "linksubtype": "variable",
-                "name": "Primary",
-                "coveragePercent": 0,
-                "coverageCount": "0/1",
-                "status": "low"
-            },
-            {
                 "filePath": "libs/material/src/lib/resource/create/create.component.ts",
                 "type": "component",
                 "linktype": "component",
@@ -8396,36 +9312,6 @@
                 "coveragePercent": 42,
                 "coverageCount": "3/7",
                 "status": "medium"
-            },
-            {
-                "filePath": "libs/material/src/lib/resource/dashboard/dashboard.component.stories.ts",
-                "type": "variable",
-                "linktype": "miscellaneous",
-                "linksubtype": "variable",
-                "name": "Heading",
-                "coveragePercent": 0,
-                "coverageCount": "0/1",
-                "status": "low"
-            },
-            {
-                "filePath": "libs/material/src/lib/resource/dashboard/dashboard.component.stories.ts",
-                "type": "variable",
-                "linktype": "miscellaneous",
-                "linksubtype": "variable",
-                "name": "meta",
-                "coveragePercent": 0,
-                "coverageCount": "0/1",
-                "status": "low"
-            },
-            {
-                "filePath": "libs/material/src/lib/resource/dashboard/dashboard.component.stories.ts",
-                "type": "variable",
-                "linktype": "miscellaneous",
-                "linksubtype": "variable",
-                "name": "Primary",
-                "coveragePercent": 0,
-                "coverageCount": "0/1",
-                "status": "low"
             },
             {
                 "filePath": "libs/material/src/lib/resource/dashboard/dashboard.component.ts",
@@ -8437,70 +9323,10 @@
                 "status": "low"
             },
             {
-                "filePath": "libs/material/src/lib/resource/delete/delete.component.stories.ts",
-                "type": "variable",
-                "linktype": "miscellaneous",
-                "linksubtype": "variable",
-                "name": "Heading",
-                "coveragePercent": 0,
-                "coverageCount": "0/1",
-                "status": "low"
-            },
-            {
-                "filePath": "libs/material/src/lib/resource/delete/delete.component.stories.ts",
-                "type": "variable",
-                "linktype": "miscellaneous",
-                "linksubtype": "variable",
-                "name": "meta",
-                "coveragePercent": 0,
-                "coverageCount": "0/1",
-                "status": "low"
-            },
-            {
-                "filePath": "libs/material/src/lib/resource/delete/delete.component.stories.ts",
-                "type": "variable",
-                "linktype": "miscellaneous",
-                "linksubtype": "variable",
-                "name": "Primary",
-                "coveragePercent": 0,
-                "coverageCount": "0/1",
-                "status": "low"
-            },
-            {
                 "filePath": "libs/material/src/lib/resource/delete/delete.component.ts",
                 "type": "component",
                 "linktype": "component",
                 "name": "DeleteComponent",
-                "coveragePercent": 0,
-                "coverageCount": "0/1",
-                "status": "low"
-            },
-            {
-                "filePath": "libs/material/src/lib/resource/detail/detail.component.stories.ts",
-                "type": "variable",
-                "linktype": "miscellaneous",
-                "linksubtype": "variable",
-                "name": "Heading",
-                "coveragePercent": 0,
-                "coverageCount": "0/1",
-                "status": "low"
-            },
-            {
-                "filePath": "libs/material/src/lib/resource/detail/detail.component.stories.ts",
-                "type": "variable",
-                "linktype": "miscellaneous",
-                "linksubtype": "variable",
-                "name": "meta",
-                "coveragePercent": 0,
-                "coverageCount": "0/1",
-                "status": "low"
-            },
-            {
-                "filePath": "libs/material/src/lib/resource/detail/detail.component.stories.ts",
-                "type": "variable",
-                "linktype": "miscellaneous",
-                "linksubtype": "variable",
-                "name": "Primary",
                 "coveragePercent": 0,
                 "coverageCount": "0/1",
                 "status": "low"
@@ -8564,70 +9390,10 @@
                 "status": "low"
             },
             {
-                "filePath": "libs/material/src/lib/resource/update/update.component.stories.ts",
-                "type": "variable",
-                "linktype": "miscellaneous",
-                "linksubtype": "variable",
-                "name": "Heading",
-                "coveragePercent": 0,
-                "coverageCount": "0/1",
-                "status": "low"
-            },
-            {
-                "filePath": "libs/material/src/lib/resource/update/update.component.stories.ts",
-                "type": "variable",
-                "linktype": "miscellaneous",
-                "linksubtype": "variable",
-                "name": "meta",
-                "coveragePercent": 0,
-                "coverageCount": "0/1",
-                "status": "low"
-            },
-            {
-                "filePath": "libs/material/src/lib/resource/update/update.component.stories.ts",
-                "type": "variable",
-                "linktype": "miscellaneous",
-                "linksubtype": "variable",
-                "name": "Primary",
-                "coveragePercent": 0,
-                "coverageCount": "0/1",
-                "status": "low"
-            },
-            {
                 "filePath": "libs/material/src/lib/resource/update/update.component.ts",
                 "type": "component",
                 "linktype": "component",
                 "name": "UpdateComponent",
-                "coveragePercent": 0,
-                "coverageCount": "0/1",
-                "status": "low"
-            },
-            {
-                "filePath": "libs/material/src/lib/resource/view/view.component.stories.ts",
-                "type": "variable",
-                "linktype": "miscellaneous",
-                "linksubtype": "variable",
-                "name": "Heading",
-                "coveragePercent": 0,
-                "coverageCount": "0/1",
-                "status": "low"
-            },
-            {
-                "filePath": "libs/material/src/lib/resource/view/view.component.stories.ts",
-                "type": "variable",
-                "linktype": "miscellaneous",
-                "linksubtype": "variable",
-                "name": "meta",
-                "coveragePercent": 0,
-                "coverageCount": "0/1",
-                "status": "low"
-            },
-            {
-                "filePath": "libs/material/src/lib/resource/view/view.component.stories.ts",
-                "type": "variable",
-                "linktype": "miscellaneous",
-                "linksubtype": "variable",
-                "name": "Primary",
                 "coveragePercent": 0,
                 "coverageCount": "0/1",
                 "status": "low"
