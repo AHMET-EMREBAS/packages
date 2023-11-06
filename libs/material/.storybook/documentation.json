@@ -944,7 +944,7 @@
     "components": [
         {
             "name": "CheckboxComponent",
-            "id": "component-CheckboxComponent-566a97871f715ed0072864fac6d1125d2fcdbc5b19b1c7349510fb41a16452aaca9fa740392bad6f37953a0c5d3cfd0432b8c697faf5fb04b80dedd844b0e5dc",
+            "id": "component-CheckboxComponent-848659ad9dffc43fa55747677e3cb295dae35f65d41eea3648bf6f33a54281e3dec2e77873f2ec96f103310ac02584d8fb486db263839a41ad36b8d0c27490eb",
             "file": "libs/material/src/lib/form/checkbox/checkbox.component.ts",
             "encapsulation": [],
             "entryComponents": [],
@@ -967,7 +967,9 @@
                     "defaultValue": "''",
                     "deprecated": false,
                     "deprecationMessage": "",
-                    "line": 41,
+                    "rawdescription": "\n\nProperty icon\n",
+                    "description": "<p>Property icon</p>\n",
+                    "line": 54,
                     "type": "string",
                     "decorators": [],
                     "inheritance": {
@@ -979,7 +981,9 @@
                     "defaultValue": "''",
                     "deprecated": false,
                     "deprecationMessage": "",
-                    "line": 40,
+                    "rawdescription": "\n\nProperty label\n",
+                    "description": "<p>Property label</p>\n",
+                    "line": 49,
                     "type": "string",
                     "decorators": [],
                     "inheritance": {
@@ -990,7 +994,9 @@
                     "name": "name",
                     "deprecated": false,
                     "deprecationMessage": "",
-                    "line": 39,
+                    "rawdescription": "\n\nProperty name\n",
+                    "description": "<p>Property name</p>\n",
+                    "line": 44,
                     "type": "string",
                     "decorators": [],
                     "inheritance": {
@@ -1007,7 +1013,7 @@
                     "type": "",
                     "optional": false,
                     "description": "",
-                    "line": 51,
+                    "line": 70,
                     "decorators": [
                         {
                             "name": "Optional",
@@ -1034,8 +1040,9 @@
                     "deprecationMessage": "",
                     "type": "AbstractControl",
                     "optional": false,
-                    "description": "",
-                    "line": 43,
+                    "description": "<p>FormControl instance</p>\n",
+                    "line": 59,
+                    "rawdescription": "\n\nFormControl instance\n",
                     "modifierKind": [
                         123
                     ],
@@ -1049,8 +1056,9 @@
                     "deprecationMessage": "",
                     "type": "Observable<string | undefined>",
                     "optional": false,
-                    "description": "",
-                    "line": 45,
+                    "description": "<p>Obserable error message</p>\n",
+                    "line": 64,
+                    "rawdescription": "\n\nObserable error message\n",
                     "inheritance": {
                         "file": "CommonFieldComponent"
                     }
@@ -1062,7 +1070,7 @@
                     "type": "FormGroup",
                     "optional": false,
                     "description": "",
-                    "line": 48,
+                    "line": 67,
                     "decorators": [
                         {
                             "name": "Inject",
@@ -1086,11 +1094,27 @@
                     "optional": false,
                     "returnType": "string | undefined",
                     "typeParameters": [],
-                    "line": 74,
+                    "line": 97,
                     "deprecated": false,
                     "deprecationMessage": "",
+                    "rawdescription": "\n\nGet error message if any\n",
+                    "description": "<p>Get error message if any</p>\n",
                     "modifierKind": [
                         123
+                    ],
+                    "jsdoctags": [
+                        {
+                            "tagName": {
+                                "pos": 2044,
+                                "end": 2051,
+                                "flags": 16842752,
+                                "modifierFlagsCache": 0,
+                                "transformFlags": 0,
+                                "kind": 80,
+                                "escapedText": "returns"
+                            },
+                            "comment": "<p>string | undefined</p>\n"
+                        }
                     ],
                     "inheritance": {
                         "file": "CommonFieldComponent"
@@ -1102,7 +1126,7 @@
                     "optional": false,
                     "returnType": "void",
                     "typeParameters": [],
-                    "line": 57,
+                    "line": 76,
                     "deprecated": false,
                     "deprecationMessage": "",
                     "inheritance": {
@@ -1121,6 +1145,10 @@
                     "type": "module"
                 },
                 {
+                    "name": "CommonFieldModule",
+                    "type": "module"
+                },
+                {
                     "name": "MatCheckboxModule",
                     "type": "module"
                 }
@@ -1128,7 +1156,7 @@
             "description": "",
             "rawdescription": "\n",
             "type": "component",
-            "sourceCode": "import { Component } from '@angular/core';\nimport { CommonModule } from '@angular/common';\nimport { CommonFieldComponent } from '../common-field/common-field.component';\nimport { MatCheckboxModule } from '@angular/material/checkbox';\n\n@Component({\n  selector: 'techbir-checkbox',\n  standalone: true,\n  imports: [CommonModule, MatCheckboxModule],\n  templateUrl: './checkbox.component.html',\n  styleUrls: ['./checkbox.component.scss'],\n})\nexport class CheckboxComponent extends CommonFieldComponent {}\n",
+            "sourceCode": "import { Component } from '@angular/core';\nimport { CommonModule } from '@angular/common';\nimport {\n  CommonFieldComponent,\n  CommonFieldModule,\n} from '../common-field/common-field.component';\nimport { MatCheckboxModule } from '@angular/material/checkbox';\n\n@Component({\n  selector: 'techbir-checkbox',\n  standalone: true,\n  imports: [CommonModule, CommonFieldModule, MatCheckboxModule],\n  templateUrl: './checkbox.component.html',\n  styleUrls: ['./checkbox.component.scss'],\n})\nexport class CheckboxComponent extends CommonFieldComponent {}\n",
             "assetsDirs": [],
             "styleUrlsData": [
                 {
@@ -1140,11 +1168,11 @@
             "extends": [
                 "CommonFieldComponent"
             ],
-            "templateData": "<mat-checkbox class=\"example-margin\">Check me!</mat-checkbox>"
+            "templateData": "<div [formGroup]=\"formGroup\">\r\n  <mat-checkbox class=\"example-margin\" [formControlName]=\"name\">\r\n    {{ label || name | titlecase }}\r\n  </mat-checkbox>\r\n</div>\r\n"
         },
         {
             "name": "CommonFieldComponent",
-            "id": "component-CommonFieldComponent-f9d9380cc7693b687eb5a18711444f8fa9df9cdb39e834e87886f0a84d637d30aed979bcaf1c48977197dbd9c0c171dab0c1d041e9a8b7f3921caf79face18d6",
+            "id": "component-CommonFieldComponent-3e3e6d76f848376d075daa84e9dec09430d4b0be4abc7a77ccd161e136cf87066147ac21618bf80db510dcff5742c98b9efbcc68243eedf2bf5f7b0198deaab3",
             "file": "libs/material/src/lib/form/common-field/common-field.component.ts",
             "encapsulation": [],
             "entryComponents": [],
@@ -1163,7 +1191,9 @@
                     "defaultValue": "''",
                     "deprecated": false,
                     "deprecationMessage": "",
-                    "line": 41,
+                    "rawdescription": "\n\nProperty icon\n",
+                    "description": "<p>Property icon</p>\n",
+                    "line": 54,
                     "type": "string",
                     "decorators": []
                 },
@@ -1172,7 +1202,9 @@
                     "defaultValue": "''",
                     "deprecated": false,
                     "deprecationMessage": "",
-                    "line": 40,
+                    "rawdescription": "\n\nProperty label\n",
+                    "description": "<p>Property label</p>\n",
+                    "line": 49,
                     "type": "string",
                     "decorators": []
                 },
@@ -1180,7 +1212,9 @@
                     "name": "name",
                     "deprecated": false,
                     "deprecationMessage": "",
-                    "line": 39,
+                    "rawdescription": "\n\nProperty name\n",
+                    "description": "<p>Property name</p>\n",
+                    "line": 44,
                     "type": "string",
                     "decorators": []
                 }
@@ -1194,7 +1228,7 @@
                     "type": "",
                     "optional": false,
                     "description": "",
-                    "line": 51,
+                    "line": 70,
                     "decorators": [
                         {
                             "name": "Optional",
@@ -1218,8 +1252,9 @@
                     "deprecationMessage": "",
                     "type": "AbstractControl",
                     "optional": false,
-                    "description": "",
-                    "line": 43,
+                    "description": "<p>FormControl instance</p>\n",
+                    "line": 59,
+                    "rawdescription": "\n\nFormControl instance\n",
                     "modifierKind": [
                         123
                     ]
@@ -1230,8 +1265,9 @@
                     "deprecationMessage": "",
                     "type": "Observable<string | undefined>",
                     "optional": false,
-                    "description": "",
-                    "line": 45
+                    "description": "<p>Obserable error message</p>\n",
+                    "line": 64,
+                    "rawdescription": "\n\nObserable error message\n"
                 },
                 {
                     "name": "formGroup",
@@ -1240,7 +1276,7 @@
                     "type": "FormGroup",
                     "optional": false,
                     "description": "",
-                    "line": 48,
+                    "line": 67,
                     "decorators": [
                         {
                             "name": "Inject",
@@ -1261,11 +1297,27 @@
                     "optional": false,
                     "returnType": "string | undefined",
                     "typeParameters": [],
-                    "line": 74,
+                    "line": 97,
                     "deprecated": false,
                     "deprecationMessage": "",
+                    "rawdescription": "\n\nGet error message if any\n",
+                    "description": "<p>Get error message if any</p>\n",
                     "modifierKind": [
                         123
+                    ],
+                    "jsdoctags": [
+                        {
+                            "tagName": {
+                                "pos": 2044,
+                                "end": 2051,
+                                "flags": 16842752,
+                                "modifierFlagsCache": 0,
+                                "transformFlags": 0,
+                                "kind": 80,
+                                "escapedText": "returns"
+                            },
+                            "comment": "<p>string | undefined</p>\n"
+                        }
                     ]
                 },
                 {
@@ -1274,7 +1326,7 @@
                     "optional": false,
                     "returnType": "void",
                     "typeParameters": [],
-                    "line": 57,
+                    "line": 76,
                     "deprecated": false,
                     "deprecationMessage": ""
                 }
@@ -1288,7 +1340,7 @@
             "description": "",
             "rawdescription": "\n",
             "type": "component",
-            "sourceCode": "import {\n  Component,\n  Inject,\n  Input,\n  NgModule,\n  OnInit,\n  Optional,\n} from '@angular/core';\nimport {\n  AbstractControl,\n  FormGroup,\n  FormsModule,\n  ReactiveFormsModule,\n} from '@angular/forms';\nimport { FORM_FIELD_APPEARANCE_TOKEN } from '../../api';\nimport { MatFormField, MatFormFieldModule } from '@angular/material/form-field';\nimport { Observable, debounceTime, map } from 'rxjs';\nimport { MatInputModule } from '@angular/material/input';\nimport { MatIconModule } from '@angular/material/icon';\nimport { MatButtonModule } from '@angular/material/button';\n\nconst formModules = [\n  FormsModule,\n  ReactiveFormsModule,\n  MatInputModule,\n  MatFormFieldModule,\n  MatIconModule,\n  MatButtonModule,\n];\n\n@NgModule({\n  imports: [...formModules],\n  exports: [...formModules],\n})\nexport class CommonFieldModule {}\n\n@Component({ template: '' })\nexport class CommonFieldComponent implements OnInit {\n  @Input() name!: string;\n  @Input() label = '';\n  @Input() icon = '';\n  \n  private control!: AbstractControl;\n\n  errorMessage$!: Observable<string | undefined>;\n\n  constructor(\n    @Inject(FormGroup) public readonly formGroup: FormGroup,\n    @Optional()\n    @Inject(FORM_FIELD_APPEARANCE_TOKEN)\n    public readonly appearance: MatFormField['appearance']\n  ) {\n    if (!appearance) this.appearance = 'outline';\n    if (!formGroup) throw new Error('FormGroup must be provided!');\n  }\n\n  ngOnInit(): void {\n    const foundControl = this.formGroup.get(this.name);\n\n    if (!foundControl) {\n      throw new Error(`${this.name} control is not found in formGroup!`);\n    }\n\n    this.control = foundControl;\n\n    this.errorMessage$ = this.formGroup.valueChanges.pipe(\n      debounceTime(600),\n      map(() => {\n        return this.getErrorMessage();\n      })\n    );\n  }\n\n  private getErrorMessage(): string | undefined {\n    return this.control.errors?.['error'];\n  }\n}\n",
+            "sourceCode": "import {\n  Component,\n  Inject,\n  Input,\n  NgModule,\n  OnInit,\n  Optional,\n} from '@angular/core';\nimport {\n  AbstractControl,\n  FormGroup,\n  FormsModule,\n  ReactiveFormsModule,\n} from '@angular/forms';\nimport { FORM_FIELD_APPEARANCE_TOKEN } from '../../api';\nimport { MatFormField, MatFormFieldModule } from '@angular/material/form-field';\nimport { Observable, debounceTime, map } from 'rxjs';\nimport { MatInputModule } from '@angular/material/input';\nimport { MatIconModule } from '@angular/material/icon';\nimport { MatButtonModule } from '@angular/material/button';\nimport { CommonModule } from '@angular/common';\n\nconst formModules = [\n  CommonModule,\n  FormsModule,\n  ReactiveFormsModule,\n  MatInputModule,\n  MatFormFieldModule,\n  MatIconModule,\n  MatButtonModule,\n];\n\n@NgModule({\n  imports: [...formModules],\n  exports: [...formModules],\n})\nexport class CommonFieldModule {}\n\n@Component({ template: '' })\nexport class CommonFieldComponent implements OnInit {\n  /**\n   * Property name\n   */\n  @Input() name!: string;\n\n  /**\n   * Property label\n   */\n  @Input() label = '';\n\n  /**\n   * Property icon\n   */\n  @Input() icon = '';\n\n  /**\n   * FormControl instance\n   */\n  private control!: AbstractControl;\n\n  /**\n   * Obserable error message\n   */\n  errorMessage$!: Observable<string | undefined>;\n\n  constructor(\n    @Inject(FormGroup) public readonly formGroup: FormGroup,\n    @Optional()\n    @Inject(FORM_FIELD_APPEARANCE_TOKEN)\n    public readonly appearance: MatFormField['appearance']\n  ) {\n    if (!appearance) this.appearance = 'outline';\n    if (!formGroup) throw new Error('FormGroup must be provided!');\n  }\n\n  ngOnInit(): void {\n    const foundControl = this.formGroup.get(this.name);\n\n    if (!foundControl) {\n      throw new Error(`${this.name} control is not found in formGroup!`);\n    }\n\n    this.control = foundControl;\n\n    this.errorMessage$ = this.formGroup.valueChanges.pipe(\n      debounceTime(600),\n      map(() => {\n        return this.getErrorMessage();\n      })\n    );\n  }\n\n  /**\n   * Get error message if any\n   * @returns string | undefined\n   */\n  private getErrorMessage(): string | undefined {\n    return this.control.errors?.['error'];\n  }\n}\n",
             "assetsDirs": [],
             "styleUrlsData": "",
             "stylesData": "",
@@ -1311,7 +1363,7 @@
                         "deprecationMessage": ""
                     }
                 ],
-                "line": 45,
+                "line": 64,
                 "jsdoctags": [
                     {
                         "name": "formGroup",
@@ -1754,11 +1806,11 @@
                 ]
             },
             "extends": [],
-            "templateData": "<div class=\"grid-container\">\n  <h1 class=\"mat-h1\">Dashboard</h1>\n\n  <p style=\"position: relative;\">\n    <techbir-skeleton *ngIf=\"isCountLoading\"></techbir-skeleton>\n    <span *ngIf=\"count$ | async as itemCount\">\n      There are {{ itemCount }} {{ entityName }}.\n    </span>\n  </p>\n  <mat-grid-list cols=\"2\" rowHeight=\"350px\">\n    <mat-grid-tile\n      *ngFor=\"let card of cards | async\"\n      [colspan]=\"card.cols\"\n      [rowspan]=\"card.rows\"\n    >\n      <mat-card class=\"dashboard-card\">\n        <mat-card-header>\n          <mat-card-title>\n            {{ card.title }}\n            <button\n              mat-icon-button\n              class=\"more-button\"\n              [matMenuTriggerFor]=\"menu\"\n              aria-label=\"Toggle menu\"\n            >\n              <mat-icon>more_vert</mat-icon>\n            </button>\n            <mat-menu #menu=\"matMenu\" xPosition=\"before\">\n              <button mat-menu-item>Expand</button>\n              <button mat-menu-item>Remove</button>\n            </mat-menu>\n          </mat-card-title>\n        </mat-card-header>\n        <mat-card-content class=\"dashboard-card-content\"> </mat-card-content>\n      </mat-card>\n    </mat-grid-tile>\n  </mat-grid-list>\n</div>\n"
+            "templateData": "<div class=\"grid-container\">\n  <h1 class=\"mat-h1\">Dashboard</h1>\n\n  <p style=\"position: relative\">\n    <span *ngIf=\"count$ | async as itemCount\">\n      There are {{ itemCount }} {{ entityName }}.\n    </span>\n  </p>\n  <mat-grid-list cols=\"2\" rowHeight=\"350px\">\n    <mat-grid-tile\n      *ngFor=\"let card of cards | async\"\n      [colspan]=\"card.cols\"\n      [rowspan]=\"card.rows\"\n    >\n      <mat-card class=\"dashboard-card\">\n        <mat-card-header>\n          <mat-card-title>\n            {{ card.title }}\n            <button\n              mat-icon-button\n              class=\"more-button\"\n              [matMenuTriggerFor]=\"menu\"\n              aria-label=\"Toggle menu\"\n            >\n              <mat-icon>more_vert</mat-icon>\n            </button>\n            <mat-menu #menu=\"matMenu\" xPosition=\"before\">\n              <button mat-menu-item>Expand</button>\n              <button mat-menu-item>Remove</button>\n            </mat-menu>\n          </mat-card-title>\n        </mat-card-header>\n        <mat-card-content class=\"dashboard-card-content\"> </mat-card-content>\n      </mat-card>\n    </mat-grid-tile>\n  </mat-grid-list>\n</div>\n"
         },
         {
             "name": "DateComponent",
-            "id": "component-DateComponent-e8a88435d7c70a211802d2c00b09dd313646f4eb113c8d7508af690beed58c8ae3a4ed95769a7a68bea34983eda9a61780bee86493fbb2f0f52704a41155beff",
+            "id": "component-DateComponent-7813b5343e3f6b0b1e02e23125ae038418feb0894e4960d2ab1fd8f1460a8d3aee5c875d8b7b1755c48fb2bc71a2be6a743963ec8f209fd2fdc6c46a63c40ea1",
             "file": "libs/material/src/lib/form/date/date.component.ts",
             "encapsulation": [],
             "entryComponents": [],
@@ -1775,10 +1827,179 @@
             ],
             "viewProviders": [],
             "hostDirectives": [],
-            "inputsClass": [],
+            "inputsClass": [
+                {
+                    "name": "icon",
+                    "defaultValue": "''",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "rawdescription": "\n\nProperty icon\n",
+                    "description": "<p>Property icon</p>\n",
+                    "line": 54,
+                    "type": "string",
+                    "decorators": [],
+                    "inheritance": {
+                        "file": "CommonFieldComponent"
+                    }
+                },
+                {
+                    "name": "label",
+                    "defaultValue": "''",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "rawdescription": "\n\nProperty label\n",
+                    "description": "<p>Property label</p>\n",
+                    "line": 49,
+                    "type": "string",
+                    "decorators": [],
+                    "inheritance": {
+                        "file": "CommonFieldComponent"
+                    }
+                },
+                {
+                    "name": "name",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "rawdescription": "\n\nProperty name\n",
+                    "description": "<p>Property name</p>\n",
+                    "line": 44,
+                    "type": "string",
+                    "decorators": [],
+                    "inheritance": {
+                        "file": "CommonFieldComponent"
+                    }
+                }
+            ],
             "outputsClass": [],
-            "propertiesClass": [],
-            "methodsClass": [],
+            "propertiesClass": [
+                {
+                    "name": "appearance",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "",
+                    "optional": false,
+                    "description": "",
+                    "line": 70,
+                    "decorators": [
+                        {
+                            "name": "Optional",
+                            "stringifiedArguments": ""
+                        },
+                        {
+                            "name": "Inject",
+                            "stringifiedArguments": "FORM_FIELD_APPEARANCE_TOKEN"
+                        }
+                    ],
+                    "modifierKind": [
+                        170,
+                        170,
+                        125,
+                        148
+                    ],
+                    "inheritance": {
+                        "file": "CommonFieldComponent"
+                    }
+                },
+                {
+                    "name": "control",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "AbstractControl",
+                    "optional": false,
+                    "description": "<p>FormControl instance</p>\n",
+                    "line": 59,
+                    "rawdescription": "\n\nFormControl instance\n",
+                    "modifierKind": [
+                        123
+                    ],
+                    "inheritance": {
+                        "file": "CommonFieldComponent"
+                    }
+                },
+                {
+                    "name": "errorMessage$",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "Observable<string | undefined>",
+                    "optional": false,
+                    "description": "<p>Obserable error message</p>\n",
+                    "line": 64,
+                    "rawdescription": "\n\nObserable error message\n",
+                    "inheritance": {
+                        "file": "CommonFieldComponent"
+                    }
+                },
+                {
+                    "name": "formGroup",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "FormGroup",
+                    "optional": false,
+                    "description": "",
+                    "line": 67,
+                    "decorators": [
+                        {
+                            "name": "Inject",
+                            "stringifiedArguments": "FormGroup"
+                        }
+                    ],
+                    "modifierKind": [
+                        170,
+                        125,
+                        148
+                    ],
+                    "inheritance": {
+                        "file": "CommonFieldComponent"
+                    }
+                }
+            ],
+            "methodsClass": [
+                {
+                    "name": "getErrorMessage",
+                    "args": [],
+                    "optional": false,
+                    "returnType": "string | undefined",
+                    "typeParameters": [],
+                    "line": 97,
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "rawdescription": "\n\nGet error message if any\n",
+                    "description": "<p>Get error message if any</p>\n",
+                    "modifierKind": [
+                        123
+                    ],
+                    "jsdoctags": [
+                        {
+                            "tagName": {
+                                "pos": 2044,
+                                "end": 2051,
+                                "flags": 16842752,
+                                "modifierFlagsCache": 0,
+                                "transformFlags": 0,
+                                "kind": 80,
+                                "escapedText": "returns"
+                            },
+                            "comment": "<p>string | undefined</p>\n"
+                        }
+                    ],
+                    "inheritance": {
+                        "file": "CommonFieldComponent"
+                    }
+                },
+                {
+                    "name": "ngOnInit",
+                    "args": [],
+                    "optional": false,
+                    "returnType": "void",
+                    "typeParameters": [],
+                    "line": 76,
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "inheritance": {
+                        "file": "CommonFieldComponent"
+                    }
+                }
+            ],
             "deprecated": false,
             "deprecationMessage": "",
             "hostBindings": [],
@@ -1786,14 +2007,22 @@
             "standalone": true,
             "imports": [
                 {
-                    "name": "CommonModule",
+                    "name": "CommonFieldModule",
+                    "type": "module"
+                },
+                {
+                    "name": "MatDatepickerModule",
+                    "type": "module"
+                },
+                {
+                    "name": "MatNativeDateModule",
                     "type": "module"
                 }
             ],
             "description": "",
             "rawdescription": "\n",
             "type": "component",
-            "sourceCode": "import { Component } from '@angular/core';\nimport { CommonModule } from '@angular/common';\n\n@Component({\n  selector: 'techbir-date',\n  standalone: true,\n  imports: [CommonModule],\n  templateUrl: './date.component.html',\n  styleUrls: ['./date.component.scss'],\n})\nexport class DateComponent {}\n",
+            "sourceCode": "import { Component } from '@angular/core';\nimport {\n  CommonFieldComponent,\n  CommonFieldModule,\n} from '../common-field/common-field.component';\nimport { MatDatepickerModule } from '@angular/material/datepicker';\nimport { MatNativeDateModule } from '@angular/material/core';\n\n@Component({\n  selector: 'techbir-date',\n  standalone: true,\n  imports: [CommonFieldModule, MatDatepickerModule, MatNativeDateModule],\n  templateUrl: './date.component.html',\n  styleUrls: ['./date.component.scss'],\n})\nexport class DateComponent extends CommonFieldComponent {}\n",
             "assetsDirs": [],
             "styleUrlsData": [
                 {
@@ -1802,12 +2031,14 @@
                 }
             ],
             "stylesData": "",
-            "extends": [],
-            "templateData": "<p>date works!</p>\n"
+            "extends": [
+                "CommonFieldComponent"
+            ],
+            "templateData": "<div [formGroup]=\"formGroup\">\n  <mat-form-field>\n    <mat-label>{{ label || name | titlecase }}</mat-label>\n    <input matInput [matDatepicker]=\"picker\" [formControlName]=\"name\" />\n    <mat-hint>MM/DD/YYYY</mat-hint>\n    <mat-datepicker-toggle matIconSuffix [for]=\"picker\"></mat-datepicker-toggle>\n    <mat-datepicker #picker></mat-datepicker>\n  </mat-form-field>\n</div>\n"
         },
         {
             "name": "DateRangeComponent",
-            "id": "component-DateRangeComponent-50b81c3bf49b83e377249da988f8ef75003066796503f8eabdd47f95fcfc2f0584ee20207a194234f38c425acb34e4d776eaf2b8ea7c8756d970fc9f9e27f41b",
+            "id": "component-DateRangeComponent-64ad79b0cbd5dd320939b6cdad269877250e354c2341aedca6a2e2a636233e809d82f054b0c9435315011dde8159631689e13da6d221d2a7c9f836c22cceaf61",
             "file": "libs/material/src/lib/form/date-range/date-range.component.ts",
             "encapsulation": [],
             "entryComponents": [],
@@ -1824,10 +2055,179 @@
             ],
             "viewProviders": [],
             "hostDirectives": [],
-            "inputsClass": [],
+            "inputsClass": [
+                {
+                    "name": "icon",
+                    "defaultValue": "''",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "rawdescription": "\n\nProperty icon\n",
+                    "description": "<p>Property icon</p>\n",
+                    "line": 54,
+                    "type": "string",
+                    "decorators": [],
+                    "inheritance": {
+                        "file": "CommonFieldComponent"
+                    }
+                },
+                {
+                    "name": "label",
+                    "defaultValue": "''",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "rawdescription": "\n\nProperty label\n",
+                    "description": "<p>Property label</p>\n",
+                    "line": 49,
+                    "type": "string",
+                    "decorators": [],
+                    "inheritance": {
+                        "file": "CommonFieldComponent"
+                    }
+                },
+                {
+                    "name": "name",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "rawdescription": "\n\nProperty name\n",
+                    "description": "<p>Property name</p>\n",
+                    "line": 44,
+                    "type": "string",
+                    "decorators": [],
+                    "inheritance": {
+                        "file": "CommonFieldComponent"
+                    }
+                }
+            ],
             "outputsClass": [],
-            "propertiesClass": [],
-            "methodsClass": [],
+            "propertiesClass": [
+                {
+                    "name": "appearance",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "",
+                    "optional": false,
+                    "description": "",
+                    "line": 70,
+                    "decorators": [
+                        {
+                            "name": "Optional",
+                            "stringifiedArguments": ""
+                        },
+                        {
+                            "name": "Inject",
+                            "stringifiedArguments": "FORM_FIELD_APPEARANCE_TOKEN"
+                        }
+                    ],
+                    "modifierKind": [
+                        170,
+                        170,
+                        125,
+                        148
+                    ],
+                    "inheritance": {
+                        "file": "CommonFieldComponent"
+                    }
+                },
+                {
+                    "name": "control",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "AbstractControl",
+                    "optional": false,
+                    "description": "<p>FormControl instance</p>\n",
+                    "line": 59,
+                    "rawdescription": "\n\nFormControl instance\n",
+                    "modifierKind": [
+                        123
+                    ],
+                    "inheritance": {
+                        "file": "CommonFieldComponent"
+                    }
+                },
+                {
+                    "name": "errorMessage$",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "Observable<string | undefined>",
+                    "optional": false,
+                    "description": "<p>Obserable error message</p>\n",
+                    "line": 64,
+                    "rawdescription": "\n\nObserable error message\n",
+                    "inheritance": {
+                        "file": "CommonFieldComponent"
+                    }
+                },
+                {
+                    "name": "formGroup",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "FormGroup",
+                    "optional": false,
+                    "description": "",
+                    "line": 67,
+                    "decorators": [
+                        {
+                            "name": "Inject",
+                            "stringifiedArguments": "FormGroup"
+                        }
+                    ],
+                    "modifierKind": [
+                        170,
+                        125,
+                        148
+                    ],
+                    "inheritance": {
+                        "file": "CommonFieldComponent"
+                    }
+                }
+            ],
+            "methodsClass": [
+                {
+                    "name": "getErrorMessage",
+                    "args": [],
+                    "optional": false,
+                    "returnType": "string | undefined",
+                    "typeParameters": [],
+                    "line": 97,
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "rawdescription": "\n\nGet error message if any\n",
+                    "description": "<p>Get error message if any</p>\n",
+                    "modifierKind": [
+                        123
+                    ],
+                    "jsdoctags": [
+                        {
+                            "tagName": {
+                                "pos": 2044,
+                                "end": 2051,
+                                "flags": 16842752,
+                                "modifierFlagsCache": 0,
+                                "transformFlags": 0,
+                                "kind": 80,
+                                "escapedText": "returns"
+                            },
+                            "comment": "<p>string | undefined</p>\n"
+                        }
+                    ],
+                    "inheritance": {
+                        "file": "CommonFieldComponent"
+                    }
+                },
+                {
+                    "name": "ngOnInit",
+                    "args": [],
+                    "optional": false,
+                    "returnType": "void",
+                    "typeParameters": [],
+                    "line": 76,
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "inheritance": {
+                        "file": "CommonFieldComponent"
+                    }
+                }
+            ],
             "deprecated": false,
             "deprecationMessage": "",
             "hostBindings": [],
@@ -1837,12 +2237,36 @@
                 {
                     "name": "CommonModule",
                     "type": "module"
+                },
+                {
+                    "name": "FormsModule",
+                    "type": "module"
+                },
+                {
+                    "name": "ReactiveFormsModule",
+                    "type": "module"
+                },
+                {
+                    "name": "MatDatepickerModule",
+                    "type": "module"
+                },
+                {
+                    "name": "MatNativeDateModule",
+                    "type": "module"
+                },
+                {
+                    "name": "MatFormFieldModule",
+                    "type": "module"
+                },
+                {
+                    "name": "MatInputModule",
+                    "type": "module"
                 }
             ],
             "description": "",
             "rawdescription": "\n",
             "type": "component",
-            "sourceCode": "import { Component } from '@angular/core';\nimport { CommonModule } from '@angular/common';\n\n@Component({\n  selector: 'techbir-date-range',\n  standalone: true,\n  imports: [CommonModule],\n  templateUrl: './date-range.component.html',\n  styleUrls: ['./date-range.component.scss'],\n})\nexport class DateRangeComponent {}\n",
+            "sourceCode": "import { Component } from '@angular/core';\nimport { CommonModule } from '@angular/common';\nimport { FormsModule, ReactiveFormsModule } from '@angular/forms';\nimport { MatDatepickerModule } from '@angular/material/datepicker';\nimport { MatNativeDateModule } from '@angular/material/core';\nimport { MatFormFieldModule } from '@angular/material/form-field';\nimport { MatInputModule } from '@angular/material/input';\nimport { CommonFieldComponent } from '../common-field/common-field.component';\n\n@Component({\n  selector: 'techbir-date-range',\n  standalone: true,\n  imports: [\n    CommonModule,\n    FormsModule,\n    ReactiveFormsModule,\n    MatDatepickerModule,\n    MatNativeDateModule,\n    MatFormFieldModule,\n    MatInputModule,\n  ],\n  templateUrl: './date-range.component.html',\n  styleUrls: ['./date-range.component.scss'],\n})\nexport class DateRangeComponent extends CommonFieldComponent {}\n",
             "assetsDirs": [],
             "styleUrlsData": [
                 {
@@ -1851,8 +2275,10 @@
                 }
             ],
             "stylesData": "",
-            "extends": [],
-            "templateData": "<p>date-range works!</p>\n"
+            "extends": [
+                "CommonFieldComponent"
+            ],
+            "templateData": "<div [formGroup]=\"formGroup\">\n  <mat-form-field class=\"example-form-field\">\n    <mat-label>First campaign</mat-label>\n    <mat-date-range-input\n      [formControlName]=\"name\"\n      [rangePicker]=\"campaignOnePicker\"\n    >\n      <input matStartDate placeholder=\"Start date\" formControlName=\"start\" />\n      <input matEndDate placeholder=\"End date\" formControlName=\"end\" />\n    </mat-date-range-input>\n    <mat-hint>MM/DD/YYYY – MM/DD/YYYY</mat-hint>\n    <mat-datepicker-toggle\n      matIconSuffix\n      [for]=\"campaignOnePicker\"\n    ></mat-datepicker-toggle>\n    <mat-date-range-picker #campaignOnePicker></mat-date-range-picker>\n  </mat-form-field>\n</div>\n"
         },
         {
             "name": "DateTimeComponent",
@@ -2478,7 +2904,7 @@
             "assetsDirs": [],
             "styleUrlsData": [
                 {
-                    "data": ".sidenav-container {\n  height: 100%;\n}\n\n.sidenav {\n  width: 300px;\n  transition: width ease-in-out 400ms;\n}\n\n.mini-sidenav {\n  width: 60px;\n  /* transition: width ease-in-out 400ms; */\n}\n\n.sidenav .mat-toolbar {\n  background: inherit;\n}\n\n.mat-toolbar.mat-primary {\n  position: sticky;\n  top: 0;\n  z-index: 1;\n}\n\n\n.nav-item {\n  border: 1px dashed transparent;\n  box-sizing: border-box;\n  transition: border-color ease-in-out 400ms;\n}\n\n\n\n@keyframes fadeInOnEnter {\n  0% {\n    transform: rotate(0deg);\n  }\n\n  100% {\n    transform: rotate(360deg);\n  }\n}\n\n.nav-item:hover mat-icon {\n  font-variation-settings: 'FILL' 1 !important;\n  animation: fadeInOnEnter 2000ms cubic-bezier(0.075, 0.82, 0.165, 1);\n}\n\n.material-icons {\n  transition: color ease-in-out 400ms;\n}\n\n\n\n.router-link-active {\n  border: 1px dashed orangered;\n\n  .material-icons {\n    color: orangered;\n  }\n}\n\n\nmat-sidenav-content {\n  border: 3px dashed gray;\n  box-sizing: border-box;\n  overflow-y: auto;\n}",
+                    "data": ".sidenav-container {\n  height: 100%;\n}\n\n.sidenav {\n  width: 300px;\n  transition: width ease-in-out 400ms;\n}\n\n.mini-sidenav {\n  width: 60px;\n  /* transition: width ease-in-out 400ms; */\n}\n\n.sidenav .mat-toolbar {\n  background: inherit;\n}\n\n.mat-toolbar.mat-primary {\n  position: sticky;\n  top: 0;\n  z-index: 1;\n}\n\n\n.nav-item {\n  border: 1px dashed transparent;\n  box-sizing: border-box;\n  transition: border-color ease-in-out 400ms;\n}\n\n\n\n@keyframes fadeInOnEnter {\n  0% {\n    transform: rotate(0deg);\n  }\n\n  100% {\n    transform: rotate(360deg);\n  }\n}\n\n.nav-item:hover mat-icon {\n  font-variation-settings: 'FILL' 1 !important;\n  animation: fadeInOnEnter 2000ms cubic-bezier(0.075, 0.82, 0.165, 1);\n}\n\n.material-icons {\n  transition: color ease-in-out 400ms;\n}\n\n\n\n.router-link-active {\n  border: 1px dashed orangered;\n\n  .material-icons {\n    color: orangered;\n  }\n}\n\n\nmat-sidenav-content {\n  border: 3px dashed rgba(201, 175, 175, 0.472);\n  box-sizing: border-box;\n  overflow-y: auto;\n}",
                     "styleUrl": "./navigation.component.css"
                 }
             ],
@@ -3393,7 +3819,9 @@
                     "defaultValue": "''",
                     "deprecated": false,
                     "deprecationMessage": "",
-                    "line": 41,
+                    "rawdescription": "\n\nProperty icon\n",
+                    "description": "<p>Property icon</p>\n",
+                    "line": 54,
                     "type": "string",
                     "decorators": [],
                     "inheritance": {
@@ -3405,7 +3833,9 @@
                     "defaultValue": "''",
                     "deprecated": false,
                     "deprecationMessage": "",
-                    "line": 40,
+                    "rawdescription": "\n\nProperty label\n",
+                    "description": "<p>Property label</p>\n",
+                    "line": 49,
                     "type": "string",
                     "decorators": [],
                     "inheritance": {
@@ -3416,7 +3846,9 @@
                     "name": "name",
                     "deprecated": false,
                     "deprecationMessage": "",
-                    "line": 39,
+                    "rawdescription": "\n\nProperty name\n",
+                    "description": "<p>Property name</p>\n",
+                    "line": 44,
                     "type": "string",
                     "decorators": [],
                     "inheritance": {
@@ -3433,7 +3865,7 @@
                     "type": "",
                     "optional": false,
                     "description": "",
-                    "line": 51,
+                    "line": 70,
                     "decorators": [
                         {
                             "name": "Optional",
@@ -3460,8 +3892,9 @@
                     "deprecationMessage": "",
                     "type": "AbstractControl",
                     "optional": false,
-                    "description": "",
-                    "line": 43,
+                    "description": "<p>FormControl instance</p>\n",
+                    "line": 59,
+                    "rawdescription": "\n\nFormControl instance\n",
                     "modifierKind": [
                         123
                     ],
@@ -3475,8 +3908,9 @@
                     "deprecationMessage": "",
                     "type": "Observable<string | undefined>",
                     "optional": false,
-                    "description": "",
-                    "line": 45,
+                    "description": "<p>Obserable error message</p>\n",
+                    "line": 64,
+                    "rawdescription": "\n\nObserable error message\n",
                     "inheritance": {
                         "file": "CommonFieldComponent"
                     }
@@ -3488,7 +3922,7 @@
                     "type": "FormGroup",
                     "optional": false,
                     "description": "",
-                    "line": 48,
+                    "line": 67,
                     "decorators": [
                         {
                             "name": "Inject",
@@ -3512,11 +3946,27 @@
                     "optional": false,
                     "returnType": "string | undefined",
                     "typeParameters": [],
-                    "line": 74,
+                    "line": 97,
                     "deprecated": false,
                     "deprecationMessage": "",
+                    "rawdescription": "\n\nGet error message if any\n",
+                    "description": "<p>Get error message if any</p>\n",
                     "modifierKind": [
                         123
+                    ],
+                    "jsdoctags": [
+                        {
+                            "tagName": {
+                                "pos": 2044,
+                                "end": 2051,
+                                "flags": 16842752,
+                                "modifierFlagsCache": 0,
+                                "transformFlags": 0,
+                                "kind": 80,
+                                "escapedText": "returns"
+                            },
+                            "comment": "<p>string | undefined</p>\n"
+                        }
                     ],
                     "inheritance": {
                         "file": "CommonFieldComponent"
@@ -3528,7 +3978,7 @@
                     "optional": false,
                     "returnType": "void",
                     "typeParameters": [],
-                    "line": 57,
+                    "line": 76,
                     "deprecated": false,
                     "deprecationMessage": "",
                     "inheritance": {
@@ -3593,7 +4043,9 @@
                     "defaultValue": "''",
                     "deprecated": false,
                     "deprecationMessage": "",
-                    "line": 41,
+                    "rawdescription": "\n\nProperty icon\n",
+                    "description": "<p>Property icon</p>\n",
+                    "line": 54,
                     "type": "string",
                     "decorators": [],
                     "inheritance": {
@@ -3605,7 +4057,9 @@
                     "defaultValue": "''",
                     "deprecated": false,
                     "deprecationMessage": "",
-                    "line": 40,
+                    "rawdescription": "\n\nProperty label\n",
+                    "description": "<p>Property label</p>\n",
+                    "line": 49,
                     "type": "string",
                     "decorators": [],
                     "inheritance": {
@@ -3616,7 +4070,9 @@
                     "name": "name",
                     "deprecated": false,
                     "deprecationMessage": "",
-                    "line": 39,
+                    "rawdescription": "\n\nProperty name\n",
+                    "description": "<p>Property name</p>\n",
+                    "line": 44,
                     "type": "string",
                     "decorators": [],
                     "inheritance": {
@@ -3633,7 +4089,7 @@
                     "type": "",
                     "optional": false,
                     "description": "",
-                    "line": 51,
+                    "line": 70,
                     "decorators": [
                         {
                             "name": "Optional",
@@ -3660,8 +4116,9 @@
                     "deprecationMessage": "",
                     "type": "AbstractControl",
                     "optional": false,
-                    "description": "",
-                    "line": 43,
+                    "description": "<p>FormControl instance</p>\n",
+                    "line": 59,
+                    "rawdescription": "\n\nFormControl instance\n",
                     "modifierKind": [
                         123
                     ],
@@ -3675,8 +4132,9 @@
                     "deprecationMessage": "",
                     "type": "Observable<string | undefined>",
                     "optional": false,
-                    "description": "",
-                    "line": 45,
+                    "description": "<p>Obserable error message</p>\n",
+                    "line": 64,
+                    "rawdescription": "\n\nObserable error message\n",
                     "inheritance": {
                         "file": "CommonFieldComponent"
                     }
@@ -3688,7 +4146,7 @@
                     "type": "FormGroup",
                     "optional": false,
                     "description": "",
-                    "line": 48,
+                    "line": 67,
                     "decorators": [
                         {
                             "name": "Inject",
@@ -3712,11 +4170,27 @@
                     "optional": false,
                     "returnType": "string | undefined",
                     "typeParameters": [],
-                    "line": 74,
+                    "line": 97,
                     "deprecated": false,
                     "deprecationMessage": "",
+                    "rawdescription": "\n\nGet error message if any\n",
+                    "description": "<p>Get error message if any</p>\n",
                     "modifierKind": [
                         123
+                    ],
+                    "jsdoctags": [
+                        {
+                            "tagName": {
+                                "pos": 2044,
+                                "end": 2051,
+                                "flags": 16842752,
+                                "modifierFlagsCache": 0,
+                                "transformFlags": 0,
+                                "kind": 80,
+                                "escapedText": "returns"
+                            },
+                            "comment": "<p>string | undefined</p>\n"
+                        }
                     ],
                     "inheritance": {
                         "file": "CommonFieldComponent"
@@ -3728,7 +4202,7 @@
                     "optional": false,
                     "returnType": "void",
                     "typeParameters": [],
-                    "line": 57,
+                    "line": 76,
                     "deprecated": false,
                     "deprecationMessage": "",
                     "inheritance": {
@@ -3907,13 +4381,13 @@
     "modules": [
         {
             "name": "CommonFieldModule",
-            "id": "module-CommonFieldModule-f9d9380cc7693b687eb5a18711444f8fa9df9cdb39e834e87886f0a84d637d30aed979bcaf1c48977197dbd9c0c171dab0c1d041e9a8b7f3921caf79face18d6",
+            "id": "module-CommonFieldModule-3e3e6d76f848376d075daa84e9dec09430d4b0be4abc7a77ccd161e136cf87066147ac21618bf80db510dcff5742c98b9efbcc68243eedf2bf5f7b0198deaab3",
             "description": "",
             "deprecationMessage": "",
             "deprecated": false,
             "file": "libs/material/src/lib/form/common-field/common-field.component.ts",
             "methods": [],
-            "sourceCode": "import {\n  Component,\n  Inject,\n  Input,\n  NgModule,\n  OnInit,\n  Optional,\n} from '@angular/core';\nimport {\n  AbstractControl,\n  FormGroup,\n  FormsModule,\n  ReactiveFormsModule,\n} from '@angular/forms';\nimport { FORM_FIELD_APPEARANCE_TOKEN } from '../../api';\nimport { MatFormField, MatFormFieldModule } from '@angular/material/form-field';\nimport { Observable, debounceTime, map } from 'rxjs';\nimport { MatInputModule } from '@angular/material/input';\nimport { MatIconModule } from '@angular/material/icon';\nimport { MatButtonModule } from '@angular/material/button';\n\nconst formModules = [\n  FormsModule,\n  ReactiveFormsModule,\n  MatInputModule,\n  MatFormFieldModule,\n  MatIconModule,\n  MatButtonModule,\n];\n\n@NgModule({\n  imports: [...formModules],\n  exports: [...formModules],\n})\nexport class CommonFieldModule {}\n\n@Component({ template: '' })\nexport class CommonFieldComponent implements OnInit {\n  @Input() name!: string;\n  @Input() label = '';\n  @Input() icon = '';\n  \n  private control!: AbstractControl;\n\n  errorMessage$!: Observable<string | undefined>;\n\n  constructor(\n    @Inject(FormGroup) public readonly formGroup: FormGroup,\n    @Optional()\n    @Inject(FORM_FIELD_APPEARANCE_TOKEN)\n    public readonly appearance: MatFormField['appearance']\n  ) {\n    if (!appearance) this.appearance = 'outline';\n    if (!formGroup) throw new Error('FormGroup must be provided!');\n  }\n\n  ngOnInit(): void {\n    const foundControl = this.formGroup.get(this.name);\n\n    if (!foundControl) {\n      throw new Error(`${this.name} control is not found in formGroup!`);\n    }\n\n    this.control = foundControl;\n\n    this.errorMessage$ = this.formGroup.valueChanges.pipe(\n      debounceTime(600),\n      map(() => {\n        return this.getErrorMessage();\n      })\n    );\n  }\n\n  private getErrorMessage(): string | undefined {\n    return this.control.errors?.['error'];\n  }\n}\n",
+            "sourceCode": "import {\n  Component,\n  Inject,\n  Input,\n  NgModule,\n  OnInit,\n  Optional,\n} from '@angular/core';\nimport {\n  AbstractControl,\n  FormGroup,\n  FormsModule,\n  ReactiveFormsModule,\n} from '@angular/forms';\nimport { FORM_FIELD_APPEARANCE_TOKEN } from '../../api';\nimport { MatFormField, MatFormFieldModule } from '@angular/material/form-field';\nimport { Observable, debounceTime, map } from 'rxjs';\nimport { MatInputModule } from '@angular/material/input';\nimport { MatIconModule } from '@angular/material/icon';\nimport { MatButtonModule } from '@angular/material/button';\nimport { CommonModule } from '@angular/common';\n\nconst formModules = [\n  CommonModule,\n  FormsModule,\n  ReactiveFormsModule,\n  MatInputModule,\n  MatFormFieldModule,\n  MatIconModule,\n  MatButtonModule,\n];\n\n@NgModule({\n  imports: [...formModules],\n  exports: [...formModules],\n})\nexport class CommonFieldModule {}\n\n@Component({ template: '' })\nexport class CommonFieldComponent implements OnInit {\n  /**\n   * Property name\n   */\n  @Input() name!: string;\n\n  /**\n   * Property label\n   */\n  @Input() label = '';\n\n  /**\n   * Property icon\n   */\n  @Input() icon = '';\n\n  /**\n   * FormControl instance\n   */\n  private control!: AbstractControl;\n\n  /**\n   * Obserable error message\n   */\n  errorMessage$!: Observable<string | undefined>;\n\n  constructor(\n    @Inject(FormGroup) public readonly formGroup: FormGroup,\n    @Optional()\n    @Inject(FORM_FIELD_APPEARANCE_TOKEN)\n    public readonly appearance: MatFormField['appearance']\n  ) {\n    if (!appearance) this.appearance = 'outline';\n    if (!formGroup) throw new Error('FormGroup must be provided!');\n  }\n\n  ngOnInit(): void {\n    const foundControl = this.formGroup.get(this.name);\n\n    if (!foundControl) {\n      throw new Error(`${this.name} control is not found in formGroup!`);\n    }\n\n    this.control = foundControl;\n\n    this.errorMessage$ = this.formGroup.valueChanges.pipe(\n      debounceTime(600),\n      map(() => {\n        return this.getErrorMessage();\n      })\n    );\n  }\n\n  /**\n   * Get error message if any\n   * @returns string | undefined\n   */\n  private getErrorMessage(): string | undefined {\n    return this.control.errors?.['error'];\n  }\n}\n",
             "children": [
                 {
                     "type": "providers",
@@ -3994,7 +4468,7 @@
                 "deprecated": false,
                 "deprecationMessage": "",
                 "type": "[]",
-                "defaultValue": "[\n  FormsModule,\n  ReactiveFormsModule,\n  MatInputModule,\n  MatFormFieldModule,\n  MatIconModule,\n  MatButtonModule,\n]"
+                "defaultValue": "[\n  CommonModule,\n  FormsModule,\n  ReactiveFormsModule,\n  MatInputModule,\n  MatFormFieldModule,\n  MatIconModule,\n  MatButtonModule,\n]"
             },
             {
                 "name": "Heading",
@@ -4054,7 +4528,7 @@
                 "deprecated": false,
                 "deprecationMessage": "",
                 "type": "Story",
-                "defaultValue": "{\n  args: {},\n  play: async ({ canvasElement }) => {\n    const canvas = within(canvasElement);\n    expect(canvas.getByText(/checkbox works!/gi)).toBeTruthy();\n  },\n}"
+                "defaultValue": "{\n  args: { name: 'active', label: 'Is user active?' },\n  play: async ({ canvasElement }) => {\n    const canvas = within(canvasElement);\n    expect(canvas.getByText(/checkbox works!/gi)).toBeTruthy();\n  },\n}"
             },
             {
                 "name": "Heading",
@@ -4064,7 +4538,7 @@
                 "deprecated": false,
                 "deprecationMessage": "",
                 "type": "Story",
-                "defaultValue": "{\n  args: {},\n  play: async ({ canvasElement }) => {\n    const canvas = within(canvasElement);\n    expect(canvas.getByText(/date works!/gi)).toBeTruthy();\n  },\n}"
+                "defaultValue": "{\n  args: {\n    name: 'dob',\n    label: 'Date of Birth',\n  },\n  play: async ({ canvasElement }) => {\n    const canvas = within(canvasElement);\n    expect(canvas.getByText(/date works!/gi)).toBeTruthy();\n  },\n}"
             },
             {
                 "name": "Heading",
@@ -4074,7 +4548,7 @@
                 "deprecated": false,
                 "deprecationMessage": "",
                 "type": "Story",
-                "defaultValue": "{\n  args: {},\n  play: async ({ canvasElement }) => {\n    const canvas = within(canvasElement);\n    expect(canvas.getByText(/date-range works!/gi)).toBeTruthy();\n  },\n}"
+                "defaultValue": "{\n  args: {\n    name: 'range',\n  },\n  play: async ({ canvasElement }) => {\n    const canvas = within(canvasElement);\n    expect(canvas.getByText(/date-range works!/gi)).toBeTruthy();\n  },\n}"
             },
             {
                 "name": "Heading",
@@ -4304,7 +4778,7 @@
                 "deprecated": false,
                 "deprecationMessage": "",
                 "type": "Meta<CheckboxComponent>",
-                "defaultValue": "{\n  component: CheckboxComponent,\n  title: 'CheckboxComponent',\n  decorators: [\n    moduleMetadata({\n      imports: [CommonModule, MatCheckboxModule],\n      providers: [provideFormGroup({ active: false }), ],\n    }),\n  ],\n}"
+                "defaultValue": "{\n  component: CheckboxComponent,\n  title: 'CheckboxComponent',\n  decorators: [\n    moduleMetadata({\n      imports: [CommonFieldModule, MatCheckboxModule],\n      providers: [provideFormGroup({ active: false })],\n    }),\n  ],\n}"
             },
             {
                 "name": "meta",
@@ -4314,7 +4788,7 @@
                 "deprecated": false,
                 "deprecationMessage": "",
                 "type": "Meta<DateComponent>",
-                "defaultValue": "{\n  component: DateComponent,\n  title: 'DateComponent',\n}"
+                "defaultValue": "{\n  component: DateComponent,\n  title: 'DateComponent',\n  decorators: [\n    moduleMetadata({\n      imports: [\n        BrowserAnimationsModule,\n        CommonFieldModule,\n        MatDatepickerModule,\n        MatNativeDateModule,\n      ],\n      providers: [provideFormGroup({ dob: '' })],\n    }),\n  ],\n}"
             },
             {
                 "name": "meta",
@@ -4324,7 +4798,7 @@
                 "deprecated": false,
                 "deprecationMessage": "",
                 "type": "Meta<DateRangeComponent>",
-                "defaultValue": "{\n  component: DateRangeComponent,\n  title: 'DateRangeComponent',\n}"
+                "defaultValue": "{\n  component: DateRangeComponent,\n  title: 'DateRangeComponent',\n  decorators: [\n    moduleMetadata({\n      imports: [\n        CommonModule,\n        BrowserAnimationsModule,\n        FormsModule,\n        ReactiveFormsModule,\n        MatDatepickerModule,\n        MatNativeDateModule,\n        MatFormFieldModule,\n        MatInputModule,\n      ],\n      providers: [provideFormGroup({ range: new Date() })],\n    }),\n  ],\n}"
             },
             {
                 "name": "meta",
@@ -4554,7 +5028,7 @@
                 "deprecated": false,
                 "deprecationMessage": "",
                 "type": "Story",
-                "defaultValue": "{\n  args: {},\n}"
+                "defaultValue": "{\n  args: {\n    name: 'active',\n    label: 'Is user active?',\n  },\n}"
             },
             {
                 "name": "Primary",
@@ -4564,7 +5038,7 @@
                 "deprecated": false,
                 "deprecationMessage": "",
                 "type": "Story",
-                "defaultValue": "{\n  args: {},\n}"
+                "defaultValue": "{\n  args: {\n    name: 'dob',\n    label: 'Date of Birth',\n  },\n}"
             },
             {
                 "name": "Primary",
@@ -4574,7 +5048,7 @@
                 "deprecated": false,
                 "deprecationMessage": "",
                 "type": "Story",
-                "defaultValue": "{\n  args: {},\n}"
+                "defaultValue": "{\n  args: {\n    name: 'range',\n  },\n}"
             },
             {
                 "name": "Primary",
@@ -5486,7 +5960,7 @@
                     "deprecated": false,
                     "deprecationMessage": "",
                     "type": "[]",
-                    "defaultValue": "[\n  FormsModule,\n  ReactiveFormsModule,\n  MatInputModule,\n  MatFormFieldModule,\n  MatIconModule,\n  MatButtonModule,\n]"
+                    "defaultValue": "[\n  CommonModule,\n  FormsModule,\n  ReactiveFormsModule,\n  MatInputModule,\n  MatFormFieldModule,\n  MatIconModule,\n  MatButtonModule,\n]"
                 }
             ],
             "libs/material/src/lib/form/form.component.stories.ts": [
@@ -5658,7 +6132,7 @@
                     "deprecated": false,
                     "deprecationMessage": "",
                     "type": "Story",
-                    "defaultValue": "{\n  args: {},\n  play: async ({ canvasElement }) => {\n    const canvas = within(canvasElement);\n    expect(canvas.getByText(/checkbox works!/gi)).toBeTruthy();\n  },\n}"
+                    "defaultValue": "{\n  args: { name: 'active', label: 'Is user active?' },\n  play: async ({ canvasElement }) => {\n    const canvas = within(canvasElement);\n    expect(canvas.getByText(/checkbox works!/gi)).toBeTruthy();\n  },\n}"
                 },
                 {
                     "name": "meta",
@@ -5668,7 +6142,7 @@
                     "deprecated": false,
                     "deprecationMessage": "",
                     "type": "Meta<CheckboxComponent>",
-                    "defaultValue": "{\n  component: CheckboxComponent,\n  title: 'CheckboxComponent',\n  decorators: [\n    moduleMetadata({\n      imports: [CommonModule, MatCheckboxModule],\n      providers: [provideFormGroup({ active: false }), ],\n    }),\n  ],\n}"
+                    "defaultValue": "{\n  component: CheckboxComponent,\n  title: 'CheckboxComponent',\n  decorators: [\n    moduleMetadata({\n      imports: [CommonFieldModule, MatCheckboxModule],\n      providers: [provideFormGroup({ active: false })],\n    }),\n  ],\n}"
                 },
                 {
                     "name": "Primary",
@@ -5678,7 +6152,7 @@
                     "deprecated": false,
                     "deprecationMessage": "",
                     "type": "Story",
-                    "defaultValue": "{\n  args: {},\n}"
+                    "defaultValue": "{\n  args: {\n    name: 'active',\n    label: 'Is user active?',\n  },\n}"
                 }
             ],
             "libs/material/src/lib/form/date/date.component.stories.ts": [
@@ -5690,7 +6164,7 @@
                     "deprecated": false,
                     "deprecationMessage": "",
                     "type": "Story",
-                    "defaultValue": "{\n  args: {},\n  play: async ({ canvasElement }) => {\n    const canvas = within(canvasElement);\n    expect(canvas.getByText(/date works!/gi)).toBeTruthy();\n  },\n}"
+                    "defaultValue": "{\n  args: {\n    name: 'dob',\n    label: 'Date of Birth',\n  },\n  play: async ({ canvasElement }) => {\n    const canvas = within(canvasElement);\n    expect(canvas.getByText(/date works!/gi)).toBeTruthy();\n  },\n}"
                 },
                 {
                     "name": "meta",
@@ -5700,7 +6174,7 @@
                     "deprecated": false,
                     "deprecationMessage": "",
                     "type": "Meta<DateComponent>",
-                    "defaultValue": "{\n  component: DateComponent,\n  title: 'DateComponent',\n}"
+                    "defaultValue": "{\n  component: DateComponent,\n  title: 'DateComponent',\n  decorators: [\n    moduleMetadata({\n      imports: [\n        BrowserAnimationsModule,\n        CommonFieldModule,\n        MatDatepickerModule,\n        MatNativeDateModule,\n      ],\n      providers: [provideFormGroup({ dob: '' })],\n    }),\n  ],\n}"
                 },
                 {
                     "name": "Primary",
@@ -5710,7 +6184,7 @@
                     "deprecated": false,
                     "deprecationMessage": "",
                     "type": "Story",
-                    "defaultValue": "{\n  args: {},\n}"
+                    "defaultValue": "{\n  args: {\n    name: 'dob',\n    label: 'Date of Birth',\n  },\n}"
                 }
             ],
             "libs/material/src/lib/form/date-range/date-range.component.stories.ts": [
@@ -5722,7 +6196,7 @@
                     "deprecated": false,
                     "deprecationMessage": "",
                     "type": "Story",
-                    "defaultValue": "{\n  args: {},\n  play: async ({ canvasElement }) => {\n    const canvas = within(canvasElement);\n    expect(canvas.getByText(/date-range works!/gi)).toBeTruthy();\n  },\n}"
+                    "defaultValue": "{\n  args: {\n    name: 'range',\n  },\n  play: async ({ canvasElement }) => {\n    const canvas = within(canvasElement);\n    expect(canvas.getByText(/date-range works!/gi)).toBeTruthy();\n  },\n}"
                 },
                 {
                     "name": "meta",
@@ -5732,7 +6206,7 @@
                     "deprecated": false,
                     "deprecationMessage": "",
                     "type": "Meta<DateRangeComponent>",
-                    "defaultValue": "{\n  component: DateRangeComponent,\n  title: 'DateRangeComponent',\n}"
+                    "defaultValue": "{\n  component: DateRangeComponent,\n  title: 'DateRangeComponent',\n  decorators: [\n    moduleMetadata({\n      imports: [\n        CommonModule,\n        BrowserAnimationsModule,\n        FormsModule,\n        ReactiveFormsModule,\n        MatDatepickerModule,\n        MatNativeDateModule,\n        MatFormFieldModule,\n        MatInputModule,\n      ],\n      providers: [provideFormGroup({ range: new Date() })],\n    }),\n  ],\n}"
                 },
                 {
                     "name": "Primary",
@@ -5742,7 +6216,7 @@
                     "deprecated": false,
                     "deprecationMessage": "",
                     "type": "Story",
-                    "defaultValue": "{\n  args: {},\n}"
+                    "defaultValue": "{\n  args: {\n    name: 'range',\n  },\n}"
                 }
             ],
             "libs/material/src/lib/form/date-time/date-time.component.stories.ts": [
@@ -7052,7 +7526,7 @@
     },
     "routes": [],
     "coverage": {
-        "count": 2,
+        "count": 5,
         "status": "low",
         "files": [
             {
@@ -7306,18 +7780,18 @@
                 "type": "component",
                 "linktype": "component",
                 "name": "CheckboxComponent",
-                "coveragePercent": 0,
-                "coverageCount": "0/10",
-                "status": "low"
+                "coveragePercent": 60,
+                "coverageCount": "6/10",
+                "status": "good"
             },
             {
                 "filePath": "libs/material/src/lib/form/common-field/common-field.component.ts",
                 "type": "component",
                 "linktype": "component",
                 "name": "CommonFieldComponent",
-                "coveragePercent": 0,
-                "coverageCount": "0/11",
-                "status": "low"
+                "coveragePercent": 54,
+                "coverageCount": "6/11",
+                "status": "good"
             },
             {
                 "filePath": "libs/material/src/lib/form/common-field/common-field.component.ts",
@@ -7364,9 +7838,9 @@
                 "type": "component",
                 "linktype": "component",
                 "name": "DateRangeComponent",
-                "coveragePercent": 0,
-                "coverageCount": "0/1",
-                "status": "low"
+                "coveragePercent": 60,
+                "coverageCount": "6/10",
+                "status": "good"
             },
             {
                 "filePath": "libs/material/src/lib/form/date-time/date-time.component.stories.ts",
@@ -7442,9 +7916,9 @@
                 "type": "component",
                 "linktype": "component",
                 "name": "DateComponent",
-                "coveragePercent": 0,
-                "coverageCount": "0/1",
-                "status": "low"
+                "coveragePercent": 60,
+                "coverageCount": "6/10",
+                "status": "good"
             },
             {
                 "filePath": "libs/material/src/lib/form/form.component.stories.ts",
@@ -7754,9 +8228,9 @@
                 "type": "component",
                 "linktype": "component",
                 "name": "TextFieldComponent",
-                "coveragePercent": 0,
-                "coverageCount": "0/10",
-                "status": "low"
+                "coveragePercent": 60,
+                "coverageCount": "6/10",
+                "status": "good"
             },
             {
                 "filePath": "libs/material/src/lib/form/textarea/textarea.component.stories.ts",
@@ -7793,9 +8267,9 @@
                 "type": "component",
                 "linktype": "component",
                 "name": "TextareaComponent",
-                "coveragePercent": 0,
-                "coverageCount": "0/10",
-                "status": "low"
+                "coveragePercent": 60,
+                "coverageCount": "6/10",
+                "status": "good"
             },
             {
                 "filePath": "libs/material/src/lib/navigation/navigation.component.stories.ts",

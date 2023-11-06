@@ -18,8 +18,10 @@ import { Observable, debounceTime, map } from 'rxjs';
 import { MatInputModule } from '@angular/material/input';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
+import { CommonModule } from '@angular/common';
 
 const formModules = [
+  CommonModule,
   FormsModule,
   ReactiveFormsModule,
   MatInputModule,
@@ -36,12 +38,29 @@ export class CommonFieldModule {}
 
 @Component({ template: '' })
 export class CommonFieldComponent implements OnInit {
+  /**
+   * Property name
+   */
   @Input() name!: string;
+
+  /**
+   * Property label
+   */
   @Input() label = '';
+
+  /**
+   * Property icon
+   */
   @Input() icon = '';
-  
+
+  /**
+   * FormControl instance
+   */
   private control!: AbstractControl;
 
+  /**
+   * Obserable error message
+   */
   errorMessage$!: Observable<string | undefined>;
 
   constructor(
@@ -71,6 +90,10 @@ export class CommonFieldComponent implements OnInit {
     );
   }
 
+  /**
+   * Get error message if any
+   * @returns string | undefined
+   */
   private getErrorMessage(): string | undefined {
     return this.control.errors?.['error'];
   }

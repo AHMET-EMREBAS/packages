@@ -1,11 +1,16 @@
 import { Component } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import {
+  CommonFieldComponent,
+  CommonFieldModule,
+} from '../common-field/common-field.component';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatNativeDateModule } from '@angular/material/core';
 
 @Component({
   selector: 'techbir-date',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonFieldModule, MatDatepickerModule, MatNativeDateModule],
   templateUrl: './date.component.html',
   styleUrls: ['./date.component.scss'],
 })
-export class DateComponent {}
+export class DateComponent extends CommonFieldComponent {}

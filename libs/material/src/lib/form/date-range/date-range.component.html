@@ -1,1 +1,27 @@
-<p>date-range works!</p>
+{{ formGroup.get(name)?.value | json }}
+<ng-container *ngIf="updateValue$ | async"></ng-container>
+<div [formGroup]="formGroup">
+  <mat-form-field class="example-form-field">
+    <mat-label>{{ label || name | titlecase }}</mat-label>
+    <mat-date-range-input [rangePicker]="dateRangePicker">
+      <input
+        matStartDate
+        i18n-placeholder
+        placeholder="Start date"
+        [formControl]="__startControl"
+      />
+      <input
+        matEndDate
+        i18n-placeholder
+        placeholder="End date"
+        [formControl]="__endControl"
+      />
+    </mat-date-range-input>
+    <mat-hint>MM/DD/YYYY – MM/DD/YYYY</mat-hint>
+    <mat-datepicker-toggle
+      matIconSuffix
+      [for]="dateRangePicker"
+    ></mat-datepicker-toggle>
+    <mat-date-range-picker #dateRangePicker></mat-date-range-picker>
+  </mat-form-field>
+</div>

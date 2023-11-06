@@ -3,17 +3,17 @@ import { CheckboxComponent } from './checkbox.component';
 
 import { within } from '@storybook/testing-library';
 import { expect } from '@storybook/jest';
-import { MatCheckboxModule } from '@angular/material/checkbox';
-import { CommonModule } from '@angular/common';
 import { provideFormGroup } from '../../api';
+import { MatCheckboxModule } from '@angular/material/checkbox';
+import { CommonFieldModule } from '../common-field/common-field.component';
 
 const meta: Meta<CheckboxComponent> = {
   component: CheckboxComponent,
   title: 'CheckboxComponent',
   decorators: [
     moduleMetadata({
-      imports: [CommonModule, MatCheckboxModule],
-      providers: [provideFormGroup({ active: false }), ],
+      imports: [CommonFieldModule, MatCheckboxModule],
+      providers: [provideFormGroup({ active: false })],
     }),
   ],
 };
@@ -21,11 +21,14 @@ export default meta;
 type Story = StoryObj<CheckboxComponent>;
 
 export const Primary: Story = {
-  args: {},
+  args: {
+    name: 'active',
+    label: 'Is user active?',
+  },
 };
 
 export const Heading: Story = {
-  args: {},
+  args: { name: 'active', label: 'Is user active?' },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
     expect(canvas.getByText(/checkbox works!/gi)).toBeTruthy();

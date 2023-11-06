@@ -1,1 +1,9 @@
-<p>date works!</p>
+<div [formGroup]="formGroup">
+  <mat-form-field>
+    <mat-label>{{ label || name | titlecase }}</mat-label>
+    <input matInput [matDatepicker]="picker" [formControlName]="name" />
+    <mat-hint>MM/DD/YYYY</mat-hint>
+    <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+    <mat-datepicker #picker></mat-datepicker>
+  </mat-form-field>
+</div>
