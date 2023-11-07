@@ -1,51 +1,51 @@
-<?xml version="1.0" encoding="UTF-8" ?>
+<?xml version="1.0" encoding="UTF-8"?>
 <xliff version="1.2" xmlns="urn:oasis:names:tc:xliff:document:1.2">
   <file source-language="en-US" datatype="plaintext" original="ng2.template">
     <body>
       <trans-unit id="7445515690080403620" datatype="html">
-        <source><x id="PH" equiv-text="entityName"/> Dashboard</source>
+        <source><x id="PH" equiv-text="entityName" /> Dashboard</source>
         <context-group purpose="location">
           <context context-type="sourcefile">libs/material/src/lib/resource/resource.routes.ts</context>
           <context context-type="linenumber">32</context>
         </context-group>
       </trans-unit>
       <trans-unit id="97480906845514445" datatype="html">
-        <source>View <x id="PH" equiv-text="entityName"/>s</source>
+        <source>View <x id="PH" equiv-text="entityName" />s</source>
         <context-group purpose="location">
           <context context-type="sourcefile">libs/material/src/lib/resource/resource.routes.ts</context>
           <context context-type="linenumber">41</context>
         </context-group>
       </trans-unit>
       <trans-unit id="7563106608830719263" datatype="html">
-        <source>Details of <x id="PH" equiv-text="entityName"/></source>
+        <source>Details of <x id="PH" equiv-text="entityName" /></source>
         <context-group purpose="location">
           <context context-type="sourcefile">libs/material/src/lib/resource/resource.routes.ts</context>
           <context context-type="linenumber">47</context>
         </context-group>
       </trans-unit>
       <trans-unit id="4240907223137513894" datatype="html">
-        <source>Create <x id="PH" equiv-text="entityName"/></source>
+        <source>Create <x id="PH" equiv-text="entityName" /></source>
         <context-group purpose="location">
           <context context-type="sourcefile">libs/material/src/lib/resource/resource.routes.ts</context>
           <context context-type="linenumber">53</context>
         </context-group>
       </trans-unit>
       <trans-unit id="6697109866731379499" datatype="html">
-        <source>Update <x id="PH" equiv-text="entityName"/></source>
+        <source>Update <x id="PH" equiv-text="entityName" /></source>
         <context-group purpose="location">
           <context context-type="sourcefile">libs/material/src/lib/resource/resource.routes.ts</context>
           <context context-type="linenumber">59</context>
         </context-group>
       </trans-unit>
       <trans-unit id="6307826440781941134" datatype="html">
-        <source>Delete <x id="PH" equiv-text="entityName"/></source>
+        <source>Delete <x id="PH" equiv-text="entityName" /></source>
         <context-group purpose="location">
           <context context-type="sourcefile">libs/material/src/lib/resource/resource.routes.ts</context>
           <context context-type="linenumber">65</context>
         </context-group>
       </trans-unit>
       <trans-unit id="3648865234737118872" datatype="html">
-        <source>Configure <x id="PH" equiv-text="entityName"/> Resource</source>
+        <source>Configure <x id="PH" equiv-text="entityName" /> Resource</source>
         <context-group purpose="location">
           <context context-type="sourcefile">libs/material/src/lib/resource/resource.routes.ts</context>
           <context context-type="linenumber">71</context>

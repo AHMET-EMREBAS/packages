@@ -1,4 +1,4 @@
-import { Component, Injectable, Provider, Type } from '@angular/core';
+import { Component } from '@angular/core';
 import {
   CommonFieldComponent,
   CommonFieldModule,

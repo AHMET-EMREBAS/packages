@@ -1,0 +1,33 @@
+
+<ng-container *ngIf="valueChange$ | async"></ng-container>
+<div class="date-time-container">
+  <ng-container *ngIf="hours">
+    <div class="time-container">
+      <input class="time-value" type="text" [formControl]="hour" />
+      <div class="select-hours">
+        <ng-container *ngFor="let h of hours">
+          <div class="line" (click)="setHour(h)">
+            <button mat-mini-fab class="hour" color="accent">
+              {{ h }}
+            </button>
+          </div>
+        </ng-container>
+      </div>
+    </div>
+  </ng-container>
+
+  <ng-container *ngIf="minutes">
+    <div class="time-container">
+      <input class="time-value" type="text" [formControl]="minute" />
+      <div class="select-minutes">
+        <ng-container *ngFor="let m of minutes">
+          <div class="line" (click)="setMinute(m)">
+            <button mat-mini-fab class="minute" color="primary">
+              {{ m }}
+            </button>
+          </div>
+        </ng-container>
+      </div>
+    </div>
+  </ng-container>
+</div>
