@@ -21,7 +21,10 @@ export class CanActivateService {
     this.localStoreService.set(this.itemName(actionName), true);
   }
 
-  canCreate(value?: boolean) {}
+  canCreate(value?: boolean) {
+    return true;
+  }
+  
   canUpdate() {
     return this.localStoreService.get(this.itemName('Update'));
   }

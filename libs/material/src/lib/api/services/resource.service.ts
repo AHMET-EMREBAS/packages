@@ -1,19 +1,11 @@
 import { HttpClient } from '@angular/common/http';
-import { Inject, Injectable, Optional, Provider, inject } from '@angular/core';
+import { Inject, Injectable, Provider, inject } from '@angular/core';
 import {
   EntityCollectionServiceBase,
   EntityCollectionServiceElementsFactory,
   MergeStrategy,
 } from '@ngrx/data';
-import {
-  Observable,
-  catchError,
-  debounceTime,
-  delay,
-  firstValueFrom,
-  map,
-  of,
-} from 'rxjs';
+import { Observable, catchError, debounceTime, map, of } from 'rxjs';
 import { excludeUndefined, names } from '@techbir/utils';
 
 export type QueryObject = {

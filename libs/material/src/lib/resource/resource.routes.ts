@@ -27,7 +27,7 @@ export const ResourceRoutes: (entityName: string) => Routes = (
     ],
     path: '',
     loadComponent: () =>
-      import('../navigation/navigation.component').then(
+      import('../navigations/navigation/navigation.component').then(
         (c) => c.NavigationComponent
       ),
 

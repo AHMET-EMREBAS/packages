@@ -16,7 +16,7 @@ import { map, shareReplay } from 'rxjs/operators';
 import { Title } from '@angular/platform-browser';
 import { CommonModule } from '@angular/common';
 import { ActivatedRoute, Router, RouterModule } from '@angular/router';
-import { LocalStoreService, NAV_ITEMS_TOKEN, NavItem } from '../api';
+import { LocalStoreService, NAV_ITEMS_TOKEN, NavItem } from '../../api';
 import { MatTooltipModule } from '@angular/material/tooltip';
 
 @Component({

@@ -1,7 +1,6 @@
 import { Injectable, Provider, Type } from '@angular/core';
 import { DateAdapter } from '@angular/material/core';
 import {
-  DateFilterFn,
   DateRange,
   MAT_DATE_RANGE_SELECTION_STRATEGY,
   MatDateRangeSelectionStrategy,

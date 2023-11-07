@@ -1,6 +1,6 @@
 import { Component, Inject, Optional } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { VIEW_COMPONENT_TOKEN } from '../../api/view.provider';
+import { VIEW_COMPONENT_TOKEN } from '../../api/providers/view.provider';
 import { TableComponent } from '../../table/table.component';
 
 @Component({
