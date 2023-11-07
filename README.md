@@ -1,7 +1,6 @@
 # Packages | Ahmet Emrebas
 
-Angular & NestJS packages
-
-1. Generators
-2. Common Components
-3. Utilities
+1. Angular Components 
+2. NestJS Modules 
+3. App Generator 
+4. Testing Utils 
