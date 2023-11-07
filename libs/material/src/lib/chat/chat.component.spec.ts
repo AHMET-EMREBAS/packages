@@ -1,16 +1,16 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { TimePickerComponent } from './time-picker.component';
+import { ChatComponent } from './chat.component';
 
-describe('TimePickerComponent', () => {
-  let component: TimePickerComponent;
-  let fixture: ComponentFixture<TimePickerComponent>;
+describe('ChatComponent', () => {
+  let component: ChatComponent;
+  let fixture: ComponentFixture<ChatComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [TimePickerComponent],
+      imports: [ChatComponent],
     }).compileComponents();
 
-    fixture = TestBed.createComponent(TimePickerComponent);
+    fixture = TestBed.createComponent(ChatComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

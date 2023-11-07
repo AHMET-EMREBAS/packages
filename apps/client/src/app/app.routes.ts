@@ -3,6 +3,7 @@ import {
   ResourceRoutes,
   TextFieldComponent,
   TextareaComponent,
+  WebsiteRoutes,
   provideFormFieldAppearance,
   provideFormFields,
   provideFormGroup,
@@ -10,6 +11,7 @@ import {
 } from '@techbir/material';
 
 export const appRoutes: Route[] = [
+  { path: '', loadChildren: () => WebsiteRoutes },
   {
     path: 'sample',
     loadChildren: () => ResourceRoutes('Sample'),
