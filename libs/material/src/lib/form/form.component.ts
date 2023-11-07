@@ -1,10 +1,9 @@
-import { Component, Inject, Optional, ViewEncapsulation } from '@angular/core';
+import { Component, Inject, ViewEncapsulation } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormGroup } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { FORM_FIELDS_TOKEN, FormField, ResourceService } from '../api';
-import { TextFieldComponent } from './text-field/text-field.component';
 import { MatStepperModule } from '@angular/material/stepper';
 
 @Component({
