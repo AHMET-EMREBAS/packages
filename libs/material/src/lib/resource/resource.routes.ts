@@ -2,9 +2,9 @@ import { Routes } from '@angular/router';
 import {
   provideNavItems,
   ResourceService,
-  provideLocalStoreService,
   provideEntityName,
   provideSearchControl,
+  provideModuleName,
 } from '../api';
 import '@angular/localize';
 
@@ -16,13 +16,14 @@ export const ResourceRoutes: (entityName: string) => Routes = (
     providers: [
       provideEntityName(entityName),
       provideSearchControl(),
+      provideModuleName(entityName),
       provideNavItems([
         { icon: 'dashboard', name: 'dashboard', route: 'dashboard' },
         { icon: 'dataset', name: `view`, route: 'view' },
         { icon: 'add_box', name: `create`, route: 'create' },
         { icon: 'settings', name: `config`, route: 'config' },
       ]),
-      provideLocalStoreService(entityName + 'Navigation'),
+
       ResourceService,
     ],
     path: '',
@@ -46,7 +47,7 @@ export const ResourceRoutes: (entityName: string) => Routes = (
             (c) => c.DashboardComponent
           ),
 
-        providers: [provideLocalStoreService(entityName + 'Dashboard')],
+        providers: [provideModuleName(entityName + 'Dashboard')],
       },
 
       {
@@ -54,42 +55,42 @@ export const ResourceRoutes: (entityName: string) => Routes = (
         path: 'view',
         loadComponent: () =>
           import('./view/view.component').then((c) => c.ViewComponent),
-        providers: [provideLocalStoreService(entityName + 'View')],
+        providers: [provideModuleName(entityName + 'View')],
       },
       {
         title: $localize`Details of ${entityName}`,
         path: 'view/:id',
         loadComponent: () =>
           import('./detail/detail.component').then((c) => c.DetailComponent),
-        providers: [provideLocalStoreService(entityName + 'Detail')],
+        providers: [provideModuleName(entityName + 'Detail')],
       },
       {
         title: $localize`Create ${entityName}`,
         path: 'create',
         loadComponent: () =>
           import('./create/create.component').then((c) => c.CreateComponent),
-        providers: [provideLocalStoreService(entityName + 'Create')],
+        providers: [provideModuleName(entityName + 'Create')],
       },
       {
         title: $localize`Update ${entityName}`,
         path: 'update/:id',
         loadComponent: () =>
           import('./update/update.component').then((c) => c.UpdateComponent),
-        providers: [provideLocalStoreService(entityName + 'Update')],
+        providers: [provideModuleName(entityName + 'Update')],
       },
       {
         title: $localize`Delete ${entityName}`,
         path: 'delete/:id',
         loadComponent: () =>
           import('./delete/delete.component').then((c) => c.DeleteComponent),
-        providers: [provideLocalStoreService(entityName + 'Delete')],
+        providers: [provideModuleName(entityName + 'Delete')],
       },
       {
         title: $localize`Configure ${entityName} Resource`,
         path: 'config',
         loadComponent: () =>
           import('./config/config.component').then((c) => c.ConfigComponent),
-        providers: [provideLocalStoreService(entityName + 'Config')],
+        providers: [provideModuleName(entityName + 'Config')],
       },
     ],
   },

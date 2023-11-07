@@ -20,7 +20,6 @@ export const appConfig: ApplicationConfig = {
   providers: [
     provideRouter(
       appRoutes,
-
       withEnabledBlockingInitialNavigation(),
       withHashLocation(),
       withRouterConfig({

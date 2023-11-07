@@ -16,7 +16,12 @@ import { map, shareReplay } from 'rxjs/operators';
 import { Title } from '@angular/platform-browser';
 import { CommonModule } from '@angular/common';
 import { ActivatedRoute, Router, RouterModule } from '@angular/router';
-import { LocalStoreService, NAV_ITEMS_TOKEN, NavItem } from '../../api';
+import {
+  APP_NAME_TOKEN,
+  LocalStoreService,
+  NAV_ITEMS_TOKEN,
+  NavItem,
+} from '../../api';
 import { MatTooltipModule } from '@angular/material/tooltip';
 
 @Component({
@@ -36,12 +41,15 @@ import { MatTooltipModule } from '@angular/material/tooltip';
   ],
 })
 export class NavigationComponent implements AfterViewInit {
+  protected readonly lastRouteStoreKey = `${this.appName}_last_route`;
+  protected readonly miniSideNavStoreKey = `${this.appName}_mini_sidenav`;
+
   @ViewChild('drawer') drawer!: MatDrawer;
 
   private breakpointObserver = inject(BreakpointObserver);
   readonly title = inject(Title);
 
-  miniSidenav = !!this.lss.get<boolean>('miniSidenav');
+  miniSidenav = this.lss.get<boolean>(this.miniSideNavStoreKey, false);
 
   isHandset = false;
   isHandset$: Observable<boolean> = this.breakpointObserver
@@ -56,13 +64,14 @@ export class NavigationComponent implements AfterViewInit {
 
   constructor(
     @Inject(NAV_ITEMS_TOKEN) public readonly navItems: NavItem[],
-    private readonly lss: LocalStoreService,
-    private readonly router: Router,
-    private readonly route: ActivatedRoute
+    @Inject(APP_NAME_TOKEN) public readonly appName: string,
+    protected readonly lss: LocalStoreService,
+    protected readonly router: Router,
+    protected readonly route: ActivatedRoute
   ) {}
 
   ngAfterViewInit(): void {
-    const lastRoute = this.lss.get('lastRoute');
+    const lastRoute = this.lss.get(this.lastRouteStoreKey);
 
     if (lastRoute) {
       this.router.navigate([lastRoute], { relativeTo: this.route });
@@ -71,7 +80,7 @@ export class NavigationComponent implements AfterViewInit {
 
   async toggleMiniSidenav() {
     this.miniSidenav = !this.miniSidenav;
-    this.lss.set('miniSidenav', this.miniSidenav);
+    this.lss.set(this.miniSideNavStoreKey, this.miniSidenav);
     await this.drawer.close();
     await this.drawer.open();
   }
@@ -84,7 +93,7 @@ export class NavigationComponent implements AfterViewInit {
     if (this.isHandset) this.drawer.close();
 
     if (this.canPersistRoute(navItem.route)) {
-      this.lss.set('lastRoute', navItem.route);
+      this.lss.set(this.lastRouteStoreKey, navItem.route);
     }
   }
 }

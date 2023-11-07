@@ -1,11 +1,36 @@
-import { Component } from '@angular/core';
+import { AfterViewInit, Component } from '@angular/core';
+import { MatToolbarModule } from '@angular/material/toolbar';
+import { MatButtonModule } from '@angular/material/button';
+import { MatSidenavModule } from '@angular/material/sidenav';
+import { MatListModule } from '@angular/material/list';
+import { MatIconModule } from '@angular/material/icon';
 import { CommonModule } from '@angular/common';
+import { RouterModule } from '@angular/router';
+import { MatTooltipModule } from '@angular/material/tooltip';
+import { NavigationComponent } from '../navigation/navigation.component';
 
 @Component({
-  selector: 'techbir-web-navigation',
-  standalone: true,
-  imports: [CommonModule],
+  selector: 'techbir-navigation',
   templateUrl: './web-navigation.component.html',
-  styles: [],
+  styleUrls: ['./web-navigation.component.css'],
+  standalone: true,
+  imports: [
+    CommonModule,
+    RouterModule,
+    MatToolbarModule,
+    MatButtonModule,
+    MatSidenavModule,
+    MatListModule,
+    MatIconModule,
+    MatTooltipModule,
+  ],
 })
-export class WebNavigationComponent {}
+export class WebNavigationComponent
+  extends NavigationComponent
+  implements AfterViewInit
+{
+  override readonly lastRouteStoreKey = `${this.appName}_last_route`;
+  override readonly miniSideNavStoreKey = `${this.appName}_mini_sidenav`;
+
+  override miniSidenav = this.lss.get<boolean>(this.miniSideNavStoreKey, true);
+}
