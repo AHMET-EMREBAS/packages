@@ -28,25 +28,6 @@
         </span>
       </a>
 
-      <!-- Back to main page -->
-      <a
-        [routerLink]="['..']"
-        routerLinkActive="router-link-active"
-        [routerLinkActiveOptions]="{ exact: true }"
-        mat-list-item
-        class="nav-item"
-        aria-label="Go to main page"
-        matTooltip="Main Page"
-        matTooltipPosition="right"
-      >
-        <span matListItemIcon>
-          <mat-icon [class.big-icon]="miniSidenav" class="outline">
-            home
-          </mat-icon>
-        </span>
-        <span matListItemLine i18n> Main Page</span>
-      </a>
-
       <!-- Nav Items -->
       <a
         mat-list-item
@@ -90,7 +71,7 @@
           {{ drawer.opened ? 'menu_open' : 'menu' }}
         </mat-icon>
       </button>
-      <span>{{ title.getTitle() }}</span>
+      <span>{{ title.getTitle() }} | {{ moduleName }}</span>
     </mat-toolbar>
     <router-outlet></router-outlet>
 

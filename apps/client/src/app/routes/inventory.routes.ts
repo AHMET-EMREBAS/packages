@@ -15,29 +15,25 @@ import {
 
 export const InventoryRoutes: Routes = [
   {
+    title: $localize`Inventory`,
     path: '',
     providers: [
       LocalStoreService,
       provideAppName('Inventory'),
       provideModuleName('Inventory'),
-      provideNavItems([]),
+      provideNavItems([
+        { name: 'Home', route: './', icon: 'home' },
+        { name: 'product', route: 'product', icon: 'inventory' },
+        { name: 'category', route: 'category', icon: 'category' },
+      ]),
     ],
     loadComponent: () =>
       import('@techbir/material').then((c) => c.NavigationComponent),
   },
-
   {
-    path: 'sample',
-    loadChildren: () => ResourceRoutes('Sample'),
-    providers: [
-      provideFormGroup({ name: '' }),
-      provideFormFieldAppearance('fill'),
-      provideFormFields([{ name: 'name', component: TextFieldComponent }]),
-    ],
-  },
-  {
+    title: $localize`Product`,
     path: 'product',
-    loadChildren: () => ResourceRoutes('Product'),
+    loadChildren: () => ResourceRoutes(),
     providers: [
       provideModuleName('Product'),
       provideFormGroup({ name: '', description: '', barcode: '' }),
@@ -65,24 +61,6 @@ export const InventoryRoutes: Routes = [
           name: 'description',
           component: TextareaComponent,
           icon: 'description',
-        },
-      ]),
-    ],
-  },
-  {
-    path: 'category',
-    loadChildren: () => ResourceRoutes('Category'),
-    providers: [
-      provideModuleName('Category'),
-      provideFormGroup({ name: '' }),
-      provideTableColumns([{ name: 'name', label: 'Category', icon: 'info' }]),
-      provideFormFieldAppearance('outline'),
-      provideFormFields([
-        {
-          name: 'name',
-          icon: 'info',
-          label: 'Category',
-          component: TextFieldComponent,
         },
       ]),
     ],

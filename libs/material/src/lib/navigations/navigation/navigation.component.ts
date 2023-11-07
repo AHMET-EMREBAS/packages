@@ -19,6 +19,7 @@ import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import {
   APP_NAME_TOKEN,
   LocalStoreService,
+  MODULE_NAME_TOKEN,
   NAV_ITEMS_TOKEN,
   NavItem,
 } from '../../api';
@@ -41,8 +42,8 @@ import { MatTooltipModule } from '@angular/material/tooltip';
   ],
 })
 export class NavigationComponent implements AfterViewInit {
-  protected readonly lastRouteStoreKey = `${this.appName}_last_route`;
-  protected readonly miniSideNavStoreKey = `${this.appName}_mini_sidenav`;
+  protected readonly lastRouteStoreKey = `last_route`;
+  protected readonly miniSideNavStoreKey = `mini_sidenav`;
 
   @ViewChild('drawer') drawer!: MatDrawer;
 
@@ -65,6 +66,7 @@ export class NavigationComponent implements AfterViewInit {
   constructor(
     @Inject(NAV_ITEMS_TOKEN) public readonly navItems: NavItem[],
     @Inject(APP_NAME_TOKEN) public readonly appName: string,
+    @Inject(MODULE_NAME_TOKEN) public readonly moduleName: string,
     protected readonly lss: LocalStoreService,
     protected readonly router: Router,
     protected readonly route: ActivatedRoute
@@ -87,6 +89,10 @@ export class NavigationComponent implements AfterViewInit {
 
   canPersistRoute(fragmentPath: string) {
     return /[a-z-]{1,}/.test(fragmentPath);
+  }
+
+  homePageClickHandler() {
+    this.lss.set(this.lastRouteStoreKey, '');
   }
 
   navItemClickHandler(navItem: NavItem) {

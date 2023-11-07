@@ -30,6 +30,6 @@ export const MODULE_NAME_TOKEN = 'MODULE_NAME_TOKEN';
 export function provideModuleName(appName: string): Provider {
   return {
     provide: MODULE_NAME_TOKEN,
-    useValue: appName,
+    useValue: appName
   };
 }

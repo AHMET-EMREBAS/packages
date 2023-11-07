@@ -1,2 +1,2 @@
 // @index(['./*', '!./*.spec.ts'], f => `export * from '${f.path}'`)
-export * from './url.interceptor';
+export * from './url.interceptor'

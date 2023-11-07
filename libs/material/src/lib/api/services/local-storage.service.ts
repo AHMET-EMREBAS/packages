@@ -10,19 +10,21 @@ export class LocalStoreService {
   constructor(
     @Inject(APP_NAME_TOKEN) private readonly appName: string,
     @Inject(MODULE_NAME_TOKEN) private readonly moduleName: string
-  ) {}
+  ) {
+    console.log(this.appName, this.moduleName);
+  }
 
-  private itemName(name: string) {
-    return `${this.appName}_${this.moduleName}_${name}`;
+  protected __key(key: string) {
+    return `${this.appName}_${this.moduleName}_${key}`;
   }
 
   set(key: string, value: any) {
     const valueAsString = JSON.stringify(value);
-    localStorage.setItem(this.itemName(key), valueAsString);
+    localStorage.setItem(this.__key(key), valueAsString);
   }
 
   get<T>(key: string, defaultValue?: T): T | undefined {
-    const value = localStorage.getItem(this.itemName(key));
+    const value = localStorage.getItem(this.__key(key));
     if (value != undefined) {
       return JSON.parse(value) as T;
     } else {

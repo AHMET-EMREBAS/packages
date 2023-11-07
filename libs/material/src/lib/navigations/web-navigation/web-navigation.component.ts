@@ -29,8 +29,5 @@ export class WebNavigationComponent
   extends NavigationComponent
   implements AfterViewInit
 {
-  override readonly lastRouteStoreKey = `${this.appName}_last_route`;
-  override readonly miniSideNavStoreKey = `${this.appName}_mini_sidenav`;
-
   override miniSidenav = this.lss.get<boolean>(this.miniSideNavStoreKey, true);
 }

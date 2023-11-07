@@ -12,5 +12,4 @@ import { Title } from '@angular/platform-browser';
 })
 export class ResourceComponent {
   title = inject(Title);
-  
 }

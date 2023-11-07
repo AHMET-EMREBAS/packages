@@ -1,5 +1,5 @@
 import { Routes } from '@angular/router';
-import { provideAppName, provideNavItems } from '../api';
+import { provideNavItems } from '../api';
 
 export const WebsiteRoutes: Routes = [
   {
