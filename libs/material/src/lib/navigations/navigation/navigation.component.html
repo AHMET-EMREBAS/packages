@@ -32,6 +32,7 @@
       <a
         mat-list-item
         [routerLink]="[item.route]"
+        [queryParams]="item.params"
         routerLinkActive="router-link-active"
         [routerLinkActiveOptions]="{ exact: true }"
         matTooltip="{{ item.name | titlecase }}"

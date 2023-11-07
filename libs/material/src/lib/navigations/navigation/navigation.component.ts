@@ -22,6 +22,7 @@ import {
   MODULE_NAME_TOKEN,
   NAV_ITEMS_TOKEN,
   NavItem,
+  NavItemParams,
 } from '../../api';
 import { MatTooltipModule } from '@angular/material/tooltip';
 
@@ -74,8 +75,11 @@ export class NavigationComponent implements AfterViewInit {
 
   ngAfterViewInit(): void {
     const lastRoute = this.lss.get(this.lastRouteStoreKey);
-
-    if (lastRoute) {
+    const params: NavItemParams = this.route.snapshot
+      .queryParams as NavItemParams;
+    if (params.clearLastRoute) {
+      return;
+    } else if (lastRoute) {
       this.router.navigate([lastRoute], { relativeTo: this.route });
     }
   }
@@ -87,8 +91,8 @@ export class NavigationComponent implements AfterViewInit {
     await this.drawer.open();
   }
 
-  canPersistRoute(fragmentPath: string) {
-    return /[a-z-]{1,}/.test(fragmentPath);
+  canPersistRoute(navItem: NavItem) {
+    return /[a-z-]{1,}/.test(navItem.route);
   }
 
   homePageClickHandler() {
@@ -98,7 +102,7 @@ export class NavigationComponent implements AfterViewInit {
   navItemClickHandler(navItem: NavItem) {
     if (this.isHandset) this.drawer.close();
 
-    if (this.canPersistRoute(navItem.route)) {
+    if (this.canPersistRoute(navItem)) {
       this.lss.set(this.lastRouteStoreKey, navItem.route);
     }
   }

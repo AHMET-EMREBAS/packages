@@ -1,6 +1,7 @@
 import { Routes } from '@angular/router';
 import {
   LocalStoreService,
+  NavigationComponent,
   ResourceRoutes,
   TextFieldComponent,
   TextareaComponent,
@@ -27,13 +28,12 @@ export const InventoryRoutes: Routes = [
         { name: 'category', route: 'category', icon: 'category' },
       ]),
     ],
-    loadComponent: () =>
-      import('@techbir/material').then((c) => c.NavigationComponent),
+    component: NavigationComponent,
   },
   {
     title: $localize`Product`,
     path: 'product',
-    loadChildren: () => ResourceRoutes(),
+    loadChildren: () => ResourceRoutes('Inventory', 'Product', 'Product'),
     providers: [
       provideModuleName('Product'),
       provideFormGroup({ name: '', description: '', barcode: '' }),
@@ -61,6 +61,26 @@ export const InventoryRoutes: Routes = [
           name: 'description',
           component: TextareaComponent,
           icon: 'description',
+        },
+      ]),
+    ],
+  },
+  {
+    title: $localize`Category`,
+    path: 'category',
+    loadChildren: () => ResourceRoutes('Inventory', 'Category', 'Category'),
+    providers: [
+      provideModuleName('Category'),
+      provideFormGroup({ name: ''}),
+      provideTableColumns([
+        { name: 'name', label: 'Category Name', icon: 'info' },
+      ]),
+      provideFormFields([
+        {
+          label: 'Category Name',
+          name: 'name',
+          component: TextFieldComponent,
+          icon: 'info',
         },
       ]),
     ],

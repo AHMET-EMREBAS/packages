@@ -2,10 +2,15 @@ import { Provider } from '@angular/core';
 
 export const NAV_ITEMS_TOKEN = 'NAV_ITEMS_TOKEN';
 
+export type NavItemParams = {
+  clearLastRoute?: boolean;
+};
+
 export class NavItem {
   route!: string;
   name!: string;
   icon!: string;
+  params?: NavItemParams;
 }
 
 export function provideNavItems(navItems: NavItem[]): Provider {

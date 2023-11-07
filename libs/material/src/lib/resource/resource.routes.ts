@@ -1,14 +1,39 @@
 import { Routes } from '@angular/router';
-import { provideModuleName, provideNavItems } from '../api';
+import {
+  LocalStoreService,
+  ResourceService,
+  provideAppName,
+  provideEntityName,
+  provideModuleName,
+  provideNavItems,
+  provideSearchControl,
+} from '../api';
 import '@angular/localize';
 
-export const ResourceRoutes: () => Routes = () => [
+export const ResourceRoutes: (
+  appName: string,
+  moduleName: string,
+  entityName: string
+) => Routes = (appName: string, moduleName: string, entityName: string) => [
   {
     path: '',
     loadComponent: () =>
       import('../navigations').then((n) => n.NavigationComponent),
     providers: [
+      LocalStoreService,
+      ResourceService,
+      provideSearchControl(),
+      provideAppName(appName),
+      provideModuleName(moduleName),
+      provideEntityName(entityName),
       provideNavItems([
+        {
+          icon: 'arrow_back',
+          name: 'App',
+          route: '../',
+          params: { clearLastRoute: true },
+        },
+        { icon: 'home', name: 'Home', route: './' },
         { icon: 'dashboard', name: 'dashboard', route: 'dashboard' },
         { icon: 'dataset', name: `view`, route: 'view' },
         { icon: 'add_box', name: `create`, route: 'create' },
