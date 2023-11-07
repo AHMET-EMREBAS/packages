@@ -3,7 +3,7 @@ import { Provider } from '@angular/core';
 export const NAV_ITEMS_TOKEN = 'NAV_ITEMS_TOKEN';
 
 export type NavItemParams = {
-  clearLastRoute?: boolean;
+  ignoreLastRoute?: boolean;
 };
 
 export class NavItem {

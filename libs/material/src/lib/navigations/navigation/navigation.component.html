@@ -61,22 +61,23 @@
     </mat-nav-list>
   </mat-sidenav>
   <mat-sidenav-content>
-    <mat-toolbar color="primary">
-      <button
-        type="button"
-        aria-label="Toggle sidenav"
-        mat-icon-button
-        (click)="drawer.toggle()"
-      >
-        <mat-icon aria-label="Side nav toggle icon">
-          {{ drawer.opened ? 'menu_open' : 'menu' }}
-        </mat-icon>
-      </button>
-      <span>{{ title.getTitle() }} | {{ moduleName }}</span>
-    </mat-toolbar>
-    <router-outlet></router-outlet>
-
-    <div class="flex-grow-1"></div>
-    <mat-toolbar>Toolbar </mat-toolbar>
+    <div class="flex column flex-grow-1" style="height: 100%">
+      <mat-toolbar color="primary">
+        <button
+          type="button"
+          aria-label="Toggle sidenav"
+          mat-icon-button
+          (click)="drawer.toggle()"
+        >
+          <mat-icon aria-label="Side nav toggle icon">
+            {{ drawer.opened ? 'menu_open' : 'menu' }}
+          </mat-icon>
+        </button>
+        <span>{{ title.getTitle() }} | {{ moduleName }}</span>
+      </mat-toolbar>
+      <router-outlet></router-outlet>
+      <div class="flex-grow-1"></div>
+      <mat-toolbar>Toolbar </mat-toolbar>
+    </div>
   </mat-sidenav-content>
 </mat-sidenav-container>

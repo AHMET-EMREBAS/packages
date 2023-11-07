@@ -77,7 +77,7 @@ export class NavigationComponent implements AfterViewInit {
     const lastRoute = this.lss.get(this.lastRouteStoreKey);
     const params: NavItemParams = this.route.snapshot
       .queryParams as NavItemParams;
-    if (params.clearLastRoute) {
+    if (params.ignoreLastRoute) {
       return;
     } else if (lastRoute) {
       this.router.navigate([lastRoute], { relativeTo: this.route });
