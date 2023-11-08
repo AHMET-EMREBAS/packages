@@ -26,7 +26,7 @@ export class MetaController {
     });
   }
 
-  @ApiOperation({ summary: 'Unique fields' })
+  @ApiOperation({ summary: 'Propery Types' })
   @Get('types/:res')
   textFields(@Param('res') res: string) {
     return this.dataSource

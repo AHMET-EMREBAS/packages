@@ -100,7 +100,7 @@ export class NavigationComponent implements AfterViewInit {
   }
 
   navItemClickHandler(navItem: NavItem) {
-    if (this.isHandset) this.drawer.close();
+    if (this.isHandset && !this.miniSidenav) this.drawer.close();
 
     if (this.canPersistRoute(navItem)) {
       this.lss.set(this.lastRouteStoreKey, navItem.route);

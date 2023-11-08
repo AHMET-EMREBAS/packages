@@ -7,7 +7,13 @@ export const WebsiteRoutes: Routes = [
     loadComponent: () =>
       import('./../navigations').then((c) => c.WebNavigationComponent),
     providers: [
-      provideNavItems([{ name: 'home', route: 'home', icon: 'home' }]),
+      provideNavItems([
+        { name: 'home', route: 'home', icon: 'home' },
+        { name: 'about', route: 'about', icon: 'info' },
+        { name: 'services', route: 'services', icon: 'apps' },
+        { name: 'contact', route: 'contact', icon: 'message' },
+        { name: 'pricing', route: 'pricing', icon: 'money' },
+      ]),
     ],
 
     children: [

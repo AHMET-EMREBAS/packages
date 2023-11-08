@@ -1,4 +1,4 @@
-import { IDDto, Dto, Property } from '../imports';
+import { Dto, Property } from '../imports';
 
 @Dto()
 export class CreateQuantityDto {

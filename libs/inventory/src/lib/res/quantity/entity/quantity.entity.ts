@@ -1,4 +1,4 @@
-import { IDDto, BaseEntity, Column, Relation, Entity } from '../imports';
+import { BaseEntity, Column, Relation, Entity } from '../imports';
 import { Sku } from '../../sku';
 import { Store } from '../../store';
 
