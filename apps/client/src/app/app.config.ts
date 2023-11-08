@@ -15,9 +15,14 @@ import { provideEntityData, withEffects } from '@ngrx/data';
 import { entityConfig } from './entity-metadata';
 import { provideHttpClient, withInterceptors } from '@angular/common/http';
 import { UrlInterceptorFn } from '@techbir/material';
+import { APP_BASE_HREF } from '@angular/common';
 
 export const appConfig: ApplicationConfig = {
   providers: [
+    {
+      provide: APP_BASE_HREF,
+      useValue: 'packages',
+    },
     provideRouter(
       appRoutes,
       withHashLocation(),
