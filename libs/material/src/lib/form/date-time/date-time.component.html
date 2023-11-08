@@ -3,5 +3,6 @@
     <input matInput type="datetime-local" [formControlName]="name" />
     <mat-label>{{ label || name | titlecase }}</mat-label>
     <mat-hint>MM/DD/YYYY</mat-hint>
+    <mat-error> {{ getErrors() }}</mat-error>
   </mat-form-field>
 </div>

@@ -18,6 +18,8 @@
         "tsConfig": "apps/api/tsconfig.app.json",
         "assets": [
           "apps/api/src/assets",
+          "apps/api/src/uploads",
+          "apps/api/src/cache",
           {
             "input": "apps/api/src/public",
             "glob": "**",

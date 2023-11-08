@@ -1,6 +1,6 @@
 {
-  "name": "client",
-  "short_name": "client",
+  "name": "Techbir | Inventory System",
+  "short_name": "Techbir | Inventory System",
   "theme_color": "#1976d2",
   "background_color": "#fafafa",
   "display": "standalone",

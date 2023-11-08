@@ -1,11 +1,11 @@
 import { Component } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { CommonFieldComponent, CommonFieldModule } from '../common-field';
 
 @Component({
   selector: 'techbir-search',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonFieldModule],
   templateUrl: './search.component.html',
   styleUrls: ['./search.component.scss'],
 })
-export class SearchComponent {}
+export class SearchComponent extends CommonFieldComponent {}

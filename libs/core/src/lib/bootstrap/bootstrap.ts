@@ -70,7 +70,7 @@ export async function bootstrap({
   nestApp.enableVersioning();
 
   nestApp.use(helmet.default());
-  nestApp.use(serveFavicon(join(__dirname, 'public', 'favicon.ico')));
+  nestApp.use(serveFavicon(join(__dirname, 'public', 'favicon.svg')));
 
   nestApp.useStaticAssets(publicPath);
 

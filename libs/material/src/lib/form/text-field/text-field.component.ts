@@ -1,5 +1,4 @@
 import { Component } from '@angular/core';
-import { CommonModule } from '@angular/common';
 import {
   CommonFieldComponent,
   CommonFieldModule,
@@ -8,7 +7,7 @@ import {
 @Component({
   selector: 'techbir-text-field',
   standalone: true,
-  imports: [CommonModule, CommonFieldModule],
+  imports: [CommonFieldModule],
   templateUrl: './text-field.component.html',
   styleUrls: ['./text-field.component.scss'],
 })

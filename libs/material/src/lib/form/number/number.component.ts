@@ -1,11 +1,11 @@
 import { Component } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { CommonFieldComponent, CommonFieldModule } from '../common-field';
 
 @Component({
   selector: 'techbir-number',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonFieldModule],
   templateUrl: './number.component.html',
   styleUrls: ['./number.component.scss'],
 })
-export class NumberComponent {}
+export class NumberComponent extends CommonFieldComponent {}
