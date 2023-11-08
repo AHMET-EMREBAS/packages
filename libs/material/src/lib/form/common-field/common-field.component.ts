@@ -14,7 +14,7 @@ import {
 } from '@angular/forms';
 import { FORM_FIELD_APPEARANCE_TOKEN } from '../../api';
 import { MatFormField, MatFormFieldModule } from '@angular/material/form-field';
-import { Observable, debounceTime, map } from 'rxjs';
+import { Observable, catchError, map, of } from 'rxjs';
 import { MatInputModule } from '@angular/material/input';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
@@ -56,12 +56,7 @@ export class CommonFieldComponent implements OnInit {
   /**
    * FormControl instance
    */
-  private control!: AbstractControl;
-
-  /**
-   * Obserable error message
-   */
-  errorMessage$!: Observable<string | undefined>;
+  control!: AbstractControl;
 
   constructor(
     @Inject(FormGroup) public readonly formGroup: FormGroup,
@@ -81,20 +76,9 @@ export class CommonFieldComponent implements OnInit {
     }
 
     this.control = foundControl;
-
-    this.errorMessage$ = this.formGroup.valueChanges.pipe(
-      debounceTime(600),
-      map(() => {
-        return this.getErrorMessage();
-      })
-    );
   }
 
-  /**
-   * Get error message if any
-   * @returns string | undefined
-   */
-  private getErrorMessage(): string | undefined {
-    return this.control.errors?.['error'];
+  getErrors() {
+    return Object.values(this.control.errors || {}).join(', ');
   }
 }

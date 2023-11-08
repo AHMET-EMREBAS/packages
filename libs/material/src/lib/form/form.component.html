@@ -1,3 +1,5 @@
+<ng-container *ngIf="errorMessages$ | async"></ng-container>
+<ng-container *ngIf="entityActions$ | async as result"></ng-container>
 <form class="form-component" [noValidate]="true">
   <ng-container *ngFor="let field of formFields">
     <ng-container

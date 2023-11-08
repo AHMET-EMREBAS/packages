@@ -6,7 +6,6 @@ import { FormComponent } from '../../form/form.component';
   selector: 'techbir-create',
   standalone: true,
   imports: [CommonModule, FormComponent],
-  templateUrl: './create.component.html',
-  styleUrls: ['./create.component.scss'],
+  template: ` <techbir-form> </techbir-form> `,
 })
 export class CreateComponent extends FormComponent {}

@@ -5,21 +5,57 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { FORM_FIELDS_TOKEN, FormField, ResourceService } from '../api';
 import { MatStepperModule } from '@angular/material/stepper';
+import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
+import { map, tap } from 'rxjs';
 
 @Component({
   selector: 'techbir-form',
   standalone: true,
-  imports: [CommonModule, MatStepperModule, MatButtonModule, MatIconModule],
+  imports: [
+    CommonModule,
+    MatStepperModule,
+    MatButtonModule,
+    MatIconModule,
+    MatSnackBarModule,
+  ],
   templateUrl: './form.component.html',
   styleUrls: ['./form.component.scss'],
   encapsulation: ViewEncapsulation.None,
 })
 export class FormComponent {
+  entityActions$ = this.service.entityActions$.pipe(
+    tap((action) => {
+      if (action.type.endsWith('success')) {
+        this.snack.open($localize`Awesome work!`, 'close', {
+          duration: 10000,
+          verticalPosition: 'top',
+          horizontalPosition: 'center',
+        });
+      } else if (action.type.endsWith('error')) {
+        this.snack.open($localize`Form is invalid!`, 'close', {
+          duration: 10000,
+          verticalPosition: 'top',
+          horizontalPosition: 'center',
+        });
+      }
+    })
+  );
+  errorMessages$ = this.service.errorMessages$.pipe(
+    map((errors) => {
+      if (errors?.length > 0) {
+        for (const error of errors) {
+          this.formGroup.get(error.property)?.setErrors(error.constraints);
+        }
+      }
+    })
+  );
+
   constructor(
     @Inject(FormGroup) public formGroup: FormGroup,
     @Inject(FORM_FIELDS_TOKEN)
     public formFields: FormField[],
-    private service: ResourceService<unknown>
+    private service: ResourceService<unknown>,
+    private snack: MatSnackBar
   ) {}
 
   /**
@@ -45,6 +81,7 @@ export class FormComponent {
     if (this.isFormValid()) {
       const formValue = { ...this.formGroup.value };
       this.service.saveItem(formValue);
+      this.reset();
     }
   }
 

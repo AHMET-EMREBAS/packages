@@ -66,7 +66,7 @@ export async function bootstrap({
       { path: 'views/:any', method: RequestMethod.ALL },
     ],
   });
-  nestApp.enableCors({ origin});
+  nestApp.enableCors();
   nestApp.enableVersioning();
 
   nestApp.use(helmet.default());

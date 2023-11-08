@@ -1,4 +1,6 @@
 .form-component {
+  position: relative;
+
   display: flex;
   flex-direction: column;
   gap: 1em;
@@ -25,6 +27,6 @@
 
   input,
   textarea {
-   letter-spacing: 2px !important;
+    letter-spacing: 2px !important;
   }
 }

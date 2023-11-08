@@ -8,7 +8,6 @@ bootstrap({
   name: 'API',
   port: env('PORT'),
   prefix: 'api',
-  origin: [],
   publicPath: join(__dirname, 'public'),
   viewsPath: join(__dirname, 'views'),
 });

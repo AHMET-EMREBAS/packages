@@ -110,7 +110,11 @@ export class TableComponent implements OnInit, AfterViewInit, OnDestroy {
     this.tableEvents$ = merge(
       this.matPage.page,
       this.matSort.sortChange,
-      this.searchControl.valueChanges
+      this.searchControl.valueChanges.pipe(
+        tap((e) => {
+          this.matPage.firstPage();
+        })
+      )
     ).pipe(
       debounceTime(600),
       tap((value) => {

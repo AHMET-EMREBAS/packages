@@ -3,9 +3,15 @@ import { Inject, Injectable, Provider, inject } from '@angular/core';
 import {
   EntityCollectionServiceBase,
   EntityCollectionServiceElementsFactory,
-  MergeStrategy,
 } from '@ngrx/data';
-import { Observable, catchError, debounceTime, map, of } from 'rxjs';
+import {
+  Observable,
+  catchError,
+  debounceTime,
+  firstValueFrom,
+  map,
+  of,
+} from 'rxjs';
 import { excludeUndefined, names } from '@techbir/utils';
 
 export type QueryObject = {
@@ -26,8 +32,18 @@ export function provideEntityName(name: string): Provider {
   };
 }
 
+export type ErrorType = {
+  property: string;
+  constraints: Record<string, string>;
+};
+
 @Injectable({ providedIn: 'root', useExisting: true })
 export class ResourceService<T> extends EntityCollectionServiceBase<T> {
+  errorMessages$ = this.errors$.pipe(
+    map((err) => {
+      return err.payload.data.error.error.error.message as ErrorType[];
+    })
+  );
   nameVariants = names(this.entityName);
 
   allCount$: Observable<number> = inject(HttpClient)
@@ -85,8 +101,7 @@ export class ResourceService<T> extends EntityCollectionServiceBase<T> {
 
   queryItem(query: QueryObject) {
     this.clearCache();
-    this.getWithQuery(excludeUndefined(query), {
-      mergeStrategy: MergeStrategy.OverwriteChanges,
-    });
+    const q = excludeUndefined(query);
+    this.getWithQuery(q);
   }
 }
