@@ -1,6 +1,6 @@
 {
   "configVersion": 1,
-  "timestamp": 1699406758762,
+  "timestamp": 1699407358312,
   "index": "/ru/index.html",
   "assetGroups": [
     {
@@ -27,7 +27,7 @@
         "/ru/868.db88cc49e32c8ac2.js",
         "/ru/930.fb3b09ea48022bc3.js",
         "/ru/index.html",
-        "/ru/main.83117f09ed880536.js",
+        "/ru/main.d3b3c76711793da9.js",
         "/ru/manifest.webmanifest",
         "/ru/polyfills.5019b8345ca54f18.js",
         "/ru/runtime.42129fed784d9c93.js",
@@ -143,8 +143,8 @@
     "/ru/assets/imgs/study.svg": "4a2ead560c75173bc3037dae02ea5059f8baa1ce",
     "/ru/assets/imgs/talk.svg": "e50224887d388a4038403124201969a0e39708ba",
     "/ru/favicon.svg": "1bd44611d1a4d9e03b42c1ae78b997ed86458367",
-    "/ru/index.html": "474c35847299440a5016f3c4588a4293c5690bfc",
-    "/ru/main.83117f09ed880536.js": "7ee7dd8096edf1052418110794fb92fefb8b8e57",
+    "/ru/index.html": "1fa401bbafae668729072a8b8f858fba89f490b7",
+    "/ru/main.d3b3c76711793da9.js": "ad1b8d5991fa6888f849378dfd1029e4938c08ff",
     "/ru/manifest.webmanifest": "5db0ff61b1cf6eb435b2e7d5c0a2105601b15628",
     "/ru/material-symbols.da914bddc7dbaac6.woff2": "e12ce3123ecc7af884b92e165e009336a63ea192",
     "/ru/polyfills.5019b8345ca54f18.js": "0d369ddee155abc57bed11bfa13796a44a6bb39f",

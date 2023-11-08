@@ -1,6 +1,6 @@
 {
   "configVersion": 1,
-  "timestamp": 1699406756264,
+  "timestamp": 1699407354564,
   "index": "/index.html",
   "assetGroups": [
     {
@@ -27,7 +27,7 @@
         "/868.db88cc49e32c8ac2.js",
         "/930.fb3b09ea48022bc3.js",
         "/index.html",
-        "/main.83117f09ed880536.js",
+        "/main.d3b3c76711793da9.js",
         "/manifest.webmanifest",
         "/polyfills.5019b8345ca54f18.js",
         "/runtime.42129fed784d9c93.js",
@@ -143,8 +143,8 @@
     "/assets/imgs/study.svg": "4a2ead560c75173bc3037dae02ea5059f8baa1ce",
     "/assets/imgs/talk.svg": "e50224887d388a4038403124201969a0e39708ba",
     "/favicon.svg": "1bd44611d1a4d9e03b42c1ae78b997ed86458367",
-    "/index.html": "c1a29933f36844d3f04e82f6e550de4c782e7910",
-    "/main.83117f09ed880536.js": "26b6f7ed24c31050f4d219042013968d263c12f2",
+    "/index.html": "6163ec0f6f48aa5e17196c4f78ab423b640fb029",
+    "/main.d3b3c76711793da9.js": "4f96e6f8dc3a9430d96e56c9b30596d01a3119fb",
     "/manifest.webmanifest": "5db0ff61b1cf6eb435b2e7d5c0a2105601b15628",
     "/material-symbols.da914bddc7dbaac6.woff2": "e12ce3123ecc7af884b92e165e009336a63ea192",
     "/polyfills.5019b8345ca54f18.js": "0d369ddee155abc57bed11bfa13796a44a6bb39f",
