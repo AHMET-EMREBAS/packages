@@ -1,4 +1,4 @@
-import { ApplicationConfig, isDevMode } from '@angular/core';
+import { ApplicationConfig, Injectable, isDevMode } from '@angular/core';
 
 import {
   provideRouter,

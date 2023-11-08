@@ -6,13 +6,11 @@ export const appRoutes: Route[] = [
   {
     path: '',
     loadChildren: () => WebsiteRoutes,
-
     providers: [provideAppName('Website')],
   },
   {
     path: 'inventory',
     loadChildren: () => InventoryRoutes,
-
     providers: [provideAppName('Inventory')],
   },
   {

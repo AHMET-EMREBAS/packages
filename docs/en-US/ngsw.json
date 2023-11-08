@@ -1,6 +1,6 @@
 {
   "configVersion": 1,
-  "timestamp": 1699407354024,
+  "timestamp": 1699415633890,
   "index": "/en-US/index.html",
   "assetGroups": [
     {
@@ -143,7 +143,7 @@
     "/en-US/assets/imgs/study.svg": "4a2ead560c75173bc3037dae02ea5059f8baa1ce",
     "/en-US/assets/imgs/talk.svg": "e50224887d388a4038403124201969a0e39708ba",
     "/en-US/favicon.svg": "1bd44611d1a4d9e03b42c1ae78b997ed86458367",
-    "/en-US/index.html": "96e85b663cc60e64adf9b74411343ae02dcce8aa",
+    "/en-US/index.html": "5581068ac752499e4ce83bad445651b3fa150ba9",
     "/en-US/main.d3b3c76711793da9.js": "a056ba2697d3af956d5012cfc45972b6f1f88b4d",
     "/en-US/manifest.webmanifest": "5db0ff61b1cf6eb435b2e7d5c0a2105601b15628",
     "/en-US/material-symbols.da914bddc7dbaac6.woff2": "e12ce3123ecc7af884b92e165e009336a63ea192",

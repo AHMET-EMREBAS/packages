@@ -17,7 +17,6 @@ import { localeList } from './locale-list';
 import { readFileSync, writeFileSync } from 'fs';
 import { splitGet } from '../utils/split-get';
 
-
 const PROJECT_NAME = required(input(1), 'Project name');
 
 const WORKING_DIR = join(cwd(), `apps/${PROJECT_NAME}`);
@@ -38,13 +37,14 @@ function translationFilePath(appName: string, code: string) {
 }
 
 const localeConfigurationArray = () => {
-  const list = localeList().map(({ name, code }) => {
+  const list:any[] = localeList().map(({ name, code }) => {
     return { name, code, translation: translationFilePath(PROJECT_NAME, code) };
   });
   list.unshift({
     name: 'Default',
     code: '',
     translation: translationFilePath(PROJECT_NAME, ''),
+    baseHref: '',
   });
 
   return list;
