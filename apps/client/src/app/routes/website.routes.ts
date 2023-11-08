@@ -1,4 +1,4 @@
-import { Routes } from '@angular/router';
+import { Routes, provideRouter, withHashLocation } from '@angular/router';
 import {
   provideAppName,
   provideModuleName,

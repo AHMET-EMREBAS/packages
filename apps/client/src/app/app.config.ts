@@ -2,7 +2,7 @@ import { ApplicationConfig, isDevMode } from '@angular/core';
 
 import {
   provideRouter,
-  withEnabledBlockingInitialNavigation,
+  withComponentInputBinding,
   withHashLocation,
   withRouterConfig,
 } from '@angular/router';
@@ -20,11 +20,12 @@ export const appConfig: ApplicationConfig = {
   providers: [
     provideRouter(
       appRoutes,
-      withEnabledBlockingInitialNavigation(),
       withHashLocation(),
+      withComponentInputBinding(),
       withRouterConfig({
-        onSameUrlNavigation: 'reload',
-        urlUpdateStrategy: 'deferred',
+        onSameUrlNavigation: 'ignore',
+        urlUpdateStrategy: 'eager',
+        canceledNavigationResolution: 'computed',
       })
     ),
     provideAnimations(),

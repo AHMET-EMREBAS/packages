@@ -12,7 +12,7 @@
         "{options.outputPath}"
       ],
       "options": {
-        "outputPath": "dist/apps/client",
+        "outputPath": "docs",
         "index": "apps/client/src/index.html",
         "main": "apps/client/src/main.ts",
         "polyfills": [
@@ -20,7 +20,7 @@
         ],
         "tsConfig": "apps/client/tsconfig.app.json",
         "assets": [
-          "apps/client/src/favicon.ico",
+          "apps/client/src/favicon.svg",
           "apps/client/src/assets",
           "apps/client/src/manifest.webmanifest"
         ],
@@ -29,7 +29,7 @@
         ],
         "scripts": [],
         "serviceWorker": true,
-        "ngswConfigPath": "apps/client/ngsw-config.json"
+        "ngswConfigPath": "apps/client/ngsw-config.json",
       },
       "configurations": {
         "production": {
@@ -45,7 +45,8 @@
               "maximumError": "4kb"
             }
           ],
-          "outputHashing": "all"
+          "outputHashing": "all",
+          "localize": true
         },
         "development": {
           "buildOptimizer": false,
@@ -116,7 +117,7 @@
     "locales": {
       "": {
         "name": "Default",
-        "translation": "apps/client/src/locale/messages.xlf"
+        "translation": "apps/client/src/locale/messages.en_US.xlf"
       },
       "en": {
         "name": "English (United States)",
