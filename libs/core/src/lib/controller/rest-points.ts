@@ -25,7 +25,7 @@ export class Rest {
   ) {}
 
   /**
-   * Get /name
+   * Get /names
    * @returns
    */
   Get() {

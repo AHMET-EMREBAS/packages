@@ -9,15 +9,26 @@ import { ACCESS_TOKEN } from '../controller';
 import { Logger } from '../log';
 
 export type SwaggerOptions = {
+  /**
+   * NestApplication
+   */
   app: INestApplication;
+  /**
+   * App Name
+   */
   name: string;
+
   tag?: string;
+
+  /**
+   * App Version
+   */
   version?: string;
 };
 
 /**
- * Configure Swagger UI
- * @param app
+ * Configure swagger
+ * @param param0
  */
 function configureSwagger({ name, app, tag, version }: SwaggerOptions) {
   const config = new DocumentBuilder()
@@ -26,20 +37,45 @@ function configureSwagger({ name, app, tag, version }: SwaggerOptions) {
     .setVersion(version || '0.0.1')
     .addTag(tag || name)
     .addBearerAuth({ type: 'http' }, ACCESS_TOKEN)
+    .setDescription('API Documentation')
     .build();
 
-  const doc = SwaggerModule.createDocument(app, config);
+  const doc = SwaggerModule.createDocument(app, { ...config });
 
-  SwaggerModule.setup('api', app, doc);
+  SwaggerModule.setup('api', app, { ...doc });
 }
 
 export type BootstrapOptions = {
+  /**
+   * Application Name
+   */
   name: string;
+
+  /**
+   * NestJS AppModule
+   */
   appModule: any;
+
   port: number | string;
+
+  /**
+   * Api prefix like 'api';
+   */
   prefix: string;
+
+  /**
+   * Public directory which will be served through root / path.
+   */
   publicPath: string;
+
+  /**
+   * View path for server side (ejs) pages
+   */
   viewsPath: string;
+
+  /**
+   * List of domains that can make request to this server
+   */
   origin?: string[];
 };
 
@@ -66,7 +102,11 @@ export async function bootstrap({
       { path: 'views/:any', method: RequestMethod.ALL },
     ],
   });
-  nestApp.enableCors();
+  if (origin?.length > 0) {
+    nestApp.enableCors({ origin });
+  } else {
+    nestApp.enableCors();
+  }
   nestApp.enableVersioning();
 
   nestApp.use(helmet.default());
