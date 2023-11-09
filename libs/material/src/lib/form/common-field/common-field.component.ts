@@ -18,6 +18,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { CommonModule } from '@angular/common';
+import { Observable, map } from 'rxjs';
 
 const formModules = [
   CommonModule,
@@ -67,6 +68,8 @@ export class CommonFieldComponent implements OnInit {
    */
   control!: AbstractControl;
 
+  filteredOptions$?: Observable<InputOptions[] | undefined>;
+
   constructor(
     @Inject(FormGroup) public readonly formGroup: FormGroup,
     @Optional()
@@ -87,8 +90,18 @@ export class CommonFieldComponent implements OnInit {
     this.control = foundControl;
 
     if (this.enums) {
-      this.options = this.enums.map((e) => ({ id: e, label: e }));
+      this.options = this.enums.map((e) => ({ id: e, label: e, value: e }));
     }
+
+    this.filteredOptions$ = this.control.valueChanges.pipe(
+      map((value) => {
+        return this.options?.filter((e) => {
+          return (e.value as string)
+            ?.toLowerCase()
+            .includes((value as string).toLowerCase() || '');
+        });
+      })
+    );
   }
 
   getErrors() {

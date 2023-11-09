@@ -1267,7 +1267,7 @@
         },
         {
             "name": "AutocompleteComponent",
-            "id": "component-AutocompleteComponent-20654a301165337aaf3f4e9a33b4811fcbd0c98db948fe5760dee38471c6c10854f5b41e29caa56c84cc29dae4dccd83e0a9bc97aec8966bed5be13ceb52755d",
+            "id": "component-AutocompleteComponent-b308ee0c0353bdbf78b18d2353f95f11b72f341079307a4ca603f62b7bbbd4c8b7e14cc1f498d1890f3791149d4b15e2d35e682440ce5119ca30345954c4e146",
             "file": "libs/material/src/lib/form/autocomplete/autocomplete.component.ts",
             "encapsulation": [],
             "entryComponents": [],
@@ -1282,10 +1282,170 @@
             ],
             "viewProviders": [],
             "hostDirectives": [],
-            "inputsClass": [],
+            "inputsClass": [
+                {
+                    "name": "enums",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "rawdescription": "\n\nOptions for readio/checkbox-group and select components\n",
+                    "description": "<p>Options for readio/checkbox-group and select components</p>\n",
+                    "line": 58,
+                    "type": "string[]",
+                    "decorators": [],
+                    "inheritance": {
+                        "file": "CommonFieldComponent"
+                    }
+                },
+                {
+                    "name": "icon",
+                    "defaultValue": "''",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "rawdescription": "\n\nProperty icon\n",
+                    "description": "<p>Property icon</p>\n",
+                    "line": 53,
+                    "type": "string",
+                    "decorators": [],
+                    "inheritance": {
+                        "file": "CommonFieldComponent"
+                    }
+                },
+                {
+                    "name": "label",
+                    "defaultValue": "''",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "rawdescription": "\n\nProperty label\n",
+                    "description": "<p>Property label</p>\n",
+                    "line": 48,
+                    "type": "string",
+                    "decorators": [],
+                    "inheritance": {
+                        "file": "CommonFieldComponent"
+                    }
+                },
+                {
+                    "name": "name",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "rawdescription": "\n\nProperty name\n",
+                    "description": "<p>Property name</p>\n",
+                    "line": 43,
+                    "type": "string",
+                    "decorators": [],
+                    "inheritance": {
+                        "file": "CommonFieldComponent"
+                    }
+                },
+                {
+                    "name": "options",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "rawdescription": "\n\nOptions for readio/checkbox-group and select components\n",
+                    "description": "<p>Options for readio/checkbox-group and select components</p>\n",
+                    "line": 63,
+                    "type": "InputOptions[]",
+                    "decorators": [],
+                    "inheritance": {
+                        "file": "CommonFieldComponent"
+                    }
+                }
+            ],
             "outputsClass": [],
-            "propertiesClass": [],
-            "methodsClass": [],
+            "propertiesClass": [
+                {
+                    "name": "appearance",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "",
+                    "optional": false,
+                    "description": "",
+                    "line": 74,
+                    "decorators": [
+                        {
+                            "name": "Optional",
+                            "stringifiedArguments": ""
+                        },
+                        {
+                            "name": "Inject",
+                            "stringifiedArguments": "FORM_FIELD_APPEARANCE_TOKEN"
+                        }
+                    ],
+                    "modifierKind": [
+                        170,
+                        170,
+                        125,
+                        148
+                    ],
+                    "inheritance": {
+                        "file": "CommonFieldComponent"
+                    }
+                },
+                {
+                    "name": "control",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "AbstractControl",
+                    "optional": false,
+                    "description": "<p>FormControl instance</p>\n",
+                    "line": 68,
+                    "rawdescription": "\n\nFormControl instance\n",
+                    "inheritance": {
+                        "file": "CommonFieldComponent"
+                    }
+                },
+                {
+                    "name": "formGroup",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "FormGroup",
+                    "optional": false,
+                    "description": "",
+                    "line": 71,
+                    "decorators": [
+                        {
+                            "name": "Inject",
+                            "stringifiedArguments": "FormGroup"
+                        }
+                    ],
+                    "modifierKind": [
+                        170,
+                        125,
+                        148
+                    ],
+                    "inheritance": {
+                        "file": "CommonFieldComponent"
+                    }
+                }
+            ],
+            "methodsClass": [
+                {
+                    "name": "getErrors",
+                    "args": [],
+                    "optional": false,
+                    "returnType": "any",
+                    "typeParameters": [],
+                    "line": 94,
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "inheritance": {
+                        "file": "CommonFieldComponent"
+                    }
+                },
+                {
+                    "name": "ngOnInit",
+                    "args": [],
+                    "optional": false,
+                    "returnType": "void",
+                    "typeParameters": [],
+                    "line": 80,
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "inheritance": {
+                        "file": "CommonFieldComponent"
+                    }
+                }
+            ],
             "deprecated": false,
             "deprecationMessage": "",
             "hostBindings": [],
@@ -1293,19 +1453,25 @@
             "standalone": true,
             "imports": [
                 {
-                    "name": "CommonModule",
+                    "name": "CommonFieldModule",
+                    "type": "module"
+                },
+                {
+                    "name": "MatAutocompleteModule",
                     "type": "module"
                 }
             ],
             "description": "",
             "rawdescription": "\n",
             "type": "component",
-            "sourceCode": "import { Component } from '@angular/core';\nimport { CommonModule } from '@angular/common';\n\n@Component({\n  selector: 'techbir-autocomplete',\n  standalone: true,\n  imports: [CommonModule],\n  templateUrl: './autocomplete.component.html',\n  styles: [],\n})\nexport class AutocompleteComponent {}\n",
+            "sourceCode": "import { Component } from '@angular/core';\nimport { CommonFieldComponent, CommonFieldModule } from '../common-field';\nimport { MatAutocompleteModule } from '@angular/material/autocomplete';\n\n\n@Component({\n  selector: 'techbir-autocomplete',\n  standalone: true,\n  imports: [CommonFieldModule, MatAutocompleteModule],\n  templateUrl: './autocomplete.component.html',\n  styles: [],\n})\nexport class AutocompleteComponent extends CommonFieldComponent {}\n",
             "assetsDirs": [],
             "styleUrlsData": "",
             "stylesData": "",
-            "extends": [],
-            "templateData": "<p>autocomplete works!</p>\n"
+            "extends": [
+                "CommonFieldComponent"
+            ],
+            "templateData": "<div [formGroup]=\"formGroup\">\n  <mat-autocomplete #auto=\"matAutocomplete\" [formControlName]=\"name\">\n    <ng-container *ngFor=\"let option of options\">\n      <mat-option [value]=\"option.id\">{{ option.label }}</mat-option>\n    </ng-container>\n  </mat-autocomplete>\n</div>\n"
         },
         {
             "name": "ChatComponent",
@@ -1566,7 +1732,7 @@
         },
         {
             "name": "CheckboxGroupComponent",
-            "id": "component-CheckboxGroupComponent-0846c65d6399d71de7221f91c6b5364ad1b81152361fe8dbdc725c485a4ec2c56591b0079118c2757c40fd7bbe06614f310b5d377b6a651612144a0ef0121211",
+            "id": "component-CheckboxGroupComponent-0be3650cd2e7d62402fc11759dbfe0db04e2c6c108e3d707427bdb5850c4ae90d072ebff92b699c4f28fa471b525c90841337788f85ae5fd3950dc308a3cac4f",
             "file": "libs/material/src/lib/form/checkbox-group/checkbox-group.component.ts",
             "encapsulation": [],
             "entryComponents": [],
@@ -1802,7 +1968,7 @@
                     "optional": false,
                     "returnType": "any",
                     "typeParameters": [],
-                    "line": 62,
+                    "line": 64,
                     "deprecated": false,
                     "deprecationMessage": ""
                 },
@@ -1894,7 +2060,7 @@
             "description": "",
             "rawdescription": "\n",
             "type": "component",
-            "sourceCode": "import { ChangeDetectionStrategy, Component } from '@angular/core';\nimport { CommonFieldComponent, CommonFieldModule } from '../common-field';\nimport {\n  MatCheckboxChange,\n  MatCheckboxModule,\n} from '@angular/material/checkbox';\n\n@Component({\n  selector: 'techbir-checkbox-group',\n  standalone: true,\n  imports: [CommonFieldModule, MatCheckboxModule],\n  templateUrl: './checkbox-group.component.html',\n  styles: [],\n})\nexport class CheckboxGroupComponent extends CommonFieldComponent {\n  __intermediate: any = {};\n  __parentValues: any = {};\n\n  setParentValue(event: MatCheckboxChange, parentId: any) {\n    const found = this.options?.find((e) => e.id === parentId);\n\n    if (found) {\n      this.__parentValues[parentId] = event.checked;\n\n      if (found.children) {\n        found.children.forEach((e) => (e.value = event.checked));\n      }\n    }\n    this.__intermediate[parentId] = false;\n    this.setControlValue();\n  }\n\n  setChildValue(event: MatCheckboxChange, parentId: any, childId: any) {\n    const found = this.options?.find((e) => e.id === parentId);\n\n    if (found) {\n      const foundChild = found.children?.find((e) => e.id === childId);\n\n      if (foundChild) {\n        foundChild.value = event.checked;\n      }\n\n      const isAllChecked = found.children\n        ?.map((v) => v.value)\n        .reduce((p, c) => p && c);\n\n      const isAllUnChecked = found.children\n        ?.map((e) => e.value)\n        .reduce((p, c) => !p && !c);\n\n      if (isAllChecked) {\n        this.__parentValues[parentId] = true;\n        this.__intermediate[parentId] = false;\n      } else if (isAllUnChecked) {\n        this.__intermediate[parentId] = false;\n        this.__parentValues[parentId] = false;\n      }\n    }\n    this.setControlValue();\n  }\n\n  setControlValue() {\n    const currentValue = this.options\n      ?.map((e) => ({\n        [e.id]:\n          e.children\n            ?.map((k) => ({ [k.id]: k.value }))\n            .reduce((p, c) => ({ ...p, ...c })) || this.__parentValues[e.id],\n      }))\n      .reduce((p, c) => ({ ...p, ...c }));\n\n    this.control?.setValue(currentValue);\n    return currentValue;\n  }\n}\n",
+            "sourceCode": "import { ChangeDetectionStrategy, Component } from '@angular/core';\nimport { CommonFieldComponent, CommonFieldModule } from '../common-field';\nimport {\n  MatCheckboxChange,\n  MatCheckboxModule,\n} from '@angular/material/checkbox';\n\n@Component({\n  selector: 'techbir-checkbox-group',\n  standalone: true,\n  imports: [CommonFieldModule, MatCheckboxModule],\n  templateUrl: './checkbox-group.component.html',\n  styles: [],\n})\nexport class CheckboxGroupComponent extends CommonFieldComponent {\n  __intermediate: any = {};\n  __parentValues: any = {};\n\n  setParentValue(event: MatCheckboxChange, parentId: any) {\n    const found = this.options?.find((e) => e.id === parentId);\n\n    if (found) {\n      this.__parentValues[parentId] = event.checked;\n\n      if (found.children) {\n        found.children.forEach((e) => (e.value = event.checked));\n      }\n    }\n    this.__intermediate[parentId] = false;\n    this.setControlValue();\n  }\n\n  setChildValue(event: MatCheckboxChange, parentId: any, childId: any) {\n    const found = this.options?.find((e) => e.id === parentId);\n\n    if (found) {\n      const foundChild = found.children?.find((e) => e.id === childId);\n\n      if (foundChild) {\n        foundChild.value = event.checked;\n      }\n\n      const isAllChecked = found.children\n        ?.map((v) => v.value)\n        .reduce((p, c) => p && c);\n\n      const isAllUnChecked = found.children\n        ?.map((e) => e.value)\n        .reduce((p, c) => !p && !c);\n\n      if (isAllChecked) {\n        this.__parentValues[parentId] = true;\n        this.__intermediate[parentId] = false;\n      } else if (isAllUnChecked) {\n        this.__intermediate[parentId] = false;\n        this.__parentValues[parentId] = false;\n      } else {\n        this.__intermediate[parentId] = true;\n      }\n    }\n    this.setControlValue();\n  }\n\n  setControlValue() {\n    const currentValue = this.options\n      ?.map((e) => ({\n        [e.id]:\n          e.children\n            ?.map((k) => ({ [k.id]: k.value }))\n            .reduce((p, c) => ({ ...p, ...c })) || this.__parentValues[e.id],\n      }))\n      .reduce((p, c) => ({ ...p, ...c }));\n\n    this.control?.setValue(currentValue);\n    return currentValue;\n  }\n}\n",
             "assetsDirs": [],
             "styleUrlsData": "",
             "stylesData": "",
@@ -6763,6 +6929,16 @@
                 "name": "Heading",
                 "ctype": "miscellaneous",
                 "subtype": "variable",
+                "file": "libs/material/src/lib/form/autocomplete/autocomplete.component.stories.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "Story",
+                "defaultValue": "{\r\n  args: {\r\n    name: 'name',\r\n    label: 'Category',\r\n    icon: 'category',\r\n    enums: ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H'],\r\n  },\r\n  play: async ({ canvasElement }) => {\r\n    const canvas = within(canvasElement);\r\n    expect(canvas.getByText(/text-field works!/gi)).toBeTruthy();\r\n  },\r\n}"
+            },
+            {
+                "name": "Heading",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
                 "file": "libs/material/src/lib/form/checkbox/checkbox.component.stories.ts",
                 "deprecated": false,
                 "deprecationMessage": "",
@@ -6938,6 +7114,16 @@
                 "deprecationMessage": "",
                 "type": "Meta<TableComponent>",
                 "defaultValue": "{\r\n  component: TableComponent,\r\n  title: 'TableComponent',\r\n}"
+            },
+            {
+                "name": "meta",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "libs/material/src/lib/form/autocomplete/autocomplete.component.stories.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "Meta<AutocompleteComponent>",
+                "defaultValue": "{\r\n  component: AutocompleteComponent,\r\n  title: 'AutocompleteComponent',\r\n  decorators: [\r\n    moduleMetadata({\r\n      imports: [CommonFieldModule, MatAutocompleteModule],\r\n      providers: [provideFormGroup({ name: '' })],\r\n    }),\r\n  ],\r\n}"
             },
             {
                 "name": "meta",
@@ -7140,6 +7326,16 @@
                 "deprecationMessage": "",
                 "type": "Story",
                 "defaultValue": "{\r\n  args: {},\r\n}"
+            },
+            {
+                "name": "Primary",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "libs/material/src/lib/form/autocomplete/autocomplete.component.stories.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "Story",
+                "defaultValue": "{\r\n  args: {\r\n    name: 'name',\r\n    label: 'Category',\r\n    icon: 'category',\r\n    enums: ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H'],\r\n  },\r\n}"
             },
             {
                 "name": "Primary",
@@ -7865,6 +8061,17 @@
                 "name": "Story",
                 "ctype": "miscellaneous",
                 "subtype": "typealias",
+                "rawtype": "StoryObj<AutocompleteComponent>",
+                "file": "libs/material/src/lib/form/autocomplete/autocomplete.component.stories.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "description": "",
+                "kind": 183
+            },
+            {
+                "name": "Story",
+                "ctype": "miscellaneous",
+                "subtype": "typealias",
                 "rawtype": "StoryObj<CheckboxComponent>",
                 "file": "libs/material/src/lib/form/checkbox/checkbox.component.stories.ts",
                 "deprecated": false,
@@ -8241,6 +8448,38 @@
                     "deprecationMessage": "",
                     "type": "Story",
                     "defaultValue": "{\r\n  args: {},\r\n}"
+                }
+            ],
+            "libs/material/src/lib/form/autocomplete/autocomplete.component.stories.ts": [
+                {
+                    "name": "Heading",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "libs/material/src/lib/form/autocomplete/autocomplete.component.stories.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "Story",
+                    "defaultValue": "{\r\n  args: {\r\n    name: 'name',\r\n    label: 'Category',\r\n    icon: 'category',\r\n    enums: ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H'],\r\n  },\r\n  play: async ({ canvasElement }) => {\r\n    const canvas = within(canvasElement);\r\n    expect(canvas.getByText(/text-field works!/gi)).toBeTruthy();\r\n  },\r\n}"
+                },
+                {
+                    "name": "meta",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "libs/material/src/lib/form/autocomplete/autocomplete.component.stories.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "Meta<AutocompleteComponent>",
+                    "defaultValue": "{\r\n  component: AutocompleteComponent,\r\n  title: 'AutocompleteComponent',\r\n  decorators: [\r\n    moduleMetadata({\r\n      imports: [CommonFieldModule, MatAutocompleteModule],\r\n      providers: [provideFormGroup({ name: '' })],\r\n    }),\r\n  ],\r\n}"
+                },
+                {
+                    "name": "Primary",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "libs/material/src/lib/form/autocomplete/autocomplete.component.stories.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "Story",
+                    "defaultValue": "{\r\n  args: {\r\n    name: 'name',\r\n    label: 'Category',\r\n    icon: 'category',\r\n    enums: ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H'],\r\n  },\r\n}"
                 }
             ],
             "libs/material/src/lib/form/checkbox/checkbox.component.stories.ts": [
@@ -9324,6 +9563,19 @@
                     "kind": 183
                 }
             ],
+            "libs/material/src/lib/form/autocomplete/autocomplete.component.stories.ts": [
+                {
+                    "name": "Story",
+                    "ctype": "miscellaneous",
+                    "subtype": "typealias",
+                    "rawtype": "StoryObj<AutocompleteComponent>",
+                    "file": "libs/material/src/lib/form/autocomplete/autocomplete.component.stories.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "description": "",
+                    "kind": 183
+                }
+            ],
             "libs/material/src/lib/form/checkbox/checkbox.component.stories.ts": [
                 {
                     "name": "Story",
@@ -9848,13 +10100,43 @@
                 "status": "low"
             },
             {
+                "filePath": "libs/material/src/lib/form/autocomplete/autocomplete.component.stories.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "Heading",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "libs/material/src/lib/form/autocomplete/autocomplete.component.stories.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "meta",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "libs/material/src/lib/form/autocomplete/autocomplete.component.stories.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "Primary",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
                 "filePath": "libs/material/src/lib/form/autocomplete/autocomplete.component.ts",
                 "type": "component",
                 "linktype": "component",
                 "name": "AutocompleteComponent",
-                "coveragePercent": 0,
-                "coverageCount": "0/1",
-                "status": "low"
+                "coveragePercent": 54,
+                "coverageCount": "6/11",
+                "status": "good"
             },
             {
                 "filePath": "libs/material/src/lib/form/checkbox-group/checkbox-group.component.stories.ts",

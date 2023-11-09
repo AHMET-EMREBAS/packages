@@ -1,1 +1,17 @@
-<p>autocomplete works!</p>
+<div [formGroup]="formGroup">
+  <mat-form-field  [appearance]="appearance">
+    <mat-label>{{ label || name | titlecase }}</mat-label>
+    <input
+      type="text"
+      matInput
+      [formControlName]="name"
+      [matAutocomplete]="auto"
+      (click)="resetInputValue()"
+    />
+    <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete">
+      <ng-container *ngFor="let option of filteredOptions$ | async">
+        <mat-option [value]="option.id">{{ option.label }}</mat-option>
+      </ng-container>
+    </mat-autocomplete>
+  </mat-form-field>
+</div>
