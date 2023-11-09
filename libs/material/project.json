@@ -116,6 +116,12 @@
         }
       }
     },
+    "publish": {
+      "command": "node tools/scripts/publish.mjs material {args.ver} {args.tag}",
+      "dependsOn": [
+        "build"
+      ]
+    },
     "test-storybook": {
       "executor": "nx:run-commands",
       "options": {
