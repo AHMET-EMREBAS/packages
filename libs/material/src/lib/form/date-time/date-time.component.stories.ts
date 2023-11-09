@@ -1,9 +1,17 @@
-import { moduleMetadata, type Meta, type StoryObj } from '@storybook/angular';
+import {
+  moduleMetadata,
+  type Meta,
+  type StoryObj,
+  applicationConfig,
+} from '@storybook/angular';
 import { DateTimeComponent } from './date-time.component';
 
 import { within } from '@storybook/testing-library';
 import { expect } from '@storybook/jest';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import {
+  BrowserAnimationsModule,
+  provideAnimations,
+} from '@angular/platform-browser/animations';
 import { CommonFieldModule } from '../common-field/common-field.component';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
@@ -13,6 +21,7 @@ const meta: Meta<DateTimeComponent> = {
   component: DateTimeComponent,
   title: 'DateTimeComponent',
   decorators: [
+    applicationConfig({ providers: [provideAnimations()] }),
     moduleMetadata({
       imports: [
         BrowserAnimationsModule,

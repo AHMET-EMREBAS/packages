@@ -1,22 +1,24 @@
-import { moduleMetadata, type Meta, type StoryObj } from '@storybook/angular';
+import {
+  moduleMetadata,
+  type Meta,
+  type StoryObj,
+  applicationConfig,
+} from '@storybook/angular';
 import { AutocompleteComponent } from './autocomplete.component';
 import { within } from '@storybook/testing-library';
 import { expect } from '@storybook/jest';
 import { CommonFieldModule } from '../common-field';
 import { provideFormGroup } from '../../api';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { provideAnimations } from '@angular/platform-browser/animations';
 
 const meta: Meta<AutocompleteComponent> = {
   component: AutocompleteComponent,
   title: 'AutocompleteComponent',
   decorators: [
+    applicationConfig({ providers: [provideAnimations()] }),
     moduleMetadata({
-      imports: [
-        CommonFieldModule,
-        BrowserAnimationsModule,
-        MatAutocompleteModule,
-      ],
+      imports: [CommonFieldModule, MatAutocompleteModule],
       providers: [provideFormGroup({ name: '' })],
     }),
   ],

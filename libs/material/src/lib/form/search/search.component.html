@@ -1,8 +1,30 @@
+{{ control.value | json }}
 <div [formGroup]="formGroup">
   <mat-form-field [appearance]="appearance">
-    <mat-label>{{ label || 'Form Field' }}</mat-label>
-    <input #inputRef type="text" matInput [formControlName]="name" />
-    <mat-icon matPrefix color="primary">{{ icon || 'info' }}</mat-icon>
-    <mat-error> {{ getErrors() }}</mat-error>
+    <mat-label>{{ label || name | titlecase }}</mat-label>
+    <input
+      type="text"
+      style="visibility: collapse; position: absolute"
+      [formControlName]="name"
+    />
+    <input
+      type="text"
+      #inputRef
+      matInput
+      [matAutocomplete]="auto"
+      (input)="search(inputRef.value)"
+    />
+    <mat-icon matPrefix color="primary">{{ icon }}</mat-icon>
+    <mat-autocomplete
+      autoActiveFirstOption
+      #auto="matAutocomplete"
+      (optionSelected)="updateControlValue($event)"
+    >
+      <ng-container *ngFor="let option of entities$ | async">
+        <mat-option [value]="option.name" [id]="option.id">
+          {{ option.name }}
+        </mat-option>
+      </ng-container>
+    </mat-autocomplete>
   </mat-form-field>
 </div>

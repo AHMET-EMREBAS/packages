@@ -1,15 +1,22 @@
-import { moduleMetadata, type Meta, type StoryObj } from '@storybook/angular';
+import {
+  moduleMetadata,
+  type Meta,
+  type StoryObj,
+  applicationConfig,
+} from '@storybook/angular';
 import { NumberComponent } from './number.component';
 
 import { within } from '@storybook/testing-library';
 import { expect } from '@storybook/jest';
 import { CommonFieldModule } from '../common-field';
 import { provideFormGroup } from '../../api';
+import { provideAnimations } from '@angular/platform-browser/animations';
 
 const meta: Meta<NumberComponent> = {
   component: NumberComponent,
   title: 'NumberComponent',
   decorators: [
+    applicationConfig({ providers: [provideAnimations()] }),
     moduleMetadata({
       imports: [CommonFieldModule],
       providers: [provideFormGroup({ age: '' })],

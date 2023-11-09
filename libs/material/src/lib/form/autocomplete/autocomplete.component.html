@@ -1,5 +1,5 @@
 <div [formGroup]="formGroup">
-  <mat-form-field  [appearance]="appearance">
+  <mat-form-field [appearance]="appearance">
     <mat-label>{{ label || name | titlecase }}</mat-label>
     <input
       type="text"
@@ -8,6 +8,7 @@
       [matAutocomplete]="auto"
       (click)="resetInputValue()"
     />
+    <mat-icon matPrefix color="primary">{{ icon }}</mat-icon>
     <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete">
       <ng-container *ngFor="let option of filteredOptions$ | async">
         <mat-option [value]="option.id">{{ option.label }}</mat-option>

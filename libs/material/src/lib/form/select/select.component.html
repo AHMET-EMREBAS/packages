@@ -1,1 +1,14 @@
-<p>select works!</p>
+<div [formGroup]="formGroup">
+  <mat-form-field [appearance]="appearance">
+    <mat-label>{{ label || name | titlecase }}</mat-label>
+    <mat-select [formControlName]="name" [multiple]="multiple">
+      <ng-container *ngFor="let o of options">
+        <mat-option [value]="o.value" [id]="o.id">
+          <mat-icon color="primary">{{ o.icon || 'info' }}</mat-icon>
+          <span>{{ o.label }}</span>
+        </mat-option>
+      </ng-container>
+    </mat-select>
+    <mat-icon matPrefix color="primary">{{ icon }}</mat-icon>
+  </mat-form-field>
+</div>

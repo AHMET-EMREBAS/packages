@@ -5,7 +5,14 @@
     <ng-container
       *ngComponentOutlet="
         field.component;
-        inputs: { name: field.name, label: field.label, icon: field.icon }
+        inputs: {
+          name: field.name,
+          label: field.label,
+          icon: field.icon,
+          enums: field.enums,
+          options: field.options,
+          multiple: field.multiple
+        }
       "
     ></ng-container>
   </ng-container>

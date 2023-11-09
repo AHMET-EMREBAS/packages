@@ -12,7 +12,11 @@ import {
   FormsModule,
   ReactiveFormsModule,
 } from '@angular/forms';
-import { FORM_FIELD_APPEARANCE_TOKEN, InputOptions } from '../../api';
+import {
+  FORM_FIELD_APPEARANCE_TOKEN,
+  InputOptions,
+  ResourceService,
+} from '../../api';
 import { MatFormField, MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatIconModule } from '@angular/material/icon';
@@ -64,11 +68,16 @@ export class CommonFieldComponent implements OnInit {
   @Input() options?: InputOptions[];
 
   /**
+   * Is multiple select
+   */
+  @Input() multiple?: boolean;
+
+  /**
    * FormControl instance
    */
   control!: AbstractControl;
 
-  filteredOptions$?: Observable<InputOptions[] | undefined>;
+  filteredOptions$?: Observable<any>;
 
   constructor(
     @Inject(FormGroup) public readonly formGroup: FormGroup,

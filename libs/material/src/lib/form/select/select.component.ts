@@ -1,11 +1,12 @@
 import { Component } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { CommonFieldComponent, CommonFieldModule } from '../common-field';
+import { MatSelectModule } from '@angular/material/select';
 
 @Component({
   selector: 'techbir-select',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonFieldModule, MatSelectModule],
   templateUrl: './select.component.html',
   styleUrls: ['./select.component.scss'],
 })
-export class SelectComponent {}
+export class SelectComponent extends CommonFieldComponent {}

@@ -4,14 +4,7 @@ import {
   EntityCollectionServiceBase,
   EntityCollectionServiceElementsFactory,
 } from '@ngrx/data';
-import {
-  Observable,
-  catchError,
-  debounceTime,
-  firstValueFrom,
-  map,
-  of,
-} from 'rxjs';
+import { Observable, catchError, debounceTime, map, of } from 'rxjs';
 import { excludeUndefined, names } from '@techbir/utils';
 
 export type QueryObject = {
@@ -103,5 +96,9 @@ export class ResourceService<T> extends EntityCollectionServiceBase<T> {
     this.clearCache();
     const q = excludeUndefined(query);
     this.getWithQuery(q);
+  }
+
+  search(text: string) {
+    this.queryItem({ take: 20, search: text });
   }
 }

@@ -1,10 +1,18 @@
-import { moduleMetadata, type Meta, type StoryObj } from '@storybook/angular';
+import {
+  moduleMetadata,
+  type Meta,
+  type StoryObj,
+  applicationConfig,
+} from '@storybook/angular';
 import { DateRangeComponent } from './date-range.component';
 
 import { within } from '@storybook/testing-library';
 import { expect } from '@storybook/jest';
 import { CommonModule } from '@angular/common';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import {
+  BrowserAnimationsModule,
+  provideAnimations,
+} from '@angular/platform-browser/animations';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
@@ -23,13 +31,9 @@ const meta: Meta<DateRangeComponent> = {
   component: DateRangeComponent,
   title: 'DateRangeComponent',
   decorators: [
+    applicationConfig({ providers: [provideAnimations()] }),
     moduleMetadata({
-      imports: [
-        CommonFieldModule,
-        BrowserAnimationsModule,
-        MatDatepickerModule,
-        MatNativeDateModule,
-      ],
+      imports: [CommonFieldModule, MatDatepickerModule, MatNativeDateModule],
       providers: [
         provideFormGroup({ range: '' }),
         // provideDateRangeSelectionStrategy(FiveDayRangeSelectionStrategy),

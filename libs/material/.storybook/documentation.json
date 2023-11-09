@@ -573,7 +573,7 @@
         },
         {
             "name": "ResourceService",
-            "id": "injectable-ResourceService-260ed4b622f9d986582f632d5c444f2c80d62dca8b4acabf538543ebe040a53ce4ba3663a69c919ec54836e5f87c56bc9d91cad0260d610953a8d8a30043466c",
+            "id": "injectable-ResourceService-ef3c5f53f422b15b5676806ed55d209475316f5b2d6b52e9df392e0a450a30c4a2e76bfc0f6fd908a495676971ed08b95252aa7abb4831082bfaab214fde3489",
             "file": "libs/material/src/lib/api/services/resource.service.ts",
             "properties": [
                 {
@@ -752,6 +752,34 @@
                     ]
                 },
                 {
+                    "name": "search",
+                    "args": [
+                        {
+                            "name": "text",
+                            "type": "string",
+                            "deprecated": false,
+                            "deprecationMessage": ""
+                        }
+                    ],
+                    "optional": false,
+                    "returnType": "void",
+                    "typeParameters": [],
+                    "line": 108,
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "jsdoctags": [
+                        {
+                            "name": "text",
+                            "type": "string",
+                            "deprecated": false,
+                            "deprecationMessage": "",
+                            "tagName": {
+                                "text": "param"
+                            }
+                        }
+                    ]
+                },
+                {
                     "name": "updateItem",
                     "args": [
                         {
@@ -813,7 +841,7 @@
             "deprecationMessage": "",
             "description": "",
             "rawdescription": "\n",
-            "sourceCode": "import { HttpClient } from '@angular/common/http';\r\nimport { Inject, Injectable, Provider, inject } from '@angular/core';\r\nimport {\r\n  EntityCollectionServiceBase,\r\n  EntityCollectionServiceElementsFactory,\r\n} from '@ngrx/data';\r\nimport {\r\n  Observable,\r\n  catchError,\r\n  debounceTime,\r\n  firstValueFrom,\r\n  map,\r\n  of,\r\n} from 'rxjs';\r\nimport { excludeUndefined, names } from '@techbir/utils';\r\n\r\nexport type QueryObject = {\r\n  take?: number;\r\n  skip?: number;\r\n  orderBy?: string;\r\n  orderDir?: string;\r\n  withDeleted?: boolean;\r\n  search?: string;\r\n};\r\n\r\nexport const ENTITY_NAME_TOKEN = 'ENTITY_NAME_TOKEN';\r\n\r\nexport function provideEntityName(name: string): Provider {\r\n  return {\r\n    provide: ENTITY_NAME_TOKEN,\r\n    useValue: name,\r\n  };\r\n}\r\n\r\nexport type ErrorType = {\r\n  property: string;\r\n  constraints: Record<string, string>;\r\n};\r\n\r\n@Injectable({ providedIn: 'root', useExisting: true })\r\nexport class ResourceService<T> extends EntityCollectionServiceBase<T> {\r\n  errorMessages$ = this.errors$.pipe(\r\n    map((err) => {\r\n      return err.payload.data.error.error.error.message as ErrorType[];\r\n    })\r\n  );\r\n  nameVariants = names(this.entityName);\r\n\r\n  allCount$: Observable<number> = inject(HttpClient)\r\n    .get<{ count: number }>(`api/meta/count/${this.nameVariants.fileName}`)\r\n    .pipe(\r\n      debounceTime(1000),\r\n      map((value) => {\r\n        const count = value?.count;\r\n        if (count != undefined) {\r\n          return count;\r\n        }\r\n        return 999999;\r\n      }),\r\n      catchError(() => {\r\n        return of(99999999);\r\n      })\r\n    );\r\n\r\n  constructor(\r\n    @Inject(ENTITY_NAME_TOKEN) entityName: string,\r\n    serviceElementsFactory: EntityCollectionServiceElementsFactory\r\n  ) {\r\n    super(entityName, serviceElementsFactory);\r\n  }\r\n\r\n  private nid() {\r\n    return new Date().getTime();\r\n  }\r\n\r\n  /**\r\n   * Use this method\r\n   * @param id\r\n   * @returns\r\n   */\r\n  deleteItem(id: number) {\r\n    return this.removeOneFromCache(id);\r\n  }\r\n\r\n  /**\r\n   * Use this method\r\n   * @param item\r\n   * @returns\r\n   */\r\n  updateItem(item: T) {\r\n    return this.updateOneInCache(item);\r\n  }\r\n\r\n  /**\r\n   * @important Use this method!\r\n   * @param item\r\n   */\r\n  saveItem(item: T) {\r\n    this.add({ ...item, id: this.nid() });\r\n  }\r\n\r\n  queryItem(query: QueryObject) {\r\n    this.clearCache();\r\n    const q = excludeUndefined(query);\r\n    this.getWithQuery(q);\r\n  }\r\n}\r\n",
+            "sourceCode": "import { HttpClient } from '@angular/common/http';\r\nimport { Inject, Injectable, Provider, inject } from '@angular/core';\r\nimport {\r\n  EntityCollectionServiceBase,\r\n  EntityCollectionServiceElementsFactory,\r\n} from '@ngrx/data';\r\nimport {\r\n  Observable,\r\n  catchError,\r\n  debounceTime,\r\n  firstValueFrom,\r\n  map,\r\n  of,\r\n} from 'rxjs';\r\nimport { excludeUndefined, names } from '@techbir/utils';\r\n\r\nexport type QueryObject = {\r\n  take?: number;\r\n  skip?: number;\r\n  orderBy?: string;\r\n  orderDir?: string;\r\n  withDeleted?: boolean;\r\n  search?: string;\r\n};\r\n\r\nexport const ENTITY_NAME_TOKEN = 'ENTITY_NAME_TOKEN';\r\n\r\nexport function provideEntityName(name: string): Provider {\r\n  return {\r\n    provide: ENTITY_NAME_TOKEN,\r\n    useValue: name,\r\n  };\r\n}\r\n\r\nexport type ErrorType = {\r\n  property: string;\r\n  constraints: Record<string, string>;\r\n};\r\n\r\n@Injectable({ providedIn: 'root', useExisting: true })\r\nexport class ResourceService<T> extends EntityCollectionServiceBase<T> {\r\n  errorMessages$ = this.errors$.pipe(\r\n    map((err) => {\r\n      return err.payload.data.error.error.error.message as ErrorType[];\r\n    })\r\n  );\r\n  nameVariants = names(this.entityName);\r\n\r\n  allCount$: Observable<number> = inject(HttpClient)\r\n    .get<{ count: number }>(`api/meta/count/${this.nameVariants.fileName}`)\r\n    .pipe(\r\n      debounceTime(1000),\r\n      map((value) => {\r\n        const count = value?.count;\r\n        if (count != undefined) {\r\n          return count;\r\n        }\r\n        return 999999;\r\n      }),\r\n      catchError(() => {\r\n        return of(99999999);\r\n      })\r\n    );\r\n\r\n  constructor(\r\n    @Inject(ENTITY_NAME_TOKEN) entityName: string,\r\n    serviceElementsFactory: EntityCollectionServiceElementsFactory\r\n  ) {\r\n    super(entityName, serviceElementsFactory);\r\n  }\r\n\r\n  private nid() {\r\n    return new Date().getTime();\r\n  }\r\n\r\n  /**\r\n   * Use this method\r\n   * @param id\r\n   * @returns\r\n   */\r\n  deleteItem(id: number) {\r\n    return this.removeOneFromCache(id);\r\n  }\r\n\r\n  /**\r\n   * Use this method\r\n   * @param item\r\n   * @returns\r\n   */\r\n  updateItem(item: T) {\r\n    return this.updateOneInCache(item);\r\n  }\r\n\r\n  /**\r\n   * @important Use this method!\r\n   * @param item\r\n   */\r\n  saveItem(item: T) {\r\n    this.add({ ...item, id: this.nid() });\r\n  }\r\n\r\n  queryItem(query: QueryObject) {\r\n    this.clearCache();\r\n    const q = excludeUndefined(query);\r\n    this.getWithQuery(q);\r\n  }\r\n\r\n  search(text: string) {\r\n    this.getWithQuery({ search: text });\r\n  }\r\n}\r\n",
             "constructorObj": {
                 "name": "constructor",
                 "description": "",
@@ -1167,6 +1195,83 @@
             "hostListeners": []
         },
         {
+            "name": "MockResourceService",
+            "id": "class-MockResourceService-5d7caf05d6da35728c04e0763a5dae2ec219133c8c2b4d6d7bd279220d3a1a7118757d1a2b51d0d2e6eaf8b85b37f6a65c465547ecc8fecc099cb95a9ae1e719",
+            "file": "libs/material/src/lib/form/search/search.component.stories.ts",
+            "deprecated": false,
+            "deprecationMessage": "",
+            "type": "class",
+            "sourceCode": "import {\r\n  moduleMetadata,\r\n  type Meta,\r\n  type StoryObj,\r\n  applicationConfig,\r\n} from '@storybook/angular';\r\nimport { SearchComponent } from './search.component';\r\n\r\nimport { within } from '@storybook/testing-library';\r\nimport { expect } from '@storybook/jest';\r\nimport { CommonFieldModule } from '../common-field';\r\nimport { ResourceService, provideFormGroup } from '../../api';\r\nimport { provideAnimations } from '@angular/platform-browser/animations';\r\nimport { BehaviorSubject, map, of, switchMap } from 'rxjs';\r\n\r\nclass MockResourceService {\r\n  allEntities$ = of([\r\n    { id: 1, name: 'Category 1' },\r\n    { id: 2, name: 'Category 2' },\r\n    { id: 3, name: 'Category 3' },\r\n    { id: 4, name: 'Category 4' },\r\n    { id: 5, name: 'Category 5' },\r\n    { id: 6, name: 'Category 6' },\r\n    { id: 7, name: 'Category 7' },\r\n    { id: 8, name: 'Category 8' },\r\n  ]);\r\n\r\n  searchText = new BehaviorSubject<string>('');\r\n\r\n  entities$ = this.searchText.pipe(\r\n    switchMap((text) => {\r\n      return this.allEntities$.pipe(\r\n        map((obj) => {\r\n          return obj.filter((e) =>\r\n            e.name.toLowerCase().includes(text.toLowerCase())\r\n          );\r\n        })\r\n      );\r\n    })\r\n  );\r\n\r\n  search(text: string) {\r\n    this.searchText.next(text);\r\n  }\r\n}\r\n\r\nconst meta: Meta<SearchComponent> = {\r\n  component: SearchComponent,\r\n  title: 'SearchComponent',\r\n\r\n  decorators: [\r\n    applicationConfig({ providers: [provideAnimations()] }),\r\n    moduleMetadata({\r\n      imports: [CommonFieldModule],\r\n      providers: [\r\n        provideFormGroup({ category: '' }),\r\n        {\r\n          provide: ResourceService,\r\n          useClass: MockResourceService,\r\n        },\r\n      ],\r\n    }),\r\n  ],\r\n};\r\nexport default meta;\r\ntype Story = StoryObj<SearchComponent>;\r\n\r\nexport const Primary: Story = {\r\n  args: {\r\n    name: 'category',\r\n    icon: 'category',\r\n    label: 'Select Category',\r\n  },\r\n};\r\n\r\nexport const Heading: Story = {\r\n  args: {\r\n    name: 'category',\r\n    icon: 'category',\r\n    label: 'Select Category',\r\n  },\r\n  play: async ({ canvasElement }) => {\r\n    const canvas = within(canvasElement);\r\n    expect(canvas.getByText(/search works!/gi)).toBeTruthy();\r\n  },\r\n};\r\n",
+            "properties": [
+                {
+                    "name": "allEntities$",
+                    "defaultValue": "of([\r\n    { id: 1, name: 'Category 1' },\r\n    { id: 2, name: 'Category 2' },\r\n    { id: 3, name: 'Category 3' },\r\n    { id: 4, name: 'Category 4' },\r\n    { id: 5, name: 'Category 5' },\r\n    { id: 6, name: 'Category 6' },\r\n    { id: 7, name: 'Category 7' },\r\n    { id: 8, name: 'Category 8' },\r\n  ])",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "",
+                    "optional": false,
+                    "description": "",
+                    "line": 17
+                },
+                {
+                    "name": "entities$",
+                    "defaultValue": "this.searchText.pipe(\r\n    switchMap((text) => {\r\n      return this.allEntities$.pipe(\r\n        map((obj) => {\r\n          return obj.filter((e) =>\r\n            e.name.toLowerCase().includes(text.toLowerCase())\r\n          );\r\n        })\r\n      );\r\n    })\r\n  )",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "",
+                    "optional": false,
+                    "description": "",
+                    "line": 30
+                },
+                {
+                    "name": "searchText",
+                    "defaultValue": "new BehaviorSubject<string>('')",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "",
+                    "optional": false,
+                    "description": "",
+                    "line": 28
+                }
+            ],
+            "methods": [
+                {
+                    "name": "search",
+                    "args": [
+                        {
+                            "name": "text",
+                            "type": "string",
+                            "deprecated": false,
+                            "deprecationMessage": ""
+                        }
+                    ],
+                    "optional": false,
+                    "returnType": "void",
+                    "typeParameters": [],
+                    "line": 42,
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "jsdoctags": [
+                        {
+                            "name": "text",
+                            "type": "string",
+                            "deprecated": false,
+                            "deprecationMessage": "",
+                            "tagName": {
+                                "text": "param"
+                            }
+                        }
+                    ]
+                }
+            ],
+            "indexSignatures": [],
+            "extends": [],
+            "inputsClass": [],
+            "outputsClass": [],
+            "hostBindings": [],
+            "hostListeners": []
+        },
+        {
             "name": "NavItem",
             "id": "class-NavItem-c3010237381f2ccd31aba58617a1f190619ea2aca7f1eda0e9bc1b403721a17add203ce5ff30518da3ba5ceb64708aaa4dc60e4a3ea5a4f6ecdf7635f363cad6",
             "file": "libs/material/src/lib/api/providers/nav-item.provider.ts",
@@ -1267,7 +1372,7 @@
         },
         {
             "name": "AutocompleteComponent",
-            "id": "component-AutocompleteComponent-b308ee0c0353bdbf78b18d2353f95f11b72f341079307a4ca603f62b7bbbd4c8b7e14cc1f498d1890f3791149d4b15e2d35e682440ce5119ca30345954c4e146",
+            "id": "component-AutocompleteComponent-5565f68678bb4347260cf203223d6c22578f2eee16160d9ff9f63c96a6787678b2d0f889e914e1e75b7c8cc2c343aeb00235bdd6d827d8b1aab87441632ab6cf",
             "file": "libs/material/src/lib/form/autocomplete/autocomplete.component.ts",
             "encapsulation": [],
             "entryComponents": [],
@@ -1289,7 +1394,7 @@
                     "deprecationMessage": "",
                     "rawdescription": "\n\nOptions for readio/checkbox-group and select components\n",
                     "description": "<p>Options for readio/checkbox-group and select components</p>\n",
-                    "line": 58,
+                    "line": 63,
                     "type": "string[]",
                     "decorators": [],
                     "inheritance": {
@@ -1303,7 +1408,7 @@
                     "deprecationMessage": "",
                     "rawdescription": "\n\nProperty icon\n",
                     "description": "<p>Property icon</p>\n",
-                    "line": 53,
+                    "line": 58,
                     "type": "string",
                     "decorators": [],
                     "inheritance": {
@@ -1317,7 +1422,7 @@
                     "deprecationMessage": "",
                     "rawdescription": "\n\nProperty label\n",
                     "description": "<p>Property label</p>\n",
-                    "line": 48,
+                    "line": 53,
                     "type": "string",
                     "decorators": [],
                     "inheritance": {
@@ -1330,7 +1435,7 @@
                     "deprecationMessage": "",
                     "rawdescription": "\n\nProperty name\n",
                     "description": "<p>Property name</p>\n",
-                    "line": 43,
+                    "line": 48,
                     "type": "string",
                     "decorators": [],
                     "inheritance": {
@@ -1343,7 +1448,7 @@
                     "deprecationMessage": "",
                     "rawdescription": "\n\nOptions for readio/checkbox-group and select components\n",
                     "description": "<p>Options for readio/checkbox-group and select components</p>\n",
-                    "line": 63,
+                    "line": 68,
                     "type": "InputOptions[]",
                     "decorators": [],
                     "inheritance": {
@@ -1360,7 +1465,7 @@
                     "type": "",
                     "optional": false,
                     "description": "",
-                    "line": 74,
+                    "line": 81,
                     "decorators": [
                         {
                             "name": "Optional",
@@ -1388,8 +1493,20 @@
                     "type": "AbstractControl",
                     "optional": false,
                     "description": "<p>FormControl instance</p>\n",
-                    "line": 68,
+                    "line": 73,
                     "rawdescription": "\n\nFormControl instance\n",
+                    "inheritance": {
+                        "file": "CommonFieldComponent"
+                    }
+                },
+                {
+                    "name": "filteredOptions$",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "Observable<any>",
+                    "optional": true,
+                    "description": "",
+                    "line": 75,
                     "inheritance": {
                         "file": "CommonFieldComponent"
                     }
@@ -1401,7 +1518,7 @@
                     "type": "FormGroup",
                     "optional": false,
                     "description": "",
-                    "line": 71,
+                    "line": 78,
                     "decorators": [
                         {
                             "name": "Inject",
@@ -1420,12 +1537,22 @@
             ],
             "methodsClass": [
                 {
+                    "name": "resetInputValue",
+                    "args": [],
+                    "optional": false,
+                    "returnType": "void",
+                    "typeParameters": [],
+                    "line": 13,
+                    "deprecated": false,
+                    "deprecationMessage": ""
+                },
+                {
                     "name": "getErrors",
                     "args": [],
                     "optional": false,
                     "returnType": "any",
                     "typeParameters": [],
-                    "line": 94,
+                    "line": 111,
                     "deprecated": false,
                     "deprecationMessage": "",
                     "inheritance": {
@@ -1438,7 +1565,7 @@
                     "optional": false,
                     "returnType": "void",
                     "typeParameters": [],
-                    "line": 80,
+                    "line": 87,
                     "deprecated": false,
                     "deprecationMessage": "",
                     "inheritance": {
@@ -1464,14 +1591,14 @@
             "description": "",
             "rawdescription": "\n",
             "type": "component",
-            "sourceCode": "import { Component } from '@angular/core';\nimport { CommonFieldComponent, CommonFieldModule } from '../common-field';\nimport { MatAutocompleteModule } from '@angular/material/autocomplete';\n\n\n@Component({\n  selector: 'techbir-autocomplete',\n  standalone: true,\n  imports: [CommonFieldModule, MatAutocompleteModule],\n  templateUrl: './autocomplete.component.html',\n  styles: [],\n})\nexport class AutocompleteComponent extends CommonFieldComponent {}\n",
+            "sourceCode": "import { Component } from '@angular/core';\nimport { CommonFieldComponent, CommonFieldModule } from '../common-field';\nimport { MatAutocompleteModule } from '@angular/material/autocomplete';\n\n@Component({\n  selector: 'techbir-autocomplete',\n  standalone: true,\n  imports: [CommonFieldModule, MatAutocompleteModule],\n  templateUrl: './autocomplete.component.html',\n  styles: [],\n})\nexport class AutocompleteComponent extends CommonFieldComponent {\n  resetInputValue() {\n    this.control.setValue('');\n  }\n}\n",
             "assetsDirs": [],
             "styleUrlsData": "",
             "stylesData": "",
             "extends": [
                 "CommonFieldComponent"
             ],
-            "templateData": "<div [formGroup]=\"formGroup\">\n  <mat-autocomplete #auto=\"matAutocomplete\" [formControlName]=\"name\">\n    <ng-container *ngFor=\"let option of options\">\n      <mat-option [value]=\"option.id\">{{ option.label }}</mat-option>\n    </ng-container>\n  </mat-autocomplete>\n</div>\n"
+            "templateData": "<div [formGroup]=\"formGroup\">\n  <mat-form-field [appearance]=\"appearance\">\n    <mat-label>{{ label || name | titlecase }}</mat-label>\n    <input\n      type=\"text\"\n      matInput\n      [formControlName]=\"name\"\n      [matAutocomplete]=\"auto\"\n      (click)=\"resetInputValue()\"\n    />\n    <mat-icon matPrefix color=\"primary\">{{ icon }}</mat-icon>\n    <mat-autocomplete autoActiveFirstOption #auto=\"matAutocomplete\">\n      <ng-container *ngFor=\"let option of filteredOptions$ | async\">\n        <mat-option [value]=\"option.id\">{{ option.label }}</mat-option>\n      </ng-container>\n    </mat-autocomplete>\n  </mat-form-field>\n</div>\n"
         },
         {
             "name": "ChatComponent",
@@ -1541,7 +1668,7 @@
                     "deprecationMessage": "",
                     "rawdescription": "\n\nOptions for readio/checkbox-group and select components\n",
                     "description": "<p>Options for readio/checkbox-group and select components</p>\n",
-                    "line": 58,
+                    "line": 63,
                     "type": "string[]",
                     "decorators": [],
                     "inheritance": {
@@ -1555,7 +1682,7 @@
                     "deprecationMessage": "",
                     "rawdescription": "\n\nProperty icon\n",
                     "description": "<p>Property icon</p>\n",
-                    "line": 53,
+                    "line": 58,
                     "type": "string",
                     "decorators": [],
                     "inheritance": {
@@ -1569,7 +1696,7 @@
                     "deprecationMessage": "",
                     "rawdescription": "\n\nProperty label\n",
                     "description": "<p>Property label</p>\n",
-                    "line": 48,
+                    "line": 53,
                     "type": "string",
                     "decorators": [],
                     "inheritance": {
@@ -1582,7 +1709,7 @@
                     "deprecationMessage": "",
                     "rawdescription": "\n\nProperty name\n",
                     "description": "<p>Property name</p>\n",
-                    "line": 43,
+                    "line": 48,
                     "type": "string",
                     "decorators": [],
                     "inheritance": {
@@ -1595,7 +1722,7 @@
                     "deprecationMessage": "",
                     "rawdescription": "\n\nOptions for readio/checkbox-group and select components\n",
                     "description": "<p>Options for readio/checkbox-group and select components</p>\n",
-                    "line": 63,
+                    "line": 68,
                     "type": "InputOptions[]",
                     "decorators": [],
                     "inheritance": {
@@ -1612,7 +1739,7 @@
                     "type": "",
                     "optional": false,
                     "description": "",
-                    "line": 74,
+                    "line": 81,
                     "decorators": [
                         {
                             "name": "Optional",
@@ -1640,8 +1767,20 @@
                     "type": "AbstractControl",
                     "optional": false,
                     "description": "<p>FormControl instance</p>\n",
-                    "line": 68,
+                    "line": 73,
                     "rawdescription": "\n\nFormControl instance\n",
+                    "inheritance": {
+                        "file": "CommonFieldComponent"
+                    }
+                },
+                {
+                    "name": "filteredOptions$",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "Observable<any>",
+                    "optional": true,
+                    "description": "",
+                    "line": 75,
                     "inheritance": {
                         "file": "CommonFieldComponent"
                     }
@@ -1653,7 +1792,7 @@
                     "type": "FormGroup",
                     "optional": false,
                     "description": "",
-                    "line": 71,
+                    "line": 78,
                     "decorators": [
                         {
                             "name": "Inject",
@@ -1677,7 +1816,7 @@
                     "optional": false,
                     "returnType": "any",
                     "typeParameters": [],
-                    "line": 94,
+                    "line": 111,
                     "deprecated": false,
                     "deprecationMessage": "",
                     "inheritance": {
@@ -1690,7 +1829,7 @@
                     "optional": false,
                     "returnType": "void",
                     "typeParameters": [],
-                    "line": 80,
+                    "line": 87,
                     "deprecated": false,
                     "deprecationMessage": "",
                     "inheritance": {
@@ -1754,7 +1893,7 @@
                     "deprecationMessage": "",
                     "rawdescription": "\n\nOptions for readio/checkbox-group and select components\n",
                     "description": "<p>Options for readio/checkbox-group and select components</p>\n",
-                    "line": 58,
+                    "line": 63,
                     "type": "string[]",
                     "decorators": [],
                     "inheritance": {
@@ -1768,7 +1907,7 @@
                     "deprecationMessage": "",
                     "rawdescription": "\n\nProperty icon\n",
                     "description": "<p>Property icon</p>\n",
-                    "line": 53,
+                    "line": 58,
                     "type": "string",
                     "decorators": [],
                     "inheritance": {
@@ -1782,7 +1921,7 @@
                     "deprecationMessage": "",
                     "rawdescription": "\n\nProperty label\n",
                     "description": "<p>Property label</p>\n",
-                    "line": 48,
+                    "line": 53,
                     "type": "string",
                     "decorators": [],
                     "inheritance": {
@@ -1795,7 +1934,7 @@
                     "deprecationMessage": "",
                     "rawdescription": "\n\nProperty name\n",
                     "description": "<p>Property name</p>\n",
-                    "line": 43,
+                    "line": 48,
                     "type": "string",
                     "decorators": [],
                     "inheritance": {
@@ -1808,7 +1947,7 @@
                     "deprecationMessage": "",
                     "rawdescription": "\n\nOptions for readio/checkbox-group and select components\n",
                     "description": "<p>Options for readio/checkbox-group and select components</p>\n",
-                    "line": 63,
+                    "line": 68,
                     "type": "InputOptions[]",
                     "decorators": [],
                     "inheritance": {
@@ -1845,7 +1984,7 @@
                     "type": "",
                     "optional": false,
                     "description": "",
-                    "line": 74,
+                    "line": 81,
                     "decorators": [
                         {
                             "name": "Optional",
@@ -1873,8 +2012,20 @@
                     "type": "AbstractControl",
                     "optional": false,
                     "description": "<p>FormControl instance</p>\n",
-                    "line": 68,
+                    "line": 73,
                     "rawdescription": "\n\nFormControl instance\n",
+                    "inheritance": {
+                        "file": "CommonFieldComponent"
+                    }
+                },
+                {
+                    "name": "filteredOptions$",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "Observable<any>",
+                    "optional": true,
+                    "description": "",
+                    "line": 75,
                     "inheritance": {
                         "file": "CommonFieldComponent"
                     }
@@ -1886,7 +2037,7 @@
                     "type": "FormGroup",
                     "optional": false,
                     "description": "",
-                    "line": 71,
+                    "line": 78,
                     "decorators": [
                         {
                             "name": "Inject",
@@ -2021,7 +2172,7 @@
                     "optional": false,
                     "returnType": "any",
                     "typeParameters": [],
-                    "line": 94,
+                    "line": 111,
                     "deprecated": false,
                     "deprecationMessage": "",
                     "inheritance": {
@@ -2034,7 +2185,7 @@
                     "optional": false,
                     "returnType": "void",
                     "typeParameters": [],
-                    "line": 80,
+                    "line": 87,
                     "deprecated": false,
                     "deprecationMessage": "",
                     "inheritance": {
@@ -2071,7 +2222,7 @@
         },
         {
             "name": "CommonFieldComponent",
-            "id": "component-CommonFieldComponent-55eaaef599a4c37c6eee2c4fb05e7347b3f3bc19424339990ea3f3d7d8bd6ad58b357ae3a318f1b1336d13fdbcc5747870bdcaf4f0b2f7fe56d2f537783f1325",
+            "id": "component-CommonFieldComponent-6ed741e70ae90c81fe2dceaf863ec20a56b07b17198a6a4d6b5873980c9e2bb9931f5686160aad8de1d267938d6352cc10e0877f3c8d0d738073373e3ca9de97",
             "file": "libs/material/src/lib/form/common-field/common-field.component.ts",
             "encapsulation": [],
             "entryComponents": [],
@@ -2091,7 +2242,7 @@
                     "deprecationMessage": "",
                     "rawdescription": "\n\nOptions for readio/checkbox-group and select components\n",
                     "description": "<p>Options for readio/checkbox-group and select components</p>\n",
-                    "line": 58,
+                    "line": 63,
                     "type": "string[]",
                     "decorators": []
                 },
@@ -2102,7 +2253,7 @@
                     "deprecationMessage": "",
                     "rawdescription": "\n\nProperty icon\n",
                     "description": "<p>Property icon</p>\n",
-                    "line": 53,
+                    "line": 58,
                     "type": "string",
                     "decorators": []
                 },
@@ -2113,7 +2264,7 @@
                     "deprecationMessage": "",
                     "rawdescription": "\n\nProperty label\n",
                     "description": "<p>Property label</p>\n",
-                    "line": 48,
+                    "line": 53,
                     "type": "string",
                     "decorators": []
                 },
@@ -2123,7 +2274,7 @@
                     "deprecationMessage": "",
                     "rawdescription": "\n\nProperty name\n",
                     "description": "<p>Property name</p>\n",
-                    "line": 43,
+                    "line": 48,
                     "type": "string",
                     "decorators": []
                 },
@@ -2133,7 +2284,7 @@
                     "deprecationMessage": "",
                     "rawdescription": "\n\nOptions for readio/checkbox-group and select components\n",
                     "description": "<p>Options for readio/checkbox-group and select components</p>\n",
-                    "line": 63,
+                    "line": 68,
                     "type": "InputOptions[]",
                     "decorators": []
                 }
@@ -2147,7 +2298,7 @@
                     "type": "",
                     "optional": false,
                     "description": "",
-                    "line": 74,
+                    "line": 81,
                     "decorators": [
                         {
                             "name": "Optional",
@@ -2172,8 +2323,17 @@
                     "type": "AbstractControl",
                     "optional": false,
                     "description": "<p>FormControl instance</p>\n",
-                    "line": 68,
+                    "line": 73,
                     "rawdescription": "\n\nFormControl instance\n"
+                },
+                {
+                    "name": "filteredOptions$",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "Observable<any>",
+                    "optional": true,
+                    "description": "",
+                    "line": 75
                 },
                 {
                     "name": "formGroup",
@@ -2182,7 +2342,7 @@
                     "type": "FormGroup",
                     "optional": false,
                     "description": "",
-                    "line": 71,
+                    "line": 78,
                     "decorators": [
                         {
                             "name": "Inject",
@@ -2203,7 +2363,7 @@
                     "optional": false,
                     "returnType": "any",
                     "typeParameters": [],
-                    "line": 94,
+                    "line": 111,
                     "deprecated": false,
                     "deprecationMessage": ""
                 },
@@ -2213,7 +2373,7 @@
                     "optional": false,
                     "returnType": "void",
                     "typeParameters": [],
-                    "line": 80,
+                    "line": 87,
                     "deprecated": false,
                     "deprecationMessage": ""
                 }
@@ -2227,7 +2387,7 @@
             "description": "",
             "rawdescription": "\n",
             "type": "component",
-            "sourceCode": "import {\r\n  Component,\r\n  Inject,\r\n  Input,\r\n  NgModule,\r\n  OnInit,\r\n  Optional,\r\n} from '@angular/core';\r\nimport {\r\n  AbstractControl,\r\n  FormGroup,\r\n  FormsModule,\r\n  ReactiveFormsModule,\r\n} from '@angular/forms';\r\nimport { FORM_FIELD_APPEARANCE_TOKEN, InputOptions } from '../../api';\r\nimport { MatFormField, MatFormFieldModule } from '@angular/material/form-field';\r\nimport { MatInputModule } from '@angular/material/input';\r\nimport { MatIconModule } from '@angular/material/icon';\r\nimport { MatButtonModule } from '@angular/material/button';\r\nimport { CommonModule } from '@angular/common';\r\n\r\nconst formModules = [\r\n  CommonModule,\r\n  FormsModule,\r\n  ReactiveFormsModule,\r\n  MatInputModule,\r\n  MatFormFieldModule,\r\n  MatIconModule,\r\n  MatButtonModule,\r\n];\r\n\r\n@NgModule({\r\n  imports: [...formModules],\r\n  exports: [...formModules],\r\n})\r\nexport class CommonFieldModule {}\r\n\r\n@Component({ template: '' })\r\nexport class CommonFieldComponent implements OnInit {\r\n  /**\r\n   * Property name\r\n   */\r\n  @Input() name!: string;\r\n\r\n  /**\r\n   * Property label\r\n   */\r\n  @Input() label = '';\r\n\r\n  /**\r\n   * Property icon\r\n   */\r\n  @Input() icon = '';\r\n\r\n  /**\r\n   * Options for readio/checkbox-group and select components\r\n   */\r\n  @Input() enums?: string[];\r\n\r\n  /**\r\n   * Options for readio/checkbox-group and select components\r\n   */\r\n  @Input() options?: InputOptions[];\r\n\r\n  /**\r\n   * FormControl instance\r\n   */\r\n  control!: AbstractControl;\r\n\r\n  constructor(\r\n    @Inject(FormGroup) public readonly formGroup: FormGroup,\r\n    @Optional()\r\n    @Inject(FORM_FIELD_APPEARANCE_TOKEN)\r\n    public readonly appearance: MatFormField['appearance']\r\n  ) {\r\n    if (!appearance) this.appearance = 'outline';\r\n    if (!formGroup) throw new Error('FormGroup must be provided!');\r\n  }\r\n\r\n  ngOnInit(): void {\r\n    const foundControl = this.formGroup.get(this.name);\r\n\r\n    if (!foundControl) {\r\n      throw new Error(`${this.name} control is not found in formGroup!`);\r\n    }\r\n\r\n    this.control = foundControl;\r\n\r\n    if (this.enums) {\r\n      this.options = this.enums.map((e) => ({ id: e, label: e }));\r\n    }\r\n  }\r\n\r\n  getErrors() {\r\n    return Object.values(this.control.errors || {}).join(', ');\r\n  }\r\n}\r\n",
+            "sourceCode": "import {\r\n  Component,\r\n  Inject,\r\n  Input,\r\n  NgModule,\r\n  OnInit,\r\n  Optional,\r\n} from '@angular/core';\r\nimport {\r\n  AbstractControl,\r\n  FormGroup,\r\n  FormsModule,\r\n  ReactiveFormsModule,\r\n} from '@angular/forms';\r\nimport {\r\n  FORM_FIELD_APPEARANCE_TOKEN,\r\n  InputOptions,\r\n  ResourceService,\r\n} from '../../api';\r\nimport { MatFormField, MatFormFieldModule } from '@angular/material/form-field';\r\nimport { MatInputModule } from '@angular/material/input';\r\nimport { MatIconModule } from '@angular/material/icon';\r\nimport { MatButtonModule } from '@angular/material/button';\r\nimport { CommonModule } from '@angular/common';\r\nimport { Observable, map } from 'rxjs';\r\n\r\nconst formModules = [\r\n  CommonModule,\r\n  FormsModule,\r\n  ReactiveFormsModule,\r\n  MatInputModule,\r\n  MatFormFieldModule,\r\n  MatIconModule,\r\n  MatButtonModule,\r\n];\r\n\r\n@NgModule({\r\n  imports: [...formModules],\r\n  exports: [...formModules],\r\n})\r\nexport class CommonFieldModule {}\r\n\r\n@Component({ template: '' })\r\nexport class CommonFieldComponent implements OnInit {\r\n  /**\r\n   * Property name\r\n   */\r\n  @Input() name!: string;\r\n\r\n  /**\r\n   * Property label\r\n   */\r\n  @Input() label = '';\r\n\r\n  /**\r\n   * Property icon\r\n   */\r\n  @Input() icon = '';\r\n\r\n  /**\r\n   * Options for readio/checkbox-group and select components\r\n   */\r\n  @Input() enums?: string[];\r\n\r\n  /**\r\n   * Options for readio/checkbox-group and select components\r\n   */\r\n  @Input() options?: InputOptions[];\r\n\r\n  /**\r\n   * FormControl instance\r\n   */\r\n  control!: AbstractControl;\r\n\r\n  filteredOptions$?: Observable<any>;\r\n\r\n  constructor(\r\n    @Inject(FormGroup) public readonly formGroup: FormGroup,\r\n    @Optional()\r\n    @Inject(FORM_FIELD_APPEARANCE_TOKEN)\r\n    public readonly appearance: MatFormField['appearance']\r\n  ) {\r\n    if (!appearance) this.appearance = 'outline';\r\n    if (!formGroup) throw new Error('FormGroup must be provided!');\r\n  }\r\n\r\n  ngOnInit(): void {\r\n    const foundControl = this.formGroup.get(this.name);\r\n\r\n    if (!foundControl) {\r\n      throw new Error(`${this.name} control is not found in formGroup!`);\r\n    }\r\n\r\n    this.control = foundControl;\r\n\r\n    if (this.enums) {\r\n      this.options = this.enums.map((e) => ({ id: e, label: e, value: e }));\r\n    }\r\n\r\n    this.filteredOptions$ = this.control.valueChanges.pipe(\r\n      map((value) => {\r\n        return this.options?.filter((e) => {\r\n          return (e.value as string)\r\n            ?.toLowerCase()\r\n            .includes((value as string).toLowerCase() || '');\r\n        });\r\n      })\r\n    );\r\n  }\r\n\r\n  getErrors() {\r\n    return Object.values(this.control.errors || {}).join(', ');\r\n  }\r\n}\r\n",
             "assetsDirs": [],
             "styleUrlsData": "",
             "stylesData": "",
@@ -2250,7 +2410,7 @@
                         "deprecationMessage": ""
                     }
                 ],
-                "line": 68,
+                "line": 75,
                 "jsdoctags": [
                     {
                         "name": "formGroup",
@@ -2780,7 +2940,7 @@
                     "deprecationMessage": "",
                     "rawdescription": "\n\nOptions for readio/checkbox-group and select components\n",
                     "description": "<p>Options for readio/checkbox-group and select components</p>\n",
-                    "line": 58,
+                    "line": 63,
                     "type": "string[]",
                     "decorators": [],
                     "inheritance": {
@@ -2794,7 +2954,7 @@
                     "deprecationMessage": "",
                     "rawdescription": "\n\nProperty icon\n",
                     "description": "<p>Property icon</p>\n",
-                    "line": 53,
+                    "line": 58,
                     "type": "string",
                     "decorators": [],
                     "inheritance": {
@@ -2808,7 +2968,7 @@
                     "deprecationMessage": "",
                     "rawdescription": "\n\nProperty label\n",
                     "description": "<p>Property label</p>\n",
-                    "line": 48,
+                    "line": 53,
                     "type": "string",
                     "decorators": [],
                     "inheritance": {
@@ -2821,7 +2981,7 @@
                     "deprecationMessage": "",
                     "rawdescription": "\n\nProperty name\n",
                     "description": "<p>Property name</p>\n",
-                    "line": 43,
+                    "line": 48,
                     "type": "string",
                     "decorators": [],
                     "inheritance": {
@@ -2834,7 +2994,7 @@
                     "deprecationMessage": "",
                     "rawdescription": "\n\nOptions for readio/checkbox-group and select components\n",
                     "description": "<p>Options for readio/checkbox-group and select components</p>\n",
-                    "line": 63,
+                    "line": 68,
                     "type": "InputOptions[]",
                     "decorators": [],
                     "inheritance": {
@@ -2851,7 +3011,7 @@
                     "type": "",
                     "optional": false,
                     "description": "",
-                    "line": 74,
+                    "line": 81,
                     "decorators": [
                         {
                             "name": "Optional",
@@ -2879,8 +3039,20 @@
                     "type": "AbstractControl",
                     "optional": false,
                     "description": "<p>FormControl instance</p>\n",
-                    "line": 68,
+                    "line": 73,
                     "rawdescription": "\n\nFormControl instance\n",
+                    "inheritance": {
+                        "file": "CommonFieldComponent"
+                    }
+                },
+                {
+                    "name": "filteredOptions$",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "Observable<any>",
+                    "optional": true,
+                    "description": "",
+                    "line": 75,
                     "inheritance": {
                         "file": "CommonFieldComponent"
                     }
@@ -2892,7 +3064,7 @@
                     "type": "FormGroup",
                     "optional": false,
                     "description": "",
-                    "line": 71,
+                    "line": 78,
                     "decorators": [
                         {
                             "name": "Inject",
@@ -2916,7 +3088,7 @@
                     "optional": false,
                     "returnType": "any",
                     "typeParameters": [],
-                    "line": 94,
+                    "line": 111,
                     "deprecated": false,
                     "deprecationMessage": "",
                     "inheritance": {
@@ -2929,7 +3101,7 @@
                     "optional": false,
                     "returnType": "void",
                     "typeParameters": [],
-                    "line": 80,
+                    "line": 87,
                     "deprecated": false,
                     "deprecationMessage": "",
                     "inheritance": {
@@ -2999,7 +3171,7 @@
                     "deprecationMessage": "",
                     "rawdescription": "\n\nOptions for readio/checkbox-group and select components\n",
                     "description": "<p>Options for readio/checkbox-group and select components</p>\n",
-                    "line": 58,
+                    "line": 63,
                     "type": "string[]",
                     "decorators": [],
                     "inheritance": {
@@ -3013,7 +3185,7 @@
                     "deprecationMessage": "",
                     "rawdescription": "\n\nProperty icon\n",
                     "description": "<p>Property icon</p>\n",
-                    "line": 53,
+                    "line": 58,
                     "type": "string",
                     "decorators": [],
                     "inheritance": {
@@ -3027,7 +3199,7 @@
                     "deprecationMessage": "",
                     "rawdescription": "\n\nProperty label\n",
                     "description": "<p>Property label</p>\n",
-                    "line": 48,
+                    "line": 53,
                     "type": "string",
                     "decorators": [],
                     "inheritance": {
@@ -3040,7 +3212,7 @@
                     "deprecationMessage": "",
                     "rawdescription": "\n\nProperty name\n",
                     "description": "<p>Property name</p>\n",
-                    "line": 43,
+                    "line": 48,
                     "type": "string",
                     "decorators": [],
                     "inheritance": {
@@ -3053,7 +3225,7 @@
                     "deprecationMessage": "",
                     "rawdescription": "\n\nOptions for readio/checkbox-group and select components\n",
                     "description": "<p>Options for readio/checkbox-group and select components</p>\n",
-                    "line": 63,
+                    "line": 68,
                     "type": "InputOptions[]",
                     "decorators": [],
                     "inheritance": {
@@ -3080,7 +3252,7 @@
                     "type": "",
                     "optional": false,
                     "description": "",
-                    "line": 74,
+                    "line": 81,
                     "decorators": [
                         {
                             "name": "Optional",
@@ -3108,8 +3280,20 @@
                     "type": "AbstractControl",
                     "optional": false,
                     "description": "<p>FormControl instance</p>\n",
-                    "line": 68,
+                    "line": 73,
                     "rawdescription": "\n\nFormControl instance\n",
+                    "inheritance": {
+                        "file": "CommonFieldComponent"
+                    }
+                },
+                {
+                    "name": "filteredOptions$",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "Observable<any>",
+                    "optional": true,
+                    "description": "",
+                    "line": 75,
                     "inheritance": {
                         "file": "CommonFieldComponent"
                     }
@@ -3121,7 +3305,7 @@
                     "type": "FormGroup",
                     "optional": false,
                     "description": "",
-                    "line": 71,
+                    "line": 78,
                     "decorators": [
                         {
                             "name": "Inject",
@@ -3145,7 +3329,7 @@
                     "optional": false,
                     "returnType": "any",
                     "typeParameters": [],
-                    "line": 94,
+                    "line": 111,
                     "deprecated": false,
                     "deprecationMessage": "",
                     "inheritance": {
@@ -3158,7 +3342,7 @@
                     "optional": false,
                     "returnType": "void",
                     "typeParameters": [],
-                    "line": 80,
+                    "line": 87,
                     "deprecated": false,
                     "deprecationMessage": "",
                     "inheritance": {
@@ -3228,7 +3412,7 @@
                     "deprecationMessage": "",
                     "rawdescription": "\n\nOptions for readio/checkbox-group and select components\n",
                     "description": "<p>Options for readio/checkbox-group and select components</p>\n",
-                    "line": 58,
+                    "line": 63,
                     "type": "string[]",
                     "decorators": [],
                     "inheritance": {
@@ -3242,7 +3426,7 @@
                     "deprecationMessage": "",
                     "rawdescription": "\n\nProperty icon\n",
                     "description": "<p>Property icon</p>\n",
-                    "line": 53,
+                    "line": 58,
                     "type": "string",
                     "decorators": [],
                     "inheritance": {
@@ -3256,7 +3440,7 @@
                     "deprecationMessage": "",
                     "rawdescription": "\n\nProperty label\n",
                     "description": "<p>Property label</p>\n",
-                    "line": 48,
+                    "line": 53,
                     "type": "string",
                     "decorators": [],
                     "inheritance": {
@@ -3269,7 +3453,7 @@
                     "deprecationMessage": "",
                     "rawdescription": "\n\nProperty name\n",
                     "description": "<p>Property name</p>\n",
-                    "line": 43,
+                    "line": 48,
                     "type": "string",
                     "decorators": [],
                     "inheritance": {
@@ -3282,7 +3466,7 @@
                     "deprecationMessage": "",
                     "rawdescription": "\n\nOptions for readio/checkbox-group and select components\n",
                     "description": "<p>Options for readio/checkbox-group and select components</p>\n",
-                    "line": 63,
+                    "line": 68,
                     "type": "InputOptions[]",
                     "decorators": [],
                     "inheritance": {
@@ -3299,7 +3483,7 @@
                     "type": "",
                     "optional": false,
                     "description": "",
-                    "line": 74,
+                    "line": 81,
                     "decorators": [
                         {
                             "name": "Optional",
@@ -3327,8 +3511,20 @@
                     "type": "AbstractControl",
                     "optional": false,
                     "description": "<p>FormControl instance</p>\n",
-                    "line": 68,
+                    "line": 73,
                     "rawdescription": "\n\nFormControl instance\n",
+                    "inheritance": {
+                        "file": "CommonFieldComponent"
+                    }
+                },
+                {
+                    "name": "filteredOptions$",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "Observable<any>",
+                    "optional": true,
+                    "description": "",
+                    "line": 75,
                     "inheritance": {
                         "file": "CommonFieldComponent"
                     }
@@ -3340,7 +3536,7 @@
                     "type": "FormGroup",
                     "optional": false,
                     "description": "",
-                    "line": 71,
+                    "line": 78,
                     "decorators": [
                         {
                             "name": "Inject",
@@ -3364,7 +3560,7 @@
                     "optional": false,
                     "returnType": "any",
                     "typeParameters": [],
-                    "line": 94,
+                    "line": 111,
                     "deprecated": false,
                     "deprecationMessage": "",
                     "inheritance": {
@@ -3377,7 +3573,7 @@
                     "optional": false,
                     "returnType": "void",
                     "typeParameters": [],
-                    "line": 80,
+                    "line": 87,
                     "deprecated": false,
                     "deprecationMessage": "",
                     "inheritance": {
@@ -4382,7 +4578,7 @@
                     "deprecationMessage": "",
                     "rawdescription": "\n\nOptions for readio/checkbox-group and select components\n",
                     "description": "<p>Options for readio/checkbox-group and select components</p>\n",
-                    "line": 58,
+                    "line": 63,
                     "type": "string[]",
                     "decorators": [],
                     "inheritance": {
@@ -4396,7 +4592,7 @@
                     "deprecationMessage": "",
                     "rawdescription": "\n\nProperty icon\n",
                     "description": "<p>Property icon</p>\n",
-                    "line": 53,
+                    "line": 58,
                     "type": "string",
                     "decorators": [],
                     "inheritance": {
@@ -4410,7 +4606,7 @@
                     "deprecationMessage": "",
                     "rawdescription": "\n\nProperty label\n",
                     "description": "<p>Property label</p>\n",
-                    "line": 48,
+                    "line": 53,
                     "type": "string",
                     "decorators": [],
                     "inheritance": {
@@ -4423,7 +4619,7 @@
                     "deprecationMessage": "",
                     "rawdescription": "\n\nProperty name\n",
                     "description": "<p>Property name</p>\n",
-                    "line": 43,
+                    "line": 48,
                     "type": "string",
                     "decorators": [],
                     "inheritance": {
@@ -4436,7 +4632,7 @@
                     "deprecationMessage": "",
                     "rawdescription": "\n\nOptions for readio/checkbox-group and select components\n",
                     "description": "<p>Options for readio/checkbox-group and select components</p>\n",
-                    "line": 63,
+                    "line": 68,
                     "type": "InputOptions[]",
                     "decorators": [],
                     "inheritance": {
@@ -4453,7 +4649,7 @@
                     "type": "",
                     "optional": false,
                     "description": "",
-                    "line": 74,
+                    "line": 81,
                     "decorators": [
                         {
                             "name": "Optional",
@@ -4481,8 +4677,20 @@
                     "type": "AbstractControl",
                     "optional": false,
                     "description": "<p>FormControl instance</p>\n",
-                    "line": 68,
+                    "line": 73,
                     "rawdescription": "\n\nFormControl instance\n",
+                    "inheritance": {
+                        "file": "CommonFieldComponent"
+                    }
+                },
+                {
+                    "name": "filteredOptions$",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "Observable<any>",
+                    "optional": true,
+                    "description": "",
+                    "line": 75,
                     "inheritance": {
                         "file": "CommonFieldComponent"
                     }
@@ -4494,7 +4702,7 @@
                     "type": "FormGroup",
                     "optional": false,
                     "description": "",
-                    "line": 71,
+                    "line": 78,
                     "decorators": [
                         {
                             "name": "Inject",
@@ -4518,7 +4726,7 @@
                     "optional": false,
                     "returnType": "any",
                     "typeParameters": [],
-                    "line": 94,
+                    "line": 111,
                     "deprecated": false,
                     "deprecationMessage": "",
                     "inheritance": {
@@ -4531,7 +4739,7 @@
                     "optional": false,
                     "returnType": "void",
                     "typeParameters": [],
-                    "line": 80,
+                    "line": 87,
                     "deprecated": false,
                     "deprecationMessage": "",
                     "inheritance": {
@@ -4677,7 +4885,7 @@
                     "deprecationMessage": "",
                     "rawdescription": "\n\nOptions for readio/checkbox-group and select components\n",
                     "description": "<p>Options for readio/checkbox-group and select components</p>\n",
-                    "line": 58,
+                    "line": 63,
                     "type": "string[]",
                     "decorators": [],
                     "inheritance": {
@@ -4691,7 +4899,7 @@
                     "deprecationMessage": "",
                     "rawdescription": "\n\nProperty icon\n",
                     "description": "<p>Property icon</p>\n",
-                    "line": 53,
+                    "line": 58,
                     "type": "string",
                     "decorators": [],
                     "inheritance": {
@@ -4705,7 +4913,7 @@
                     "deprecationMessage": "",
                     "rawdescription": "\n\nProperty label\n",
                     "description": "<p>Property label</p>\n",
-                    "line": 48,
+                    "line": 53,
                     "type": "string",
                     "decorators": [],
                     "inheritance": {
@@ -4718,7 +4926,7 @@
                     "deprecationMessage": "",
                     "rawdescription": "\n\nProperty name\n",
                     "description": "<p>Property name</p>\n",
-                    "line": 43,
+                    "line": 48,
                     "type": "string",
                     "decorators": [],
                     "inheritance": {
@@ -4731,7 +4939,7 @@
                     "deprecationMessage": "",
                     "rawdescription": "\n\nOptions for readio/checkbox-group and select components\n",
                     "description": "<p>Options for readio/checkbox-group and select components</p>\n",
-                    "line": 63,
+                    "line": 68,
                     "type": "InputOptions[]",
                     "decorators": [],
                     "inheritance": {
@@ -4748,7 +4956,7 @@
                     "type": "",
                     "optional": false,
                     "description": "",
-                    "line": 74,
+                    "line": 81,
                     "decorators": [
                         {
                             "name": "Optional",
@@ -4776,8 +4984,20 @@
                     "type": "AbstractControl",
                     "optional": false,
                     "description": "<p>FormControl instance</p>\n",
-                    "line": 68,
+                    "line": 73,
                     "rawdescription": "\n\nFormControl instance\n",
+                    "inheritance": {
+                        "file": "CommonFieldComponent"
+                    }
+                },
+                {
+                    "name": "filteredOptions$",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "Observable<any>",
+                    "optional": true,
+                    "description": "",
+                    "line": 75,
                     "inheritance": {
                         "file": "CommonFieldComponent"
                     }
@@ -4789,7 +5009,7 @@
                     "type": "FormGroup",
                     "optional": false,
                     "description": "",
-                    "line": 71,
+                    "line": 78,
                     "decorators": [
                         {
                             "name": "Inject",
@@ -4813,7 +5033,7 @@
                     "optional": false,
                     "returnType": "any",
                     "typeParameters": [],
-                    "line": 94,
+                    "line": 111,
                     "deprecated": false,
                     "deprecationMessage": "",
                     "inheritance": {
@@ -4826,7 +5046,7 @@
                     "optional": false,
                     "returnType": "void",
                     "typeParameters": [],
-                    "line": 80,
+                    "line": 87,
                     "deprecated": false,
                     "deprecationMessage": "",
                     "inheritance": {
@@ -4932,7 +5152,7 @@
         },
         {
             "name": "SearchComponent",
-            "id": "component-SearchComponent-a5bf6c12c17c4107d0b1f3cd0e8d2f95d5216e78ff260115c108d36b8fe938848d59b6660c941aafaadce22ddec333ea8ab63ef2354a3f28b93e2120f71ae01c",
+            "id": "component-SearchComponent-5d83d9fcb3b2b54e05cd58a54e4beae67282a0641ea94b6e245b994620ac407c62e8c602cffd039c61ec087181bbcc99e27062bcafd27719caf946fca33d01a7",
             "file": "libs/material/src/lib/form/search/search.component.ts",
             "encapsulation": [],
             "entryComponents": [],
@@ -4956,7 +5176,7 @@
                     "deprecationMessage": "",
                     "rawdescription": "\n\nOptions for readio/checkbox-group and select components\n",
                     "description": "<p>Options for readio/checkbox-group and select components</p>\n",
-                    "line": 58,
+                    "line": 63,
                     "type": "string[]",
                     "decorators": [],
                     "inheritance": {
@@ -4970,7 +5190,7 @@
                     "deprecationMessage": "",
                     "rawdescription": "\n\nProperty icon\n",
                     "description": "<p>Property icon</p>\n",
-                    "line": 53,
+                    "line": 58,
                     "type": "string",
                     "decorators": [],
                     "inheritance": {
@@ -4984,7 +5204,7 @@
                     "deprecationMessage": "",
                     "rawdescription": "\n\nProperty label\n",
                     "description": "<p>Property label</p>\n",
-                    "line": 48,
+                    "line": 53,
                     "type": "string",
                     "decorators": [],
                     "inheritance": {
@@ -4997,7 +5217,7 @@
                     "deprecationMessage": "",
                     "rawdescription": "\n\nProperty name\n",
                     "description": "<p>Property name</p>\n",
-                    "line": 43,
+                    "line": 48,
                     "type": "string",
                     "decorators": [],
                     "inheritance": {
@@ -5010,7 +5230,7 @@
                     "deprecationMessage": "",
                     "rawdescription": "\n\nOptions for readio/checkbox-group and select components\n",
                     "description": "<p>Options for readio/checkbox-group and select components</p>\n",
-                    "line": 63,
+                    "line": 68,
                     "type": "InputOptions[]",
                     "decorators": [],
                     "inheritance": {
@@ -5021,13 +5241,23 @@
             "outputsClass": [],
             "propertiesClass": [
                 {
+                    "name": "entities$",
+                    "defaultValue": "this.service.entities$",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "Observable<literal type[]>",
+                    "optional": false,
+                    "description": "",
+                    "line": 17
+                },
+                {
                     "name": "appearance",
                     "deprecated": false,
                     "deprecationMessage": "",
                     "type": "",
                     "optional": false,
                     "description": "",
-                    "line": 74,
+                    "line": 81,
                     "decorators": [
                         {
                             "name": "Optional",
@@ -5055,8 +5285,20 @@
                     "type": "AbstractControl",
                     "optional": false,
                     "description": "<p>FormControl instance</p>\n",
-                    "line": 68,
+                    "line": 73,
                     "rawdescription": "\n\nFormControl instance\n",
+                    "inheritance": {
+                        "file": "CommonFieldComponent"
+                    }
+                },
+                {
+                    "name": "filteredOptions$",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "Observable<any>",
+                    "optional": true,
+                    "description": "",
+                    "line": 75,
                     "inheritance": {
                         "file": "CommonFieldComponent"
                     }
@@ -5068,7 +5310,7 @@
                     "type": "FormGroup",
                     "optional": false,
                     "description": "",
-                    "line": 71,
+                    "line": 78,
                     "decorators": [
                         {
                             "name": "Inject",
@@ -5087,12 +5329,32 @@
             ],
             "methodsClass": [
                 {
+                    "name": "resetInputValue",
+                    "args": [],
+                    "optional": false,
+                    "returnType": "void",
+                    "typeParameters": [],
+                    "line": 33,
+                    "deprecated": false,
+                    "deprecationMessage": ""
+                },
+                {
+                    "name": "search",
+                    "args": [],
+                    "optional": false,
+                    "returnType": "void",
+                    "typeParameters": [],
+                    "line": 29,
+                    "deprecated": false,
+                    "deprecationMessage": ""
+                },
+                {
                     "name": "getErrors",
                     "args": [],
                     "optional": false,
                     "returnType": "any",
                     "typeParameters": [],
-                    "line": 94,
+                    "line": 111,
                     "deprecated": false,
                     "deprecationMessage": "",
                     "inheritance": {
@@ -5105,7 +5367,7 @@
                     "optional": false,
                     "returnType": "void",
                     "typeParameters": [],
-                    "line": 80,
+                    "line": 87,
                     "deprecated": false,
                     "deprecationMessage": "",
                     "inheritance": {
@@ -5122,12 +5384,16 @@
                 {
                     "name": "CommonFieldModule",
                     "type": "module"
+                },
+                {
+                    "name": "MatAutocompleteModule",
+                    "type": "module"
                 }
             ],
             "description": "",
             "rawdescription": "\n",
             "type": "component",
-            "sourceCode": "import { Component } from '@angular/core';\nimport { CommonFieldComponent, CommonFieldModule } from '../common-field';\n\n@Component({\n  selector: 'techbir-search',\n  standalone: true,\n  imports: [CommonFieldModule],\n  templateUrl: './search.component.html',\n  styleUrls: ['./search.component.scss'],\n})\nexport class SearchComponent extends CommonFieldComponent {}\n",
+            "sourceCode": "import { Component, Inject, Optional } from '@angular/core';\nimport { CommonFieldComponent, CommonFieldModule } from '../common-field';\nimport { FormGroup } from '@angular/forms';\nimport { MatFormField } from '@angular/material/form-field';\nimport { FORM_FIELD_APPEARANCE_TOKEN, ResourceService } from '../../api';\nimport { Observable, of } from 'rxjs';\nimport { MatAutocompleteModule } from '@angular/material/autocomplete';\n\n@Component({\n  selector: 'techbir-search',\n  standalone: true,\n  imports: [CommonFieldModule, MatAutocompleteModule],\n  templateUrl: './search.component.html',\n  styleUrls: ['./search.component.scss'],\n})\nexport class SearchComponent extends CommonFieldComponent {\n  entities$: Observable<{ id: any; name: string }[]> = this.service.entities$;\n\n  constructor(\n    @Inject(FormGroup) formGroup: FormGroup,\n    @Optional()\n    @Inject(FORM_FIELD_APPEARANCE_TOKEN)\n    appearance: MatFormField['appearance'],\n    protected readonly service: ResourceService<any>\n  ) {\n    super(formGroup, appearance);\n  }\n\n  search() {\n    this.service.search(this.control.value);\n  }\n\n  resetInputValue() {\n    this.control.setValue('');\n  }\n}\n",
             "assetsDirs": [],
             "styleUrlsData": [
                 {
@@ -5136,10 +5402,66 @@
                 }
             ],
             "stylesData": "",
+            "constructorObj": {
+                "name": "constructor",
+                "description": "",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "args": [
+                    {
+                        "name": "formGroup",
+                        "type": "FormGroup",
+                        "deprecated": false,
+                        "deprecationMessage": ""
+                    },
+                    {
+                        "name": "appearance",
+                        "type": "",
+                        "deprecated": false,
+                        "deprecationMessage": ""
+                    },
+                    {
+                        "name": "service",
+                        "type": "ResourceService<any>",
+                        "deprecated": false,
+                        "deprecationMessage": ""
+                    }
+                ],
+                "line": 17,
+                "jsdoctags": [
+                    {
+                        "name": "formGroup",
+                        "type": "FormGroup",
+                        "deprecated": false,
+                        "deprecationMessage": "",
+                        "tagName": {
+                            "text": "param"
+                        }
+                    },
+                    {
+                        "name": "appearance",
+                        "type": "",
+                        "deprecated": false,
+                        "deprecationMessage": "",
+                        "tagName": {
+                            "text": "param"
+                        }
+                    },
+                    {
+                        "name": "service",
+                        "type": "ResourceService<any>",
+                        "deprecated": false,
+                        "deprecationMessage": "",
+                        "tagName": {
+                            "text": "param"
+                        }
+                    }
+                ]
+            },
             "extends": [
                 "CommonFieldComponent"
             ],
-            "templateData": "<div [formGroup]=\"formGroup\">\n  <mat-form-field [appearance]=\"appearance\">\n    <mat-label>{{ label || 'Form Field' }}</mat-label>\n    <input #inputRef type=\"text\" matInput [formControlName]=\"name\" />\n    <mat-icon matPrefix color=\"primary\">{{ icon || 'info' }}</mat-icon>\n    <mat-error> {{ getErrors() }}</mat-error>\n  </mat-form-field>\n</div>\n"
+            "templateData": "<div [formGroup]=\"formGroup\">\n  <mat-form-field [appearance]=\"appearance\">\n    <mat-label>{{ label || name | titlecase }}</mat-label>\n    <input\n      type=\"text\"\n      style=\"visibility: collapse; position: absolute\"\n      [formControlName]=\"name\"\n    />\n    <input\n      type=\"text\"\n      matInput\n      [matAutocomplete]=\"auto\"\n      (click)=\"resetInputValue()\"\n      (input)=\"search()\"\n    />\n    <mat-icon matPrefix color=\"primary\">{{ icon }}</mat-icon>\n    <mat-autocomplete autoActiveFirstOption #auto=\"matAutocomplete\">\n      <ng-container *ngFor=\"let option of entities$ | async\">\n        <mat-option [value]=\"option.name\">{{ option.name }}</mat-option>\n      </ng-container>\n    </mat-autocomplete>\n  </mat-form-field>\n</div>\n"
         },
         {
             "name": "SelectComponent",
@@ -5806,7 +6128,7 @@
                     "deprecationMessage": "",
                     "rawdescription": "\n\nOptions for readio/checkbox-group and select components\n",
                     "description": "<p>Options for readio/checkbox-group and select components</p>\n",
-                    "line": 58,
+                    "line": 63,
                     "type": "string[]",
                     "decorators": [],
                     "inheritance": {
@@ -5820,7 +6142,7 @@
                     "deprecationMessage": "",
                     "rawdescription": "\n\nProperty icon\n",
                     "description": "<p>Property icon</p>\n",
-                    "line": 53,
+                    "line": 58,
                     "type": "string",
                     "decorators": [],
                     "inheritance": {
@@ -5834,7 +6156,7 @@
                     "deprecationMessage": "",
                     "rawdescription": "\n\nProperty label\n",
                     "description": "<p>Property label</p>\n",
-                    "line": 48,
+                    "line": 53,
                     "type": "string",
                     "decorators": [],
                     "inheritance": {
@@ -5847,7 +6169,7 @@
                     "deprecationMessage": "",
                     "rawdescription": "\n\nProperty name\n",
                     "description": "<p>Property name</p>\n",
-                    "line": 43,
+                    "line": 48,
                     "type": "string",
                     "decorators": [],
                     "inheritance": {
@@ -5860,7 +6182,7 @@
                     "deprecationMessage": "",
                     "rawdescription": "\n\nOptions for readio/checkbox-group and select components\n",
                     "description": "<p>Options for readio/checkbox-group and select components</p>\n",
-                    "line": 63,
+                    "line": 68,
                     "type": "InputOptions[]",
                     "decorators": [],
                     "inheritance": {
@@ -5877,7 +6199,7 @@
                     "type": "",
                     "optional": false,
                     "description": "",
-                    "line": 74,
+                    "line": 81,
                     "decorators": [
                         {
                             "name": "Optional",
@@ -5905,8 +6227,20 @@
                     "type": "AbstractControl",
                     "optional": false,
                     "description": "<p>FormControl instance</p>\n",
-                    "line": 68,
+                    "line": 73,
                     "rawdescription": "\n\nFormControl instance\n",
+                    "inheritance": {
+                        "file": "CommonFieldComponent"
+                    }
+                },
+                {
+                    "name": "filteredOptions$",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "Observable<any>",
+                    "optional": true,
+                    "description": "",
+                    "line": 75,
                     "inheritance": {
                         "file": "CommonFieldComponent"
                     }
@@ -5918,7 +6252,7 @@
                     "type": "FormGroup",
                     "optional": false,
                     "description": "",
-                    "line": 71,
+                    "line": 78,
                     "decorators": [
                         {
                             "name": "Inject",
@@ -5942,7 +6276,7 @@
                     "optional": false,
                     "returnType": "any",
                     "typeParameters": [],
-                    "line": 94,
+                    "line": 111,
                     "deprecated": false,
                     "deprecationMessage": "",
                     "inheritance": {
@@ -5955,7 +6289,7 @@
                     "optional": false,
                     "returnType": "void",
                     "typeParameters": [],
-                    "line": 80,
+                    "line": 87,
                     "deprecated": false,
                     "deprecationMessage": "",
                     "inheritance": {
@@ -6021,7 +6355,7 @@
                     "deprecationMessage": "",
                     "rawdescription": "\n\nOptions for readio/checkbox-group and select components\n",
                     "description": "<p>Options for readio/checkbox-group and select components</p>\n",
-                    "line": 58,
+                    "line": 63,
                     "type": "string[]",
                     "decorators": [],
                     "inheritance": {
@@ -6035,7 +6369,7 @@
                     "deprecationMessage": "",
                     "rawdescription": "\n\nProperty icon\n",
                     "description": "<p>Property icon</p>\n",
-                    "line": 53,
+                    "line": 58,
                     "type": "string",
                     "decorators": [],
                     "inheritance": {
@@ -6049,7 +6383,7 @@
                     "deprecationMessage": "",
                     "rawdescription": "\n\nProperty label\n",
                     "description": "<p>Property label</p>\n",
-                    "line": 48,
+                    "line": 53,
                     "type": "string",
                     "decorators": [],
                     "inheritance": {
@@ -6062,7 +6396,7 @@
                     "deprecationMessage": "",
                     "rawdescription": "\n\nProperty name\n",
                     "description": "<p>Property name</p>\n",
-                    "line": 43,
+                    "line": 48,
                     "type": "string",
                     "decorators": [],
                     "inheritance": {
@@ -6075,7 +6409,7 @@
                     "deprecationMessage": "",
                     "rawdescription": "\n\nOptions for readio/checkbox-group and select components\n",
                     "description": "<p>Options for readio/checkbox-group and select components</p>\n",
-                    "line": 63,
+                    "line": 68,
                     "type": "InputOptions[]",
                     "decorators": [],
                     "inheritance": {
@@ -6092,7 +6426,7 @@
                     "type": "",
                     "optional": false,
                     "description": "",
-                    "line": 74,
+                    "line": 81,
                     "decorators": [
                         {
                             "name": "Optional",
@@ -6120,8 +6454,20 @@
                     "type": "AbstractControl",
                     "optional": false,
                     "description": "<p>FormControl instance</p>\n",
-                    "line": 68,
+                    "line": 73,
                     "rawdescription": "\n\nFormControl instance\n",
+                    "inheritance": {
+                        "file": "CommonFieldComponent"
+                    }
+                },
+                {
+                    "name": "filteredOptions$",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "Observable<any>",
+                    "optional": true,
+                    "description": "",
+                    "line": 75,
                     "inheritance": {
                         "file": "CommonFieldComponent"
                     }
@@ -6133,7 +6479,7 @@
                     "type": "FormGroup",
                     "optional": false,
                     "description": "",
-                    "line": 71,
+                    "line": 78,
                     "decorators": [
                         {
                             "name": "Inject",
@@ -6157,7 +6503,7 @@
                     "optional": false,
                     "returnType": "any",
                     "typeParameters": [],
-                    "line": 94,
+                    "line": 111,
                     "deprecated": false,
                     "deprecationMessage": "",
                     "inheritance": {
@@ -6170,7 +6516,7 @@
                     "optional": false,
                     "returnType": "void",
                     "typeParameters": [],
-                    "line": 80,
+                    "line": 87,
                     "deprecated": false,
                     "deprecationMessage": "",
                     "inheritance": {
@@ -6784,13 +7130,13 @@
     "modules": [
         {
             "name": "CommonFieldModule",
-            "id": "module-CommonFieldModule-55eaaef599a4c37c6eee2c4fb05e7347b3f3bc19424339990ea3f3d7d8bd6ad58b357ae3a318f1b1336d13fdbcc5747870bdcaf4f0b2f7fe56d2f537783f1325",
+            "id": "module-CommonFieldModule-6ed741e70ae90c81fe2dceaf863ec20a56b07b17198a6a4d6b5873980c9e2bb9931f5686160aad8de1d267938d6352cc10e0877f3c8d0d738073373e3ca9de97",
             "description": "",
             "deprecationMessage": "",
             "deprecated": false,
             "file": "libs/material/src/lib/form/common-field/common-field.component.ts",
             "methods": [],
-            "sourceCode": "import {\r\n  Component,\r\n  Inject,\r\n  Input,\r\n  NgModule,\r\n  OnInit,\r\n  Optional,\r\n} from '@angular/core';\r\nimport {\r\n  AbstractControl,\r\n  FormGroup,\r\n  FormsModule,\r\n  ReactiveFormsModule,\r\n} from '@angular/forms';\r\nimport { FORM_FIELD_APPEARANCE_TOKEN, InputOptions } from '../../api';\r\nimport { MatFormField, MatFormFieldModule } from '@angular/material/form-field';\r\nimport { MatInputModule } from '@angular/material/input';\r\nimport { MatIconModule } from '@angular/material/icon';\r\nimport { MatButtonModule } from '@angular/material/button';\r\nimport { CommonModule } from '@angular/common';\r\n\r\nconst formModules = [\r\n  CommonModule,\r\n  FormsModule,\r\n  ReactiveFormsModule,\r\n  MatInputModule,\r\n  MatFormFieldModule,\r\n  MatIconModule,\r\n  MatButtonModule,\r\n];\r\n\r\n@NgModule({\r\n  imports: [...formModules],\r\n  exports: [...formModules],\r\n})\r\nexport class CommonFieldModule {}\r\n\r\n@Component({ template: '' })\r\nexport class CommonFieldComponent implements OnInit {\r\n  /**\r\n   * Property name\r\n   */\r\n  @Input() name!: string;\r\n\r\n  /**\r\n   * Property label\r\n   */\r\n  @Input() label = '';\r\n\r\n  /**\r\n   * Property icon\r\n   */\r\n  @Input() icon = '';\r\n\r\n  /**\r\n   * Options for readio/checkbox-group and select components\r\n   */\r\n  @Input() enums?: string[];\r\n\r\n  /**\r\n   * Options for readio/checkbox-group and select components\r\n   */\r\n  @Input() options?: InputOptions[];\r\n\r\n  /**\r\n   * FormControl instance\r\n   */\r\n  control!: AbstractControl;\r\n\r\n  constructor(\r\n    @Inject(FormGroup) public readonly formGroup: FormGroup,\r\n    @Optional()\r\n    @Inject(FORM_FIELD_APPEARANCE_TOKEN)\r\n    public readonly appearance: MatFormField['appearance']\r\n  ) {\r\n    if (!appearance) this.appearance = 'outline';\r\n    if (!formGroup) throw new Error('FormGroup must be provided!');\r\n  }\r\n\r\n  ngOnInit(): void {\r\n    const foundControl = this.formGroup.get(this.name);\r\n\r\n    if (!foundControl) {\r\n      throw new Error(`${this.name} control is not found in formGroup!`);\r\n    }\r\n\r\n    this.control = foundControl;\r\n\r\n    if (this.enums) {\r\n      this.options = this.enums.map((e) => ({ id: e, label: e }));\r\n    }\r\n  }\r\n\r\n  getErrors() {\r\n    return Object.values(this.control.errors || {}).join(', ');\r\n  }\r\n}\r\n",
+            "sourceCode": "import {\r\n  Component,\r\n  Inject,\r\n  Input,\r\n  NgModule,\r\n  OnInit,\r\n  Optional,\r\n} from '@angular/core';\r\nimport {\r\n  AbstractControl,\r\n  FormGroup,\r\n  FormsModule,\r\n  ReactiveFormsModule,\r\n} from '@angular/forms';\r\nimport {\r\n  FORM_FIELD_APPEARANCE_TOKEN,\r\n  InputOptions,\r\n  ResourceService,\r\n} from '../../api';\r\nimport { MatFormField, MatFormFieldModule } from '@angular/material/form-field';\r\nimport { MatInputModule } from '@angular/material/input';\r\nimport { MatIconModule } from '@angular/material/icon';\r\nimport { MatButtonModule } from '@angular/material/button';\r\nimport { CommonModule } from '@angular/common';\r\nimport { Observable, map } from 'rxjs';\r\n\r\nconst formModules = [\r\n  CommonModule,\r\n  FormsModule,\r\n  ReactiveFormsModule,\r\n  MatInputModule,\r\n  MatFormFieldModule,\r\n  MatIconModule,\r\n  MatButtonModule,\r\n];\r\n\r\n@NgModule({\r\n  imports: [...formModules],\r\n  exports: [...formModules],\r\n})\r\nexport class CommonFieldModule {}\r\n\r\n@Component({ template: '' })\r\nexport class CommonFieldComponent implements OnInit {\r\n  /**\r\n   * Property name\r\n   */\r\n  @Input() name!: string;\r\n\r\n  /**\r\n   * Property label\r\n   */\r\n  @Input() label = '';\r\n\r\n  /**\r\n   * Property icon\r\n   */\r\n  @Input() icon = '';\r\n\r\n  /**\r\n   * Options for readio/checkbox-group and select components\r\n   */\r\n  @Input() enums?: string[];\r\n\r\n  /**\r\n   * Options for readio/checkbox-group and select components\r\n   */\r\n  @Input() options?: InputOptions[];\r\n\r\n  /**\r\n   * FormControl instance\r\n   */\r\n  control!: AbstractControl;\r\n\r\n  filteredOptions$?: Observable<any>;\r\n\r\n  constructor(\r\n    @Inject(FormGroup) public readonly formGroup: FormGroup,\r\n    @Optional()\r\n    @Inject(FORM_FIELD_APPEARANCE_TOKEN)\r\n    public readonly appearance: MatFormField['appearance']\r\n  ) {\r\n    if (!appearance) this.appearance = 'outline';\r\n    if (!formGroup) throw new Error('FormGroup must be provided!');\r\n  }\r\n\r\n  ngOnInit(): void {\r\n    const foundControl = this.formGroup.get(this.name);\r\n\r\n    if (!foundControl) {\r\n      throw new Error(`${this.name} control is not found in formGroup!`);\r\n    }\r\n\r\n    this.control = foundControl;\r\n\r\n    if (this.enums) {\r\n      this.options = this.enums.map((e) => ({ id: e, label: e, value: e }));\r\n    }\r\n\r\n    this.filteredOptions$ = this.control.valueChanges.pipe(\r\n      map((value) => {\r\n        return this.options?.filter((e) => {\r\n          return (e.value as string)\r\n            ?.toLowerCase()\r\n            .includes((value as string).toLowerCase() || '');\r\n        });\r\n      })\r\n    );\r\n  }\r\n\r\n  getErrors() {\r\n    return Object.values(this.control.errors || {}).join(', ');\r\n  }\r\n}\r\n",
             "children": [
                 {
                     "type": "providers",
@@ -6933,7 +7279,7 @@
                 "deprecated": false,
                 "deprecationMessage": "",
                 "type": "Story",
-                "defaultValue": "{\r\n  args: {\r\n    name: 'name',\r\n    label: 'Category',\r\n    icon: 'category',\r\n    enums: ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H'],\r\n  },\r\n  play: async ({ canvasElement }) => {\r\n    const canvas = within(canvasElement);\r\n    expect(canvas.getByText(/text-field works!/gi)).toBeTruthy();\r\n  },\r\n}"
+                "defaultValue": "{\r\n  args: {\r\n    name: 'name',\r\n    label: 'Category',\r\n    icon: 'category',\r\n    enums: ['first', 'second', 'third', 'fourth', 'fifth', 'sixth', 'seventh'],\r\n  },\r\n  play: async ({ canvasElement }) => {\r\n    const canvas = within(canvasElement);\r\n    expect(canvas.getByText(/text-field works!/gi)).toBeTruthy();\r\n  },\r\n}"
             },
             {
                 "name": "Heading",
@@ -7013,7 +7359,7 @@
                 "deprecated": false,
                 "deprecationMessage": "",
                 "type": "Story",
-                "defaultValue": "{\r\n  args: {},\r\n  play: async ({ canvasElement }) => {\r\n    const canvas = within(canvasElement);\r\n    expect(canvas.getByText(/search works!/gi)).toBeTruthy();\r\n  },\r\n}"
+                "defaultValue": "{\r\n  args: {\r\n    name: 'category',\r\n    icon: 'category',\r\n    label: 'Select Category',\r\n  },\r\n  play: async ({ canvasElement }) => {\r\n    const canvas = within(canvasElement);\r\n    expect(canvas.getByText(/search works!/gi)).toBeTruthy();\r\n  },\r\n}"
             },
             {
                 "name": "Heading",
@@ -7123,7 +7469,7 @@
                 "deprecated": false,
                 "deprecationMessage": "",
                 "type": "Meta<AutocompleteComponent>",
-                "defaultValue": "{\r\n  component: AutocompleteComponent,\r\n  title: 'AutocompleteComponent',\r\n  decorators: [\r\n    moduleMetadata({\r\n      imports: [CommonFieldModule, MatAutocompleteModule],\r\n      providers: [provideFormGroup({ name: '' })],\r\n    }),\r\n  ],\r\n}"
+                "defaultValue": "{\r\n  component: AutocompleteComponent,\r\n  title: 'AutocompleteComponent',\r\n  decorators: [\r\n    applicationConfig({ providers: [provideAnimations()] }),\r\n    moduleMetadata({\r\n      imports: [CommonFieldModule, MatAutocompleteModule],\r\n      providers: [provideFormGroup({ name: '' })],\r\n    }),\r\n  ],\r\n}"
             },
             {
                 "name": "meta",
@@ -7153,7 +7499,7 @@
                 "deprecated": false,
                 "deprecationMessage": "",
                 "type": "Meta<DateComponent>",
-                "defaultValue": "{\r\n  component: DateComponent,\r\n  title: 'DateComponent',\r\n  decorators: [\r\n    moduleMetadata({\r\n      imports: [\r\n        BrowserAnimationsModule,\r\n        CommonFieldModule,\r\n        MatDatepickerModule,\r\n        MatNativeDateModule,\r\n      ],\r\n      providers: [provideFormGroup({ dob: '' })],\r\n    }),\r\n  ],\r\n}"
+                "defaultValue": "{\r\n  component: DateComponent,\r\n  title: 'DateComponent',\r\n  decorators: [\r\n    applicationConfig({ providers: [provideAnimations()] }),\r\n    moduleMetadata({\r\n      imports: [CommonFieldModule, MatDatepickerModule, MatNativeDateModule],\r\n      providers: [provideFormGroup({ dob: '' })],\r\n    }),\r\n  ],\r\n}"
             },
             {
                 "name": "meta",
@@ -7163,7 +7509,7 @@
                 "deprecated": false,
                 "deprecationMessage": "",
                 "type": "Meta<DateRangeComponent>",
-                "defaultValue": "{\r\n  component: DateRangeComponent,\r\n  title: 'DateRangeComponent',\r\n  decorators: [\r\n    moduleMetadata({\r\n      imports: [\r\n        CommonFieldModule,\r\n        BrowserAnimationsModule,\r\n        MatDatepickerModule,\r\n        MatNativeDateModule,\r\n      ],\r\n      providers: [\r\n        provideFormGroup({ range: '' }),\r\n        // provideDateRangeSelectionStrategy(FiveDayRangeSelectionStrategy),\r\n        // provideDateRangeSelectionStrategy(WeekDaysStrategy),\r\n        provideDateRangeSelectionStrategy(WeekEndsStrategy),\r\n      ],\r\n    }),\r\n  ],\r\n}"
+                "defaultValue": "{\r\n  component: DateRangeComponent,\r\n  title: 'DateRangeComponent',\r\n  decorators: [\r\n    applicationConfig({ providers: [provideAnimations()] }),\r\n    moduleMetadata({\r\n      imports: [CommonFieldModule, MatDatepickerModule, MatNativeDateModule],\r\n      providers: [\r\n        provideFormGroup({ range: '' }),\r\n        // provideDateRangeSelectionStrategy(FiveDayRangeSelectionStrategy),\r\n        // provideDateRangeSelectionStrategy(WeekDaysStrategy),\r\n        provideDateRangeSelectionStrategy(WeekEndsStrategy),\r\n      ],\r\n    }),\r\n  ],\r\n}"
             },
             {
                 "name": "meta",
@@ -7173,7 +7519,7 @@
                 "deprecated": false,
                 "deprecationMessage": "",
                 "type": "Meta<DateTimeComponent>",
-                "defaultValue": "{\r\n  component: DateTimeComponent,\r\n  title: 'DateTimeComponent',\r\n  decorators: [\r\n    moduleMetadata({\r\n      imports: [\r\n        BrowserAnimationsModule,\r\n        CommonFieldModule,\r\n        MatDatepickerModule,\r\n        MatNativeDateModule,\r\n      ],\r\n      providers: [provideFormGroup({ dob: '' })],\r\n    }),\r\n  ],\r\n}"
+                "defaultValue": "{\r\n  component: DateTimeComponent,\r\n  title: 'DateTimeComponent',\r\n  decorators: [\r\n    applicationConfig({ providers: [provideAnimations()] }),\r\n    moduleMetadata({\r\n      imports: [\r\n        BrowserAnimationsModule,\r\n        CommonFieldModule,\r\n        MatDatepickerModule,\r\n        MatNativeDateModule,\r\n      ],\r\n      providers: [provideFormGroup({ dob: '' })],\r\n    }),\r\n  ],\r\n}"
             },
             {
                 "name": "meta",
@@ -7183,7 +7529,7 @@
                 "deprecated": false,
                 "deprecationMessage": "",
                 "type": "Meta<NumberComponent>",
-                "defaultValue": "{\r\n  component: NumberComponent,\r\n  title: 'NumberComponent',\r\n  decorators: [\r\n    moduleMetadata({\r\n      imports: [CommonFieldModule],\r\n      providers: [provideFormGroup({ age: '' })],\r\n    }),\r\n  ],\r\n}"
+                "defaultValue": "{\r\n  component: NumberComponent,\r\n  title: 'NumberComponent',\r\n  decorators: [\r\n    applicationConfig({ providers: [provideAnimations()] }),\r\n    moduleMetadata({\r\n      imports: [CommonFieldModule],\r\n      providers: [provideFormGroup({ age: '' })],\r\n    }),\r\n  ],\r\n}"
             },
             {
                 "name": "meta",
@@ -7193,7 +7539,7 @@
                 "deprecated": false,
                 "deprecationMessage": "",
                 "type": "Meta<RadioComponent>",
-                "defaultValue": "{\r\n  component: RadioComponent,\r\n  title: 'RadioComponent',\r\n  decorators: [\r\n    moduleMetadata({\r\n      imports: [CommonFieldModule],\r\n      providers: [provideFormGroup({ gender: '' })],\r\n    }),\r\n  ],\r\n}"
+                "defaultValue": "{\r\n  component: RadioComponent,\r\n  title: 'RadioComponent',\r\n  decorators: [\r\n    applicationConfig({ providers: [provideAnimations()] }),\r\n    moduleMetadata({\r\n      imports: [CommonFieldModule],\r\n      providers: [provideFormGroup({ gender: '' })],\r\n    }),\r\n  ],\r\n}"
             },
             {
                 "name": "meta",
@@ -7203,7 +7549,7 @@
                 "deprecated": false,
                 "deprecationMessage": "",
                 "type": "Meta<SearchComponent>",
-                "defaultValue": "{\r\n  component: SearchComponent,\r\n  title: 'SearchComponent',\r\n}"
+                "defaultValue": "{\r\n  component: SearchComponent,\r\n  title: 'SearchComponent',\r\n\r\n  decorators: [\r\n    applicationConfig({ providers: [provideAnimations()] }),\r\n    moduleMetadata({\r\n      imports: [CommonFieldModule],\r\n      providers: [\r\n        provideFormGroup({ category: '' }),\r\n        {\r\n          provide: ResourceService,\r\n          useClass: MockResourceService,\r\n        },\r\n      ],\r\n    }),\r\n  ],\r\n}"
             },
             {
                 "name": "meta",
@@ -7335,7 +7681,7 @@
                 "deprecated": false,
                 "deprecationMessage": "",
                 "type": "Story",
-                "defaultValue": "{\r\n  args: {\r\n    name: 'name',\r\n    label: 'Category',\r\n    icon: 'category',\r\n    enums: ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H'],\r\n  },\r\n}"
+                "defaultValue": "{\r\n  args: {\r\n    name: 'name',\r\n    label: 'Category',\r\n    icon: 'category',\r\n    enums: ['first', 'second', 'third', 'fourth', 'fifth', 'sixth', 'seventh'],\r\n  },\r\n}"
             },
             {
                 "name": "Primary",
@@ -7415,7 +7761,7 @@
                 "deprecated": false,
                 "deprecationMessage": "",
                 "type": "Story",
-                "defaultValue": "{\r\n  args: {},\r\n}"
+                "defaultValue": "{\r\n  args: {\r\n    name: 'category',\r\n    icon: 'category',\r\n    label: 'Select Category',\r\n  },\r\n}"
             },
             {
                 "name": "Primary",
@@ -8459,7 +8805,7 @@
                     "deprecated": false,
                     "deprecationMessage": "",
                     "type": "Story",
-                    "defaultValue": "{\r\n  args: {\r\n    name: 'name',\r\n    label: 'Category',\r\n    icon: 'category',\r\n    enums: ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H'],\r\n  },\r\n  play: async ({ canvasElement }) => {\r\n    const canvas = within(canvasElement);\r\n    expect(canvas.getByText(/text-field works!/gi)).toBeTruthy();\r\n  },\r\n}"
+                    "defaultValue": "{\r\n  args: {\r\n    name: 'name',\r\n    label: 'Category',\r\n    icon: 'category',\r\n    enums: ['first', 'second', 'third', 'fourth', 'fifth', 'sixth', 'seventh'],\r\n  },\r\n  play: async ({ canvasElement }) => {\r\n    const canvas = within(canvasElement);\r\n    expect(canvas.getByText(/text-field works!/gi)).toBeTruthy();\r\n  },\r\n}"
                 },
                 {
                     "name": "meta",
@@ -8469,7 +8815,7 @@
                     "deprecated": false,
                     "deprecationMessage": "",
                     "type": "Meta<AutocompleteComponent>",
-                    "defaultValue": "{\r\n  component: AutocompleteComponent,\r\n  title: 'AutocompleteComponent',\r\n  decorators: [\r\n    moduleMetadata({\r\n      imports: [CommonFieldModule, MatAutocompleteModule],\r\n      providers: [provideFormGroup({ name: '' })],\r\n    }),\r\n  ],\r\n}"
+                    "defaultValue": "{\r\n  component: AutocompleteComponent,\r\n  title: 'AutocompleteComponent',\r\n  decorators: [\r\n    applicationConfig({ providers: [provideAnimations()] }),\r\n    moduleMetadata({\r\n      imports: [CommonFieldModule, MatAutocompleteModule],\r\n      providers: [provideFormGroup({ name: '' })],\r\n    }),\r\n  ],\r\n}"
                 },
                 {
                     "name": "Primary",
@@ -8479,7 +8825,7 @@
                     "deprecated": false,
                     "deprecationMessage": "",
                     "type": "Story",
-                    "defaultValue": "{\r\n  args: {\r\n    name: 'name',\r\n    label: 'Category',\r\n    icon: 'category',\r\n    enums: ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H'],\r\n  },\r\n}"
+                    "defaultValue": "{\r\n  args: {\r\n    name: 'name',\r\n    label: 'Category',\r\n    icon: 'category',\r\n    enums: ['first', 'second', 'third', 'fourth', 'fifth', 'sixth', 'seventh'],\r\n  },\r\n}"
                 }
             ],
             "libs/material/src/lib/form/checkbox/checkbox.component.stories.ts": [
@@ -8565,7 +8911,7 @@
                     "deprecated": false,
                     "deprecationMessage": "",
                     "type": "Meta<DateComponent>",
-                    "defaultValue": "{\r\n  component: DateComponent,\r\n  title: 'DateComponent',\r\n  decorators: [\r\n    moduleMetadata({\r\n      imports: [\r\n        BrowserAnimationsModule,\r\n        CommonFieldModule,\r\n        MatDatepickerModule,\r\n        MatNativeDateModule,\r\n      ],\r\n      providers: [provideFormGroup({ dob: '' })],\r\n    }),\r\n  ],\r\n}"
+                    "defaultValue": "{\r\n  component: DateComponent,\r\n  title: 'DateComponent',\r\n  decorators: [\r\n    applicationConfig({ providers: [provideAnimations()] }),\r\n    moduleMetadata({\r\n      imports: [CommonFieldModule, MatDatepickerModule, MatNativeDateModule],\r\n      providers: [provideFormGroup({ dob: '' })],\r\n    }),\r\n  ],\r\n}"
                 },
                 {
                     "name": "Primary",
@@ -8597,7 +8943,7 @@
                     "deprecated": false,
                     "deprecationMessage": "",
                     "type": "Meta<DateRangeComponent>",
-                    "defaultValue": "{\r\n  component: DateRangeComponent,\r\n  title: 'DateRangeComponent',\r\n  decorators: [\r\n    moduleMetadata({\r\n      imports: [\r\n        CommonFieldModule,\r\n        BrowserAnimationsModule,\r\n        MatDatepickerModule,\r\n        MatNativeDateModule,\r\n      ],\r\n      providers: [\r\n        provideFormGroup({ range: '' }),\r\n        // provideDateRangeSelectionStrategy(FiveDayRangeSelectionStrategy),\r\n        // provideDateRangeSelectionStrategy(WeekDaysStrategy),\r\n        provideDateRangeSelectionStrategy(WeekEndsStrategy),\r\n      ],\r\n    }),\r\n  ],\r\n}"
+                    "defaultValue": "{\r\n  component: DateRangeComponent,\r\n  title: 'DateRangeComponent',\r\n  decorators: [\r\n    applicationConfig({ providers: [provideAnimations()] }),\r\n    moduleMetadata({\r\n      imports: [CommonFieldModule, MatDatepickerModule, MatNativeDateModule],\r\n      providers: [\r\n        provideFormGroup({ range: '' }),\r\n        // provideDateRangeSelectionStrategy(FiveDayRangeSelectionStrategy),\r\n        // provideDateRangeSelectionStrategy(WeekDaysStrategy),\r\n        provideDateRangeSelectionStrategy(WeekEndsStrategy),\r\n      ],\r\n    }),\r\n  ],\r\n}"
                 },
                 {
                     "name": "Primary",
@@ -8629,7 +8975,7 @@
                     "deprecated": false,
                     "deprecationMessage": "",
                     "type": "Meta<DateTimeComponent>",
-                    "defaultValue": "{\r\n  component: DateTimeComponent,\r\n  title: 'DateTimeComponent',\r\n  decorators: [\r\n    moduleMetadata({\r\n      imports: [\r\n        BrowserAnimationsModule,\r\n        CommonFieldModule,\r\n        MatDatepickerModule,\r\n        MatNativeDateModule,\r\n      ],\r\n      providers: [provideFormGroup({ dob: '' })],\r\n    }),\r\n  ],\r\n}"
+                    "defaultValue": "{\r\n  component: DateTimeComponent,\r\n  title: 'DateTimeComponent',\r\n  decorators: [\r\n    applicationConfig({ providers: [provideAnimations()] }),\r\n    moduleMetadata({\r\n      imports: [\r\n        BrowserAnimationsModule,\r\n        CommonFieldModule,\r\n        MatDatepickerModule,\r\n        MatNativeDateModule,\r\n      ],\r\n      providers: [provideFormGroup({ dob: '' })],\r\n    }),\r\n  ],\r\n}"
                 },
                 {
                     "name": "Primary",
@@ -8661,7 +9007,7 @@
                     "deprecated": false,
                     "deprecationMessage": "",
                     "type": "Meta<NumberComponent>",
-                    "defaultValue": "{\r\n  component: NumberComponent,\r\n  title: 'NumberComponent',\r\n  decorators: [\r\n    moduleMetadata({\r\n      imports: [CommonFieldModule],\r\n      providers: [provideFormGroup({ age: '' })],\r\n    }),\r\n  ],\r\n}"
+                    "defaultValue": "{\r\n  component: NumberComponent,\r\n  title: 'NumberComponent',\r\n  decorators: [\r\n    applicationConfig({ providers: [provideAnimations()] }),\r\n    moduleMetadata({\r\n      imports: [CommonFieldModule],\r\n      providers: [provideFormGroup({ age: '' })],\r\n    }),\r\n  ],\r\n}"
                 },
                 {
                     "name": "Primary",
@@ -8693,7 +9039,7 @@
                     "deprecated": false,
                     "deprecationMessage": "",
                     "type": "Meta<RadioComponent>",
-                    "defaultValue": "{\r\n  component: RadioComponent,\r\n  title: 'RadioComponent',\r\n  decorators: [\r\n    moduleMetadata({\r\n      imports: [CommonFieldModule],\r\n      providers: [provideFormGroup({ gender: '' })],\r\n    }),\r\n  ],\r\n}"
+                    "defaultValue": "{\r\n  component: RadioComponent,\r\n  title: 'RadioComponent',\r\n  decorators: [\r\n    applicationConfig({ providers: [provideAnimations()] }),\r\n    moduleMetadata({\r\n      imports: [CommonFieldModule],\r\n      providers: [provideFormGroup({ gender: '' })],\r\n    }),\r\n  ],\r\n}"
                 },
                 {
                     "name": "Primary",
@@ -8715,7 +9061,7 @@
                     "deprecated": false,
                     "deprecationMessage": "",
                     "type": "Story",
-                    "defaultValue": "{\r\n  args: {},\r\n  play: async ({ canvasElement }) => {\r\n    const canvas = within(canvasElement);\r\n    expect(canvas.getByText(/search works!/gi)).toBeTruthy();\r\n  },\r\n}"
+                    "defaultValue": "{\r\n  args: {\r\n    name: 'category',\r\n    icon: 'category',\r\n    label: 'Select Category',\r\n  },\r\n  play: async ({ canvasElement }) => {\r\n    const canvas = within(canvasElement);\r\n    expect(canvas.getByText(/search works!/gi)).toBeTruthy();\r\n  },\r\n}"
                 },
                 {
                     "name": "meta",
@@ -8725,7 +9071,7 @@
                     "deprecated": false,
                     "deprecationMessage": "",
                     "type": "Meta<SearchComponent>",
-                    "defaultValue": "{\r\n  component: SearchComponent,\r\n  title: 'SearchComponent',\r\n}"
+                    "defaultValue": "{\r\n  component: SearchComponent,\r\n  title: 'SearchComponent',\r\n\r\n  decorators: [\r\n    applicationConfig({ providers: [provideAnimations()] }),\r\n    moduleMetadata({\r\n      imports: [CommonFieldModule],\r\n      providers: [\r\n        provideFormGroup({ category: '' }),\r\n        {\r\n          provide: ResourceService,\r\n          useClass: MockResourceService,\r\n        },\r\n      ],\r\n    }),\r\n  ],\r\n}"
                 },
                 {
                     "name": "Primary",
@@ -8735,7 +9081,7 @@
                     "deprecated": false,
                     "deprecationMessage": "",
                     "type": "Story",
-                    "defaultValue": "{\r\n  args: {},\r\n}"
+                    "defaultValue": "{\r\n  args: {\r\n    name: 'category',\r\n    icon: 'category',\r\n    label: 'Select Category',\r\n  },\r\n}"
                 }
             ],
             "libs/material/src/lib/form/select/select.component.stories.ts": [
@@ -10066,8 +10412,8 @@
                 "type": "injectable",
                 "linktype": "injectable",
                 "name": "ResourceService",
-                "coveragePercent": 20,
-                "coverageCount": "2/10",
+                "coveragePercent": 18,
+                "coverageCount": "2/11",
                 "status": "low"
             },
             {
@@ -10134,9 +10480,9 @@
                 "type": "component",
                 "linktype": "component",
                 "name": "AutocompleteComponent",
-                "coveragePercent": 54,
-                "coverageCount": "6/11",
-                "status": "good"
+                "coveragePercent": 46,
+                "coverageCount": "6/13",
+                "status": "medium"
             },
             {
                 "filePath": "libs/material/src/lib/form/checkbox-group/checkbox-group.component.stories.ts",
@@ -10173,8 +10519,8 @@
                 "type": "component",
                 "linktype": "component",
                 "name": "CheckboxGroupComponent",
-                "coveragePercent": 37,
-                "coverageCount": "6/16",
+                "coveragePercent": 35,
+                "coverageCount": "6/17",
                 "status": "medium"
             },
             {
@@ -10212,17 +10558,17 @@
                 "type": "component",
                 "linktype": "component",
                 "name": "CheckboxComponent",
-                "coveragePercent": 54,
-                "coverageCount": "6/11",
-                "status": "good"
+                "coveragePercent": 50,
+                "coverageCount": "6/12",
+                "status": "medium"
             },
             {
                 "filePath": "libs/material/src/lib/form/common-field/common-field.component.ts",
                 "type": "component",
                 "linktype": "component",
                 "name": "CommonFieldComponent",
-                "coveragePercent": 50,
-                "coverageCount": "6/12",
+                "coveragePercent": 46,
+                "coverageCount": "6/13",
                 "status": "medium"
             },
             {
@@ -10270,8 +10616,8 @@
                 "type": "component",
                 "linktype": "component",
                 "name": "DateRangeComponent",
-                "coveragePercent": 50,
-                "coverageCount": "6/12",
+                "coveragePercent": 46,
+                "coverageCount": "6/13",
                 "status": "medium"
             },
             {
@@ -10309,9 +10655,9 @@
                 "type": "component",
                 "linktype": "component",
                 "name": "DateTimeComponent",
-                "coveragePercent": 54,
-                "coverageCount": "6/11",
-                "status": "good"
+                "coveragePercent": 50,
+                "coverageCount": "6/12",
+                "status": "medium"
             },
             {
                 "filePath": "libs/material/src/lib/form/date/date.component.stories.ts",
@@ -10348,9 +10694,9 @@
                 "type": "component",
                 "linktype": "component",
                 "name": "DateComponent",
-                "coveragePercent": 54,
-                "coverageCount": "6/11",
-                "status": "good"
+                "coveragePercent": 50,
+                "coverageCount": "6/12",
+                "status": "medium"
             },
             {
                 "filePath": "libs/material/src/lib/form/form.component.stories.ts",
@@ -10426,9 +10772,9 @@
                 "type": "component",
                 "linktype": "component",
                 "name": "NumberComponent",
-                "coveragePercent": 54,
-                "coverageCount": "6/11",
-                "status": "good"
+                "coveragePercent": 50,
+                "coverageCount": "6/12",
+                "status": "medium"
             },
             {
                 "filePath": "libs/material/src/lib/form/radio/radio.component.stories.ts",
@@ -10465,9 +10811,18 @@
                 "type": "component",
                 "linktype": "component",
                 "name": "RadioComponent",
-                "coveragePercent": 54,
-                "coverageCount": "6/11",
-                "status": "good"
+                "coveragePercent": 50,
+                "coverageCount": "6/12",
+                "status": "medium"
+            },
+            {
+                "filePath": "libs/material/src/lib/form/search/search.component.stories.ts",
+                "type": "class",
+                "linktype": "classe",
+                "name": "MockResourceService",
+                "coveragePercent": 0,
+                "coverageCount": "0/5",
+                "status": "low"
             },
             {
                 "filePath": "libs/material/src/lib/form/search/search.component.stories.ts",
@@ -10504,9 +10859,9 @@
                 "type": "component",
                 "linktype": "component",
                 "name": "SearchComponent",
-                "coveragePercent": 54,
-                "coverageCount": "6/11",
-                "status": "good"
+                "coveragePercent": 37,
+                "coverageCount": "6/16",
+                "status": "medium"
             },
             {
                 "filePath": "libs/material/src/lib/form/select/select.component.stories.ts",
@@ -10660,9 +11015,9 @@
                 "type": "component",
                 "linktype": "component",
                 "name": "TextFieldComponent",
-                "coveragePercent": 54,
-                "coverageCount": "6/11",
-                "status": "good"
+                "coveragePercent": 50,
+                "coverageCount": "6/12",
+                "status": "medium"
             },
             {
                 "filePath": "libs/material/src/lib/form/textarea/textarea.component.stories.ts",
@@ -10699,9 +11054,9 @@
                 "type": "component",
                 "linktype": "component",
                 "name": "TextareaComponent",
-                "coveragePercent": 54,
-                "coverageCount": "6/11",
-                "status": "good"
+                "coveragePercent": 50,
+                "coverageCount": "6/12",
+                "status": "medium"
             },
             {
                 "filePath": "libs/material/src/lib/navigations/mobile-navigation/mobile-navigation.component.ts",
