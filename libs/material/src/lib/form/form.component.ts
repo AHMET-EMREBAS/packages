@@ -63,7 +63,7 @@ export class FormComponent {
    * @returns
    */
   isFormValid() {
-    return this.formGroup.dirty && this.formGroup.valid;
+    return this.formGroup.touched && this.formGroup.valid;
   }
 
   /**
@@ -78,11 +78,9 @@ export class FormComponent {
    * Submit form
    */
   submit() {
-    if (this.isFormValid()) {
-      const formValue = { ...this.formGroup.value };
-      this.service.saveItem(formValue);
-      this.reset();
-    }
+    const formValue = { ...this.formGroup.value };
+    this.formGroup.markAllAsTouched();
+    this.service.saveItem(formValue);
   }
 
   reset() {

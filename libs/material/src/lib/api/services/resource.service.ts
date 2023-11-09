@@ -3,8 +3,23 @@ import { Inject, Injectable, Provider, inject } from '@angular/core';
 import {
   EntityCollectionServiceBase,
   EntityCollectionServiceElementsFactory,
+  MergeStrategy,
 } from '@ngrx/data';
-import { Observable, catchError, debounceTime, map, of } from 'rxjs';
+import {
+  Observable,
+  catchError,
+  debounce,
+  debounceTime,
+  delay,
+  firstValueFrom,
+  from,
+  map,
+  merge,
+  of,
+  repeat,
+  shareReplay,
+  switchMap,
+} from 'rxjs';
 import { excludeUndefined, names } from '@techbir/utils';
 
 export type QueryObject = {
@@ -30,6 +45,10 @@ export type ErrorType = {
   constraints: Record<string, string>;
 };
 
+export type EntityMetadata = {
+  count: number;
+};
+
 @Injectable({ providedIn: 'root', useExisting: true })
 export class ResourceService<T> extends EntityCollectionServiceBase<T> {
   errorMessages$ = this.errors$.pipe(
@@ -37,21 +56,14 @@ export class ResourceService<T> extends EntityCollectionServiceBase<T> {
       return err.payload.data.error.error.error.message as ErrorType[];
     })
   );
+
   nameVariants = names(this.entityName);
 
   allCount$: Observable<number> = inject(HttpClient)
-    .get<{ count: number }>(`api/meta/count/${this.nameVariants.fileName}`)
+    .get<EntityMetadata>(`api/${this.nameVariants.fileName}-meta`)
     .pipe(
-      debounceTime(1000),
-      map((value) => {
-        const count = value?.count;
-        if (count != undefined) {
-          return count;
-        }
-        return 999999;
-      }),
-      catchError(() => {
-        return of(99999999);
+      map((data) => {
+        return data.count;
       })
     );
 
@@ -62,6 +74,10 @@ export class ResourceService<T> extends EntityCollectionServiceBase<T> {
     super(entityName, serviceElementsFactory);
   }
 
+  /**
+   * Generate unique id
+   * @returns number
+   */
   private nid() {
     return new Date().getTime();
   }

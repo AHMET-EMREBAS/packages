@@ -69,6 +69,15 @@ export class ResourceService<T extends ID> {
     return found;
   }
 
+  count() {
+    return this.__repo.count();
+  }
+
+  async meta() {
+    const count = await this.__repo.count();
+    return { count };
+  }
+
   findAll(query: QueryDto) {
     this.log('findAll', query);
     const { order, skip, take, withDeleted, search } = query;

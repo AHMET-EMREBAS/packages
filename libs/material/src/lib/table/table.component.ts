@@ -9,7 +9,7 @@ import {
 import { MatTableModule } from '@angular/material/table';
 import { MatPaginatorModule, MatPaginator } from '@angular/material/paginator';
 import { MatSortModule, MatSort, SortDirection } from '@angular/material/sort';
-import { Observable, debounceTime, map, merge, tap } from 'rxjs';
+import { Observable, debounceTime, delay, map, merge, tap } from 'rxjs';
 import {
   LocalStoreService,
   QueryObject,
@@ -17,6 +17,7 @@ import {
   SEARCH_CONTROL_TOKEN,
   TABLE_COLUMNS_TOKEN,
   TableColumn,
+  delayObservable,
 } from '../api';
 import { CommonModule } from '@angular/common';
 import { MatIconModule } from '@angular/material/icon';
@@ -55,10 +56,17 @@ export class TableComponent implements OnInit, AfterViewInit, OnDestroy {
   @ViewChild(MatSort) matSort!: MatSort;
 
   readonly entityName = this.service.entityName;
-  readonly count$: Observable<number> = this.service.allCount$;
+  readonly count$: Observable<number> = delayObservable(
+    this.service.allCount$,
+    3000
+  );
+
   data: any[] = [];
-  readonly data$: Observable<any> = this.service.filteredEntities$.pipe(
-    debounceTime(400),
+
+  readonly data$: Observable<any> = delayObservable(
+    this.service.filteredEntities$,
+    2000
+  ).pipe(
     map((data) => {
       this.data = [];
       let i = 0;

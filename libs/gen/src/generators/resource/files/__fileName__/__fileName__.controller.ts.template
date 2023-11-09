@@ -22,6 +22,11 @@ import { Throttle } from '@nestjs/throttler';
 export class <%- className %>Controller {
   constructor(private readonly service: <%- className %>Service) {}
 
+  @Rest.Meta()
+  meta() {
+    return this.service.meta();
+  }
+
   @Rest.Get()
   findAll(@Query(ValidationPipe) query: Query<%- className %>Dto) {
     return this.service.findAll(query);

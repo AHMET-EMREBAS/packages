@@ -1,11 +1,11 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { FormComponent } from '../../form';
 
 @Component({
   selector: 'techbir-update',
   standalone: true,
-  imports: [CommonModule],
-  templateUrl: './update.component.html',
-  styleUrls: ['./update.component.scss'],
+  imports: [CommonModule, FormComponent],
+  template: `<techbir-form> </techbir-form>`,
 })
-export class UpdateComponent {}
+export class UpdateComponent extends FormComponent {}

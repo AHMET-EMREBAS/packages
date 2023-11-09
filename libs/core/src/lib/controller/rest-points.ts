@@ -36,6 +36,18 @@ export class Rest {
       ApiOkResponse({ type: this.readDto, isArray: true })
     );
   }
+  /**
+   * Get /name-meta
+   * @returns
+   */
+  Meta() {
+    return CombineMethodDecorators(
+      __Get(this.singularPath + '-meta'),
+      ReadPermission(this.entityName),
+      ApiOperation({ summary: 'Get meta data' }),
+      ApiOkResponse({ isArray: true })
+    );
+  }
 
   /**
    * Get one by id /name/:id

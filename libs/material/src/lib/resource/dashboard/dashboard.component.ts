@@ -1,13 +1,13 @@
 import { Component, Inject, inject } from '@angular/core';
 import { Breakpoints, BreakpointObserver } from '@angular/cdk/layout';
-import { delay, map } from 'rxjs/operators';
+import { delay, map, repeat, switchMap, take } from 'rxjs/operators';
 import { MatGridListModule } from '@angular/material/grid-list';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
-import { ENTITY_NAME_TOKEN, ResourceService } from '../../api';
-import { Observable } from 'rxjs';
+import { ENTITY_NAME_TOKEN, ResourceService, delayObservable } from '../../api';
+import { Observable, of } from 'rxjs';
 import { CommonModule } from '@angular/common';
 import { SkeletonComponent } from '../../skeleton/skeleton.component';
 
@@ -30,13 +30,10 @@ export class DashboardComponent {
   private breakpointObserver = inject(BreakpointObserver);
 
   isCountLoading = true;
-  readonly count$: Observable<number> = this.service.allCount$.pipe(
-    delay(2000),
-    map((data) => {
-      console.log(data);
-      this.isCountLoading = false;
-      return data;
-    })
+
+  readonly count$: Observable<number> = delayObservable(
+    this.service.allCount$,
+    3000
   );
 
   /** Based on the screen size, switch from standard to one column per row */

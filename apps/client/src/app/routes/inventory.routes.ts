@@ -36,7 +36,11 @@ export const InventoryRoutes: Routes = [
     loadChildren: () => ResourceRoutes('Inventory', 'Product', 'Product'),
     providers: [
       provideModuleName('Product'),
-      provideFormGroup({ name: '', description: '', barcode: '' }),
+      provideFormGroup({
+        name: 'Product Name',
+        description: 'Product Description',
+        barcode: 'Product barcode',
+      }),
       provideFormFieldAppearance('fill'),
       provideTableColumns([
         { name: 'name', label: 'Product Name', icon: 'info' },
@@ -71,7 +75,7 @@ export const InventoryRoutes: Routes = [
     loadChildren: () => ResourceRoutes('Inventory', 'Category', 'Category'),
     providers: [
       provideModuleName('Category'),
-      provideFormGroup({ name: ''}),
+      provideFormGroup({ name: '' }),
       provideTableColumns([
         { name: 'name', label: 'Category Name', icon: 'info' },
       ]),

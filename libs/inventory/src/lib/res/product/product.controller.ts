@@ -27,6 +27,11 @@ export class ProductController {
     return this.service.findAll(query);
   }
 
+  @Rest.Meta()
+  meta() {
+    return this.service.meta();
+  }
+
   @Rest.GetById()
   findOneById(@ParamId() id: number) {
     return this.service.findOneById(id);
