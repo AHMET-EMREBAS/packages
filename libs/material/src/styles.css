@@ -2199,3 +2199,10 @@ body {
         opacity: 1
     }
 }
+
+fieldset {
+    border-radius: 10px;
+    display: flex;
+    flex-direction: row;
+    gap: 2em;
+}

@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<svg width="48px" height="48px" viewBox="0 0 48 48" version="1.1"
+    xmlns:xlink="http://www.w3.org/1999/xlink" xmlns="http://www.w3.org/2000/svg">
+    <defs>
+        <path d="M48 0L48 0L48 48L0 48L0 0L48 0Z" id="path_1" />
+        <clipPath id="clip_1">
+            <use xlink:href="#path_1" clip-rule="evenodd" fill-rule="evenodd" />
+        </clipPath>
+    </defs>
+    <g id="Stack Overflow" clip-path="url(#clip_1)">
+        <path d="M48 0L48 0L48 48L0 48L0 0L48 0Z" id="Stack-Overflow" fill="none" stroke="none" />
+        <path
+            d="M32 28.5L32 39L12 39L12 28.5C12 28.224 11.776 28 11.5 28L9.5 28C9.224 28 9 28.224 9 28.5L9 41C9 41.552 9.448 42 10 42L34 42C34.552 42 35 41.552 35 41L35 28.5C35 28.224 34.776 28 34.5 28L32.5 28C32.224 28 32 28.224 32 28.5L32 28.5Z"
+            id="Shape" fill="#727D86" stroke="none" />
+        <path d="M15 34L29 34L29 37L15 37L15 34Z" id="Rectangle" fill="#727D86" fill-rule="evenodd"
+            stroke="none" />
+        <path d="M15.081 28.26L29 29.758L28.679 32.741L14.759 31.243L15.081 28.26L15.081 28.26Z"
+            id="Shape" fill="#89776B" stroke="none" />
+        <path d="M36.871 6L39.004 19.835L36.038 20.292L33.905 6.457L36.871 6L36.871 6Z" id="Shape"
+            fill="#E36001" stroke="none" />
+        <path d="M28.47 8.237L35.301 20.455L32.682 21.92L25.851 9.701L28.47 8.237L28.47 8.237Z"
+            id="Shape" fill="#CC661C" stroke="none" />
+        <path d="M20.501 14.551L32 22.533L30.289 24.998L18.79 17.016L20.501 14.551L20.501 14.551Z"
+            id="Shape" fill="#B66C36" stroke="none" />
+        <path
+            d="M16.899 21.218L30.072 25.957L29.056 28.781L15.883 24.042L16.899 21.218L16.899 21.218Z"
+            id="Shape" fill="#9F7151" stroke="none" />
+    </g>
+</svg>

@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<svg width="48px" height="48px" viewBox="0 0 48 48" version="1.1"
+    xmlns:xlink="http://www.w3.org/1999/xlink" xmlns="http://www.w3.org/2000/svg">
+    <defs>
+        <path d="M48 0L48 0L48 48L0 48L0 0L48 0Z" id="path_1" />
+        <clipPath id="clip_1">
+            <use xlink:href="#path_1" clip-rule="evenodd" fill-rule="evenodd" />
+        </clipPath>
+    </defs>
+    <g id="Graphql" clip-path="url(#clip_1)">
+        <path d="M48 0L48 0L48 48L0 48L0 0L48 0Z" id="Graphql" fill="none" stroke="none" />
+        <path
+            d="M24.5 45.161L7 34.82L7 14.18L24.5 3.839L42 14.18L42 34.82L24.5 45.161L24.5 45.161ZM9 33.68L24.5 42.839L40 33.68L40 15.32L24.5 6.161L9 15.32L9 33.68L9 33.68Z"
+            id="Shape" fill="#FF4081" fill-rule="evenodd" stroke="none" />
+        <path
+            d="M21 5.5C21 3.567 22.567 2 24.5 2C26.433 2 28 3.567 28 5.5C28 7.433 26.433 9 24.5 9C22.567 9 21 7.433 21 5.5Z"
+            id="Circle" fill="#FF4081" fill-rule="evenodd" stroke="none" />
+        <path
+            d="M21 43.5C21 41.567 22.567 40 24.5 40C26.433 40 28 41.567 28 43.5C28 45.433 26.433 47 24.5 47C22.567 47 21 45.433 21 43.5Z"
+            id="Circle" fill="#FF4081" fill-rule="evenodd" stroke="none" />
+        <path
+            d="M5 33.5C5 31.567 6.567 30 8.5 30C10.433 30 12 31.567 12 33.5C12 35.433 10.433 37 8.5 37C6.567 37 5 35.433 5 33.5Z"
+            id="Circle" fill="#FF4081" fill-rule="evenodd" stroke="none" />
+        <path
+            d="M37 33.5C37 31.567 38.567 30 40.5 30C42.433 30 44 31.567 44 33.5C44 35.433 42.433 37 40.5 37C38.567 37 37 35.433 37 33.5Z"
+            id="Circle" fill="#FF4081" fill-rule="evenodd" stroke="none" />
+        <path
+            d="M5 15.5C5 13.567 6.567 12 8.5 12C10.433 12 12 13.567 12 15.5C12 17.433 10.433 19 8.5 19C6.567 19 5 17.433 5 15.5Z"
+            id="Circle" fill="#FF4081" fill-rule="evenodd" stroke="none" />
+        <path
+            d="M37 15.5C37 13.567 38.567 12 40.5 12C42.433 12 44 13.567 44 15.5C44 17.433 42.433 19 40.5 19C38.567 19 37 17.433 37 15.5Z"
+            id="Circle" fill="#FF4081" fill-rule="evenodd" stroke="none" />
+        <path
+            d="M42.72 35L6.28 35L24.5 2.978L42.72 35L42.72 35ZM9.72 33L39.28 33L24.5 7.022L9.72 33L9.72 33Z"
+            id="Shape" fill="#FF4081" fill-rule="evenodd" stroke="none" />
+    </g>
+</svg>

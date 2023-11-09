@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<svg width="48px" height="48px" viewBox="0 0 48 48" version="1.1"
+    xmlns:xlink="http://www.w3.org/1999/xlink" xmlns="http://www.w3.org/2000/svg">
+    <defs>
+        <path d="M48 0L48 0L48 48L0 48L0 0L48 0Z" id="path_1" />
+        <clipPath id="clip_1">
+            <use xlink:href="#path_1" clip-rule="evenodd" fill-rule="evenodd" />
+        </clipPath>
+    </defs>
+    <g id="AB Testing" clip-path="url(#clip_1)">
+        <path d="M48 0L48 0L48 48L0 48L0 0L48 0Z" id="AB-Testing" fill="none" stroke="none" />
+        <path
+            d="M4 24C4 12.9543 12.9543 4 24 4C35.0457 4 44 12.9543 44 24C44 35.0457 35.0457 44 24 44C12.9543 44 4 35.0457 4 24Z"
+            id="Circle" fill="#FF8A65" fill-rule="evenodd" stroke="none" />
+        <path
+            d="M31.569 29.774L31.573 29.773L27 21L27 18L28 18C28.552 18 29 17.552 29 17L29 17C29 16.448 28.552 16 28 16L27 16L21 16L20 16C19.448 16 19 16.448 19 17L19 17C19 17.552 19.448 18 20 18L21 18L21 21L16.427 29.773L16.431 29.774C16.177 30.098 16.015 30.497 16.001 30.937C15.965 32.072 17.008 33 18.143 33L29.856 33C30.991 33 32.035 32.072 31.998 30.937C31.985 30.497 31.823 30.098 31.569 29.774L31.569 29.774Z"
+            id="Shape" fill="#FFFFFF" stroke="none" />
+    </g>
+</svg>

@@ -12,9 +12,8 @@ import {
   FormsModule,
   ReactiveFormsModule,
 } from '@angular/forms';
-import { FORM_FIELD_APPEARANCE_TOKEN } from '../../api';
+import { FORM_FIELD_APPEARANCE_TOKEN, InputOptions } from '../../api';
 import { MatFormField, MatFormFieldModule } from '@angular/material/form-field';
-import { Observable, catchError, map, of } from 'rxjs';
 import { MatInputModule } from '@angular/material/input';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
@@ -54,6 +53,16 @@ export class CommonFieldComponent implements OnInit {
   @Input() icon = '';
 
   /**
+   * Options for readio/checkbox-group and select components
+   */
+  @Input() enums?: string[];
+
+  /**
+   * Options for readio/checkbox-group and select components
+   */
+  @Input() options?: InputOptions[];
+
+  /**
    * FormControl instance
    */
   control!: AbstractControl;
@@ -76,6 +85,10 @@ export class CommonFieldComponent implements OnInit {
     }
 
     this.control = foundControl;
+
+    if (this.enums) {
+      this.options = this.enums.map((e) => ({ id: e, label: e }));
+    }
   }
 
   getErrors() {

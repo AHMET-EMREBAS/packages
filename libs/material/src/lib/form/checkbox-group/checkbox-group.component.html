@@ -1,0 +1,31 @@
+<div [formGroup]="formGroup">
+  <input
+    type="text"
+    [formControlName]="name"
+    style="visibility: collapse; position: absolute"
+  />
+  <fieldset>
+    <legend>{{ label || name | titlecase }}</legend>
+    <div style="display: flex; gap: 3em">
+      <div *ngFor="let o of options">
+        <mat-checkbox
+          [indeterminate]="__intermediate[o.id]"
+          [checked]="__parentValues[o.id]"
+          (change)="setParentValue($event, o.id)"
+        >
+          {{ o.label }}
+        </mat-checkbox>
+        <div *ngIf="o.children">
+          <div style="padding-left: 1em" *ngFor="let c of o.children">
+            <mat-checkbox
+              [checked]="c.value"
+              (change)="setChildValue($event, o.id, c.id)"
+            >
+              {{ c.label }}
+            </mat-checkbox>
+          </div>
+        </div>
+      </div>
+    </div>
+  </fieldset>
+</div>

@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<svg width="48px" height="48px" viewBox="0 0 48 48" version="1.1"
+    xmlns:xlink="http://www.w3.org/1999/xlink" xmlns="http://www.w3.org/2000/svg">
+    <defs>
+        <path d="M48 0L48 0L48 48L0 48L0 0L48 0Z" id="path_1" />
+        <clipPath id="clip_1">
+            <use xlink:href="#path_1" clip-rule="evenodd" fill-rule="evenodd" />
+        </clipPath>
+    </defs>
+    <g id="NPM" clip-path="url(#clip_1)">
+        <path d="M48 0L48 0L48 48L0 48L0 0L48 0Z" id="NPM" fill="none" stroke="none" />
+        <path d="M0 15L48 15L48 32L24 32L24 35L13 35L13 32L0 32L0 15L0 15Z" id="Shape"
+            fill="#D50000" stroke="none" />
+        <path
+            d="M3 29L8 29L8 21L11 21L11 29L13 29L13 18L3 18L3 29ZM16 18L16 32L21 32L21 29L26 29L26 18L16 18L16 18ZM24 26L21 26L21 21L24 21L24 26L24 26ZM29 18L29 29L34 29L34 21L37 21L37 29L40 29L40 21L43 21L43 29L45 29L45 18L29 18Z"
+            id="Shape" fill="#FFFFFF" fill-rule="evenodd" stroke="none" />
+    </g>
+</svg>

@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<svg width="48px" height="48px" viewBox="0 0 48 48" version="1.1"
+    xmlns:xlink="http://www.w3.org/1999/xlink" xmlns="http://www.w3.org/2000/svg">
+    <defs>
+        <path d="M48 0L48 0L48 48L0 48L0 0L48 0Z" id="path_1" />
+        <clipPath id="clip_1">
+            <use xlink:href="#path_1" clip-rule="evenodd" fill-rule="evenodd" />
+        </clipPath>
+    </defs>
+    <g id="Angularjs" clip-path="url(#clip_1)">
+        <path d="M48 0L48 0L48 48L0 48L0 0L48 0Z" id="Angularjs" fill="none" stroke="none" />
+        <path d="M23.933 2L3 9.285L6.308 36.408L23.955 46L41.693 36.278L45 9.156L23.933 2Z"
+            id="Shape" fill="#BDBDBD" stroke="none" />
+        <path d="M42.818 10.527L24 4.135L24 43.695L39.832 35.017L42.818 10.527Z" id="Shape"
+            fill="#B71C1C" stroke="none" />
+        <path
+            d="M23.941 4.115L5.181 10.644L8.168 35.143L23.951 43.721L24 43.695L24 4.135L23.941 4.115Z"
+            id="Shape" fill="#DD2C00" stroke="none" />
+        <path d="M24 5.996L24 15.504L32.578 34L36.987 34L24 5.996Z" id="Shape" fill="#BDBDBD"
+            stroke="none" />
+        <path d="M11.013 34L15.422 34L24 15.504L24 5.996L11.013 34Z" id="Shape" fill="#EEEEEE"
+            stroke="none" />
+        <path d="M24 24L30 24L30 28L24 28L24 24Z" id="Shape" fill="#BDBDBD" stroke="none" />
+        <path d="M18 24L24 24L24 28L18 28L18 24Z" id="Shape" fill="#EEEEEE" stroke="none" />
+    </g>
+</svg>

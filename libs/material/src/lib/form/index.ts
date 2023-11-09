@@ -1,6 +1,8 @@
 // @index(['./*/**','./*.ts', '!./**/*.{spec.ts,html,css,scss,stories.ts}'], f => `export * from '${f.path}'`)
+export * from './autocomplete/autocomplete.component'
 export * from './checkbox/checkbox.component'
 export * from './common-field/common-field.component'
+export * from './common-field/index'
 export * from './date-range/date-range.component'
 export * from './date-time/date-time.component'
 export * from './date/date.component'

@@ -1,1 +1,13 @@
-<p>radio works!</p>
+<div [formGroup]="formGroup">
+  <mat-radio-group
+    [attr.aria-label]="label || 'Select'"
+    [formControlName]="name"
+  >
+    <fieldset>
+      <legend>{{ label || name | titlecase }}</legend>
+      <mat-radio-button *ngFor="let o of enums" [value]="o">
+        {{ o | titlecase }}
+      </mat-radio-button>
+    </fieldset>
+  </mat-radio-group>
+</div>
