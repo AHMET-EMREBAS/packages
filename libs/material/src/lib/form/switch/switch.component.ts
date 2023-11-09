@@ -1,11 +1,12 @@
 import { Component } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { MatSlideToggleModule } from '@angular/material/slide-toggle';
+import { CommonFieldComponent, CommonFieldModule } from '../common-field';
 
 @Component({
   selector: 'techbir-switch',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonFieldModule, MatSlideToggleModule],
   templateUrl: './switch.component.html',
   styleUrls: ['./switch.component.scss'],
 })
-export class SwitchComponent {}
+export class SwitchComponent extends CommonFieldComponent {}
