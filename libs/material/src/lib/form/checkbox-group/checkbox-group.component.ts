@@ -40,11 +40,20 @@ export class CheckboxGroupComponent extends CommonFieldComponent {
         foundChild.value = event.checked;
       }
 
-      const isAllChecked = found.children?.reduce((p, c) => p.value && c.value);
+      const isAllChecked = found.children
+        ?.map((v) => v.value)
+        .reduce((p, c) => p && c);
+
+      const isAllUnChecked = found.children
+        ?.map((e) => e.value)
+        .reduce((p, c) => !p && !c);
 
       if (isAllChecked) {
         this.__parentValues[parentId] = true;
         this.__intermediate[parentId] = false;
+      } else if (isAllUnChecked) {
+        this.__intermediate[parentId] = false;
+        this.__parentValues[parentId] = false;
       } else {
         this.__intermediate[parentId] = true;
       }

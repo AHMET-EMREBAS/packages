@@ -1511,7 +1511,7 @@
                     "optional": false,
                     "returnType": "any",
                     "typeParameters": [],
-                    "line": 95,
+                    "line": 94,
                     "deprecated": false,
                     "deprecationMessage": "",
                     "inheritance": {
@@ -1566,7 +1566,7 @@
         },
         {
             "name": "CheckboxGroupComponent",
-            "id": "component-CheckboxGroupComponent-a264cdd12e61d39f61a24b4aa6982e2c80a53e68ebba65ff51b93a49dd0bc7df5c21613fb5f90d1dfc0ac7fab8c8b4a5f785936decaf87bbb51ed9a7ce0b73cd",
+            "id": "component-CheckboxGroupComponent-0846c65d6399d71de7221f91c6b5364ad1b81152361fe8dbdc725c485a4ec2c56591b0079118c2757c40fd7bbe06614f310b5d377b6a651612144a0ef0121211",
             "file": "libs/material/src/lib/form/checkbox-group/checkbox-group.component.ts",
             "encapsulation": [],
             "entryComponents": [],
@@ -1652,6 +1652,26 @@
             ],
             "outputsClass": [],
             "propertiesClass": [
+                {
+                    "name": "__intermediate",
+                    "defaultValue": "{}",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "any",
+                    "optional": false,
+                    "description": "",
+                    "line": 16
+                },
+                {
+                    "name": "__parentValues",
+                    "defaultValue": "{}",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "any",
+                    "optional": false,
+                    "description": "",
+                    "line": 17
+                },
                 {
                     "name": "appearance",
                     "deprecated": false,
@@ -1743,7 +1763,7 @@
                     "optional": false,
                     "returnType": "void",
                     "typeParameters": [],
-                    "line": 28,
+                    "line": 33,
                     "deprecated": false,
                     "deprecationMessage": "",
                     "jsdoctags": [
@@ -1777,6 +1797,16 @@
                     ]
                 },
                 {
+                    "name": "setControlValue",
+                    "args": [],
+                    "optional": false,
+                    "returnType": "any",
+                    "typeParameters": [],
+                    "line": 62,
+                    "deprecated": false,
+                    "deprecationMessage": ""
+                },
+                {
                     "name": "setParentValue",
                     "args": [
                         {
@@ -1795,7 +1825,7 @@
                     "optional": false,
                     "returnType": "void",
                     "typeParameters": [],
-                    "line": 16,
+                    "line": 19,
                     "deprecated": false,
                     "deprecationMessage": "",
                     "jsdoctags": [
@@ -1825,7 +1855,7 @@
                     "optional": false,
                     "returnType": "any",
                     "typeParameters": [],
-                    "line": 95,
+                    "line": 94,
                     "deprecated": false,
                     "deprecationMessage": "",
                     "inheritance": {
@@ -1864,18 +1894,18 @@
             "description": "",
             "rawdescription": "\n",
             "type": "component",
-            "sourceCode": "import { Component } from '@angular/core';\nimport { CommonFieldComponent, CommonFieldModule } from '../common-field';\nimport {\n  MatCheckboxChange,\n  MatCheckboxModule,\n} from '@angular/material/checkbox';\n\n@Component({\n  selector: 'techbir-checkbox-group',\n  standalone: true,\n  imports: [CommonFieldModule, MatCheckboxModule],\n  templateUrl: './checkbox-group.component.html',\n  styles: [],\n})\nexport class CheckboxGroupComponent extends CommonFieldComponent {\n  setParentValue(event: MatCheckboxChange, parentId: any) {\n    const found = this.options?.find((e) => e.id === parentId);\n\n    if (found) {\n      found.value = event.checked;\n\n      if (found.children) {\n        found.children.forEach((e) => (e.value = event.checked));\n      }\n    }\n  }\n\n  setChildValue(event: MatCheckboxChange, parentId: any, childId: any) {\n    const found = this.options?.find((e) => e.id === parentId);\n\n    if (found) {\n      const foundChild = found.children?.find((e) => e.id === childId);\n\n      if (foundChild) {\n        foundChild.value = event.checked;\n      }\n    }\n  }\n}\n",
+            "sourceCode": "import { ChangeDetectionStrategy, Component } from '@angular/core';\nimport { CommonFieldComponent, CommonFieldModule } from '../common-field';\nimport {\n  MatCheckboxChange,\n  MatCheckboxModule,\n} from '@angular/material/checkbox';\n\n@Component({\n  selector: 'techbir-checkbox-group',\n  standalone: true,\n  imports: [CommonFieldModule, MatCheckboxModule],\n  templateUrl: './checkbox-group.component.html',\n  styles: [],\n})\nexport class CheckboxGroupComponent extends CommonFieldComponent {\n  __intermediate: any = {};\n  __parentValues: any = {};\n\n  setParentValue(event: MatCheckboxChange, parentId: any) {\n    const found = this.options?.find((e) => e.id === parentId);\n\n    if (found) {\n      this.__parentValues[parentId] = event.checked;\n\n      if (found.children) {\n        found.children.forEach((e) => (e.value = event.checked));\n      }\n    }\n    this.__intermediate[parentId] = false;\n    this.setControlValue();\n  }\n\n  setChildValue(event: MatCheckboxChange, parentId: any, childId: any) {\n    const found = this.options?.find((e) => e.id === parentId);\n\n    if (found) {\n      const foundChild = found.children?.find((e) => e.id === childId);\n\n      if (foundChild) {\n        foundChild.value = event.checked;\n      }\n\n      const isAllChecked = found.children\n        ?.map((v) => v.value)\n        .reduce((p, c) => p && c);\n\n      const isAllUnChecked = found.children\n        ?.map((e) => e.value)\n        .reduce((p, c) => !p && !c);\n\n      if (isAllChecked) {\n        this.__parentValues[parentId] = true;\n        this.__intermediate[parentId] = false;\n      } else if (isAllUnChecked) {\n        this.__intermediate[parentId] = false;\n        this.__parentValues[parentId] = false;\n      }\n    }\n    this.setControlValue();\n  }\n\n  setControlValue() {\n    const currentValue = this.options\n      ?.map((e) => ({\n        [e.id]:\n          e.children\n            ?.map((k) => ({ [k.id]: k.value }))\n            .reduce((p, c) => ({ ...p, ...c })) || this.__parentValues[e.id],\n      }))\n      .reduce((p, c) => ({ ...p, ...c }));\n\n    this.control?.setValue(currentValue);\n    return currentValue;\n  }\n}\n",
             "assetsDirs": [],
             "styleUrlsData": "",
             "stylesData": "",
             "extends": [
                 "CommonFieldComponent"
             ],
-            "templateData": "<div [formGroup]=\"formGroup\">\n  <input\n    type=\"text\"\n    [formControlName]=\"name\"\n    style=\"visibility: collapse; position: absolute\"\n  />\n  <fieldset>\n    <legend>{{ label || name | titlecase }}</legend>\n    <div style=\"display: flex; gap: 3em\">\n      <div *ngFor=\"let o of options\">\n        <mat-checkbox\n          [(ngModel)]=\"o.value\"\n          (change)=\"setParentValue($event, o.id)\"\n        >\n          {{ o.label }}\n        </mat-checkbox>\n        <div *ngIf=\"o.children\">\n          <div style=\"padding-left: 1em\" *ngFor=\"let c of o.children\">\n            <mat-checkbox\n              [(ngModel)]=\"c.value\"\n              (change)=\"setChildValue($event, o.id, c.id)\"\n            >\n              {{ c.label }}\n            </mat-checkbox>\n          </div>\n        </div>\n      </div>\n    </div>\n  </fieldset>\n</div>\n"
+            "templateData": "<div [formGroup]=\"formGroup\">\n  <input\n    type=\"text\"\n    [formControlName]=\"name\"\n    style=\"visibility: collapse; position: absolute\"\n  />\n  <fieldset>\n    <legend>{{ label || name | titlecase }}</legend>\n    <div style=\"display: flex; gap: 3em\">\n      <div *ngFor=\"let o of options\">\n        <mat-checkbox\n          [indeterminate]=\"__intermediate[o.id]\"\n          [checked]=\"__parentValues[o.id]\"\n          (change)=\"setParentValue($event, o.id)\"\n        >\n          {{ o.label }}\n        </mat-checkbox>\n        <div *ngIf=\"o.children\">\n          <div style=\"padding-left: 1em\" *ngFor=\"let c of o.children\">\n            <mat-checkbox\n              [checked]=\"c.value\"\n              (change)=\"setChildValue($event, o.id, c.id)\"\n            >\n              {{ c.label }}\n            </mat-checkbox>\n          </div>\n        </div>\n      </div>\n    </div>\n  </fieldset>\n</div>\n"
         },
         {
             "name": "CommonFieldComponent",
-            "id": "component-CommonFieldComponent-2ecb49feb6946d840cb4d2371a239e824f805501442457048a7edc3b29aab33a3f61bcd3c4e507423240a3ff1a19d065640dbc4d102dc2a22b1464c24df8ebc7",
+            "id": "component-CommonFieldComponent-55eaaef599a4c37c6eee2c4fb05e7347b3f3bc19424339990ea3f3d7d8bd6ad58b357ae3a318f1b1336d13fdbcc5747870bdcaf4f0b2f7fe56d2f537783f1325",
             "file": "libs/material/src/lib/form/common-field/common-field.component.ts",
             "encapsulation": [],
             "entryComponents": [],
@@ -2007,7 +2037,7 @@
                     "optional": false,
                     "returnType": "any",
                     "typeParameters": [],
-                    "line": 95,
+                    "line": 94,
                     "deprecated": false,
                     "deprecationMessage": ""
                 },
@@ -2031,7 +2061,7 @@
             "description": "",
             "rawdescription": "\n",
             "type": "component",
-            "sourceCode": "import {\r\n  Component,\r\n  Inject,\r\n  Input,\r\n  NgModule,\r\n  OnInit,\r\n  Optional,\r\n} from '@angular/core';\r\nimport {\r\n  AbstractControl,\r\n  FormGroup,\r\n  FormsModule,\r\n  ReactiveFormsModule,\r\n} from '@angular/forms';\r\nimport { FORM_FIELD_APPEARANCE_TOKEN, InputOptions } from '../../api';\r\nimport { MatFormField, MatFormFieldModule } from '@angular/material/form-field';\r\nimport { MatInputModule } from '@angular/material/input';\r\nimport { MatIconModule } from '@angular/material/icon';\r\nimport { MatButtonModule } from '@angular/material/button';\r\nimport { CommonModule } from '@angular/common';\r\n\r\nconst formModules = [\r\n  CommonModule,\r\n  FormsModule,\r\n  ReactiveFormsModule,\r\n  MatInputModule,\r\n  MatFormFieldModule,\r\n  MatIconModule,\r\n  MatButtonModule,\r\n];\r\n\r\n@NgModule({\r\n  imports: [...formModules],\r\n  exports: [...formModules],\r\n})\r\nexport class CommonFieldModule {}\r\n\r\n@Component({ template: '' })\r\nexport class CommonFieldComponent implements OnInit {\r\n  /**\r\n   * Property name\r\n   */\r\n  @Input() name!: string;\r\n\r\n  /**\r\n   * Property label\r\n   */\r\n  @Input() label = '';\r\n\r\n  /**\r\n   * Property icon\r\n   */\r\n  @Input() icon = '';\r\n\r\n  /**\r\n   * Options for readio/checkbox-group and select components\r\n   */\r\n  @Input() enums?: string[];\r\n\r\n  /**\r\n   * Options for readio/checkbox-group and select components\r\n   */\r\n  @Input() options?: InputOptions[];\r\n\r\n  /**\r\n   * FormControl instance\r\n   */\r\n  control!: AbstractControl;\r\n\r\n  constructor(\r\n    @Inject(FormGroup) public readonly formGroup: FormGroup,\r\n    @Optional()\r\n    @Inject(FORM_FIELD_APPEARANCE_TOKEN)\r\n    public readonly appearance: MatFormField['appearance']\r\n  ) {\r\n    if (!appearance) this.appearance = 'outline';\r\n    if (!formGroup) throw new Error('FormGroup must be provided!');\r\n  }\r\n\r\n  ngOnInit(): void {\r\n    const foundControl = this.formGroup.get(this.name);\r\n\r\n    if (!foundControl) {\r\n      throw new Error(`${this.name} control is not found in formGroup!`);\r\n    }\r\n\r\n    this.control = foundControl;\r\n\r\n    if (this.enums) {\r\n      this.options = this.enums.map((e) => ({ id: e, label: e }));\r\n    }\r\n\r\n  }\r\n\r\n  getErrors() {\r\n    return Object.values(this.control.errors || {}).join(', ');\r\n  }\r\n}\r\n",
+            "sourceCode": "import {\r\n  Component,\r\n  Inject,\r\n  Input,\r\n  NgModule,\r\n  OnInit,\r\n  Optional,\r\n} from '@angular/core';\r\nimport {\r\n  AbstractControl,\r\n  FormGroup,\r\n  FormsModule,\r\n  ReactiveFormsModule,\r\n} from '@angular/forms';\r\nimport { FORM_FIELD_APPEARANCE_TOKEN, InputOptions } from '../../api';\r\nimport { MatFormField, MatFormFieldModule } from '@angular/material/form-field';\r\nimport { MatInputModule } from '@angular/material/input';\r\nimport { MatIconModule } from '@angular/material/icon';\r\nimport { MatButtonModule } from '@angular/material/button';\r\nimport { CommonModule } from '@angular/common';\r\n\r\nconst formModules = [\r\n  CommonModule,\r\n  FormsModule,\r\n  ReactiveFormsModule,\r\n  MatInputModule,\r\n  MatFormFieldModule,\r\n  MatIconModule,\r\n  MatButtonModule,\r\n];\r\n\r\n@NgModule({\r\n  imports: [...formModules],\r\n  exports: [...formModules],\r\n})\r\nexport class CommonFieldModule {}\r\n\r\n@Component({ template: '' })\r\nexport class CommonFieldComponent implements OnInit {\r\n  /**\r\n   * Property name\r\n   */\r\n  @Input() name!: string;\r\n\r\n  /**\r\n   * Property label\r\n   */\r\n  @Input() label = '';\r\n\r\n  /**\r\n   * Property icon\r\n   */\r\n  @Input() icon = '';\r\n\r\n  /**\r\n   * Options for readio/checkbox-group and select components\r\n   */\r\n  @Input() enums?: string[];\r\n\r\n  /**\r\n   * Options for readio/checkbox-group and select components\r\n   */\r\n  @Input() options?: InputOptions[];\r\n\r\n  /**\r\n   * FormControl instance\r\n   */\r\n  control!: AbstractControl;\r\n\r\n  constructor(\r\n    @Inject(FormGroup) public readonly formGroup: FormGroup,\r\n    @Optional()\r\n    @Inject(FORM_FIELD_APPEARANCE_TOKEN)\r\n    public readonly appearance: MatFormField['appearance']\r\n  ) {\r\n    if (!appearance) this.appearance = 'outline';\r\n    if (!formGroup) throw new Error('FormGroup must be provided!');\r\n  }\r\n\r\n  ngOnInit(): void {\r\n    const foundControl = this.formGroup.get(this.name);\r\n\r\n    if (!foundControl) {\r\n      throw new Error(`${this.name} control is not found in formGroup!`);\r\n    }\r\n\r\n    this.control = foundControl;\r\n\r\n    if (this.enums) {\r\n      this.options = this.enums.map((e) => ({ id: e, label: e }));\r\n    }\r\n  }\r\n\r\n  getErrors() {\r\n    return Object.values(this.control.errors || {}).join(', ');\r\n  }\r\n}\r\n",
             "assetsDirs": [],
             "styleUrlsData": "",
             "stylesData": "",
@@ -2720,7 +2750,7 @@
                     "optional": false,
                     "returnType": "any",
                     "typeParameters": [],
-                    "line": 95,
+                    "line": 94,
                     "deprecated": false,
                     "deprecationMessage": "",
                     "inheritance": {
@@ -2949,7 +2979,7 @@
                     "optional": false,
                     "returnType": "any",
                     "typeParameters": [],
-                    "line": 95,
+                    "line": 94,
                     "deprecated": false,
                     "deprecationMessage": "",
                     "inheritance": {
@@ -3168,7 +3198,7 @@
                     "optional": false,
                     "returnType": "any",
                     "typeParameters": [],
-                    "line": 95,
+                    "line": 94,
                     "deprecated": false,
                     "deprecationMessage": "",
                     "inheritance": {
@@ -4322,7 +4352,7 @@
                     "optional": false,
                     "returnType": "any",
                     "typeParameters": [],
-                    "line": 95,
+                    "line": 94,
                     "deprecated": false,
                     "deprecationMessage": "",
                     "inheritance": {
@@ -4617,7 +4647,7 @@
                     "optional": false,
                     "returnType": "any",
                     "typeParameters": [],
-                    "line": 95,
+                    "line": 94,
                     "deprecated": false,
                     "deprecationMessage": "",
                     "inheritance": {
@@ -4896,7 +4926,7 @@
                     "optional": false,
                     "returnType": "any",
                     "typeParameters": [],
-                    "line": 95,
+                    "line": 94,
                     "deprecated": false,
                     "deprecationMessage": "",
                     "inheritance": {
@@ -5746,7 +5776,7 @@
                     "optional": false,
                     "returnType": "any",
                     "typeParameters": [],
-                    "line": 95,
+                    "line": 94,
                     "deprecated": false,
                     "deprecationMessage": "",
                     "inheritance": {
@@ -5961,7 +5991,7 @@
                     "optional": false,
                     "returnType": "any",
                     "typeParameters": [],
-                    "line": 95,
+                    "line": 94,
                     "deprecated": false,
                     "deprecationMessage": "",
                     "inheritance": {
@@ -6588,13 +6618,13 @@
     "modules": [
         {
             "name": "CommonFieldModule",
-            "id": "module-CommonFieldModule-2ecb49feb6946d840cb4d2371a239e824f805501442457048a7edc3b29aab33a3f61bcd3c4e507423240a3ff1a19d065640dbc4d102dc2a22b1464c24df8ebc7",
+            "id": "module-CommonFieldModule-55eaaef599a4c37c6eee2c4fb05e7347b3f3bc19424339990ea3f3d7d8bd6ad58b357ae3a318f1b1336d13fdbcc5747870bdcaf4f0b2f7fe56d2f537783f1325",
             "description": "",
             "deprecationMessage": "",
             "deprecated": false,
             "file": "libs/material/src/lib/form/common-field/common-field.component.ts",
             "methods": [],
-            "sourceCode": "import {\r\n  Component,\r\n  Inject,\r\n  Input,\r\n  NgModule,\r\n  OnInit,\r\n  Optional,\r\n} from '@angular/core';\r\nimport {\r\n  AbstractControl,\r\n  FormGroup,\r\n  FormsModule,\r\n  ReactiveFormsModule,\r\n} from '@angular/forms';\r\nimport { FORM_FIELD_APPEARANCE_TOKEN, InputOptions } from '../../api';\r\nimport { MatFormField, MatFormFieldModule } from '@angular/material/form-field';\r\nimport { MatInputModule } from '@angular/material/input';\r\nimport { MatIconModule } from '@angular/material/icon';\r\nimport { MatButtonModule } from '@angular/material/button';\r\nimport { CommonModule } from '@angular/common';\r\n\r\nconst formModules = [\r\n  CommonModule,\r\n  FormsModule,\r\n  ReactiveFormsModule,\r\n  MatInputModule,\r\n  MatFormFieldModule,\r\n  MatIconModule,\r\n  MatButtonModule,\r\n];\r\n\r\n@NgModule({\r\n  imports: [...formModules],\r\n  exports: [...formModules],\r\n})\r\nexport class CommonFieldModule {}\r\n\r\n@Component({ template: '' })\r\nexport class CommonFieldComponent implements OnInit {\r\n  /**\r\n   * Property name\r\n   */\r\n  @Input() name!: string;\r\n\r\n  /**\r\n   * Property label\r\n   */\r\n  @Input() label = '';\r\n\r\n  /**\r\n   * Property icon\r\n   */\r\n  @Input() icon = '';\r\n\r\n  /**\r\n   * Options for readio/checkbox-group and select components\r\n   */\r\n  @Input() enums?: string[];\r\n\r\n  /**\r\n   * Options for readio/checkbox-group and select components\r\n   */\r\n  @Input() options?: InputOptions[];\r\n\r\n  /**\r\n   * FormControl instance\r\n   */\r\n  control!: AbstractControl;\r\n\r\n  constructor(\r\n    @Inject(FormGroup) public readonly formGroup: FormGroup,\r\n    @Optional()\r\n    @Inject(FORM_FIELD_APPEARANCE_TOKEN)\r\n    public readonly appearance: MatFormField['appearance']\r\n  ) {\r\n    if (!appearance) this.appearance = 'outline';\r\n    if (!formGroup) throw new Error('FormGroup must be provided!');\r\n  }\r\n\r\n  ngOnInit(): void {\r\n    const foundControl = this.formGroup.get(this.name);\r\n\r\n    if (!foundControl) {\r\n      throw new Error(`${this.name} control is not found in formGroup!`);\r\n    }\r\n\r\n    this.control = foundControl;\r\n\r\n    if (this.enums) {\r\n      this.options = this.enums.map((e) => ({ id: e, label: e }));\r\n    }\r\n\r\n  }\r\n\r\n  getErrors() {\r\n    return Object.values(this.control.errors || {}).join(', ');\r\n  }\r\n}\r\n",
+            "sourceCode": "import {\r\n  Component,\r\n  Inject,\r\n  Input,\r\n  NgModule,\r\n  OnInit,\r\n  Optional,\r\n} from '@angular/core';\r\nimport {\r\n  AbstractControl,\r\n  FormGroup,\r\n  FormsModule,\r\n  ReactiveFormsModule,\r\n} from '@angular/forms';\r\nimport { FORM_FIELD_APPEARANCE_TOKEN, InputOptions } from '../../api';\r\nimport { MatFormField, MatFormFieldModule } from '@angular/material/form-field';\r\nimport { MatInputModule } from '@angular/material/input';\r\nimport { MatIconModule } from '@angular/material/icon';\r\nimport { MatButtonModule } from '@angular/material/button';\r\nimport { CommonModule } from '@angular/common';\r\n\r\nconst formModules = [\r\n  CommonModule,\r\n  FormsModule,\r\n  ReactiveFormsModule,\r\n  MatInputModule,\r\n  MatFormFieldModule,\r\n  MatIconModule,\r\n  MatButtonModule,\r\n];\r\n\r\n@NgModule({\r\n  imports: [...formModules],\r\n  exports: [...formModules],\r\n})\r\nexport class CommonFieldModule {}\r\n\r\n@Component({ template: '' })\r\nexport class CommonFieldComponent implements OnInit {\r\n  /**\r\n   * Property name\r\n   */\r\n  @Input() name!: string;\r\n\r\n  /**\r\n   * Property label\r\n   */\r\n  @Input() label = '';\r\n\r\n  /**\r\n   * Property icon\r\n   */\r\n  @Input() icon = '';\r\n\r\n  /**\r\n   * Options for readio/checkbox-group and select components\r\n   */\r\n  @Input() enums?: string[];\r\n\r\n  /**\r\n   * Options for readio/checkbox-group and select components\r\n   */\r\n  @Input() options?: InputOptions[];\r\n\r\n  /**\r\n   * FormControl instance\r\n   */\r\n  control!: AbstractControl;\r\n\r\n  constructor(\r\n    @Inject(FormGroup) public readonly formGroup: FormGroup,\r\n    @Optional()\r\n    @Inject(FORM_FIELD_APPEARANCE_TOKEN)\r\n    public readonly appearance: MatFormField['appearance']\r\n  ) {\r\n    if (!appearance) this.appearance = 'outline';\r\n    if (!formGroup) throw new Error('FormGroup must be provided!');\r\n  }\r\n\r\n  ngOnInit(): void {\r\n    const foundControl = this.formGroup.get(this.name);\r\n\r\n    if (!foundControl) {\r\n      throw new Error(`${this.name} control is not found in formGroup!`);\r\n    }\r\n\r\n    this.control = foundControl;\r\n\r\n    if (this.enums) {\r\n      this.options = this.enums.map((e) => ({ id: e, label: e }));\r\n    }\r\n  }\r\n\r\n  getErrors() {\r\n    return Object.values(this.control.errors || {}).join(', ');\r\n  }\r\n}\r\n",
             "children": [
                 {
                     "type": "providers",
@@ -6927,7 +6957,7 @@
                 "deprecated": false,
                 "deprecationMessage": "",
                 "type": "Meta<CheckboxGroupComponent>",
-                "defaultValue": "{\r\n  component: CheckboxGroupComponent,\r\n  title: 'CheckboxGroupComponent',\r\n  decorators: [\r\n    moduleMetadata({\r\n      imports: [CommonFieldModule, MatCheckboxModule],\r\n      providers: [provideFormGroup({ active: false })],\r\n    }),\r\n  ],\r\n}"
+                "defaultValue": "{\r\n  component: CheckboxGroupComponent,\r\n  title: 'CheckboxGroupComponent',\r\n  decorators: [\r\n    moduleMetadata({\r\n      imports: [CommonFieldModule, MatCheckboxModule],\r\n      providers: [provideFormGroup({ permissions: '' })],\r\n    }),\r\n  ],\r\n}"
             },
             {
                 "name": "meta",
@@ -8264,7 +8294,7 @@
                     "deprecated": false,
                     "deprecationMessage": "",
                     "type": "Meta<CheckboxGroupComponent>",
-                    "defaultValue": "{\r\n  component: CheckboxGroupComponent,\r\n  title: 'CheckboxGroupComponent',\r\n  decorators: [\r\n    moduleMetadata({\r\n      imports: [CommonFieldModule, MatCheckboxModule],\r\n      providers: [provideFormGroup({ active: false })],\r\n    }),\r\n  ],\r\n}"
+                    "defaultValue": "{\r\n  component: CheckboxGroupComponent,\r\n  title: 'CheckboxGroupComponent',\r\n  decorators: [\r\n    moduleMetadata({\r\n      imports: [CommonFieldModule, MatCheckboxModule],\r\n      providers: [provideFormGroup({ permissions: '' })],\r\n    }),\r\n  ],\r\n}"
                 },
                 {
                     "name": "Primary",
@@ -9861,8 +9891,8 @@
                 "type": "component",
                 "linktype": "component",
                 "name": "CheckboxGroupComponent",
-                "coveragePercent": 46,
-                "coverageCount": "6/13",
+                "coveragePercent": 37,
+                "coverageCount": "6/16",
                 "status": "medium"
             },
             {
