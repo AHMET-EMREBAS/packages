@@ -72,6 +72,11 @@ export class CommonFieldComponent implements OnInit {
    */
   @Input() multiple?: boolean;
 
+  @Input() min?: number;
+  
+  @Input() max?: number;
+  
+
   /**
    * FormControl instance
    */

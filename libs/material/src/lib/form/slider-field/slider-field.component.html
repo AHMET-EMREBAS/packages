@@ -1,1 +1,14 @@
-<p>slider-field works!</p>
+<div [formGroup]="formGroup" style="display: flex; align-items: center; gap: 1em;">
+  <label>{{ label || name | titlecase }}</label>
+  <mat-slider
+    [min]="min"
+    [max]="max"
+    showTickMarks
+    discrete
+    [displayWith]="formatLabel"
+  >
+    <input matSliderThumb [formControlName]="name" #slider />
+  </mat-slider>
+
+  <span>{{ slider.value }}</span>
+</div>
